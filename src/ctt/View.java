@@ -1,27 +1,68 @@
 package ctt;
 
-
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
+
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class View {
       
     private JFrame frame;
     private JLabel label;
     private JButton button;
+    private DefaultTableModel model;
+        
+    
+    public class MyKeyListener extends KeyAdapter {
 
+        @Override
+        public void keyTyped(KeyEvent ke) 
+        {
+            char i = ke.getKeyChar();
+            if (i>='a' && i<='z' )
+            {
+             ke.setKeyChar(Character.toUpperCase(i));
+            } 
+              
+        }
+    }
+    
+    
+    MyKeyListener mk=new MyKeyListener();
     
     public View(String text){
         frame = new JFrame("View");                  
         
        ////// Create JTable ---------------------------
         
-        Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3" },
-                { "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
-            Object columnNames[] = { "Column One", "Column Two", "Column Three" };
-            JTable Master = new JTable(rowData, columnNames);
+           Object rowData[][] = { { "","","","","","","" }};
+            Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+            
+          //  JTable Master = new JTable(rowData, columnNames);
+            JTable Master = new JTable(new DefaultTableModel(columnNames, 0)); 
+                       	
+            model =  (DefaultTableModel) Master.getModel();
+            for(int i=0;i<100;i++) model.addRow(new Object[]{"", "", "","","","",""});
+           
+            Master.getColumnModel().getColumn(0).setMinWidth(100);
+        //    UCaseTableCellEditor editor = new UCaseTableCellEditor ();
+          //  TableColumn col = Master.getColumnModel().getColumn(0);
+           // col.setCellEditor(editor);
+              
+            
+                    Master.addKeyListener(mk);
+            
+            
+            ExcelAdapter myAd = new ExcelAdapter(Master);
 
             JScrollPane scrollPane = new JScrollPane(Master);
+        
             
         ///----------------------------------------------
             
