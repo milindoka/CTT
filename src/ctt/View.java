@@ -1,15 +1,21 @@
 package ctt;
 
+import javax.print.attribute.AttributeSet;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class View {
       
@@ -18,24 +24,7 @@ public class View {
     private JButton button;
     private DefaultTableModel model;
         
-    
-    public class MyKeyListener extends KeyAdapter {
-
-        @Override
-        public void keyTyped(KeyEvent ke) 
-        {
-            char i = ke.getKeyChar();
-            if (i>='a' && i<='z' )
-            {
-             ke.setKeyChar(Character.toUpperCase(i));
-            } 
-              
-        }
-    }
-    
-    
-    MyKeyListener mk=new MyKeyListener();
-    
+            
     public View(String text){
         frame = new JFrame("View");                  
         
@@ -45,7 +34,15 @@ public class View {
             Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
             
           //  JTable Master = new JTable(rowData, columnNames);
-            JTable Master = new JTable(new DefaultTableModel(columnNames, 0)); 
+            JTable Master = new JTable(new DefaultTableModel(columnNames, 0));
+            
+            
+            
+          
+                        
+            
+           
+            
                        	
             model =  (DefaultTableModel) Master.getModel();
             for(int i=0;i<100;i++) model.addRow(new Object[]{"", "", "","","","",""});
@@ -56,7 +53,7 @@ public class View {
            // col.setCellEditor(editor);
               
             
-                    Master.addKeyListener(mk);
+                 //   Master.addKeyListener(mk);
             
             
             ExcelAdapter myAd = new ExcelAdapter(Master);
@@ -65,6 +62,13 @@ public class View {
         
             
         ///----------------------------------------------
+            
+            
+            
+            
+            
+            
+            
             
             
         frame.getContentPane().setLayout(new BorderLayout());                                          
