@@ -1,19 +1,9 @@
 package ctt;
 
-import javax.print.attribute.AttributeSet;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
-
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.KeyboardFocusManager;
-import java.awt.event.KeyAdapter;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -23,18 +13,21 @@ public class View {
     private JLabel label;
     private JButton button;
     private DefaultTableModel model;
-        
+    
+    JTable table;
+    
+    public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
             
     public View(String text){
         frame = new JFrame("View");                  
-        
+        frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
        ////// Create JTable ---------------------------
         
            Object rowData[][] = { { "","","","","","","" }};
             Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
             
-          //  JTable Master = new JTable(rowData, columnNames);
-            JTable Master = new JTable(new DefaultTableModel(columnNames, 0))
+          //  JTable table = new JTable(rowData, columnNames);
+           table = new JTable(new DefaultTableModel(columnNames, 0))
             { ////added tooltip
 
                 public String getToolTipText( MouseEvent e )
@@ -50,34 +43,50 @@ public class View {
             	
             };
             
-            Master.setRowHeight(20);
+            table.setRowHeight(20);
                        	
-            model =  (DefaultTableModel) Master.getModel();
+            model =  (DefaultTableModel) table.getModel();
             for(int i=0;i<100;i++) model.addRow(new Object[]{"", "", "","","","",""});
             
-            Master.getColumnModel().getColumn(0).setMinWidth(100);
+            table.getColumnModel().getColumn(0).setMinWidth(100);
         //    UCaseTableCellEditor editor = new UCaseTableCellEditor ();
-          //  TableColumn col = Master.getColumnModel().getColumn(0);
+          //  TableColumn col = table.getColumnModel().getColumn(0);
            // col.setCellEditor(editor);
               
             
-                 //   Master.addKeyListener(mk);
+                 //   table.addKeyListener(mk);
             
             
-            ExcelAdapter myAd = new ExcelAdapter(Master);
+            ExcelAdapter myAd = new ExcelAdapter(table);
 
-            JScrollPane scrollPane = new JScrollPane(Master);
+            JScrollPane scrollPane = new JScrollPane(table);
         
             
-        ///----------------------------------------------
+        ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
             
             
             
-            
-            
-            
-            
-            
+            InputMap inputMap = table.getInputMap(JComponent.WHEN_FOCUSED);
+            ActionMap actionMap = table.getActionMap();
+
+            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "delete");
+            actionMap.put("delete", new AbstractAction() {
+                public void actionPerformed(ActionEvent evt) {
+                   // Note, you can use getSelectedRows() and/or getSelectedColumns
+                   // to get all the rows/columns that have being selected
+                   // and simply loop through them using the same method as
+                   // described below.
+                   // As is, it will only get the lead selection
+                   int row = table.getSelectedRow();
+                   int col = table.getSelectedColumn();
+                   if (row >= 0 && col >= 0) {
+                       row = table.convertRowIndexToModel(row);
+                       col = table.convertColumnIndexToModel(col);
+                       table.getModel().setValueAt(null, row, col);
+                   }
+                }
+            });            
+            /////////------------------------------------------------------------------------
             
         frame.getContentPane().setLayout(new BorderLayout());                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
