@@ -34,19 +34,27 @@ public class View {
             Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
             
           //  JTable Master = new JTable(rowData, columnNames);
-            JTable Master = new JTable(new DefaultTableModel(columnNames, 0));
+            JTable Master = new JTable(new DefaultTableModel(columnNames, 0))
+            { ////added tooltip
+
+                public String getToolTipText( MouseEvent e )
+                {
+                    int row = rowAtPoint( e.getPoint() );
+                    int column = columnAtPoint( e.getPoint() );
+
+                    Object value = getValueAt(row, column);
+                    return value == null ? null : value.toString();
+                }
+
+            	
+            	
+            };
             
-            
-            
-          
-                        
-            
-           
-            
+            Master.setRowHeight(20);
                        	
             model =  (DefaultTableModel) Master.getModel();
             for(int i=0;i<100;i++) model.addRow(new Object[]{"", "", "","","","",""});
-           
+            
             Master.getColumnModel().getColumn(0).setMinWidth(100);
         //    UCaseTableCellEditor editor = new UCaseTableCellEditor ();
           //  TableColumn col = Master.getColumnModel().getColumn(0);
