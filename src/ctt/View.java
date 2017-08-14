@@ -13,15 +13,18 @@ public class View {
     private JLabel label;
     private JButton button;
     private DefaultTableModel model;
-    
+    private DefaultTableModel model2;
     JTable table;
+    JTable table2;
     
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
             
     public View(String text){
         frame = new JFrame("View");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-       ////// Create JTable ---------------------------
+      
+        
+        ////// Create JTable ---------------------------
         
            Object rowData[][] = { { "","","","","","","" }};
             Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
@@ -87,6 +90,56 @@ public class View {
                 }
             });            
             /////////------------------------------------------------------------------------
+
+            
+     ////// Create Table2  ---------------------------
+            
+            Object rowData2[][] = { { "","","","","","","" }};
+             Object columnNames2[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+             
+           //  JTable table = new JTable(rowData, columnNames);
+            table2 = new JTable(new DefaultTableModel(columnNames2, 0))
+             { ////added tooltip
+
+                 public String getToolTipText( MouseEvent e )
+                 {
+                     int row = rowAtPoint( e.getPoint() );
+                     int column = columnAtPoint( e.getPoint() );
+
+                     Object value = getValueAt(row, column);
+                     return value == null ? null : value.toString();
+                 }
+
+             	
+             	
+             };
+             
+             table2.setRowHeight(20);
+                        	
+             model2 =  (DefaultTableModel) table2.getModel();
+             for(int i=0;i<50;i++) model2.addRow(new Object[]{"", "", "","","","",""});
+             
+             table2.getColumnModel().getColumn(0).setMinWidth(100);
+         //    UCaseTableCellEditor editor = new UCaseTableCellEditor ();
+           //  TableColumn col = table.getColumnModel().getColumn(0);
+            // col.setCellEditor(editor);
+               
+             
+                  //   table.addKeyListener(mk);
+             
+             
+           //  ExcelAdapter myAd = new ExcelAdapter(table);
+
+             JScrollPane scrollPane2 = new JScrollPane(table2);
+         
+
+            
+            
+            
+            
+            
+            //////////////////
+            
             
         frame.getContentPane().setLayout(new BorderLayout());                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
@@ -102,7 +155,7 @@ public class View {
         
         label = new JLabel(text);
      //   frame.getContentPane().add(label, BorderLayout.CENTER);
-        panel.add(label, BorderLayout.SOUTH);
+        panel.add(scrollPane2, BorderLayout.SOUTH);
         
         button = new JButton("Button");        
         panel.add(button, BorderLayout.NORTH);
