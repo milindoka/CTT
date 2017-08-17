@@ -18,7 +18,8 @@ public class View {
     JTable table2;
     
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
-            
+    public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
+    
     public View(String text){
         frame = new JFrame("View");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
