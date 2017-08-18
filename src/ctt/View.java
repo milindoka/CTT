@@ -3,6 +3,7 @@ package ctt;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -10,8 +11,7 @@ import java.awt.event.MouseEvent;
 public class View {
       
     private JFrame frame;
-    private JLabel label;
-    private JButton button;
+    private JButton SaveBT,LoadBT;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
@@ -42,9 +42,6 @@ public class View {
                     Object value = getValueAt(row, column);
                     return value == null ? null : value.toString();
                 }
-
-            	
-            	
             };
             
             table.setRowHeight(20);
@@ -53,13 +50,6 @@ public class View {
             for(int i=0;i<100;i++) model.addRow(new Object[]{"", "", "","","","",""});
             
             table.getColumnModel().getColumn(0).setMinWidth(100);
-        //    UCaseTableCellEditor editor = new UCaseTableCellEditor ();
-          //  TableColumn col = table.getColumnModel().getColumn(0);
-           // col.setCellEditor(editor);
-              
-            
-                 //   table.addKeyListener(mk);
-            
             
             ExcelAdapter myAd = new ExcelAdapter(table);
 
@@ -110,9 +100,6 @@ public class View {
                      Object value = getValueAt(row, column);
                      return value == null ? null : value.toString();
                  }
-
-             	
-             	
              };
              
              table2.setRowHeight(20);
@@ -121,45 +108,22 @@ public class View {
              for(int i=0;i<50;i++) model2.addRow(new Object[]{"", "", "","","","",""});
              
              table2.getColumnModel().getColumn(0).setMinWidth(100);
-         //    UCaseTableCellEditor editor = new UCaseTableCellEditor ();
-           //  TableColumn col = table.getColumnModel().getColumn(0);
-            // col.setCellEditor(editor);
-               
-             
-                  //   table.addKeyListener(mk);
-             
-             
-           //  ExcelAdapter myAd = new ExcelAdapter(table);
-
              JScrollPane scrollPane2 = new JScrollPane(table2);
-         
-
-            
-            
-            
-            
-            
-            //////////////////
-            
-            
         frame.getContentPane().setLayout(new BorderLayout());                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
         
         
-        
+        LoadBT = new JButton("Load Time Table");        
+        SaveBT = new JButton("Save Time Table");
+        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(5,1,2,2));
+        buttonPanel.add(SaveBT);buttonPanel.add(LoadBT);
         
         JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-        
-        
-        label = new JLabel(text);
-     //   frame.getContentPane().add(label, BorderLayout.CENTER);
         panel.add(scrollPane2, BorderLayout.SOUTH);
-        
-        button = new JButton("Button");        
-        panel.add(button, BorderLayout.NORTH);
+        panel.add(buttonPanel, BorderLayout.NORTH);
         
         frame.add(scrollPane, BorderLayout.WEST);
         frame.add(panel, BorderLayout.EAST);
@@ -167,14 +131,17 @@ public class View {
         frame.setVisible(true);
         
     }
-        
-    public JButton getButton(){
-        return button;
+
+    
+    
+    public JButton getSaveBT()
+    {
+        return SaveBT;
     }
     
-    public void setText(String text){
-        label.setText(text);
+    public JButton getLoadBT()
+    {
+        return LoadBT;
     }
-    
     
 }
