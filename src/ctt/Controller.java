@@ -14,7 +14,7 @@ public class Controller {
 
     private Model model;
     private View view;
-    private ActionListener SaveAL,LoadAL;
+    private ActionListener SaveAL,LoadAL,PrinAL;
     
     
     public Controller(Model model, View view){
@@ -45,8 +45,22 @@ public class Controller {
         };                
         view.getLoadBT().addActionListener(LoadAL);
         
+        PrinAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) {                  
+                  PrinCUTT();
+              }
+        };                
+        view.getPrinCU().addActionListener(PrinAL);
+        
         
     }
+    
+    private void PrinCUTT()
+    {view.DisplayIndividual("(MO");
+    	
+    }
+    
     
     private void SaveTT()
     {

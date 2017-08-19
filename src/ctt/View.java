@@ -13,13 +13,17 @@ import java.awt.event.MouseEvent;
 public class View {
       
     private JFrame frame;
-    private JButton SaveBT,LoadBT;
+    private JButton SaveBT,LoadBT,PrinCU;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
     JTable table2;
-    
     ListSelectionModel listSelectionModel;
+    
+    public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
+    public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
+    
+   
     
     class MyColListener implements ListSelectionListener {
         
@@ -31,7 +35,7 @@ public class View {
                 int row = table.getSelectedRow();
                 int col = table.getSelectedColumn();
                 String s = (String)table.getValueAt(row, col);
-                System.out.println(s);
+               // System.out.println(s);
             }
         }
     }
@@ -42,26 +46,22 @@ public class View {
    	 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {
+            if (!e.getValueIsAdjusting()) 
+            {
               //  System.out.println("valueChanged: " + e.toString());
                 int row = table.getSelectedRow();
                 int col = table.getSelectedColumn();
                 String s = (String)table.getValueAt(row, col);
-                System.out.println(s);
+             //   System.out.println(s);
             }
         }
     }
     
     
-    public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
-    public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
     
     public View(String text){
         frame = new JFrame("View");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-      
-        
-        
         
         ////// Create JTable ---------------------------
         
@@ -105,25 +105,7 @@ public class View {
             table.setSelectionModel(listSelectionModel);
      
             
-            
-            /*
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() 
-            {
-				@Override
-				public void valueChanged(ListSelectionEvent e)
-				{
-					// TODO Auto-generated method stub
-					 System.out.println(table.getValueAt(table.getSelectedRow(),table.getSelectedColumn()).toString());
-					
-				}
-            });
-
-   */
-            
-            
-            
-        ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
-            
+              ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
             
             
             InputMap inputMap = table.getInputMap(JComponent.WHEN_FOCUSED);
@@ -183,8 +165,12 @@ public class View {
         
         LoadBT = new JButton("Load Time Table");        
         SaveBT = new JButton("Save Time Table");
+        PrinCU = new JButton("Print Current Time Table");
+        
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(5,1,2,2));
-        buttonPanel.add(SaveBT);buttonPanel.add(LoadBT);
+        buttonPanel.add(SaveBT);
+        buttonPanel.add(LoadBT);
+        buttonPanel.add(PrinCU);
         
         JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -210,12 +196,44 @@ public class View {
         return LoadBT;
     }
    
+    public JButton getPrinCU()
+    {
+        return PrinCU;
+    }
     
     public void DisplayIndividual(String ind)
     {   int rowcount=table.getRowCount();
-    	for(int i=0;i<rowcount-1;i++)
-    	{
-    		String temp;
+    	String temp="",currenttime="";
+    	
+        int currentrow=0;    	
+    	////Get First Time Slot
+        for(currentrow=0;currentrow<rowcount-1;currentrow++)
+        	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
+    	if(!currenttime.contains(":")) return; ///no time slot  found
+    	////////////////////
+        
+    	currentrow++;
+        int indirow=0; ///initialize individual row pointer
+        SetData(currenttime,table2,indirow,0); ///set first time slot in individual
+      
+        while(currentrow<rowcount-1)   	
+    	{  ///update time slot if next time slot starts
+        	temp=GetData(table,currentrow,0); 
+        	if(temp.contains(":"))
+        	 { currenttime=temp; currentrow++; indirow++;   
+        	   SetData(currenttime,table2,indirow,0); ///set new time slot in individual
+        	 }
+        	
+           for(int col=1;col<7;col++)
+           {temp=GetData(table,currentrow,col);
+            if(temp.contains(ind)) 
+             {  SetData(GetData(table,currentrow,0),table2,indirow,col);
+             }
+           }
+           currentrow++;
+    		
+    	//	if(temp.contains(ind))
+    		
     	//	temp.substring()
     	//	if()
     		///return s1.toLowerCase().contains(s2.toLowerCase());
