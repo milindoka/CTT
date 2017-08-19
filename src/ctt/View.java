@@ -1,6 +1,8 @@
 package ctt;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,6 +19,40 @@ public class View {
     JTable table;
     JTable table2;
     
+    ListSelectionModel listSelectionModel;
+    
+    class MyColListener implements ListSelectionListener {
+        
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting())
+            {
+             //   System.out.println("valueChanged: " + e.toString());
+                int row = table.getSelectedRow();
+                int col = table.getSelectedColumn();
+                String s = (String)table.getValueAt(row, col);
+                System.out.println(s);
+            }
+        }
+    }
+
+    
+    
+    class MyRowListener implements ListSelectionListener {
+   	 
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) {
+              //  System.out.println("valueChanged: " + e.toString());
+                int row = table.getSelectedRow();
+                int col = table.getSelectedColumn();
+                String s = (String)table.getValueAt(row, col);
+                System.out.println(s);
+            }
+        }
+    }
+    
+    
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
     public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
     
@@ -24,6 +60,8 @@ public class View {
         frame = new JFrame("View");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
       
+        
+        
         
         ////// Create JTable ---------------------------
         
@@ -54,7 +92,35 @@ public class View {
             ExcelAdapter myAd = new ExcelAdapter(table);
 
             JScrollPane scrollPane = new JScrollPane(table);
-        
+
+            
+            //////////////Focus Listner
+     
+            
+            listSelectionModel = table.getSelectionModel();
+            table.getSelectionModel()
+                    .addListSelectionListener(new MyRowListener());
+            table.getColumnModel().getSelectionModel()
+                    .addListSelectionListener(new MyColListener());
+            table.setSelectionModel(listSelectionModel);
+     
+            
+            
+            /*
+            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() 
+            {
+				@Override
+				public void valueChanged(ListSelectionEvent e)
+				{
+					// TODO Auto-generated method stub
+					 System.out.println(table.getValueAt(table.getSelectedRow(),table.getSelectedColumn()).toString());
+					
+				}
+            });
+
+   */
+            
+            
             
         ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
             
@@ -143,5 +209,30 @@ public class View {
     {
         return LoadBT;
     }
+   
+    
+    public void DisplayIndividual(String ind)
+    {   int rowcount=table.getRowCount();
+    	for(int i=0;i<rowcount-1;i++)
+    	{
+    		String temp;
+    	//	temp.substring()
+    	//	if()
+    		///return s1.toLowerCase().contains(s2.toLowerCase());
+    		
+    		
+    		
+    	//	String str = "Hello (Java)";
+    	//	String answer = str.substring(str.indexOf("(")+1,str.indexOf(")"));
+    		
+    	}
+    	
+    	
+    }
+    
+    
     
 }
+
+
+
