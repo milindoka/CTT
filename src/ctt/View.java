@@ -30,12 +30,18 @@ public class View {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
-            {
+            {   ClearIndividualTable();
              //   System.out.println("valueChanged: " + e.toString());
                 int row = table.getSelectedRow();
                 int col = table.getSelectedColumn();
-                String s = (String)table.getValueAt(row, col);
-               // System.out.println(s);
+                String str = (String)table.getValueAt(row, col);
+                if(str.length()==0) return;
+                int left=str.indexOf("(");
+                int rite=str.indexOf(")");
+                if(left<0 || rite<0) return;
+                String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
+                
+                DisplayIndividual(teachercode);
             }
         }
     }
@@ -47,12 +53,18 @@ public class View {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) 
-            {
+            {   ClearIndividualTable();
               //  System.out.println("valueChanged: " + e.toString());
                 int row = table.getSelectedRow();
                 int col = table.getSelectedColumn();
-                String s = (String)table.getValueAt(row, col);
-             //   System.out.println(s);
+                String str = (String)table.getValueAt(row, col);
+                if(str.length()==0) return;
+                int left=str.indexOf("(");
+                int rite=str.indexOf(")");
+                if(left<0 || rite<0) return;
+                String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
+                
+                DisplayIndividual(teachercode);
             }
         }
     }
@@ -244,11 +256,25 @@ public class View {
     	//	String answer = str.substring(str.indexOf("(")+1,str.indexOf(")"));
     		
     	}
-    	
+    
+        
+        
+       
     	
     }
     
+
     
+    
+    public void ClearIndividualTable()
+    {
+    	   for (int i = 0; i < table2.getRowCount(); i++)
+    	      for(int j = 0; j < table2.getColumnCount(); j++)
+    	      {
+    	          table2.setValueAt("", i, j);
+    	      }
+    	   
+   	}
     
 }
 
