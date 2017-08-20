@@ -57,7 +57,7 @@ public class Controller {
     }
     
     private void PrinCUTT()
-    {view.DisplayIndividual("(MO");
+    { view.DisplayClass("FY-A");
     	
     }
     

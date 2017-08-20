@@ -31,16 +31,16 @@ public class View {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
             {   ClearIndividualTable();
-             //   System.out.println("valueChanged: " + e.toString());
                 int row = table.getSelectedRow();
                 int col = table.getSelectedColumn();
                 String str = (String)table.getValueAt(row, col);
                 if(str.length()==0) return;
+//                if(col==0) DisplayClass(str);
+                
                 int left=str.indexOf("(");
                 int rite=str.indexOf(")");
                 if(left<0 || rite<0) return;
                 String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
-                
                 DisplayIndividual(teachercode);
             }
         }
@@ -54,7 +54,6 @@ public class View {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) 
             {   ClearIndividualTable();
-              //  System.out.println("valueChanged: " + e.toString());
                 int row = table.getSelectedRow();
                 int col = table.getSelectedColumn();
                 String str = (String)table.getValueAt(row, col);
@@ -63,7 +62,6 @@ public class View {
                 int rite=str.indexOf(")");
                 if(left<0 || rite<0) return;
                 String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
-                
                 DisplayIndividual(teachercode);
             }
         }
@@ -213,6 +211,41 @@ public class View {
         return PrinCU;
     }
     
+    
+    public void DisplayClass(String clas)
+    {int rowcount=table.getRowCount();
+	String temp="",currenttime="";
+	
+    int currentrow=0;    	
+	////Get First Time Slot
+    for(currentrow=0;currentrow<rowcount-1;currentrow++)
+    	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
+	if(!currenttime.contains(":")) return; ///no time slot  found
+	////////////////////
+	currentrow++;
+    int clasrow=0; ///initialize class table row pointer
+    SetData(currenttime,table2,clasrow,0); ///set first time slot in individual
+    
+    while(currentrow<rowcount-1)   	
+	{  ///update time slot if next time slot starts
+    	temp=GetData(table,currentrow,0); 
+    	if(temp.contains(":"))
+    	 { currenttime=temp; currentrow++; clasrow++;   
+    	   SetData(currenttime,table2,clasrow,0); ///set new time slot in individual
+    	 }
+    	
+        if(temp.contains(clas)) 
+         {  
+        	for(int col=1;col<7;col++)
+        	SetData(GetData(table,currentrow,col),table2,clasrow,col);
+         }
+       
+       currentrow++;
+	}
+   
+    
+    }
+    
     public void DisplayIndividual(String ind)
     {   int rowcount=table.getRowCount();
     	String temp="",currenttime="";
@@ -244,23 +277,7 @@ public class View {
            }
            currentrow++;
     		
-    	//	if(temp.contains(ind))
-    		
-    	//	temp.substring()
-    	//	if()
-    		///return s1.toLowerCase().contains(s2.toLowerCase());
-    		
-    		
-    		
-    	//	String str = "Hello (Java)";
-    	//	String answer = str.substring(str.indexOf("(")+1,str.indexOf(")"));
-    		
     	}
-    
-        
-        
-       
-    	
     }
     
 
