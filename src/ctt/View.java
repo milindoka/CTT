@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -35,7 +39,7 @@ public class View {
                 int col = table.getSelectedColumn();
                 String str = (String)table.getValueAt(row, col);
                 if(str.length()==0) return;
-//                if(col==0) DisplayClass(str);
+                if(col==0){  DisplayClass(str); return; }
                 
                 int left=str.indexOf("(");
                 int rite=str.indexOf(")");
@@ -58,6 +62,7 @@ public class View {
                 int col = table.getSelectedColumn();
                 String str = (String)table.getValueAt(row, col);
                 if(str.length()==0) return;
+                if(col==0){  DisplayClass(str); return; }
                 int left=str.indexOf("(");
                 int rite=str.indexOf(")");
                 if(left<0 || rite<0) return;
@@ -247,7 +252,9 @@ public class View {
     }
     
     public void DisplayIndividual(String ind)
-    {   int rowcount=table.getRowCount();
+    {   int lecturecount=0;
+    	int rowcount=table.getRowCount();
+      
     	String temp="",currenttime="";
     	
         int currentrow=0;    	
@@ -273,17 +280,30 @@ public class View {
            {temp=GetData(table,currentrow,col);
             if(temp.contains(ind)) 
              {  SetData(GetData(table,currentrow,0),table2,indirow,col);
+                lecturecount++;
              }
            }
            currentrow++;
     		
     	}
+        
+        JTableHeader th = table2.getTableHeader();
+    	TableColumnModel tcm = th.getColumnModel();
+    	TableColumn tc ;
+    	tc= tcm.getColumn(0);
+    	//tc.setHeaderValue( "???" );
+    	
+    	
+		
+		
+        String LC=String.format("%d",lecturecount);
+        tc.setHeaderValue(LC);th.repaint();
     }
     
 
     
     
-    public void ClearIndividualTable()
+    public void ClearIndividualTable() /////same as class table
     {
     	   for (int i = 0; i < table2.getRowCount(); i++)
     	      for(int j = 0; j < table2.getColumnCount(); j++)
