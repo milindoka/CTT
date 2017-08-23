@@ -44,7 +44,7 @@ public class View {
                 int left=str.indexOf("(");
                 int rite=str.indexOf(")");
                 if(left<0 || rite<0) return;
-                String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
+                String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
                 DisplayIndividual(teachercode);
             }
         }
@@ -66,7 +66,7 @@ public class View {
                 int left=str.indexOf("(");
                 int rite=str.indexOf(")");
                 if(left<0 || rite<0) return;
-                String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
+                String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
                 DisplayIndividual(teachercode);
             }
         }
@@ -109,8 +109,8 @@ public class View {
             JScrollPane scrollPane = new JScrollPane(table);
 
             
-            //////////////Focus Listner
-     
+            //////////////    Focus Listner
+            //////////////
             
             listSelectionModel = table.getSelectionModel();
             table.getSelectionModel()
@@ -121,7 +121,6 @@ public class View {
      
             
               ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
-            
             
             InputMap inputMap = table.getInputMap(JComponent.WHEN_FOCUSED);
             ActionMap actionMap = table.getActionMap();
@@ -143,7 +142,7 @@ public class View {
                    }
                 }
             });            
-            /////////------------------------------------------------------------------------
+     /////////------------------------------------------------------------------------
 
             
      ////// Create Table2  ---------------------------
@@ -194,7 +193,6 @@ public class View {
         
         frame.add(scrollPane, BorderLayout.WEST);
         frame.add(panel, BorderLayout.EAST);
-        
         frame.setVisible(true);
         
     }
@@ -212,8 +210,7 @@ public class View {
     }
    
     public JButton getPrinCU()
-    {
-        return PrinCU;
+    { return PrinCU;
     }
     
     
@@ -255,10 +252,9 @@ public class View {
     {   int lecturecount=0;
     	int rowcount=table.getRowCount();
       
-    	String temp="",currenttime="";
+    	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
     	
-        int currentrow=0;    	
-    	////Get First Time Slot
+        ////Get First Time Slot
         for(currentrow=0;currentrow<rowcount-1;currentrow++)
         	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
     	if(!currenttime.contains(":")) return; ///no time slot  found
@@ -272,18 +268,21 @@ public class View {
     	{  ///update time slot if next time slot starts
         	temp=GetData(table,currentrow,0); 
         	if(temp.contains(":"))
-        	 { currenttime=temp; currentrow++; indirow++;   
-        	   SetData(currenttime,table2,indirow,0); ///set new time slot in individual
+        	 { ////// if lecture found set new time slot otherwise overwrite time slot
+        	   currenttime=temp; currentrow++; if(foundlecture) indirow++;  
+        	   SetData(currenttime,table2,indirow,0); 
+        	  // foundlecture=false;
         	 }
-        	
+           
            for(int col=1;col<7;col++)
            {temp=GetData(table,currentrow,col);
             if(temp.contains(ind)) 
-             {  SetData(GetData(table,currentrow,0),table2,indirow,col);
+             {  foundlecture=true;
+            	SetData(GetData(table,currentrow,0),table2,indirow,col);
                 lecturecount++;
              }
            }
-           currentrow++;
+           currentrow++; 
     		
     	}
         
@@ -291,12 +290,8 @@ public class View {
     	TableColumnModel tcm = th.getColumnModel();
     	TableColumn tc ;
     	tc= tcm.getColumn(0);
-    	//tc.setHeaderValue( "???" );
-    	
-    	
 		
-		
-        String LC=String.format("%d",lecturecount);
+        String LC=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
         tc.setHeaderValue(LC);th.repaint();
     }
     
