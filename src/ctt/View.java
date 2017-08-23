@@ -20,8 +20,10 @@ public class View {
     private JButton SaveBT,LoadBT,PrinCU;
     private DefaultTableModel model;
     private DefaultTableModel model2;
-    JTable table;
-    JTable table2;
+    JTable table; int ROWCOUNT=100;  ///
+    JTable table2;int ROWCOUNT2=50;  ///
+    int COLCOUNT=7;
+    
     ListSelectionModel listSelectionModel;
     
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
@@ -46,6 +48,7 @@ public class View {
                 if(left<0 || rite<0) return;
                 String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
                 DisplayIndividual(teachercode);
+                DeleteLastEmptyTimeSlots();
             }
         }
     }
@@ -68,6 +71,7 @@ public class View {
                 if(left<0 || rite<0) return;
                 String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
                 DisplayIndividual(teachercode);
+                DeleteLastEmptyTimeSlots();
             }
         }
     }
@@ -100,7 +104,7 @@ public class View {
             table.setRowHeight(20);
                        	
             model =  (DefaultTableModel) table.getModel();
-            for(int i=0;i<100;i++) model.addRow(new Object[]{"", "", "","","","",""});
+            for(int i=0;i<ROWCOUNT;i++) model.addRow(new Object[]{"", "", "","","","",""});
             
             table.getColumnModel().getColumn(0).setMinWidth(100);
             
@@ -167,7 +171,7 @@ public class View {
              table2.setRowHeight(20);
                         	
              model2 =  (DefaultTableModel) table2.getModel();
-             for(int i=0;i<50;i++) model2.addRow(new Object[]{"", "", "","","","",""});
+             for(int i=0;i<ROWCOUNT2;i++) model2.addRow(new Object[]{"", "", "","","","",""});
              
              table2.getColumnModel().getColumn(0).setMinWidth(100);
              JScrollPane scrollPane2 = new JScrollPane(table2);
@@ -215,12 +219,12 @@ public class View {
     
     
     public void DisplayClass(String clas)
-    {int rowcount=table.getRowCount();
+    { 
 	String temp="",currenttime="";
 	
     int currentrow=0;    	
 	////Get First Time Slot
-    for(currentrow=0;currentrow<rowcount-1;currentrow++)
+    for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
     	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
 	if(!currenttime.contains(":")) return; ///no time slot  found
 	////////////////////
@@ -228,7 +232,7 @@ public class View {
     int clasrow=0; ///initialize class table row pointer
     SetData(currenttime,table2,clasrow,0); ///set first time slot in individual
     
-    while(currentrow<rowcount-1)   	
+    while(currentrow<ROWCOUNT-1)   	
 	{  ///update time slot if next time slot starts
     	temp=GetData(table,currentrow,0); 
     	if(temp.contains(":"))
@@ -250,12 +254,11 @@ public class View {
     
     public void DisplayIndividual(String ind)
     {   int lecturecount=0;
-    	int rowcount=table.getRowCount();
       
     	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
     	
         ////Get First Time Slot
-        for(currentrow=0;currentrow<rowcount-1;currentrow++)
+        for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
         	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
     	if(!currenttime.contains(":")) return; ///no time slot  found
     	////////////////////
@@ -264,7 +267,7 @@ public class View {
         int indirow=0; ///initialize individual row pointer
         SetData(currenttime,table2,indirow,0); ///set first time slot in individual
       
-        while(currentrow<rowcount-1)   	
+        while(currentrow<ROWCOUNT-1)   	
     	{  ///update time slot if next time slot starts
         	temp=GetData(table,currentrow,0); 
         	if(temp.contains(":"))
@@ -296,11 +299,25 @@ public class View {
     }
     
 
+    public void DeleteLastEmptyTimeSlots()
+    {     String temp;
+           //boolean foundlecture=false;   
+
+           for (int i = ROWCOUNT2-1; i>1 ;i--)
+     	        { 
+    		      for(int j = 1; j < COLCOUNT; j++)
+    		      {temp=GetData(table2,i,j);
+    		       if(temp.length()!=0) return;
+     	          }
+    		      table2.setValueAt("", i,0);
+     	      }
+    	
+    }
     
     
     public void ClearIndividualTable() /////same as class table
     {
-    	   for (int i = 0; i < table2.getRowCount(); i++)
+    	   for (int i = 0; i < ROWCOUNT2; i++)
     	      for(int j = 0; j < table2.getColumnCount(); j++)
     	      {
     	          table2.setValueAt("", i, j);
