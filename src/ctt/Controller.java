@@ -14,7 +14,7 @@ public class Controller {
 
     private Model model;
     private View view;
-    private ActionListener SaveAL,LoadAL,PrinAL;
+    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL;
     
     
     public Controller(Model model, View view){
@@ -55,8 +55,24 @@ public class Controller {
         };                
         view.getPrinCU().addActionListener(PrinAL);
         
+        SetprnAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+                  SetDefaultPrinter();
+              }
+        };                
+        view.getSetPRN().addActionListener(SetprnAL);
         
     }
+    
+    private void SetDefaultPrinter()
+    { 	System.out.println("d");
+    	SetPrinter sp=new SetPrinter();
+        String printername=sp.SelectPrinter();
+    	
+    }
+    
     
     private void PrinCUTT()
     { view.DisplayClass("FY-A");

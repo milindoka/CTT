@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 public class View {
       
     private JFrame frame;
-    private JButton SaveBT,LoadBT,PrinCU;
+    private JButton SaveBT,LoadBT,PrinCU,SetPRN;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; int ROWCOUNT=100;  ///
@@ -195,11 +195,13 @@ public class View {
         LoadBT = new JButton("Load Time Table");        
         SaveBT = new JButton("Save Time Table");
         PrinCU = new JButton("Print Current Time Table");
+        SetPRN = new JButton("Set Printer");
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(5,1,2,2));
         buttonPanel.add(SaveBT);
         buttonPanel.add(LoadBT);
         buttonPanel.add(PrinCU);
+        buttonPanel.add(SetPRN);
         
         JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -226,6 +228,11 @@ public class View {
    
     public JButton getPrinCU()
     { return PrinCU;
+    }
+    
+
+    public JButton getSetPRN()
+    { return SetPRN;
     }
     
     
