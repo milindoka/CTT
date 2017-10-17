@@ -64,12 +64,20 @@ public class Controller {
         };                
         view.getSetPRN().addActionListener(SetprnAL);
         
+        /////Set Preferred Printer on Startup
+        
+        SetPrinter sp=new SetPrinter();
+        String printername=sp.LoadPreferences();
+        model.setPrinterName(printername);
+        view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
+        
     }
     
     private void SetDefaultPrinter()
     { 	System.out.println("d");
     	SetPrinter sp=new SetPrinter();
         String printername=sp.SelectPrinter();
+        view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
     	
     }
     

@@ -3,24 +3,18 @@ package ctt;
 import java.io.File;
 
 public class Model {
-    
-    private int x;
+    private String printername;
+  
     private String path;
-    public Model(){
-        x = 0;
-    }
     
-    public Model(int x)  ///// Model Constructor
+    public String getPrinterName()
     {
-        this.x = x;
+        return printername;
     }
     
-    public void incX(){
-        x++;
-    }
-    
-    public int getX(){
-        return x;
+    public  void setPrinterName(String pn)
+    {
+        printername=pn;
     }
     
     public String getJarPath()
@@ -30,4 +24,7 @@ public class Model {
         path=dir.toString();
      	return  path;
     }
+    
+    
+    
 }
