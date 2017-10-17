@@ -39,7 +39,8 @@ public class Controller {
         
         LoadAL = new ActionListener()
         {
-              public void actionPerformed(ActionEvent actionEvent) {                  
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
                   LoadTT();
               }
         };                
@@ -47,7 +48,8 @@ public class Controller {
         
         PrinAL = new ActionListener()
         {
-              public void actionPerformed(ActionEvent actionEvent) {                  
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
                   PrinCUTT();
               }
         };                

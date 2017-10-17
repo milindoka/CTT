@@ -84,14 +84,18 @@ public class View {
         
         ////// Create JTable ---------------------------
         
-           Object rowData[][] = { { "","","","","","","" }};
-            Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+           Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
             
           //  JTable table = new JTable(rowData, columnNames);
            table = new JTable(new DefaultTableModel(columnNames, 0))
             { ////added tooltip
 
-                public String getToolTipText( MouseEvent e )
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				public String getToolTipText( MouseEvent e )
                 {
                     int row = rowAtPoint( e.getPoint() );
                     int column = columnAtPoint( e.getPoint() );
@@ -108,8 +112,6 @@ public class View {
             
             table.getColumnModel().getColumn(0).setMinWidth(100);
             
-            ExcelAdapter myAd = new ExcelAdapter(table);
-
             JScrollPane scrollPane = new JScrollPane(table);
 
             
@@ -131,7 +133,12 @@ public class View {
 
             inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "delete");
             actionMap.put("delete", new AbstractAction() {
-                public void actionPerformed(ActionEvent evt) {
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				public void actionPerformed(ActionEvent evt) {
                    // Note, you can use getSelectedRows() and/or getSelectedColumns
                    // to get all the rows/columns that have being selected
                    // and simply loop through them using the same method as
@@ -151,14 +158,18 @@ public class View {
             
      ////// Create Table2  ---------------------------
             
-            Object rowData2[][] = { { "","","","","","","" }};
-             Object columnNames2[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+            Object columnNames2[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
              
            //  JTable table = new JTable(rowData, columnNames);
             table2 = new JTable(new DefaultTableModel(columnNames2, 0))
              { ////added tooltip
 
-                 public String getToolTipText( MouseEvent e )
+                 /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				public String getToolTipText( MouseEvent e )
                  {
                      int row = rowAtPoint( e.getPoint() );
                      int column = columnAtPoint( e.getPoint() );
@@ -225,7 +236,7 @@ public class View {
     int currentrow=0;    	
 	////Get First Time Slot
     for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
-    	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
+    	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) {currenttime=temp; break;} }
 	if(!currenttime.contains(":")) return; ///no time slot  found
 	////////////////////
 	currentrow++;
@@ -259,7 +270,7 @@ public class View {
     	
         ////Get First Time Slot
         for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
-        	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) currenttime=temp; break; }
+        	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) { currenttime=temp; break; }}
     	if(!currenttime.contains(":")) return; ///no time slot  found
     	////////////////////
         
