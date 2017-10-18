@@ -69,7 +69,7 @@ public class Controller {
         SetPrinter sp=new SetPrinter();
         String printername=sp.LoadPreferences();
         model.setPrinterName(printername);
-        view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
+        view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change)");
         
     }
     
