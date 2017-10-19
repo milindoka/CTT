@@ -74,17 +74,21 @@ public class Controller {
     }
     
     private void SetDefaultPrinter()
-    { 	System.out.println("d");
+    { 	
     	SetPrinter sp=new SetPrinter();
         String printername=sp.SelectPrinter();
         view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
+        model.setPrinterName(printername);
     	
     }
     
     
     private void PrinCUTT()
-    { view.DisplayClass("FY-A");
-    	
+    { 
+      PrintMaster pm=new PrintMaster();
+      String printername=model.getPrinterName();
+      System.out.println(printername);
+      pm.PrintMaster(printername);
     }
     
     
@@ -154,11 +158,6 @@ public class Controller {
     	
     	
        }
-    
-
-
-
-
 
 
 

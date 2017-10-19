@@ -1,7 +1,10 @@
 package ctt;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
+
 import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -13,9 +16,41 @@ public class PrintMaster implements Printable
 	///// Here the whole  JAVA Printing Mechanism Starts 
 	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
 	/////
-	  public void PrintList()
+	
+
+	public PrintService findPrintService(String printerName)  //supporting function
+    {
+        for (PrintService service : PrinterJob.lookupPrintServices())
+        {
+            if (service.getName().equalsIgnoreCase(printerName))
+                return service;
+        }
+
+        return null;
+    }
+	
+
+	
+	
+
+	///// Here the whole  JAVA Printing Mechanism Starts 
+	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
+	/////
+	  public void PrintMaster(String printername)
               {
+		  
+		  PrintService ps = findPrintService(printername);
+		  if(ps==null) ps = PrintServiceLookup.lookupDefaultPrintService(); 
+		  if(ps==null) return;
+		   
 	         PrinterJob job = PrinterJob.getPrinterJob();
+	         job.setJobName("Master");
+	         try {
+				job.setPrintService(ps);
+			} catch (PrinterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	         job.setPrintable(this);
 	        
 	         ////Widening the print AREA.
@@ -26,14 +61,22 @@ public class PrintMaster implements Printable
 	         // 210 x 297  A4 size paper in Millimiters.
 	         
 	         
-	         boolean ok = job.printDialog();
-	         if (ok) {
+	         
+	         
+	  
+	         boolean ok = true; ///job.printDialog();
+	         if (ok) 
 	             try {
 	                  job.print(pattribs);
-	             } catch (PrinterException ex) {
-	             }
+	             } catch (PrinterException ex) {}
+	             
+	          
+              
 	         }
-	     }	
+	
+	
+	
+	
 	
 	public int print(Graphics g, PageFormat pf, int pageno)
 			throws PrinterException
@@ -51,8 +94,6 @@ public class PrintMaster implements Printable
 
 		return 0;
 	 }
-///// Here the JAVA Printing Mechanism Ends
-/////////////////////////////////////////////////
-///////////////////////////////////////////////
-		
-}
+	
+	
+}	
