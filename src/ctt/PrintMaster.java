@@ -14,6 +14,14 @@ import java.awt.print.PrinterJob;
 
 public class PrintMaster implements Printable
 {	
+	
+	  ///initialize printing parameters
+
+	  int timecolsize=90,othercolsize=60;
+	  
+      int linesperpage=25;
+	
+	
 	///// Here the whole  JAVA Printing Mechanism Starts 
 	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
 	/////
@@ -82,7 +90,7 @@ public class PrintMaster implements Printable
 		 
 		 
 		 g.drawRect(tlx,tly, w, h);
-	      DrawOpenWallTextLine(30,30,g);
+	      DrawOpenWallTextLine(50,30,g);
 
 		return 0;
 	 }
@@ -91,21 +99,46 @@ public class PrintMaster implements Printable
 	
 	private void DrawOpenWallTextLine(int x,int y,Graphics g)
 	{ 
-	 ///initialize printing parameters
-
-	  int timecolsize=90,othercolsize=60;
-	  int currentleft=x,currenttop=y;
+	  int currentleft=x,currenttop=y,cellheight=30;
 	  
-	  ///-------
-	  g.drawString("| Time",currentleft,currenttop);
-	  currentleft+=timecolsize;
-	  for(int i=0;i<7;i++) 
-		  { g.drawString("| Test", currentleft, currenttop);
+	  
+	  for(int row=0;row<linesperpage;row++)
+	  {
+		  //g.drawString("| Time",currentleft,currenttop);
+		  PrintBoxedString("TEST",currentleft,currenttop, timecolsize, cellheight, g);
+		  currentleft+=timecolsize;
+		  for(int i=0;i<7;i++) 
+		  { //g.drawString("| Test", currentleft, currenttop);
+		  PrintBoxedString("TEST",currentleft,currenttop, othercolsize, cellheight, g);
 		    currentleft+=othercolsize;
 		  }
-	  
+	  currentleft=x;
+	  currenttop+=cellheight;
+	  }
 	  	
 	}
+	
+	///0=side walls only, 1=upper + side wall, 2=lower + side, 3=all three walls
+//	private void DrawCentredText(int type,int width,int height,Graphics g)
+	//{
+		
+//	}
+	
+	
+	void PrintBoxedString(String str,int tlx,int tly, int boxwidth, int boxheight, Graphics pg)
+	 {
+		 pg.drawRect(tlx, tly, boxwidth, boxheight);
+	 
+		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
+		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
+		 
+	        int start = boxwidth/2 - stringLen/2;  
+	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
+	        
+	 }
+
+	
+	
 	
 	
 	
