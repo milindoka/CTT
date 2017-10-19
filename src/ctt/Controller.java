@@ -68,6 +68,7 @@ public class Controller {
         
         SetPrinter sp=new SetPrinter();
         String printername=sp.LoadPreferences();
+        if(printername==null) printername="No Printer";
         model.setPrinterName(printername);
         view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change)");
         
@@ -79,6 +80,7 @@ public class Controller {
         String printername=sp.SelectPrinter();
         view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
         model.setPrinterName(printername);
+        sp.SavePreferences();
     	
     }
     

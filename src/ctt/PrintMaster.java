@@ -47,6 +47,7 @@ public class PrintMaster implements Printable
 		  if(ps==null) ps = PrintServiceLookup.lookupDefaultPrintService(); 
 		  if(ps==null) return;
 		   
+		  System.out.println("printing");
 	         PrinterJob job = PrinterJob.getPrinterJob();
 	         job.setJobName("Master");
 	         try {
@@ -91,7 +92,7 @@ public class PrintMaster implements Printable
 		 
 		 g.drawRect(tlx,tly, w, h);
 	      DrawOpenWallTextLine(50,30,g);
-
+	      System.out.println("printing ends");
 		return 0;
 	 }
 	
