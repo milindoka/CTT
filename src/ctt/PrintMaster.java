@@ -5,6 +5,7 @@ import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -74,7 +75,12 @@ public class PrintMaster implements Printable
 		 if (pageno > 0)             // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
-           
+    
+		 
+		 Font MyFont = new Font("Courier", Font.PLAIN,10);
+		 g.setFont(MyFont);
+		 
+		 
 		 g.drawRect(tlx,tly, w, h);
 	      DrawOpenWallTextLine(30,30,g);
 
