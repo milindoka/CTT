@@ -88,7 +88,7 @@ public class Controller {
       PrintMaster pm=new PrintMaster();
       String printername=model.getPrinterName();
       System.out.println(printername);
-      pm.PrintMaster(printername);
+      pm.PrintMasterChart(printername);
     }
     
     
@@ -143,8 +143,6 @@ public class Controller {
     	try { while ((line = reader.readLine()) != null) { strArray.add(line); } } 
     	catch (IOException e) {	e.printStackTrace();   }
 
-        
-    	
     	String temp[],stemp;
   	  
     	for(int i=0;i<strArray.size();i++)
@@ -153,14 +151,9 @@ public class Controller {
     	   
     	   for(int j=0;j<temp.length;j++)
     		   view.SetData(temp[j], view.table,i,j);
-    	   
     	}
     	
-    	
        }
-
-
-
 }  
     
     
