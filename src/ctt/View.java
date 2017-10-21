@@ -28,7 +28,8 @@ public class View {
     
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
     public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
-    
+    public void SetData2(Object obj, int row_index, int col_index)   
+      {  table2.getModel().setValueAt(obj,row_index,col_index);  } 
    
     
     class MyColListener implements ListSelectionListener {

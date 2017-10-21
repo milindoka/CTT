@@ -51,10 +51,16 @@ public class Controller {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
                  // PrinCUTT();
-            	  
-            	  
                	  int m=GetFirstRow();
             	  int n=GetLastRow();
+            	  if(m>n) System.out.println("invalid m,n");
+            	  int currentrow=0;
+            	  for(int i=m;i<=n;i++)
+            	  {
+            		 String temp=view.GetData(view.table,i,0);
+                      view.SetData2(temp,currentrow,0);
+                      currentrow++;
+            	  }
             	  System.out.println(m);
             	  System.out.println(n);
               }
@@ -170,7 +176,7 @@ public class Controller {
     		////Get First Time Slot
     	    for(currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
     	    	{ temp=view.GetData(view.table,currentrow,0); 
-    	    	  if(temp.contains(":")) break;
+    	    	  if(temp.length()>0) break;
     	    	}
     		return currentrow;
     	
@@ -183,7 +189,7 @@ public class Controller {
     		////Get First Time Slot
     	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
     	    	{ temp=view.GetData(view.table,currentrow,0); 
-    	    	  if(temp.contains(":")) break;
+    	    	  if(temp.length()>0) break;
     	    	}
     		return currentrow;
     }
