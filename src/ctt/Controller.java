@@ -90,6 +90,7 @@ public class Controller {
       PrintMaster pm=new PrintMaster();
       String printername=model.getPrinterName();
       System.out.println(printername);
+      pm.SetTable(view.table);
       pm.PrintMasterChart(printername);
     }
     

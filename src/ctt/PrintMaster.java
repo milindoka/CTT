@@ -4,6 +4,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
+import javax.swing.JTable;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -16,11 +17,26 @@ public class PrintMaster implements Printable
 {	
 	
 	  ///initialize printing parameters
+	JTable table;
 
-	  int timecolsize=90,othercolsize=60;
-	  
-      int linesperpage=25;
+	  int timecolsize,othercolsize,linesperpage;
+      
+      PrintMaster()
+      {   
+    	  timecolsize=100;othercolsize=65;linesperpage=25;
+    	  
+      }
 	
+      void SetTable(JTable jt)
+      {
+    	  table=jt;
+      }
+      
+      public String GetData(int row_index, int col_index)
+  	{ return (String) table.getModel().getValueAt(row_index, col_index); }  
+      
+      
+      
 	
 	///// Here the whole  JAVA Printing Mechanism Starts 
 	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
@@ -46,8 +62,10 @@ public class PrintMaster implements Printable
 		  PrintService ps = findPrintService(printername);
 		  if(ps==null) ps = PrintServiceLookup.lookupDefaultPrintService(); 
 		  if(ps==null) return;
-		   
-		  System.out.println("printing");
+		
+		  
+		  String temp= GetData(2,4);
+		  System.out.println(temp);
 	         PrinterJob job = PrinterJob.getPrinterJob();
 	         job.setJobName("Master");
 	         try {
@@ -102,20 +120,24 @@ public class PrintMaster implements Printable
 	{ 
 	  int currentleft=x,currenttop=y,cellheight=30;
 	  
+	 int horizontalwidth=timecolsize+6*othercolsize;
+	     g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  
 	  for(int row=0;row<linesperpage;row++)
 	  {
 		  //g.drawString("| Time",currentleft,currenttop);
-		  PrintBoxedString("TEST",currentleft,currenttop, timecolsize, cellheight, g);
+		  PrintSideWallBoxedString("TEST",currentleft,currenttop, timecolsize, cellheight, g);
 		  currentleft+=timecolsize;
-		  for(int i=0;i<7;i++) 
+		  for(int i=0;i<6;i++) 
 		  { //g.drawString("| Test", currentleft, currenttop);
-		  PrintBoxedString("TEST",currentleft,currenttop, othercolsize, cellheight, g);
+		  PrintSideWallBoxedString("TEST",currentleft,currenttop, othercolsize, cellheight, g);
 		    currentleft+=othercolsize;
 		  }
 	  currentleft=x;
 	  currenttop+=cellheight;
 	  }
+	  //currenttop=currenttop-cellheight;
+	  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  	
 	}
 	
@@ -130,6 +152,19 @@ public class PrintMaster implements Printable
 	 {
 		 pg.drawRect(tlx, tly, boxwidth, boxheight);
 	 
+		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
+		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
+		 
+	        int start = boxwidth/2 - stringLen/2;  
+	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
+	        
+	 }
+
+	void PrintSideWallBoxedString(String str,int tlx,int tly, int boxwidth, int boxheight, Graphics pg)
+	 {
+		
+		 pg.drawLine(tlx, tly, tlx, tly+boxheight);
+		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+boxheight);
 		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
 		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
 		 
