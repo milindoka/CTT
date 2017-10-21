@@ -50,7 +50,13 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
-                  PrinCUTT();
+                 // PrinCUTT();
+            	  
+            	  
+               	  int m=GetFirstRow();
+            	  int n=GetLastRow();
+            	  System.out.println(m);
+            	  System.out.println(n);
               }
         };                
         view.getPrinCU().addActionListener(PrinAL);
@@ -157,9 +163,39 @@ public class Controller {
     	}
     	
        }
+    
+    int GetFirstRow()
+    {    String temp="";
+    	 int currentrow=0;    	
+    		////Get First Time Slot
+    	    for(currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
+    	    	{ temp=view.GetData(view.table,currentrow,0); 
+    	    	  if(temp.contains(":")) break;
+    	    	}
+    		return currentrow;
+    	
+    }
+    
+    
+    int GetLastRow()
+    {    String temp="";
+    	 int currentrow=0;    	
+    		////Get First Time Slot
+    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
+    	    	{ temp=view.GetData(view.table,currentrow,0); 
+    	    	  if(temp.contains(":")) break;
+    	    	}
+    		return currentrow;
+    }
+    
+    
+    
+    
 }  
     
     
     
     
     
+
+   

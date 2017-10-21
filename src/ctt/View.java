@@ -21,7 +21,7 @@ public class View {
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; int ROWCOUNT=100;  ///
-    JTable table2;int ROWCOUNT2=50;  ///
+    JTable table2;int ROWCOUNT2=100;  ///
     int COLCOUNT=7;
     
     ListSelectionModel listSelectionModel;
