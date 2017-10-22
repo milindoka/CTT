@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
 public class Controller {
 
     private Model model;
@@ -49,20 +51,10 @@ public class Controller {
         PrinAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
+              {            
+            	  PrepareMaster();
                  // PrinCUTT();
-               	  int m=GetFirstRow();
-            	  int n=GetLastRow();
-            	  if(m>n) System.out.println("invalid m,n");
-            	  int currentrow=0;
-            	  for(int i=m;i<=n;i++)
-            	  {
-            		 String temp=view.GetData(view.table,i,0);
-                      view.SetData2(temp,currentrow,0);
-                      currentrow++;
-            	  }
-            	  System.out.println(m);
-            	  System.out.println(n);
+               	 
               }
         };                
         view.getPrinCU().addActionListener(PrinAL);
@@ -194,7 +186,52 @@ public class Controller {
     		return currentrow;
     }
     
-    
+   void PrepareMaster()
+   { String temp,temp1[];
+     
+     int maxsplit=0; // maximum split count for time slot
+	   int m=GetFirstRow();
+	  int n=GetLastRow();
+	  if(m>n) System.out.println("invalid m,n");
+	  int currentrow=0;
+	  for(int i=m;i<=n;i++)
+	  {
+		 temp=view.GetData(view.table,i,0);
+		 if(temp.length()==0) continue; //skip blank line
+		 
+		 if(temp.contains(":"))  ///New time Block, print week day names line 
+		 {   String week[]={"Mon","Tue","Wed","Thu","Fri","Sat"};
+		     view.SetData2(temp,currentrow,0);  ///time
+			 for(int j=0;j<6;j++ )
+				 view.SetData2(week[j],currentrow,j+1); /// week days
+			 currentrow++;
+			 continue;
+		 }
+		 
+       view.SetData2(temp,currentrow,0);  ///Copy as it is, must be class name FY-A,FY-B etc
+       maxsplit=1;
+       for(int j=1;j<7;j++) ///check lecture cells
+       {temp=view.GetData(view.table,i,j);
+    	if(!temp.contains(","))
+    		{ view.SetData2(temp,currentrow,j);  ///No "," so Copy as it is
+    		 continue;
+    		}
+    		// else at least one comma exists
+    			temp1=temp.split(",");
+    			int count=temp1.length;
+    			for(int k=0;k<count;k++)
+    				{view.SetData2(temp1[k],currentrow+k,j);
+    				
+    				}
+    			if(maxsplit<count) maxsplit=count;
+    	
+       }
+       currentrow=currentrow+maxsplit;
+	  }
+	  System.out.println(m);
+	  System.out.println(n);
+	   
+   }
     
     
 }  

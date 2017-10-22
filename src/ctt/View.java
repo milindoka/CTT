@@ -21,6 +21,7 @@ public class View {
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; int ROWCOUNT=100;  ///
+   
     JTable table2;int ROWCOUNT2=100;  ///
     int COLCOUNT=7;
     
@@ -107,12 +108,12 @@ public class View {
             };
             
             table.setRowHeight(20);
-                       	
+            table.setCellSelectionEnabled(true);     	
             model =  (DefaultTableModel) table.getModel();
             for(int i=0;i<ROWCOUNT;i++) model.addRow(new Object[]{"", "", "","","","",""});
             
             table.getColumnModel().getColumn(0).setMinWidth(100);
-            
+            ExcelAdapter myAd = new ExcelAdapter(table);
             JScrollPane scrollPane = new JScrollPane(table);
 
             
