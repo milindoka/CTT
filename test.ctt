@@ -6,7 +6,7 @@ FY L# # # # #BL1(KN),BL2(KV),BL3(AB),LCS3(S),LEL4(AR)#PL4(GG),PL5(N),PL6(ZV)
 11:00# # # # # # 
 FY I#PI1(N),PI2(KD),PI3(GG),CI4(JT),CI5(KDH),CI6(SS)#CI1(JT),CI2(SU),CI3(KDH),BI4(KV),BI5(NM), BI6(DR)#BI1(KV),BI2(NM),BI3(KN)#PI4(SP),PI5(UM),PI6(N)# # 
 FY J#BJ1(NM),BJ2(JN),BJ3(KN)#PJ4(SR),PJ5(SP),PJ6(KD)#PJ1(N),PJ2(GG),PJ3(KD),CJ4(SS),CJ5(KDH),CJ6(BR)#CJ1(UA),CJ2(KDH),CJ3(BR),BJ4(AB),BJ5(NM), BJ6(KV)# # 
-FY K # # # # #PK1(SR),PK2(N),PK3(SP),CK4(SU),CK5(JT),CK6(SS)#CK1(SU),CK2(UA),CK3(SN),BK4(AB),BK5(JN),BK6(DR)
+FY K# # # # #PK1(SR),PK2(N),PK3(SP),CK4(SU),CK5(JT),CK6(SS)#CK1(SU),CK2(UA),CK3(SN),BK4(AB),BK5(JN),BK6(DR)
 FY L# # # # #BL1(KN),BL2(KV),LB3(AB),LCS3(S),LEL4(AR)#PL4(GG),PL5(N),PL6(ZV)
 11:40# # # # # # 
 SY I# # # # # # 
@@ -77,10 +77,10 @@ FY L#CL1(UA),CL2(BR),CL3(SN)#PL1(N),PL2(ZV),PL3(UM),CL4(UA)CL5(BR),CL6(SN)# # #M
 SY I# #PT(PK)# # # # 
 SY J#PT(PK)# # # # # 
 SY K# # # #PT(PK)# # 
-FY I# # # # # # 
-FY J# # # # # # 
-FY K# # # # # # 
-FY L# # # # # # 
+ # # # # # # 
+ # # # # # # 
+ # # # # # # 
+ # # # # # # 
  # # # # # # 
  # # # # # # 
  # # # # # # 

@@ -241,16 +241,14 @@ public class View {
     public void DisplayClass(String clas)
     { 
 	String temp="",currenttime="";
-	
+	if(clas.contains(":")) return;
+	if(clas.length()==0) return;
     int currentrow=0;    	
-	////Get First Time Slot
-//    for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
- //   	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) {currenttime=temp; break;} }
-//	if(!currenttime.contains(":")) return; ///no time slot  found
-	////////////////////
-	//currentrow++;
+
     int clasrow=0; ///initialize class table row pointer
     //SetData(currenttime,table2,clasrow,0); ///set first time slot in individual
+   // int LAST=0;
+   // for(LAST=ROWCOUNT-2;)
     
     while(currentrow<ROWCOUNT-1)   	
 	{  ///update time slot if next time slot starts
