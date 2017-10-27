@@ -244,19 +244,19 @@ public class View {
 	
     int currentrow=0;    	
 	////Get First Time Slot
-    for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
-    	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) {currenttime=temp; break;} }
-	if(!currenttime.contains(":")) return; ///no time slot  found
+//    for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
+ //   	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) {currenttime=temp; break;} }
+//	if(!currenttime.contains(":")) return; ///no time slot  found
 	////////////////////
-	currentrow++;
+	//currentrow++;
     int clasrow=0; ///initialize class table row pointer
-    SetData(currenttime,table2,clasrow,0); ///set first time slot in individual
+    //SetData(currenttime,table2,clasrow,0); ///set first time slot in individual
     
     while(currentrow<ROWCOUNT-1)   	
 	{  ///update time slot if next time slot starts
     	temp=GetData(table,currentrow,0); 
     	if(temp.contains(":"))
-    	 { currenttime=temp; currentrow++; clasrow++;   
+    	 { currenttime=temp; 
     	   SetData(currenttime,table2,clasrow,0); ///set new time slot in individual
     	 }
     	
@@ -264,6 +264,8 @@ public class View {
          {  
         	for(int col=1;col<7;col++)
         	SetData(GetData(table,currentrow,col),table2,clasrow,col);
+        	clasrow++;
+        	
          }
        
        currentrow++;
