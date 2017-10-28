@@ -22,7 +22,7 @@ public class View {
     private DefaultTableModel model2;
     JTable table; int ROWCOUNT=100;  ///
    
-    JTable table2;int ROWCOUNT2=100;  ///
+    JTable table2;int ROWCOUNT2=500;  ///
     int COLCOUNT=7;
     
     ListSelectionModel listSelectionModel;
@@ -151,7 +151,7 @@ public class View {
                    if (row >= 0 && col >= 0) {
                        row = table.convertRowIndexToModel(row);
                        col = table.convertColumnIndexToModel(col);
-                       table.getModel().setValueAt(null, row, col);
+                       table.getModel().setValueAt("", row, col);
                    }
                 }
             });            
