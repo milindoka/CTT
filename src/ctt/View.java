@@ -188,7 +188,7 @@ public class View {
              
              table2.getColumnModel().getColumn(0).setMinWidth(100);
              JScrollPane scrollPane2 = new JScrollPane(table2);
-        frame.getContentPane().setLayout(new BorderLayout());                                          
+        frame.getContentPane().setLayout(new GridLayout(1,2));                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
@@ -210,8 +210,8 @@ public class View {
         panel.add(scrollPane2, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.NORTH);
         
-        frame.add(scrollPane, BorderLayout.WEST);
-        frame.add(panel, BorderLayout.EAST);
+        frame.add(scrollPane);
+        frame.add(panel);
         frame.setVisible(true);
         
     }
