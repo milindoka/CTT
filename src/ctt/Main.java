@@ -1,14 +1,31 @@
 package ctt;
 
 
+import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class Main
 {
+	
+	/////Change the Whole Application Font, only one call in 
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+	    java.util.Enumeration keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
+	    } 
+///////END of CHANGE FONT ROUTINE	
+	
+	
+	
 	 public static void main(String[] args)
 	 {
 		   
@@ -31,12 +48,17 @@ public class Main
 
 		});
 	
+		
 	///////////////END OF CAPS - UPPERCASE ROUTINE
+		
 		
         SwingUtilities.invokeLater(new Runnable()   
         {
             @Override
             public void run() {                                           
+            	
+            	setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.BOLD,14));
+            	
             	Model model = new Model();
             	View view = new View("-"); 
             	Controller controller = new Controller(model,view);

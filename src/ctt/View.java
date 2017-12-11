@@ -9,6 +9,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -110,6 +111,8 @@ public class View {
                 }
             };
             
+
+         
             table.setRowHeight(20);
             table.setCellSelectionEnabled(true);     	
             model =  (DefaultTableModel) table.getModel();
