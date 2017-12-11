@@ -38,46 +38,49 @@ public class View {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
-            {   ClearIndividualTable();
-                int row = table.getSelectedRow();
-                int col = table.getSelectedColumn();
-                String str = (String)table.getValueAt(row, col);
-                if(str.length()==0) return;
-                if(col==0){  DisplayClass(str); return; }
-                
-                int left=str.indexOf("(");
-                int rite=str.indexOf(")");
-                if(left<0 || rite<0) return;
-                String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
-                DisplayIndividual(teachercode);
-                DeleteLastEmptyTimeSlots();
+            {
+            	new Thread(new Runnable() {
+                    public void run()
+                    {
+                        refresh();
+                    }
+               }).start();
+            }
+        }
+    }
+
+    class MyRowListener implements ListSelectionListener {
+      	 
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) 
+            { ///threaded refresh to avoid sloth in individual and class display
+            	new Thread(new Runnable() {
+                    public void run() 
+                    {
+                        refresh();
+                    }
+               }).start();
             }
         }
     }
 
     
     
-    class MyRowListener implements ListSelectionListener {
-   	 
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) 
-            {   ClearIndividualTable();
-                int row = table.getSelectedRow();
-                int col = table.getSelectedColumn();
-                String str = (String)table.getValueAt(row, col);
-                if(str.length()==0) return;
-                if(col==0){  DisplayClass(str); return; }
-                int left=str.indexOf("(");
-                int rite=str.indexOf(")");
-                if(left<0 || rite<0) return;
-                String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
-                DisplayIndividual(teachercode);
-                DeleteLastEmptyTimeSlots();
-            }
-        }
+    private void refresh()
+    {  ClearIndividualTable();
+    int row = table.getSelectedRow();
+    int col = table.getSelectedColumn();
+    String str = (String)table.getValueAt(row, col);
+    if(str.length()==0) return;
+    if(col==0){  DisplayClass(str); return; }
+    int left=str.indexOf("(");
+    int rite=str.indexOf(")");
+    if(left<0 || rite<0) return;
+    final String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
+    DisplayIndividual(teachercode);
+    DeleteLastEmptyTimeSlots();
     }
-    
     
     
     public View(String text){
