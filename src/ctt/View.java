@@ -9,6 +9,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -211,10 +213,28 @@ public class View {
         buttonPanel.add(PrinCU);
         buttonPanel.add(SetPRN);
         
+        
+        JLabel cc = new JLabel("CC :");
+        JLabel dc = new JLabel("DC :");
+        JLabel gc = new JLabel("GC :");
+        
+        JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      //  countpanel.setLayout(new FlowLayout());
+        countpanel.setPreferredSize(new Dimension(200, 25));
+        countpanel.add(cc); 
+        countpanel.add(dc); 
+        countpanel.add(gc);
+       
+        JPanel southpanel=new JPanel();
+        southpanel.setLayout(new BorderLayout());
+        southpanel.add(scrollPane2, BorderLayout.SOUTH);
+        southpanel.add(countpanel,BorderLayout.NORTH);
+        
         JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-        panel.add(scrollPane2, BorderLayout.SOUTH);
+        panel.add(southpanel, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.NORTH);
+       // panel.add(nameLabelPanel,BorderLayout.CENTER);
         
         frame.add(scrollPane);
         frame.add(panel);
