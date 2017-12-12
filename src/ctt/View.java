@@ -1,19 +1,29 @@
 package ctt;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -174,6 +184,11 @@ public class View {
             table2 = new JTable(new DefaultTableModel(columnNames2, 0))
              { ////added tooltip
 
+            	
+            	
+            	
+            	
+            	
                  /**
 				 * 
 				 */
@@ -190,11 +205,28 @@ public class View {
              };
              
              table2.setRowHeight(20);
-                        	
+             
              model2 =  (DefaultTableModel) table2.getModel();
              for(int i=0;i<ROWCOUNT2;i++) model2.addRow(new Object[]{"", "", "","","","",""});
              
              table2.getColumnModel().getColumn(0).setMinWidth(100);
+             
+             
+             final ColoringCellRenderer cellRenderer = new ColoringCellRenderer(); 
+             TableColumnModel columnModel = table2.getColumnModel();
+             int ccc = columnModel.getColumnCount();
+             for (int c=0; c<ccc; c++)
+             {
+                 TableColumn column = columnModel.getColumn(c);
+                 column.setCellRenderer(cellRenderer);
+             }
+            
+             
+             
+             
+             
+             
+             
              JScrollPane scrollPane2 = new JScrollPane(table2);
         frame.getContentPane().setLayout(new GridLayout(1,2));                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
@@ -300,7 +332,7 @@ public class View {
     
     public void DisplayIndividual(String ind)
     {   int lecturecount=0;
-      
+        String originalclass,newclass;
     	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
     	
         ////Get First Time Slot
@@ -327,7 +359,13 @@ public class View {
            {temp=GetData(table,currentrow,col);
             if(temp.contains(ind)) 
              {  foundlecture=true;
-            	SetData(GetData(table,currentrow,0),table2,indirow,col);
+                originalclass=GetData(table2,indirow,col);
+                newclass=GetData(table,currentrow,0);
+                if(originalclass.length()!=0)
+                 { newclass=originalclass+","+newclass;  
+                 
+                 }
+            	SetData(newclass,table2,indirow,col);
                 lecturecount++;
              }
            }
@@ -371,7 +409,50 @@ public class View {
     	   
    	}
     
+    
+    
+    
+    
 }
 
+
+
+class ColoringCellRenderer extends DefaultTableCellRenderer
+{
+    private final Map<Point, Color> cellColors = new HashMap<Point, Color>();
+
+    void setCellColor(int r, int c, Color color)
+    {
+        if (color == null)
+        {
+            cellColors.remove(new Point(r,c));
+        }
+        else
+        {
+            cellColors.put(new Point(r,c), color);
+        }
+    }
+
+    private Color getCellColor(int r, int c)
+    {
+        Color color = cellColors.get(new Point(r,c));
+        if (color == null)
+        {
+            return Color.WHITE;
+        }
+        return color;
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+        boolean isSelected, boolean hasFocus, int row, int column)
+    {
+        super.getTableCellRendererComponent(
+            table, value, isSelected, hasFocus, row, column);
+        Color color = getCellColor(row, column);
+        setBackground(color);
+        return this;
+    }
+}
 
 
