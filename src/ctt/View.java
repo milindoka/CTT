@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -51,10 +52,10 @@ public class View {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
-            {
+            {  
             	new Thread(new Runnable() {
                     public void run()
-                    {
+                    {    
                         refresh();
                     }
                }).start();
@@ -68,9 +69,10 @@ public class View {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) 
             { ///threaded refresh to avoid sloth in individual and class display
+            	
             	new Thread(new Runnable() {
                     public void run() 
-                    {
+                    {    
                         refresh();
                     }
                }).start();
@@ -81,7 +83,7 @@ public class View {
     
     
     private void refresh()
-    {  ClearIndividualTable();
+    {ClearIndividualTable();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
     String str = (String)table.getValueAt(row, col);
@@ -211,7 +213,7 @@ public class View {
              
              table2.getColumnModel().getColumn(0).setMinWidth(100);
              
-             
+         
              final ColoringCellRenderer cellRenderer = new ColoringCellRenderer(); 
              TableColumnModel columnModel = table2.getColumnModel();
              int ccc = columnModel.getColumnCount();
@@ -331,7 +333,9 @@ public class View {
     }
     
     public void DisplayIndividual(String ind)
-    {   int lecturecount=0;
+    {   ClearIndividualTable();
+    	
+    	int lecturecount=0;
         String originalclass,newclass;
     	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
     	
@@ -344,14 +348,15 @@ public class View {
     	currentrow++;
         int indirow=0; ///initialize individual row pointer
         SetData(currenttime,table2,indirow,0); ///set first time slot in individual
-      
+        for(int col=1;col<7;col++) SetData("",table2,indirow,col);
         while(currentrow<ROWCOUNT-1)   	
     	{  ///update time slot if next time slot starts
         	temp=GetData(table,currentrow,0); 
         	if(temp.contains(":"))
         	 { ////// if lecture found set new time slot otherwise overwrite time slot
         	   currenttime=temp; currentrow++; if(foundlecture) indirow++;  
-        	   SetData(currenttime,table2,indirow,0); 
+        	   SetData(currenttime,table2,indirow,0);
+        	   for(int col=1;col<7;col++) SetData("",table2,indirow,col);
         	  // foundlecture=false;
         	 }
            
@@ -401,58 +406,57 @@ public class View {
     
     public void ClearIndividualTable() /////same as class table
     {
+    	
     	   for (int i = 0; i < ROWCOUNT2; i++)
     	      for(int j = 0; j < table2.getColumnCount(); j++)
     	      {
     	          table2.setValueAt("", i, j);
     	      }
-    	   
-   	}
+    	  
+    }	
     
     
     
+    public class ColoringCellRenderer extends DefaultTableCellRenderer
+    {
+    	  public Component getTableCellRendererComponent(JTable table, 
+    	Object obj, boolean isSelected, boolean hasFocus, int row, int column) 
+    	  {
+    	    Component cell = super.getTableCellRendererComponent(
+    	   table, obj, isSelected, hasFocus, row, column);
+
+    	    TableModel model = table.getModel();
+    	    
+    	    String colYearValue = (String) model.getValueAt(row, column);
+
+    	    if (colYearValue.contains(","))
+    	    {
+    	        cell.setBackground(Color.cyan);
+    	    }
+    	     else 
+    	    {
+    	        cell.setBackground(Color.WHITE);
+    	    }
+    	   return cell;
+
+    	  }
+
+
+    }
     
-    
+
 }
 
 
 
-class ColoringCellRenderer extends DefaultTableCellRenderer
-{
-    private final Map<Point, Color> cellColors = new HashMap<Point, Color>();
 
-    void setCellColor(int r, int c, Color color)
-    {
-        if (color == null)
-        {
-            cellColors.remove(new Point(r,c));
-        }
-        else
-        {
-            cellColors.put(new Point(r,c), color);
-        }
-    }
 
-    private Color getCellColor(int r, int c)
-    {
-        Color color = cellColors.get(new Point(r,c));
-        if (color == null)
-        {
-            return Color.WHITE;
-        }
-        return color;
-    }
 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-        boolean isSelected, boolean hasFocus, int row, int column)
-    {
-        super.getTableCellRendererComponent(
-            table, value, isSelected, hasFocus, row, column);
-        Color color = getCellColor(row, column);
-        setBackground(color);
-        return this;
-    }
-}
+
+
+
+	
+
+
 
 
