@@ -38,7 +38,9 @@ public class View {
    
     JTable table2;int ROWCOUNT2=500;  ///
     int COLCOUNT=7;
-    
+    int CC,DC,GC;
+    JLabel cc,dc,gc;
+    String ClashCount,DoubleCount,GapCount;   
     ListSelectionModel listSelectionModel;
     
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
@@ -248,9 +250,9 @@ public class View {
         buttonPanel.add(SetPRN);
         
         
-        JLabel cc = new JLabel("CC :");
-        JLabel dc = new JLabel("DC :");
-        JLabel gc = new JLabel("GC :");
+        cc = new JLabel("CC :");
+        dc = new JLabel("DC :");
+        gc = new JLabel("GC :");
         
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
       //  countpanel.setLayout(new FlowLayout());
@@ -334,7 +336,7 @@ public class View {
     
     public void DisplayIndividual(String ind)
     {   ClearIndividualTable();
-    	
+    	CC=0;DC=0;GC=0;
     	int lecturecount=0;
         String originalclass,newclass;
     	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
@@ -367,8 +369,8 @@ public class View {
                 originalclass=GetData(table2,indirow,col);
                 newclass=GetData(table,currentrow,0);
                 if(originalclass.length()!=0)
-                 { newclass=originalclass+","+newclass;  
-                 
+                 { newclass=originalclass+";"+newclass;  
+                 	CC++;
                  }
             	SetData(newclass,table2,indirow,col);
                 lecturecount++;
@@ -383,8 +385,15 @@ public class View {
     	TableColumn tc ;
     	tc= tcm.getColumn(0);
 		
-        String LC=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
-        tc.setHeaderValue(LC);th.repaint();
+        String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
+        tc.setHeaderValue(LectureCount);th.repaint();
+        
+        ClashCount=String.format("CC : %d  ",CC);
+        DoubleCount=String.format("DC : %d  ",CC);
+        GapCount=String.format("GC : %d",CC);
+        cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
+        
+        
     }
     
 
@@ -429,7 +438,7 @@ public class View {
     	    
     	    String colYearValue = (String) model.getValueAt(row, column);
 
-    	    if (colYearValue.contains(","))
+    	    if (colYearValue.contains(";"))
     	    {
     	        cell.setBackground(Color.cyan);
     	    }
