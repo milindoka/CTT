@@ -34,11 +34,12 @@ public class View {
     private JButton SaveBT,LoadBT,PrinCU,SetPRN;
     private DefaultTableModel model;
     private DefaultTableModel model2;
-    JTable table; int ROWCOUNT=100;  ///
-   
-    JTable table2;int ROWCOUNT2=500;  ///
+    JTable table; 
+    JTable table2;
+    int ROWCOUNT2=500;////For Master Print
+    int ROWCOUNT=100;  ///Main Table
     int COLCOUNT=7;
-    int CC,DC,GC;
+    int CC,DC,GC,indirow;
     JLabel cc,dc,gc;
     String ClashCount,DoubleCount,GapCount;   
     ListSelectionModel listSelectionModel;
@@ -188,11 +189,6 @@ public class View {
             table2 = new JTable(new DefaultTableModel(columnNames2, 0))
              { ////added tooltip
 
-            	
-            	
-            	
-            	
-            	
                  /**
 				 * 
 				 */
@@ -225,13 +221,7 @@ public class View {
                  column.setCellRenderer(cellRenderer);
              }
             
-             
-             
-             
-             
-             
-             
-             JScrollPane scrollPane2 = new JScrollPane(table2);
+        JScrollPane scrollPane2 = new JScrollPane(table2);
         frame.getContentPane().setLayout(new GridLayout(1,2));                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
         frame.setSize(400,400);
@@ -348,7 +338,7 @@ public class View {
     	////////////////////
         
     	currentrow++;
-        int indirow=0; ///initialize individual row pointer
+        indirow=0; ///initialize individual row pointer
         SetData(currenttime,table2,indirow,0); ///set first time slot in individual
         for(int col=1;col<7;col++) SetData("",table2,indirow,col);
         while(currentrow<ROWCOUNT-1)   	
@@ -380,6 +370,33 @@ public class View {
     		
     	}
         
+        ////////Count Gaps//////////////////////////
+     
+        int firstnonempty=0,lastnonempty=0;
+        for(int c=1;c<7;c++)
+        {lastnonempty=indirow;
+           for(lastnonempty=indirow;lastnonempty>0;lastnonempty--)
+        	{
+        	   temp=GetData(table2,lastnonempty,c);
+		       if(temp.length()!=0) break;
+        	}
+        
+           for(firstnonempty=0;firstnonempty<indirow;firstnonempty++)
+           { temp=GetData(table2,firstnonempty,c);
+	       if(temp.length()!=0) break;
+        	   
+           }
+        
+           while(firstnonempty<lastnonempty)
+           {temp=GetData(table2,firstnonempty,c);
+	       if(temp.length()==0) GC++;
+        	   firstnonempty++;
+           }
+        
+        
+        }
+        
+        
         JTableHeader th = table2.getTableHeader();
     	TableColumnModel tcm = th.getColumnModel();
     	TableColumn tc ;
@@ -401,7 +418,7 @@ public class View {
     {     String temp;
            //boolean foundlecture=false;   
 
-           for (int i = ROWCOUNT2-1; i>1 ;i--)
+           for (int i = indirow; i>1 ;i--)
      	        { 
     		      for(int j = 1; j < COLCOUNT; j++)
     		      {temp=GetData(table2,i,j);
