@@ -389,8 +389,8 @@ public class View {
         tc.setHeaderValue(LectureCount);th.repaint();
         
         ClashCount=String.format("CC : %d  ",CC);
-        DoubleCount=String.format("DC : %d  ",CC);
-        GapCount=String.format("GC : %d",CC);
+        DoubleCount=String.format("DC : %d  ",DC);
+        GapCount=String.format("GC : %d",GC);
         cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
         
         
