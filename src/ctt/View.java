@@ -3,11 +3,7 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -31,7 +27,7 @@ import java.awt.event.MouseEvent;
 public class View {
       
     private JFrame frame;
-    private JButton SaveBT,LoadBT,PrinCU,SetPRN;
+    private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; 
@@ -232,12 +228,39 @@ public class View {
         SaveBT = new JButton("Save Time Table");
         PrinCU = new JButton("Print Current Time Table");
         SetPRN = new JButton("Set Printer");
+        b5 = new JButton("Button5");
         
-        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(5,1,2,2));
+        b6 = new JButton("Button6");
+        b7 = new JButton("Button7");
+        b8 = new JButton("Button8");
+        b9 = new JButton("Button9");
+        b10= new JButton("Button10");
+        
+        b11= new JButton("Button11");
+        b12= new JButton("Button12");
+        b13= new JButton("Button13");
+        b14= new JButton("Button14");
+        b15= new JButton("Button15");
+        
+        
+        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(5,3,2,2));
         buttonPanel.add(SaveBT);
         buttonPanel.add(LoadBT);
         buttonPanel.add(PrinCU);
         buttonPanel.add(SetPRN);
+        
+        buttonPanel.add(b5);
+        buttonPanel.add(b6);
+        buttonPanel.add(b7);
+        buttonPanel.add(b8);
+        buttonPanel.add(b9);
+        buttonPanel.add(b10);
+        
+        buttonPanel.add(b11);
+        buttonPanel.add(b12);
+        buttonPanel.add(b13);
+        buttonPanel.add(b14);
+        buttonPanel.add(b15);
         
         
         cc = new JLabel("CC :");
