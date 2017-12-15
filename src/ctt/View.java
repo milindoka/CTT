@@ -330,7 +330,7 @@ public class View {
     	int lecturecount=0;
         String originalclass,newclass;
     	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
-    	
+    	String temp2;
         ////Get First Time Slot
         for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
         	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) { currenttime=temp; break; }}
@@ -374,27 +374,47 @@ public class View {
      
         int firstnonempty=0,lastnonempty=0;
         for(int c=1;c<7;c++)
-        {lastnonempty=indirow;
-           for(lastnonempty=indirow;lastnonempty>0;lastnonempty--)
-        	{
+        { lastnonempty=indirow;
+            for(lastnonempty=indirow;lastnonempty>0;lastnonempty--)
+        	  {
         	   temp=GetData(table2,lastnonempty,c);
 		       if(temp.length()!=0) break;
-        	}
+        	   }
         
-           for(firstnonempty=0;firstnonempty<indirow;firstnonempty++)
-           { temp=GetData(table2,firstnonempty,c);
-	       if(temp.length()!=0) break;
+             for(firstnonempty=0;firstnonempty<indirow;firstnonempty++)
+                 { temp=GetData(table2,firstnonempty,c);
+	               if(temp.length()!=0) break;
         	   
-           }
+                 }
         
-           while(firstnonempty<lastnonempty)
-           {temp=GetData(table2,firstnonempty,c);
-	       if(temp.length()==0) GC++;
+            while(firstnonempty<lastnonempty)
+             {temp=GetData(table2,firstnonempty,c);
+	          if(temp.length()==0) GC++;
         	   firstnonempty++;
-           }
-        
-        
+             }
+           
         }
+        //////////////END OF COUNT GAPS //////////////////////
+           
+        //////////////COUNT DOUBLES/////////////////////////
+           
+           for(int c=1;c<7;c++)
+           {
+              for(int r=0;r<indirow;r++)
+               { temp=GetData(table2,r,c);
+                 if(temp.length()==0) continue;
+                 {
+   	               for(int k=r+1;k<=indirow;k++)  
+              
+   	                 {  temp2=GetData(table2,k,c);
+   	            	   if(temp2.length()==0) continue;
+   	            	   if(temp.contains(temp2)) DC++;
+   	                 }
+                  }
+               }
+           } 
+           
+           
         
         
         JTableHeader th = table2.getTableHeader();
