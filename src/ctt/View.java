@@ -32,13 +32,20 @@ public class View {
     private DefaultTableModel model2;
     JTable table; 
     JTable table2;
-    int ROWCOUNT2=500;////For Master Print
-    int ROWCOUNT=100;  ///Main Table
+    int ROWCOUNT2=25;         /////500;////For Master Print
+    int ROWCOUNT=100; ///Main Table
     int COLCOUNT=7;
-    int CC,DC,GC,indirow;
+    
+    
+    int CC,DC,GC,indirow,lecturecount;
     JLabel cc,dc,gc;
     String ClashCount,DoubleCount,GapCount;   
     ListSelectionModel listSelectionModel;
+    
+    int ROWS=25,COLS=7;  ////For create display matrix
+    String[][] Matrix = new String[ROWS][COLS];
+    
+    
     
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
     public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
@@ -92,7 +99,9 @@ public class View {
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
     final String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
-    DisplayIndividual(teachercode);
+    //DisplayIndividual(teachercode);
+    CreateIndi(teachercode);
+    UpdateDisplay(teachercode);
     DeleteLastEmptyTimeSlots();
     }
     
@@ -347,6 +356,90 @@ public class View {
     
     }
     
+    
+    public void CreateIndi(String ind)
+    {
+    	
+    	for(int i=0;i<ROWS;i++)
+		 for(int j=0;j<COLS;j++) Matrix[i][j]="";  ////clean matrix
+    	
+    CC=0;DC=0;GC=0;  ///reset all counts
+    lecturecount=0;
+
+    String originalclass,newclass;
+	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
+	String temp2;
+    ////Get First Time Slot
+    for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
+    	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) { currenttime=temp; break; }}
+	if(!currenttime.contains(":")) return; ///no time slot  found
+	////////////////////
+    
+	currentrow++;
+    indirow=0; ///initialize individual row pointer
+
+   // SetData(currenttime,table2,indirow,0); ///set first time slot in individual
+    
+    Matrix[indirow][0]=currenttime;
+    
+    //for(int col=1;col<7;col++) SetData("",table2,indirow,col);
+    
+    while(currentrow<ROWCOUNT-1)   	
+	{  ///update time slot if next time slot starts
+    	temp=GetData(table,currentrow,0); 
+    	if(temp.contains(":"))
+    	 { ////// if lecture found set new time slot otherwise overwrite time slot
+    	   currenttime=temp; currentrow++; if(foundlecture) indirow++;  
+    	   //SetData(currenttime,table2,indirow,0);
+    	   Matrix[indirow][0]=currenttime;
+    	  
+    	 }
+       
+       for(int col=1;col<7;col++)
+       {temp=GetData(table,currentrow,col);
+        if(temp.contains(ind)) 
+         {  foundlecture=true;
+            originalclass=Matrix[indirow][col];
+            newclass=GetData(table,currentrow,0);
+            if(originalclass.length()!=0)
+            	{ Matrix[indirow][col]=originalclass+";"+newclass; CC++;}
+            else
+            	Matrix[indirow][col]=newclass;
+            
+            lecturecount++;
+         }
+       }
+       currentrow++; 
+		
+	}
+    	
+    }
+
+    
+    public void UpdateDisplay(String ind)
+    {ClearIndividualTable();
+    for (int i = 0; i < ROWCOUNT2; i++)
+	      for(int j = 0; j < table2.getColumnCount(); j++)
+	          table2.setValueAt(Matrix[i][j], i, j);
+	      
+    
+    
+    JTableHeader th = table2.getTableHeader();
+	TableColumnModel tcm = th.getColumnModel();
+	TableColumn tc ;
+	tc= tcm.getColumn(0);
+	
+    String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
+    tc.setHeaderValue(LectureCount);th.repaint();
+    
+    ClashCount=String.format("CC : %d  ",CC);
+    DoubleCount=String.format("DC : %d  ",DC);
+    GapCount=String.format("GC : %d",GC);
+    cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
+    	
+    }
+
+    
     public void DisplayIndividual(String ind)
     {   ClearIndividualTable();
     	CC=0;DC=0;GC=0;
@@ -509,7 +602,7 @@ public class View {
     	   return cell;
 
     	  }
-
+    	  
 
     }
     
