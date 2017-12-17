@@ -103,8 +103,10 @@ public class View {
     CreateIndi(teachercode);
     CountGaps();
     CountDoubles();
+    DeleteLastTimeSlot();
     UpdateDisplay(teachercode);
-    DeleteLastEmptyTimeSlots();
+    UpdateCounts(teachercode);
+    
     }
     
     
@@ -413,9 +415,9 @@ public class View {
        }
        currentrow++; 
 		
-	}
+     }
     	
-    }
+   }
 
     
     private void CountGaps()
@@ -484,6 +486,24 @@ public class View {
     }
    }
     
+   private void UpdateCounts(String ind)
+   {
+	    
+	    JTableHeader th = table2.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc ;
+		tc= tcm.getColumn(0);
+		
+	    String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
+	    tc.setHeaderValue(LectureCount);th.repaint();
+	    
+	    ClashCount=String.format("CC : %d  ",CC);
+	    DoubleCount=String.format("DC : %d  ",DC);
+	    GapCount=String.format("GC : %d",GC);
+	    cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
+
+	   
+   }
     
     
     private void UpdateDisplay(String ind)
@@ -492,147 +512,23 @@ public class View {
 	      for(int j = 0; j < table2.getColumnCount(); j++)
 	          table2.setValueAt(Matrix[i][j], i, j);
 	      
-    
-    
-    JTableHeader th = table2.getTableHeader();
-	TableColumnModel tcm = th.getColumnModel();
-	TableColumn tc ;
-	tc= tcm.getColumn(0);
+        	
+    }
+
+        
+    private void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
+    {   String temp;
+
+    for (int i = indirow; i>1 ;i--)
+	      { 
+		      for(int j = 1; j < COLCOUNT; j++)
+		      {temp=Matrix[i][j];
+		       if(temp.length()!=0) return; ///return if time slot is not extra 
+	          }
+		    Matrix[i][0]="";   ////delete extra
+	      }
 	
-    String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
-    tc.setHeaderValue(LectureCount);th.repaint();
-    
-    ClashCount=String.format("CC : %d  ",CC);
-    DoubleCount=String.format("DC : %d  ",DC);
-    GapCount=String.format("GC : %d",GC);
-    cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
-    	
-    }
 
-    
-    public void DisplayIndividual(String ind)
-    {   ClearIndividualTable();
-    	CC=0;DC=0;GC=0;
-    	int lecturecount=0;
-        String originalclass,newclass;
-    	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
-    	String temp2;
-        ////Get First Time Slot
-        for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
-        	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) { currenttime=temp; break; }}
-    	if(!currenttime.contains(":")) return; ///no time slot  found
-    	////////////////////
-        
-    	currentrow++;
-        indirow=0; ///initialize individual row pointer
-        SetData(currenttime,table2,indirow,0); ///set first time slot in individual
-        for(int col=1;col<7;col++) SetData("",table2,indirow,col);
-        while(currentrow<ROWCOUNT-1)   	
-    	{  ///update time slot if next time slot starts
-        	temp=GetData(table,currentrow,0); 
-        	if(temp.contains(":"))
-        	 { ////// if lecture found set new time slot otherwise overwrite time slot
-        	   currenttime=temp; currentrow++; if(foundlecture) indirow++;  
-        	   SetData(currenttime,table2,indirow,0);
-        	   for(int col=1;col<7;col++) SetData("",table2,indirow,col);
-        	  // foundlecture=false;
-        	 }
-           
-           for(int col=1;col<7;col++)
-           {temp=GetData(table,currentrow,col);
-            if(temp.contains(ind)) 
-             {  foundlecture=true;
-                originalclass=GetData(table2,indirow,col);
-                newclass=GetData(table,currentrow,0);
-                if(originalclass.length()!=0)
-                 { newclass=originalclass+";"+newclass;  
-                 	CC++;
-                 }
-            	SetData(newclass,table2,indirow,col);
-                lecturecount++;
-             }
-           }
-           currentrow++; 
-    		
-    	}
-        
-     ////////////Count Gaps//////////////////////////
-     
-       int firstnonempty=0,lastnonempty=0;
-        for(int c=1;c<7;c++)
-        { lastnonempty=indirow;
-            for(lastnonempty=indirow;lastnonempty>0;lastnonempty--)
-        	  {
-        	   temp=GetData(table2,lastnonempty,c);
-		       if(temp.length()!=0) break;
-        	   }
-        
-             for(firstnonempty=0;firstnonempty<indirow;firstnonempty++)
-                 { temp=GetData(table2,firstnonempty,c);
-	               if(temp.length()!=0) break;
-        	   
-                 }
-        
-            while(firstnonempty<lastnonempty)
-             {temp=GetData(table2,firstnonempty,c);
-	          if(temp.length()==0) GC++;
-        	   firstnonempty++;
-             }
-           
-        }
-        
-        //////////////END OF COUNT GAPS //////////////////////
-           
-        //////////////COUNT DOUBLES/////////////////////////
-           
-           for(int c=1;c<7;c++)
-           {
-              for(int r=0;r<indirow;r++)
-               { temp=GetData(table2,r,c);
-                 if(temp.length()==0) continue;
-                 {
-   	               for(int k=r+1;k<=indirow;k++)  
-              
-   	                 {  temp2=GetData(table2,k,c);
-   	            	   if(temp2.length()==0) continue;
-   	            	   if(temp.contains(temp2)) DC++;
-   	                 }
-                  }
-               }
-           } 
-           
-           
-        
-        
-        JTableHeader th = table2.getTableHeader();
-    	TableColumnModel tcm = th.getColumnModel();
-    	TableColumn tc ;
-    	tc= tcm.getColumn(0);
-		
-        String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
-        tc.setHeaderValue(LectureCount);th.repaint();
-        
-        ClashCount=String.format("CC : %d  ",CC);
-        DoubleCount=String.format("DC : %d  ",DC);
-        GapCount=String.format("GC : %d",GC);
-        cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
-        
-        
-    }
-    
-
-    public void DeleteLastEmptyTimeSlots()
-    {     String temp;
-           //boolean foundlecture=false;   
-
-           for (int i = indirow; i>1 ;i--)
-     	        { 
-    		      for(int j = 1; j < COLCOUNT; j++)
-    		      {temp=GetData(table2,i,j);
-    		       if(temp.length()!=0) return;
-     	          }
-    		      table2.setValueAt("", i,0);
-     	      }
     	
     }
     
