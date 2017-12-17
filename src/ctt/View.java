@@ -363,7 +363,7 @@ public class View {
     
     public void CreateIndi(String ind)
     {
-    	
+    	String sub[];
     	for(int i=0;i<ROWS;i++)
 		 for(int j=0;j<COLS;j++) Matrix[i][j]="";  ////clean matrix
     	
@@ -401,10 +401,13 @@ public class View {
        
        for(int col=1;col<7;col++)
        {temp=GetData(table,currentrow,col);
+        
         if(temp.contains(ind)) 
          {  foundlecture=true;
             originalclass=Matrix[indirow][col];
-            newclass=GetData(table,currentrow,0);
+            sub=temp.split("\\(");
+           // System.out.println(sub[0]);
+            newclass=GetData(table,currentrow,0)+"-"+sub[0];
             if(originalclass.length()!=0)
             	{ Matrix[indirow][col]=originalclass+";"+newclass; CC++;}
             else
