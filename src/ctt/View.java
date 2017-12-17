@@ -102,6 +102,7 @@ public class View {
     //DisplayIndividual(teachercode);
     CreateIndi(teachercode);
     CountGaps();
+    CountDoubles();
     UpdateDisplay(teachercode);
     DeleteLastEmptyTimeSlots();
     }
@@ -441,10 +442,46 @@ public class View {
        }
     }
     
+    private void CreatePerPerDivisionChart()
+    {  String temp="";
+    String[] Division = new String[100];
+    int[] Count =new int[100];
+    int items=0;
+    boolean found=false;
+    
+    for(int r=0;r<=indirow;r++)
+   	 for(int c=1;c<7;c++)
+   	   { temp=Matrix[r][c];
+   		 if(temp.length()==0) continue;
+   	     //otherwise update count
+   		 found=false;
+   		 for(int i=0;i<items;i++)
+   	    	 if(Division[i].contains(temp)) { Count[i]++;found=true; break;} 
+   	    	 	 
+   	    	if(!found)  { Division[items]=temp; Count[items]=1; items++;} 
+   	   }
+
+    	
+    }
     
     
    private void CountDoubles()
-   {      
+   { String temp,temp2;     
+	   for(int c=1;c<7;c++)
+     {
+       for(int r=0;r<indirow;r++)
+        { temp=Matrix[r][c];
+          if(temp.length()==0) continue;
+          {
+               for(int k=r+1;k<=indirow;k++)  
+       
+                 {  temp2=Matrix[k][c];
+            	   if(temp2.length()==0) continue;
+            	   if(temp.contains(temp2)) DC++;
+                 }
+           }
+        }
+    }
    }
     
     
@@ -519,9 +556,9 @@ public class View {
     		
     	}
         
-        ////////Count Gaps//////////////////////////
+     ////////////Count Gaps//////////////////////////
      
-        int firstnonempty=0,lastnonempty=0;
+       int firstnonempty=0,lastnonempty=0;
         for(int c=1;c<7;c++)
         { lastnonempty=indirow;
             for(lastnonempty=indirow;lastnonempty>0;lastnonempty--)
@@ -543,6 +580,7 @@ public class View {
              }
            
         }
+        
         //////////////END OF COUNT GAPS //////////////////////
            
         //////////////COUNT DOUBLES/////////////////////////
