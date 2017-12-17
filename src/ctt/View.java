@@ -3,7 +3,9 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -23,9 +25,12 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class View {
       
+	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
     private JFrame frame;
     private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;
     private DefaultTableModel model;
@@ -160,6 +165,21 @@ public class View {
             table.setSelectionModel(listSelectionModel);
      
             
+            TableColumnModel colModel = table.getColumnModel();
+            int ccc = colModel.getColumnCount();
+            for (int c=0; c<ccc; c++)
+            {
+                TableColumn column = colModel.getColumn(c);
+                column.setCellRenderer(fRenderer);
+                
+            }
+            
+            
+            
+            
+            
+            
+            
               ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
             
             InputMap inputMap = table.getInputMap(JComponent.WHEN_FOCUSED);
@@ -189,6 +209,42 @@ public class View {
             });            
      /////////------------------------------------------------------------------------
 
+  ///--------ENTER KEY TO FREEZE CURRENT CELL CONTENT--------------------------------------
+            
+            InputMap inputMap2 = table.getInputMap(JComponent.WHEN_FOCUSED);
+            ActionMap actionMap2 = table.getActionMap();
+
+            inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Freeze");
+            actionMap2.put("Freeze", new AbstractAction() {
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				public void actionPerformed(ActionEvent evt) {
+                   // Note, you can use getSelectedRows() and/or getSelectedColumns
+                   // to get all the rows/columns that have being selected
+                   // and simply loop through them using the same method as
+                   // described below.
+                   // As is, it will only get the lead selection
+                   int row = table.getSelectedRow();
+                   int col = table.getSelectedColumn();
+                   if (row >= 0 && col >= 0) {
+                       row = table.convertRowIndexToModel(row);
+                       col = table.convertColumnIndexToModel(col);
+                      fRenderer.setCellColor(row,col,Color.YELLOW);
+                      table.repaint();
+                   }
+                }
+            });            
+     /////////---------------END OF FREEZE-------------------------------------
+            
+            
+            
+            
+            
+            
+            
             
      ////// Create Table2  ---------------------------
             
@@ -221,13 +277,15 @@ public class View {
              table2.getColumnModel().getColumn(0).setMinWidth(100);
              
          
-             final ColoringCellRenderer cellRenderer = new ColoringCellRenderer(); 
+             final ColoringCellRenderer cellRenderer = new ColoringCellRenderer();
+             
              TableColumnModel columnModel = table2.getColumnModel();
-             int ccc = columnModel.getColumnCount();
+             ccc = columnModel.getColumnCount();
              for (int c=0; c<ccc; c++)
              {
                  TableColumn column = columnModel.getColumn(c);
                  column.setCellRenderer(cellRenderer);
+                // column.setCellRenderer(fRenderer);
              }
             
         JScrollPane scrollPane2 = new JScrollPane(table2);
@@ -575,6 +633,57 @@ public class View {
     	  
 
     }
+
+    
+    
+    
+    class FreezeCellRenderer extends DefaultTableCellRenderer
+    {
+        private final Map<Point, Color> cellColors = new HashMap<Point, Color>();
+
+        void setCellColor(int r, int c, Color color)
+        {
+            if (color == null)
+            {
+                cellColors.remove(new Point(r,c));
+            }
+            else
+            {
+                cellColors.put(new Point(r,c), color);
+            }
+        }
+
+        private Color getCellColor(int r, int c)
+        {
+            Color color = cellColors.get(new Point(r,c));
+            if (color == null)
+            {
+                return Color.WHITE;
+            }
+            return color;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column)
+        {
+            super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+            Color color = getCellColor(row, column);
+            setBackground(color);
+            return this;
+        }
+
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 
 }

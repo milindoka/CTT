@@ -157,7 +157,7 @@ public class Controller {
     	   temp=stemp.split("#");
     	   
     	   for(int j=0;j<temp.length;j++)
-    		   view.SetData(temp[j], view.table,i,j);
+    		   view.SetData(temp[j].trim(), view.table,i,j);
     	}
     	
        }
