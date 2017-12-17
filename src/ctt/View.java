@@ -101,6 +101,7 @@ public class View {
     final String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
     //DisplayIndividual(teachercode);
     CreateIndi(teachercode);
+    CountGaps();
     UpdateDisplay(teachercode);
     DeleteLastEmptyTimeSlots();
     }
@@ -416,7 +417,39 @@ public class View {
     }
 
     
-    public void UpdateDisplay(String ind)
+    private void CountGaps()
+    { String temp;
+      int firstnonempty=0,lastnonempty=0;
+      for(int c=1;c<7;c++)
+      { lastnonempty=indirow;
+         for(lastnonempty=indirow;lastnonempty>0;lastnonempty--)
+    	  {
+    	       temp=Matrix[lastnonempty][c];
+		       if(temp.length()!=0) break;
+    	   }
+    
+         for(firstnonempty=0;firstnonempty<indirow;firstnonempty++)
+             { temp=Matrix[firstnonempty][c];
+	               if(temp.length()!=0) break;
+             }
+    
+        while(firstnonempty<lastnonempty)
+         {temp=Matrix[firstnonempty][c];
+	          if(temp.length()==0) GC++;
+    	   firstnonempty++;
+         }
+       }
+    }
+    
+    
+    
+   private void CountDoubles()
+   {      
+   }
+    
+    
+    
+    private void UpdateDisplay(String ind)
     {ClearIndividualTable();
     for (int i = 0; i < ROWCOUNT2; i++)
 	      for(int j = 0; j < table2.getColumnCount(); j++)
