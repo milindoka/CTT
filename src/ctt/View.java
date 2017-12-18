@@ -494,7 +494,7 @@ public class View {
    }
 
     
-    private void CountGaps()
+    public void CountGaps()
     { String temp;
       int firstnonempty=0,lastnonempty=0;
       for(int c=1;c<7;c++)
@@ -541,7 +541,7 @@ public class View {
     }
     
     
-   private void CountDoubles()
+   public void CountDoubles()
    { String temp,temp2;     
 	   for(int c=1;c<7;c++)
      {

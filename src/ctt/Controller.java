@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 
@@ -17,7 +19,9 @@ public class Controller {
     private Model model;
     private View view;
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL;
-    
+    private int globalCC;
+    private int globalDC;
+    private int globalGC;
     
     public Controller(Model model, View view){
         this.model = model;
@@ -100,8 +104,29 @@ public class Controller {
     }
     
     private void CalculateGlobalCounts()
-    { 	
-    	 	System.out.println("global");
+    { 	 Set<String> names = new LinkedHashSet<>();
+         String temp,tcode;
+    	 for(int r=0;r<view.ROWCOUNT-1;r++)	
+    		 for(int c=1;c<7;c++)
+    			 { 
+    			   temp=view.GetData(view.table, r, c);
+    			   if(temp.length()==0) continue;
+    			   tcode = temp.substring(temp.indexOf("("),temp.indexOf(")")+1);
+    			   names.add(tcode); 
+    			 }
+        
+    	 globalCC=0;globalDC=0;globalGC=0;
+    	 for (String name : names) 
+    	 { view.CreateIndi(name);
+    	   view.CountDoubles();
+    	   view.CountGaps();
+    	   globalCC+=view.CC;globalDC+=view.DC;globalGC+=view.GC;
+    		 
+    		}
+    System.out.println(globalCC);
+    System.out.println(globalDC);
+    System.out.println(globalGC);
+    	 	
     }
     
     
