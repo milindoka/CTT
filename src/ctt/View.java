@@ -23,6 +23,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -174,12 +175,6 @@ public class View {
                 
             }
             
-            
-            
-            
-            
-            
-            
               ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
             
             InputMap inputMap = table.getInputMap(JComponent.WHEN_FOCUSED);
@@ -214,7 +209,7 @@ public class View {
             InputMap inputMap2 = table.getInputMap(JComponent.WHEN_FOCUSED);
             ActionMap actionMap2 = table.getActionMap();
 
-            inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Freeze");
+            inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), "Freeze");
             actionMap2.put("Freeze", new AbstractAction() {
                 /**
 				 * 
@@ -232,13 +227,21 @@ public class View {
                    if (row >= 0 && col >= 0) {
                        row = table.convertRowIndexToModel(row);
                        col = table.convertColumnIndexToModel(col);
-                      fRenderer.setCellColor(row,col,Color.YELLOW);
-                      table.repaint();
+                      if(col!=0)
+                      {
+                    	  Color color=fRenderer.getCellColor(row,col);  
+                    	  if(color==Color.WHITE)
+                    	  fRenderer.setCellColor(row,col,Color.YELLOW);
+                    	  else
+                    		  fRenderer.setCellColor(row,col,Color.WHITE);
+                      
+                    	  table.repaint();
+                      }
+                      
                    }
                 }
             });            
      /////////---------------END OF FREEZE-------------------------------------
-            
             
             
             
