@@ -151,9 +151,21 @@ public class View {
             for(int i=0;i<ROWCOUNT;i++) model.addRow(new Object[]{"", "", "","","","",""});
             
             table.getColumnModel().getColumn(0).setMinWidth(100);
-            ExcelAdapter myAd = new ExcelAdapter(table);
+            //ExcelAdapter myAd = new ExcelAdapter(table);
             JScrollPane scrollPane = new JScrollPane(table);
 
+            /////////////////
+            
+            TableColumnModel colModel = table.getColumnModel();
+            int ccc = colModel.getColumnCount();
+            for (int c=0; c<ccc; c++)
+            {
+                TableColumn column = colModel.getColumn(c);
+                column. setCellRenderer(fRenderer);
+                
+            }
+            
+            
             
             //////////////    Focus Listner
             //////////////
@@ -166,14 +178,7 @@ public class View {
             table.setSelectionModel(listSelectionModel);
      
             
-            TableColumnModel colModel = table.getColumnModel();
-            int ccc = colModel.getColumnCount();
-            for (int c=0; c<ccc; c++)
-            {
-                TableColumn column = colModel.getColumn(c);
-                column.setCellRenderer(fRenderer);
-                
-            }
+            
             
               ///--------DELETE KEY TO REMOVE CURRENT CELL CONTENT--------------------------------------
             
@@ -233,7 +238,7 @@ public class View {
                     	  if(color==Color.WHITE)
                     	  fRenderer.setCellColor(row,col,Color.YELLOW);
                     	  else
-                    		  fRenderer.setCellColor(row,col,Color.WHITE);
+                    		  fRenderer.setCellColor(row,col,null);
                       
                     	  table.repaint();
                       }
@@ -641,8 +646,8 @@ public class View {
     
     
     class FreezeCellRenderer extends DefaultTableCellRenderer
-    {
-        private final Map<Point, Color> cellColors = new HashMap<Point, Color>();
+    {	
+    	private final Map<Point, Color> cellColors = new HashMap<Point, Color>();
 
         void setCellColor(int r, int c, Color color)
         {
@@ -666,7 +671,7 @@ public class View {
             return color;
         }
 
-        @Override
+       // @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column)
         {
@@ -679,13 +684,6 @@ public class View {
 
     
     }
-    
-    
-    
-    
-    
-    
-    
     
     
 
