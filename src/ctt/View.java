@@ -307,7 +307,7 @@ public class View {
         SaveBT = new JButton("Save Time Table");
         PrinCU = new JButton("Print Current Time Table");
         SetPRN = new JButton("Set Printer");
-        b5 = new JButton("Button5");
+        b5 = new JButton("Global Counts");
         
         b6 = new JButton("Button6");
         b7 = new JButton("Button7");
@@ -389,6 +389,11 @@ public class View {
 
     public JButton getSetPRN()
     { return SetPRN;
+    }
+    
+    public JButton getb5()
+    {return b5;
+    	
     }
     
     

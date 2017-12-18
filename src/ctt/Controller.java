@@ -16,7 +16,7 @@ public class Controller {
 
     private Model model;
     private View view;
-    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL;
+    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL;
     
     
     public Controller(Model model, View view){
@@ -68,6 +68,17 @@ public class Controller {
         };                
         view.getSetPRN().addActionListener(SetprnAL);
         
+        GlobalCountsAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+                  CalculateGlobalCounts();
+              }
+        };                
+        view.getb5().addActionListener(GlobalCountsAL);
+        
+        
+        
         /////Set Preferred Printer on Startup
         
         SetPrinter sp=new SetPrinter();
@@ -87,6 +98,13 @@ public class Controller {
         sp.SavePreferences();
     	
     }
+    
+    private void CalculateGlobalCounts()
+    { 	
+    	 	System.out.println("global");
+    }
+    
+    
     
     
     private void PrinCUTT()
