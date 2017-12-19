@@ -18,7 +18,7 @@ public class Controller {
 
     private Model model;
     private View view;
-    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL;
+    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttontAL;
     private int globalCC;
     private int globalDC;
     private int globalGC;
@@ -72,6 +72,21 @@ public class Controller {
         };                
         view.getSetPRN().addActionListener(SetprnAL);
         
+        
+        
+        DEMObuttontAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+                  SetDemoTimeTable();
+              }
+        };                
+        view.getDEMObutton().addActionListener(DEMObuttontAL);
+        
+        
+        
+        
+        
         GlobalCountsAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
@@ -92,6 +107,24 @@ public class Controller {
         view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change)");
         
     }
+    
+    
+    
+    
+    public void SetDemoTimeTable()
+    {
+    	view.SetData(Demo.demoarr[0][0], view.table, 0,0);
+		for (int i=0;i<1;i++)
+		{    
+			   for(int j=0;j<7;j++)
+			   {
+				   
+			   }
+		}	     
+
+    }
+    
+    
     
     private void SetDefaultPrinter()
     { 	

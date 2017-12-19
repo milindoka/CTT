@@ -33,7 +33,7 @@ public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
     private JFrame frame;
-    private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;
+    private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,DEMObutton,b7,b8,b9,b10,b11,b12,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; 
@@ -309,7 +309,7 @@ public class View {
         SetPRN = new JButton("Set Printer");
         b5 = new JButton("Global Counts");
         
-        b6 = new JButton("Button6");
+        DEMObutton = new JButton("Demo Time Table");
         b7 = new JButton("Button7");
         b8 = new JButton("Button8");
         b9 = new JButton("Button9");
@@ -329,7 +329,7 @@ public class View {
         buttonPanel.add(SetPRN);
         
         buttonPanel.add(b5);
-        buttonPanel.add(b6);
+        buttonPanel.add(DEMObutton);
         buttonPanel.add(b7);
         buttonPanel.add(b8);
         buttonPanel.add(b9);
@@ -395,6 +395,11 @@ public class View {
     {return b5;
     	
     }
+    
+    public JButton getDEMObutton()
+    { return DEMObutton;
+    }
+    
     
     
     public void DisplayClass(String clas)
@@ -582,7 +587,7 @@ public class View {
    countLabel.setText(label);
 	   
    }
-    
+
     
     private void UpdateDisplay(String ind)
     {ClearIndividualTable();
