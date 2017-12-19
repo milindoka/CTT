@@ -175,6 +175,9 @@ public class Controller {
        view.SetData(o2, view.table,r2,c2); return;
       }
       ///now clash count is equal so look for additional optimization
+      
+      if(globalDC<odc) return;//if double count decreases then accept 
+      
       if(globalDC>odc)
       {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
       view.SetData(o2, view.table,r2,c2); return;
