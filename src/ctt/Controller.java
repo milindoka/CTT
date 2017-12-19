@@ -123,10 +123,9 @@ public class Controller {
     	   globalCC+=view.CC;globalDC+=view.DC;globalGC+=view.GC;
     		 
     		}
-    System.out.println(globalCC);
-    System.out.println(globalDC);
-    System.out.println(globalGC);
-    	 	
+    
+   String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",  globalCC,globalDC,globalGC);   
+   view.ShowGlobalCounts(countLabel);    	 	
     }
     
     

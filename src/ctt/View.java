@@ -44,8 +44,8 @@ public class View {
     
     
     int CC,DC,GC,indirow,lecturecount;
-    JLabel cc,dc,gc;
-    String ClashCount,DoubleCount,GapCount;   
+    JLabel countLabel; ///,dc,gc; 
+    String allcounts;
     ListSelectionModel listSelectionModel;
     
     int ROWS=25,COLS=7;  ////For create display matrix
@@ -342,16 +342,16 @@ public class View {
         buttonPanel.add(b15);
         
         
-        cc = new JLabel("CC :");
-        dc = new JLabel("DC :");
-        gc = new JLabel("GC :");
+        countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
+        //dc = new JLabel("DC :");
+        //gc = new JLabel("GC :");
         
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
       //  countpanel.setLayout(new FlowLayout());
         countpanel.setPreferredSize(new Dimension(200, 25));
-        countpanel.add(cc); 
-        countpanel.add(dc); 
-        countpanel.add(gc);
+        countpanel.add(countLabel); 
+        //countpanel.add(dc); 
+        //countpanel.add(gc);
        
         JPanel southpanel=new JPanel();
         southpanel.setLayout(new BorderLayout());
@@ -571,11 +571,15 @@ public class View {
 	    String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
 	    tc.setHeaderValue(LectureCount);th.repaint();
 	    
-	    ClashCount=String.format("CC : %d  ",CC);
-	    DoubleCount=String.format("DC : %d  ",DC);
-	    GapCount=String.format("GC : %d",GC);
-	    cc.setText(ClashCount); dc.setText(DoubleCount); gc.setText(GapCount);
+	    allcounts=String.format("CC : %d  DC : %d  GC : %d",CC,DC,GC);
+	    countLabel.setText(allcounts);
 
+	   
+   }
+   
+   public void ShowGlobalCounts(String label)
+   {
+   countLabel.setText(label);
 	   
    }
     
