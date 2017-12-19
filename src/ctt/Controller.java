@@ -12,13 +12,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import com.sun.xml.internal.ws.util.StringUtils;
 
 public class Controller {
 
     private Model model;
     private View view;
-    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttontAL;
+    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL,REMCLASHbuttonAL;
     private int globalCC;
     private int globalDC;
     private int globalGC;
@@ -74,16 +76,26 @@ public class Controller {
         
         
         
-        DEMObuttontAL = new ActionListener()
+        DEMObuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
                   SetDemoTimeTable();
               }
         };                
-        view.getDEMObutton().addActionListener(DEMObuttontAL);
+        view.getDEMObutton().addActionListener(DEMObuttonAL);
         
         
+
+        
+        REMCLASHbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+                  RemoveClashGapDoubles();
+              }
+        };                
+        view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
         
         
         
@@ -92,6 +104,7 @@ public class Controller {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
                   CalculateGlobalCounts();
+                  DisplayAllCounts();
               }
         };                
         view.getb5().addActionListener(GlobalCountsAL);
@@ -110,15 +123,69 @@ public class Controller {
     
     
     
+    public void RemoveClashGapDoubles()
+    {int sourcerow=1;int sourcecol=1;
+    	
+    for(sourcerow=1;sourcerow<30;sourcerow++)
+    { for(sourcecol=1;sourcecol<7;sourcecol++)
+       {
+          
+    	for(int r=0;r<30;r++)
+    	  { for(int c=1;c<7;c++)
+    	      ExchangeCells(sourcerow,sourcecol,r,c);
+    	   }
+        }
     
-    public void SetDemoTimeTable()
+    }
+    JOptionPane.showMessageDialog(null," Message Box Demo.");  
+      
+    }
+    
+    String o1,o2;
+    int occ,odc,ogc;
+    
+    public void ExchangeCells(int r1,int c1,int r2,int c2)
+    { o1=view.GetData(view.table, r1,c1);
+      if(o1.length()==0) return;    
+      o2=view.GetData(view.table, r2,c2);
+      if(o2.length()==0) return;
+      CalculateGlobalCounts();
+      
+      //
+      occ=globalCC;odc=globalDC;ogc=globalGC;
+      view.SetData(o2, view.table,r1,c1); ///EXCHANGE CELLS
+      view.SetData(o1, view.table,r2,c2);
+      CalculateGlobalCounts();
+      if(globalCC>occ)
+      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
+      view.SetData(o2, view.table,r2,c2); return;
+      }
+      if(globalDC>odc)
+      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
+      view.SetData(o2, view.table,r2,c2); return;
+      }
+      if(globalGC>ogc)
+      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
+      view.SetData(o2, view.table,r2,c2); return;
+      }
+      
+      DisplayAllCounts();
+    }
+    
+    
+    private void MessageBox() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void SetDemoTimeTable()
     {
     	//view.SetData(Demo.demoarr[0][0], view.table, 0,0);
-		for (int i=0;i<10;i++)
+		for (int i=0;i<Demo.demoarr.length;i++)
 		{    
 			   for(int j=0;j<Demo.demoarr[i].length;j++)
 			   {
-				   view.SetData2(Demo.demoarr[i][j],i,j);
+				   view.SetData(Demo.demoarr[i][j],view.table,i,j);
 				   
 			   }
 		}	    
@@ -160,11 +227,14 @@ public class Controller {
     		 
     		}
     
-   String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",  globalCC,globalDC,globalGC);   
-   view.ShowGlobalCounts(countLabel);    	 	
+       	 
     }
     
-    
+    public void DisplayAllCounts()
+    {String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",  globalCC,globalDC,globalGC);   
+    view.ShowGlobalCounts(countLabel);
+    	
+    }
     
     
     private void PrinCUTT()

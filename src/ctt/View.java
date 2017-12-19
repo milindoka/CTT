@@ -33,7 +33,7 @@ public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
     private JFrame frame;
-    private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,DEMObutton,b7,b8,b9,b10,b11,b12,b13,b14,b15;
+    private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,DEMObutton,REMCLASHbutton,b8,b9,b10,b11,b12,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; 
@@ -310,7 +310,7 @@ public class View {
         b5 = new JButton("Global Counts");
         
         DEMObutton = new JButton("Demo Time Table");
-        b7 = new JButton("Button7");
+        REMCLASHbutton = new JButton("Remove Clash");
         b8 = new JButton("Button8");
         b9 = new JButton("Button9");
         b10= new JButton("Button10");
@@ -330,7 +330,7 @@ public class View {
         
         buttonPanel.add(b5);
         buttonPanel.add(DEMObutton);
-        buttonPanel.add(b7);
+        buttonPanel.add(REMCLASHbutton);
         buttonPanel.add(b8);
         buttonPanel.add(b9);
         buttonPanel.add(b10);
@@ -394,6 +394,11 @@ public class View {
     public JButton getb5()
     {return b5;
     	
+    }
+    
+    public JButton getREMCLASHbutton()
+    {
+    	return REMCLASHbutton;
     }
     
     public JButton getDEMObutton()
