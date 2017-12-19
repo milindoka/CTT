@@ -13,6 +13,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 
@@ -24,7 +25,7 @@ public class Controller {
     private int globalCC;
     private int globalDC;
     private int globalGC;
-    
+    private int improvedCC,improvedDC,improvedGC;    
     public Controller(Model model, View view){
         this.model = model;
         this.view = view;
@@ -92,9 +93,10 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
-                  RemoveClashGapDoubles();
-              }
-        };                
+            	            	            	RemoveClashGapDoubles();       
+               }
+            	};
+               
         view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
         
         
@@ -125,24 +127,30 @@ public class Controller {
     
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;
-    	
+    CalculateGlobalCounts();
+    improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
+    DisplayImprovedCounts();
     for(sourcerow=1;sourcerow<30;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
        {
           
     	for(int r=0;r<30;r++)
+    	
     	  { for(int c=1;c<7;c++)
     	      ExchangeCells(sourcerow,sourcecol,r,c);
     	   }
         }
-    
+      //DisplayImprovedCounts();
+    //  String plate=String.format("%d %d %d", improved)
+      JOptionPane.showMessageDialog(null,"continue");
     }
-    JOptionPane.showMessageDialog(null," Message Box Demo.");  
-      
+     
+    JOptionPane.showMessageDialog(null,"Over");    
     }
     
     String o1,o2;
     int occ,odc,ogc;
+    
     
     public void ExchangeCells(int r1,int c1,int r2,int c2)
     { o1=view.GetData(view.table, r1,c1);
@@ -156,10 +164,17 @@ public class Controller {
       view.SetData(o2, view.table,r1,c1); ///EXCHANGE CELLS
       view.SetData(o1, view.table,r2,c2);
       CalculateGlobalCounts();
-      if(globalCC>occ)
+      
+      if(globalCC<occ) ///if clash count decreases then accept it and return
       {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
-      view.SetData(o2, view.table,r2,c2); return;
+       view.SetData(o2, view.table,r2,c2); return;
       }
+      
+      if(globalCC>occ) ///if clash count increases then reset and return
+      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
+       view.SetData(o2, view.table,r2,c2); return;
+      }
+      ///now clash count is equal so look for additional optimization
       if(globalDC>odc)
       {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
       view.SetData(o2, view.table,r2,c2); return;
@@ -168,8 +183,8 @@ public class Controller {
       {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
       view.SetData(o2, view.table,r2,c2); return;
       }
-      
-      DisplayAllCounts();
+      improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
+      DisplayImprovedCounts();
     }
     
     
@@ -236,6 +251,10 @@ public class Controller {
     	
     }
     
+    public void DisplayImprovedCounts()
+    {String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",improvedCC,improvedDC,improvedGC);   
+    view.ShowGlobalCounts(countLabel);
+    }
     
     private void PrinCUTT()
     { 
