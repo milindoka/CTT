@@ -113,14 +113,17 @@ public class Controller {
     
     public void SetDemoTimeTable()
     {
-    	view.SetData(Demo.demoarr[0][0], view.table, 0,0);
-		for (int i=0;i<1;i++)
+    	//view.SetData(Demo.demoarr[0][0], view.table, 0,0);
+		for (int i=0;i<10;i++)
 		{    
-			   for(int j=0;j<7;j++)
+			   for(int j=0;j<Demo.demoarr[i].length;j++)
 			   {
+				   view.SetData2(Demo.demoarr[i][j],i,j);
 				   
 			   }
-		}	     
+		}	    
+		
+		view.table.repaint();
 
     }
     
