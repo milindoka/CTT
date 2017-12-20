@@ -171,6 +171,7 @@ public class Controller {
       ////// Now exchange CELLS
       view.SetData(o2, view.table,r1,c1); 
       view.SetData(o1, view.table,r2,c2);
+      
       ///count again .....////////////
       
       
@@ -202,7 +203,7 @@ public class Controller {
        view.SetData(o2, view.table,r2,c2); 
        return;
       }
-      // now gaps are equal and less
+      // now gaps are equal or less
       //  other counts are unchanged so no need to reset cells 
       
     }
@@ -214,13 +215,20 @@ public class Controller {
 		{ String parts[]=cell.split(",");
 		  for(int i=0;i<parts.length;i++)
 			  { tcode=parts[i].substring(parts[i].indexOf("("),parts[i].indexOf(")")+1);
-			    view.CreateIndi(tcode); 			  
+			    view.CreateIndi(tcode); 	
+			    view.CountGaps();
+			    view.CountDoubles();
+			 
 			    occ+=view.CC;odc+=view.DC;ogc+=view.GC;
 			  }
+		  
 		}
    else ///single lecture
    { tcode = cell.substring(cell.indexOf("("),cell.indexOf(")")+1);
      view.CreateIndi(tcode);
+	    view.CountGaps();
+	    view.CountDoubles();
+     
       occ=view.CC;odc=view.DC;ogc=view.GC;
    }
 	   
@@ -237,7 +245,6 @@ public class Controller {
 				   view.SetData(Demo.demoarr[i][j],view.table,i,j);
 			   }
 		}	    
-//		view.table.repaint();
 
     }
     
