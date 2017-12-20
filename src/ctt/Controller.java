@@ -25,7 +25,7 @@ public class Controller {
     private int globalCC;
     private int globalDC;
     private int globalGC;
-    private int improvedCC,improvedDC,improvedGC;    
+ //   private int improvedCC,improvedDC,improvedGC;    
     public Controller(Model model, View view){
         this.model = model;
         this.view = view;
@@ -129,8 +129,8 @@ public class Controller {
     {int sourcerow=1;int sourcecol=1;
      CalculateGlobalCounts();
     
-    improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
-    DisplayImprovedCounts();
+ //   improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
+  //  DisplayImprovedCounts();
    
     for(sourcerow=1;sourcerow<30;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
@@ -142,7 +142,7 @@ public class Controller {
     	      ExchangeCells(sourcerow,sourcecol,r,c);
     	   }
         }
-      //DisplayImprovedCounts();
+      DisplayAllCounts();
     //  String plate=String.format("%d %d %d", improved)
       JOptionPane.showMessageDialog(null,"continue");
     }
@@ -154,10 +154,11 @@ public class Controller {
     int occ,odc,ogc;
     int sCCbefore,sDCbefore,sGCbefore;
     int sCCafter,sDCafter,sGCafter;
-    int tCCafter,tDCafter,tGCafter;
     int tCCbefore,tDCbefore,tGCbefore;
+    int tCCafter,tDCafter,tGCafter;
+    
     public void ExchangeCells(int r1,int c1,int r2,int c2)
-    { String tcode;
+    { //String tcode;
       o1=view.GetData(view.table, r1,c1);
       if(o1.length()==0) return;    
       o2=view.GetData(view.table, r2,c2);
@@ -171,6 +172,8 @@ public class Controller {
       view.SetData(o2, view.table,r1,c1); 
       view.SetData(o1, view.table,r2,c2);
       ///count again .....////////////
+      
+      
       getIndividualCounts(o1);
       sCCafter=occ;sDCafter=odc;sGCafter=ogc;
       getIndividualCounts(o2);
@@ -178,42 +181,36 @@ public class Controller {
       
       /////// Evaluate EXHANGE carefully      
       
-      if(sCCafter+tCCafter<sCCbefore+tCCbefore) return; ///clash decreased
+      if(sCCafter+tCCafter<sCCbefore+tCCbefore) return; ///clash decreased then return
       if(sCCafter+tCCafter>sCCbefore+tCCbefore) //clash increased so restore cells
     	  {view.SetData(o1, view.table,r1,c1);  // and then return;
            view.SetData(o2, view.table,r2,c2); 
            return;
           } 
       
-      if(globalCC<occ) ///if clash count decreases then accept it and return
-      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
-       view.SetData(o2, view.table,r2,c2); return;
+      ///now clash counts are unchanged by EXHANGE so look for additional optimization if possible
+      if(sDCafter+tDCafter<sDCbefore+tDCbefore) return; ///doubles decreased so return
+      if(sDCafter+tDCafter>sDCbefore+tDCbefore) // doubles increased so restore cells
+	  {view.SetData(o1, view.table,r1,c1);  // and then return;
+       view.SetData(o2, view.table,r2,c2); 
+       return;
+      } 
+
+       ////  Now doubles and clashes are unchanged so look for gaps reduction if possible
+      if(sGCafter+tGCafter>sGCbefore+tGCbefore) // gaps increased so restore cells
+	  {view.SetData(o1, view.table,r1,c1);  // and then return;
+       view.SetData(o2, view.table,r2,c2); 
+       return;
       }
+      // now gaps are equal and less
+      //  other counts are unchanged so no need to reset cells 
       
-      if(globalCC>occ) ///if clash count increases then reset and return
-      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
-       view.SetData(o2, view.table,r2,c2); return;
-      }
-      ///now clash count is equal so look for additional optimization
-      
-      if(globalDC<odc) return;//if double count decreases then accept 
-      
-      if(globalDC>odc)
-      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
-      view.SetData(o2, view.table,r2,c2); return;
-      }
-      if(globalGC>ogc)
-      {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
-      view.SetData(o2, view.table,r2,c2); return;
-      }
-      improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
-      DisplayImprovedCounts();
     }
     
    private void getIndividualCounts(String cell) ///nonempty cell string, including , separated lectures
-   {int occ=0, odc=0, ogc=0; /////initialize original counts
+   { occ=0; odc=0; ogc=0; /////initialize original counts
     String tcode;
-    if(o1.contains(",")) 
+    if(cell.contains(",")) 
 		{ String parts[]=cell.split(",");
 		  for(int i=0;i<parts.length;i++)
 			  { tcode=parts[i].substring(parts[i].indexOf("("),parts[i].indexOf(")")+1);
@@ -222,7 +219,8 @@ public class Controller {
 			  }
 		}
    else ///single lecture
-   { tcode = o1.substring(o1.indexOf("("),o1.indexOf(")")+1);
+   { tcode = cell.substring(cell.indexOf("("),cell.indexOf(")")+1);
+     view.CreateIndi(tcode);
       occ=view.CC;odc=view.DC;ogc=view.GC;
    }
 	   
@@ -295,12 +293,12 @@ public class Controller {
     view.ShowGlobalCounts(countLabel);
     	
     }
-    
+  /*  
     public void DisplayImprovedCounts()
     {String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",improvedCC,improvedDC,improvedGC);   
     view.ShowGlobalCounts(countLabel);
     }
-    
+    */
     private void PrinCUTT()
     { 
       PrintMaster pm=new PrintMaster();
