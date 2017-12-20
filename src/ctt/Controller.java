@@ -128,10 +128,7 @@ public class Controller {
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;
      CalculateGlobalCounts();
-    
- //   improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
-  //  DisplayImprovedCounts();
-   
+    String class1,class2;
     for(sourcerow=1;sourcerow<30;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
        {
@@ -139,10 +136,17 @@ public class Controller {
     	for(int r=0;r<30;r++)
     	
     	  { for(int c=1;c<7;c++)
-    	      ExchangeCells(sourcerow,sourcecol,r,c);
+    		  {class1=view.GetData(view.table,sourcerow,0);
+    		  class2=view.GetData(view.table,r,0);
+    		  if(!class1.contains(class2)) continue;
+              //JOptionPane.showMessageDialog(null, class1+"="+class2)    		  
+    		   ExchangeCells(sourcerow,sourcecol,r,c);
+    		  }
     	   }
         }
-      DisplayAllCounts();
+    CalculateGlobalCounts();
+    DisplayAllCounts();
+     
     //  String plate=String.format("%d %d %d", improved)
       JOptionPane.showMessageDialog(null,"continue");
     }

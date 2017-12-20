@@ -666,28 +666,37 @@ public class View {
     
     class FreezeCellRenderer extends DefaultTableCellRenderer
     {	
-    	private final Map<Point, Color> cellColors = new HashMap<Point, Color>();
+    	
+    	private int ColorMatrix[][]= new int[100][7];
+    	
+    	FreezeCellRenderer() 
+    	{for(int r=0;r<ROWCOUNT;r++)
+    		for(int c=0;c<7;c++) ColorMatrix[r][c]=0;
+    		
+    	}
 
         void setCellColor(int r, int c, Color color)
         {
             if (color == null)
             {
-                cellColors.remove(new Point(r,c));
+                ColorMatrix[r][c]=0;
             }
             else
             {
-                cellColors.put(new Point(r,c), color);
+                ColorMatrix[r][c]=1;
             }
         }
 
         private Color getCellColor(int r, int c)
         {
-            Color color = cellColors.get(new Point(r,c));
-            if (color == null)
+            //Color color = cellColors.get(new Point(r,c));
+            
+        	if(ColorMatrix[r][c]==0)
+     
             {
                 return Color.WHITE;
             }
-            return color;
+            return Color.YELLOW;
         }
 
        // @Override
