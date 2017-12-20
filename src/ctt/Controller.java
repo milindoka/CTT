@@ -93,7 +93,7 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
-            	            	            	RemoveClashGapDoubles();       
+            	RemoveClashGapDoubles();       
                }
             	};
                
@@ -127,9 +127,11 @@ public class Controller {
     
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;
-    CalculateGlobalCounts();
+     CalculateGlobalCounts();
+    
     improvedCC=globalCC;improvedDC=globalDC;improvedGC=globalGC;
     DisplayImprovedCounts();
+   
     for(sourcerow=1;sourcerow<30;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
        {
@@ -150,20 +152,38 @@ public class Controller {
     
     String o1,o2;
     int occ,odc,ogc;
-    
-    
+    int sCCbefore,sDCbefore,sGCbefore;
+    int sCCafter,sDCafter,sGCafter;
+    int tCCafter,tDCafter,tGCafter;
+    int tCCbefore,tDCbefore,tGCbefore;
     public void ExchangeCells(int r1,int c1,int r2,int c2)
-    { o1=view.GetData(view.table, r1,c1);
+    { String tcode;
+      o1=view.GetData(view.table, r1,c1);
       if(o1.length()==0) return;    
       o2=view.GetData(view.table, r2,c2);
       if(o2.length()==0) return;
-      CalculateGlobalCounts();
-      
-      //
-      occ=globalCC;odc=globalDC;ogc=globalGC;
-      view.SetData(o2, view.table,r1,c1); ///EXCHANGE CELLS
+     // CalculateGlobalCounts();
+      getIndividualCounts(o1);
+      sCCbefore=occ;sDCbefore=odc;sGCbefore=ogc;
+      getIndividualCounts(o2);
+      tCCbefore=occ;tDCbefore=odc;tGCbefore=ogc;
+      ////// Now exchange CELLS
+      view.SetData(o2, view.table,r1,c1); 
       view.SetData(o1, view.table,r2,c2);
-      CalculateGlobalCounts();
+      ///count again .....////////////
+      getIndividualCounts(o1);
+      sCCafter=occ;sDCafter=odc;sGCafter=ogc;
+      getIndividualCounts(o2);
+      tCCafter=occ;tDCafter=odc;tGCafter=ogc;
+      
+      /////// Evaluate EXHANGE carefully      
+      
+      if(sCCafter+tCCafter<sCCbefore+tCCbefore) return; ///clash decreased
+      if(sCCafter+tCCafter>sCCbefore+tCCbefore) //clash increased so restore cells
+    	  {view.SetData(o1, view.table,r1,c1);  // and then return;
+           view.SetData(o2, view.table,r2,c2); 
+           return;
+          } 
       
       if(globalCC<occ) ///if clash count decreases then accept it and return
       {view.SetData(o1, view.table,r1,c1); ///RESET CELLS
@@ -190,11 +210,24 @@ public class Controller {
       DisplayImprovedCounts();
     }
     
-    
-    private void MessageBox() {
-		// TODO Auto-generated method stub
-		
-	}
+   private void getIndividualCounts(String cell) ///nonempty cell string, including , separated lectures
+   {int occ=0, odc=0, ogc=0; /////initialize original counts
+    String tcode;
+    if(o1.contains(",")) 
+		{ String parts[]=cell.split(",");
+		  for(int i=0;i<parts.length;i++)
+			  { tcode=parts[i].substring(parts[i].indexOf("("),parts[i].indexOf(")")+1);
+			    view.CreateIndi(tcode); 			  
+			    occ+=view.CC;odc+=view.DC;ogc+=view.GC;
+			  }
+		}
+   else ///single lecture
+   { tcode = o1.substring(o1.indexOf("("),o1.indexOf(")")+1);
+      occ=view.CC;odc=view.DC;ogc=view.GC;
+   }
+	   
+	   
+   }
 
 	public void SetDemoTimeTable()
     {
