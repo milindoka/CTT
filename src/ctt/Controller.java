@@ -204,11 +204,9 @@ public class Controller {
 			   for(int j=0;j<Demo.demoarr[i].length;j++)
 			   {
 				   view.SetData(Demo.demoarr[i][j],view.table,i,j);
-				   
 			   }
 		}	    
-		
-		view.table.repaint();
+//		view.table.repaint();
 
     }
     
@@ -232,6 +230,17 @@ public class Controller {
     			 { 
     			   temp=view.GetData(view.table, r, c);
     			   if(temp.length()==0) continue;
+    			   if(temp.contains(",")) 
+    			   		{ String parts[]=temp.split(temp);
+    			   		  for(int i=0;i<parts.length;i++)
+    			   			  { tcode=parts[i].substring(parts[i].indexOf("("),parts[i].indexOf(")")+1);
+    			   			    names.add(tcode); 			  
+    			   			  }
+    			   		  continue;
+    			   		}
+    			   
+    			   
+    			   
     			   tcode = temp.substring(temp.indexOf("("),temp.indexOf(")")+1);
     			   names.add(tcode); 
     			 }
