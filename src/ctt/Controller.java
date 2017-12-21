@@ -119,7 +119,7 @@ public class Controller {
         String printername=sp.LoadPreferences();
         if(printername==null) printername="No Printer";
         model.setPrinterName(printername);
-        view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change)");
+        view.getSetPRN().setText("Printer : "+ printername);
         
     }
     
@@ -319,6 +319,15 @@ public class Controller {
       pm.PrintMasterChart(printername);
     }
     
+    String SixTupleColor(int row)
+    {String temp="";
+    
+       for(int c=1;c<7;c++)
+    	   if(view.ColorMatrix[row][c]==0) temp+="0"; else temp+="1";
+    
+    return temp;
+    	
+    }
     
     private void SaveTT()
     {
@@ -337,12 +346,14 @@ public class Controller {
     	
     	 for(int i=0;i<rowcount-1;i++)
     	 {  
-    		 for(int j=0;j<6;j++)
+    		 for(int j=0;j<7;j++)
     	        {  try { f0.write(view.GetData(view.table,i,j)+"#"); }    
     	           catch (IOException e) {e.printStackTrace();}
     	        }
-    	    try { f0.write(view.GetData(view.table,i,6));}   ////last Saturday cell, No # here     
-    	          catch (IOException e) {e.printStackTrace();}
+    		 
+    	    try { f0.write(SixTupleColor(i));}   ////Write row cell Colors as 010010 6-tuple     
+	          catch (IOException e) {e.printStackTrace();} ///no "#" after last entry
+  		
     	    try { f0.write(newLine);}                        //// New line after every row
     	          catch (IOException e) {e.printStackTrace();}
     
@@ -377,8 +388,11 @@ public class Controller {
     	{  stemp=strArray.get(i);
     	   temp=stemp.split("#");
     	   
-    	   for(int j=0;j<temp.length;j++)
-    		   view.SetData(temp[j].trim(), view.table,i,j);
+    	   for(int j=0;j<7;j++)
+    		  view.SetData(temp[j].trim(), view.table,i,j);
+    		  
+           for(int c=0;c<6;c++) view.ColorMatrix[i][c+1]=temp[7].charAt(c)-'0';
+    	   
     	}
     	
        }
