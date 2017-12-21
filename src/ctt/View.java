@@ -32,7 +32,8 @@ import java.util.Map;
 public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
-    private JFrame frame;
+	int ColorMatrix[][]= new int[100][7];
+	private JFrame frame;
     private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,DEMObutton,REMCLASHbutton,b8,b9,b10,b11,b12,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -636,6 +637,8 @@ public class View {
     
     public class ColoringCellRenderer extends DefaultTableCellRenderer
     {
+    	Color clashred=new Color(255,200,200);
+    	
     	  public Component getTableCellRendererComponent(JTable table, 
     	Object obj, boolean isSelected, boolean hasFocus, int row, int column) 
     	  {
@@ -648,7 +651,7 @@ public class View {
 
     	    if (colYearValue.contains(";"))
     	    {
-    	        cell.setBackground(Color.cyan);
+    	        cell.setBackground(clashred);
     	    }
     	     else 
     	    {
@@ -661,14 +664,11 @@ public class View {
 
     }
 
-    int ColorMatrix[][]= new int[100][7]; 
+     
     
     
     class FreezeCellRenderer extends DefaultTableCellRenderer
     {	
-    	
-    	
-    	
     	FreezeCellRenderer() 
     	{for(int r=0;r<ROWCOUNT;r++)
     		for(int c=0;c<7;c++) ColorMatrix[r][c]=0;
@@ -707,6 +707,28 @@ public class View {
                 table, value, isSelected, hasFocus, row, column);
             Color color = getCellColor(row, column);
             setBackground(color);
+
+            
+    	    TableModel model = table.getModel();
+    	    
+    	    String colYearValue = (String) model.getValueAt(row, column);
+
+    	    if (colYearValue.contains(":"))
+    	    {
+    	        setBackground(Color.GREEN);
+    	    }
+    	     else 
+    	    {
+    	        setBackground(Color.WHITE);
+    	    }
+
+            
+            
+            
+            
+            
+            
+            
             return this;
         }
 
