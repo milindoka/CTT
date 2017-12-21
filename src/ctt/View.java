@@ -661,13 +661,13 @@ public class View {
 
     }
 
-    
+    int ColorMatrix[][]= new int[100][7]; 
     
     
     class FreezeCellRenderer extends DefaultTableCellRenderer
     {	
     	
-    	private int ColorMatrix[][]= new int[100][7];
+    	
     	
     	FreezeCellRenderer() 
     	{for(int r=0;r<ROWCOUNT;r++)
@@ -677,7 +677,7 @@ public class View {
 
         void setCellColor(int r, int c, Color color)
         {
-            if (color == null)
+            if (color ==Color.WHITE)
             {
                 ColorMatrix[r][c]=0;
             }

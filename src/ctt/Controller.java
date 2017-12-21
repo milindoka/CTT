@@ -124,7 +124,6 @@ public class Controller {
     }
     
     
-    
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;
      CalculateGlobalCounts();
@@ -132,11 +131,12 @@ public class Controller {
     for(sourcerow=1;sourcerow<30;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
        {
-          
+    	if(view.ColorMatrix[sourcerow][sourcecol]==1) continue;
     	for(int r=0;r<30;r++)
     	
     	  { for(int c=1;c<7;c++)
-    		  {class1=view.GetData(view.table,sourcerow,0);
+    		  {if(view.ColorMatrix[r][c]==1) continue;
+    		  class1=view.GetData(view.table,sourcerow,0);
     		  class2=view.GetData(view.table,r,0);
     		  if(!class1.contains(class2)) continue;
               //JOptionPane.showMessageDialog(null, class1+"="+class2)    		  
