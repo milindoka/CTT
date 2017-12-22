@@ -25,19 +25,28 @@ public class Controller {
     private int globalCC;
     private int globalDC;
     private int globalGC;
- //   private int improvedCC,improvedDC,improvedGC;    
-    public Controller(Model model, View view){
+    public Controller(Model model, View view)
+    {
         this.model = model;
         this.view = view;
-       // String path;
      
 	     System.out.println(model.getJarPath()); ///set JAR path in model variable path;
-
-                          
     }
     
-    public void contol()
-    {        
+    public void control()
+    {  
+    	
+ /////Set Preferred Printer on Startup
+        
+        SetPrinter sp=new SetPrinter();
+        String printername=sp.LoadPreferences();
+        if(printername==null) printername="No Printer";
+        model.setPrinterName(printername);
+        view.getSetPRN().setText("Printer : "+ printername);
+    	
+    	
+    	
+    	
         SaveAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) {                  
@@ -76,6 +85,18 @@ public class Controller {
         view.getSetPRN().addActionListener(SetprnAL);
         
         
+
+        GlobalCountsAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+                  CalculateGlobalCounts();
+                  DisplayAllCounts();
+              }
+        };                
+        view.getGLOBALCOUNTbutton().addActionListener(GlobalCountsAL);
+        
+        
         
         DEMObuttonAL = new ActionListener()
         {
@@ -98,28 +119,7 @@ public class Controller {
             	};
                
         view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
-        
-        
-        
-        GlobalCountsAL = new ActionListener()
-        {
-              public void actionPerformed(ActionEvent actionEvent) 
-              {                  
-                  CalculateGlobalCounts();
-                  DisplayAllCounts();
-              }
-        };                
-        view.getb5().addActionListener(GlobalCountsAL);
-        
-        
-        
-        /////Set Preferred Printer on Startup
-        
-        SetPrinter sp=new SetPrinter();
-        String printername=sp.LoadPreferences();
-        if(printername==null) printername="No Printer";
-        model.setPrinterName(printername);
-        view.getSetPRN().setText("Printer : "+ printername);
+       
         
     }
     

@@ -34,7 +34,7 @@ public class View {
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	int ColorMatrix[][]= new int[100][7];
 	private JFrame frame;
-    private JButton SaveBT,LoadBT,PrinCU,SetPRN,b5,DEMObutton,REMCLASHbutton,b8,b9,b10,b11,b12,b13,b14,b15;
+    private JButton SaveBT,LoadBT,PrinCU,SetPRN,GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton,CLEARFRIZbutton,b10,b11,b12,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; 
@@ -210,7 +210,7 @@ public class View {
             });            
      /////////------------------------------------------------------------------------
 
-  ///--------ENTER KEY TO FREEZE CURRENT CELL CONTENT--------------------------------------
+  ///--------CTRL-D KEY TO FREEZE CURRENT CELL CONTENT--------------------------------------
             
             InputMap inputMap2 = table.getInputMap(JComponent.WHEN_FOCUSED);
             ActionMap actionMap2 = table.getActionMap();
@@ -239,7 +239,7 @@ public class View {
                     	  if(color==Color.WHITE)
                     	  fRenderer.setCellColor(row,col,Color.YELLOW);
                     	  else
-                    		  fRenderer.setCellColor(row,col,null);
+                    		  fRenderer.setCellColor(row,col,Color.WHITE);
                       
                     	  table.repaint();
                       }
@@ -308,12 +308,12 @@ public class View {
         SaveBT = new JButton("Save Time Table");
         PrinCU = new JButton("Print Current Time Table");
         SetPRN = new JButton("Set Printer");
-        b5 = new JButton("Global Counts");
+        GLOBALCOUNTbutton = new JButton("Global Counts");
         
         DEMObutton = new JButton("Demo Time Table");
         REMCLASHbutton = new JButton("Remove Clash");
-        b8 = new JButton("Button8");
-        b9 = new JButton("Button9");
+        MULTIFRIZbutton = new JButton("Multi Freeze");
+        CLEARFRIZbutton = new JButton("CLEAR FREEZ");
         b10= new JButton("Button10");
         
         b11= new JButton("Button11");
@@ -329,11 +329,11 @@ public class View {
         buttonPanel.add(PrinCU);
         buttonPanel.add(SetPRN);
         
-        buttonPanel.add(b5);
+        buttonPanel.add(GLOBALCOUNTbutton);
         buttonPanel.add(DEMObutton);
         buttonPanel.add(REMCLASHbutton);
-        buttonPanel.add(b8);
-        buttonPanel.add(b9);
+        buttonPanel.add(MULTIFRIZbutton);
+        buttonPanel.add(CLEARFRIZbutton);
         buttonPanel.add(b10);
         
         buttonPanel.add(b11);
@@ -392,8 +392,8 @@ public class View {
     { return SetPRN;
     }
     
-    public JButton getb5()
-    {return b5;
+    public JButton getGLOBALCOUNTbutton()
+    {return GLOBALCOUNTbutton;
     	
     }
     
@@ -404,6 +404,14 @@ public class View {
     
     public JButton getDEMObutton()
     { return DEMObutton;
+    }
+    
+    public JButton getMULTIFRIZbutton()
+    { return MULTIFRIZbutton;
+    }
+    
+    public JButton getCLEARFRIZbutton()
+    { return CLEARFRIZbutton;
     }
     
     
@@ -713,21 +721,16 @@ public class View {
     	    
     	    String colYearValue = (String) model.getValueAt(row, column);
 
+    	    
     	    if (colYearValue.contains(":"))
     	    {
     	        setBackground(Color.GREEN);
     	    }
-    	     else 
-    	    {
-    	        setBackground(Color.WHITE);
-    	    }
+//    	     else 
+  //  	    {
+    //	        setBackground(Color.WHITE);
+    	//    }
 
-            
-            
-            
-            
-            
-            
             
             return this;
         }
