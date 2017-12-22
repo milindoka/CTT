@@ -112,8 +112,10 @@ public class View {
     CountGaps();
     CountDoubles();
     DeleteLastTimeSlot();
+    CreatePerPerDivisionChart();
     UpdateDisplay(teachercode);
     UpdateCounts(teachercode);
+    
     
     }
     
@@ -556,7 +558,19 @@ public class View {
    	    	 	 
    	    	if(!found)  { Division[items]=temp; Count[items]=1; items++;} 
    	   }
-
+    int rowno=indirow+2;
+    int colno=1;
+    for(int i=0;i<items;i++)
+    {    
+    	 Matrix[rowno][colno]=Division[i];
+         temp=String.format("%d", Count[i]);
+         colno++;
+         Matrix[rowno][colno]=temp;
+         colno++;
+         
+         if(colno>6) {colno=1;rowno++;}
+         
+    }
     	
     }
     
