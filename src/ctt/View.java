@@ -313,7 +313,7 @@ public class View {
         DEMObutton = new JButton("Demo Time Table");
         REMCLASHbutton = new JButton("Remove Clash");
         MULTIFRIZbutton = new JButton("Multi Freeze");
-        CLEARFRIZbutton = new JButton("CLEAR FREEZ");
+        CLEARFRIZbutton = new JButton("Clear Freez");
         b10= new JButton("Button10");
         
         b11= new JButton("Button11");
@@ -642,6 +642,23 @@ public class View {
     }	
     
     
+    void ClearColorMatrix()
+    {for(int r=0;r<ROWCOUNT;r++)
+		for(int c=1;c<7;c++) ColorMatrix[r][c]=0;
+    	table.repaint();
+    }
+    
+    
+    
+    
+    void MultiFrizCellsContaing(String str)
+    {for(int r=0;r<ROWCOUNT;r++)
+		for(int c=1;c<7;c++) 
+			{String temp=GetData(table,r,c);
+			 if(temp.contains(str)) ColorMatrix[r][c]=1;
+			}
+    	table.repaint();
+    }
     
     public class ColoringCellRenderer extends DefaultTableCellRenderer
     {
@@ -673,6 +690,7 @@ public class View {
     }
 
      
+    
     
     
     class FreezeCellRenderer extends DefaultTableCellRenderer

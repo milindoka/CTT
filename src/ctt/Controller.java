@@ -21,7 +21,8 @@ public class Controller {
 
     private Model model;
     private View view;
-    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL,REMCLASHbuttonAL;
+    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
+    private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private int globalCC;
     private int globalDC;
     private int globalGC;
@@ -119,9 +120,41 @@ public class Controller {
             	};
                
         view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
-       
+        
+        
+        MULTIFRIZbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {      String str = JOptionPane.showInputDialog(null, "What's your name?");            
+                     view.MultiFrizCellsContaing(str);
+               }
+            	};
+               
+        view.getMULTIFRIZbutton().addActionListener(MULTIFRIZbuttonAL);
+        
+        CLEARFRIZbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+            	view.ClearColorMatrix();       
+               }
+            	};
+               
+        view.getCLEARFRIZbutton().addActionListener(CLEARFRIZbuttonAL);
         
     }
+    
+///////////// Methods called in action listeners ////////////////////    
+    
+    public void ClearFreez()
+    {
+       view.ClearColorMatrix();
+    }
+    
+    
+    
+    
+    
     
     
     public void RemoveClashGapDoubles()
