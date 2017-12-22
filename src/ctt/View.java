@@ -99,6 +99,7 @@ public class View {
     {ClearIndividualTable();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
+    
     String str = (String)table.getValueAt(row, col);
     if(str.length()==0) return;
     if(col==0){  DisplayClass(str); return; }
@@ -702,7 +703,7 @@ public class View {
     	}
 
         void setCellColor(int r, int c, Color color)
-        {
+        {  
             if (color ==Color.WHITE)
             {
                 ColorMatrix[r][c]=0;
@@ -711,6 +712,8 @@ public class View {
             {
                 ColorMatrix[r][c]=1;
             }
+            
+            
         }
 
         private Color getCellColor(int r, int c)
@@ -734,6 +737,7 @@ public class View {
             Color color = getCellColor(row, column);
             setBackground(color);
 
+            if(isSelected) setBackground(Color.BLUE);
             
     	    TableModel model = table.getModel();
     	    
