@@ -125,7 +125,7 @@ public class Controller {
         MULTIFRIZbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {      String str = JOptionPane.showInputDialog(null, "What's your name?");            
+              {      String str = JOptionPane.showInputDialog(null, "Freeze Cells Containg Following String");            
                      view.MultiFrizCellsContaing(str);
                }
             	};
@@ -150,12 +150,6 @@ public class Controller {
     {
        view.ClearColorMatrix();
     }
-    
-    
-    
-    
-    
-    
     
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;

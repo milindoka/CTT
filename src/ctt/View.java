@@ -661,9 +661,11 @@ public class View {
     	table.repaint();
     }
     
+    
     public class ColoringCellRenderer extends DefaultTableCellRenderer
     {
     	Color clashred=new Color(255,200,200);
+    	
     	
     	  public Component getTableCellRendererComponent(JTable table, 
     	Object obj, boolean isSelected, boolean hasFocus, int row, int column) 
@@ -696,6 +698,7 @@ public class View {
     
     class FreezeCellRenderer extends DefaultTableCellRenderer
     {	
+    	Color focusblue=new Color(51,249,255);
     	FreezeCellRenderer() 
     	{for(int r=0;r<ROWCOUNT;r++)
     		for(int c=0;c<7;c++) ColorMatrix[r][c]=0;
@@ -719,7 +722,8 @@ public class View {
         private Color getCellColor(int r, int c)
         {
             //Color color = cellColors.get(new Point(r,c));
-            
+        	
+        	
         	if(ColorMatrix[r][c]==0)
      
             {
@@ -737,7 +741,7 @@ public class View {
             Color color = getCellColor(row, column);
             setBackground(color);
 
-            if(isSelected) setBackground(Color.BLUE);
+            if(isSelected) setBackground(focusblue);
             
     	    TableModel model = table.getModel();
     	    
