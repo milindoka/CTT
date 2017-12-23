@@ -39,9 +39,10 @@ public class View {
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
-    JTable table; 
+    JTable table;
+    
     JTable table2;
-    int ROWCOUNT2=500;         /////500;////For Master Print ,change to 25 later
+    int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=100; ///Main Table
     int COLCOUNT=7;
     
@@ -148,7 +149,7 @@ public class View {
             for(int i=0;i<ROWCOUNT;i++) model.addRow(new Object[]{"", "", "","","","",""});
             
             table.getColumnModel().getColumn(0).setMinWidth(100);
-            //ExcelAdapter myAd = new ExcelAdapter(table);
+           
             JScrollPane scrollPane = new JScrollPane(table);
 
             /////////////////
@@ -247,7 +248,7 @@ public class View {
             
             
             
-            
+          ExcelAdapter myAd = new ExcelAdapter(table);        
             
             
             
