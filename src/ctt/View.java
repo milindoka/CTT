@@ -34,12 +34,14 @@ public class View {
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	int ColorMatrix[][]= new int[100][7];
 	private JFrame frame;
-    private JButton SaveBT,LoadBT,PrinCU,SetPRN,GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton,CLEARFRIZbutton,b10,b11,b12,b13,b14,b15;
+    private JButton SaveBT,LoadBT,PrinCU,SetPRN;
+    private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
+    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table; 
     JTable table2;
-    int ROWCOUNT2=25;         /////500;////For Master Print
+    int ROWCOUNT2=500;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=100; ///Main Table
     int COLCOUNT=7;
     
@@ -300,7 +302,7 @@ public class View {
         
         LoadBT = new JButton("Load Time Table");        
         SaveBT = new JButton("Save Time Table");
-        PrinCU = new JButton("Print Current Time Table");
+        PrinCU = new JButton("Print Current Table");
         SetPRN = new JButton("Set Printer");
         GLOBALCOUNTbutton = new JButton("Global Counts");
         
@@ -308,10 +310,11 @@ public class View {
         REMCLASHbutton = new JButton("Remove Clash");
         MULTIFRIZbutton = new JButton("Multi Freeze");
         CLEARFRIZbutton = new JButton("Clear Freez");
-        b10= new JButton("Button10");
-        
-        b11= new JButton("Button11");
-        b12= new JButton("Button12");
+       
+        PRINTINDIbutton = new JButton("Print All Indi's");
+        PRINTCLASSbutton = new JButton("Print All Classes");
+        PRINTMASTERbutton = new JButton("Print Master");
+
         b13= new JButton("Button13");
         b14= new JButton("Button14");
         b15= new JButton("Button15");
@@ -328,10 +331,12 @@ public class View {
         buttonPanel.add(REMCLASHbutton);
         buttonPanel.add(MULTIFRIZbutton);
         buttonPanel.add(CLEARFRIZbutton);
-        buttonPanel.add(b10);
         
-        buttonPanel.add(b11);
-        buttonPanel.add(b12);
+        
+        buttonPanel.add(PRINTINDIbutton);
+        buttonPanel.add(PRINTCLASSbutton);
+        buttonPanel.add(PRINTMASTERbutton);
+        
         buttonPanel.add(b13);
         buttonPanel.add(b14);
         buttonPanel.add(b15);
@@ -408,6 +413,18 @@ public class View {
     { return CLEARFRIZbutton;
     }
     
+
+    public JButton getPRINTINDIbutton()
+    { return PRINTINDIbutton;
+    }
+
+    public JButton getPRINTCLASSbutton()
+    { return PRINTCLASSbutton;
+    }
+
+    public JButton getPRINTMASTERbutton()
+    { return PRINTMASTERbutton;
+    }
     
     
     public void DisplayClass(String clas)

@@ -23,6 +23,8 @@ public class Controller {
     private View view;
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
+    private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
+    
     private int globalCC;
     private int globalDC;
     private int globalGC;
@@ -69,9 +71,7 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {            
-            	  PrepareMaster();
-                 // PrinCUTT();
-               	 
+            	             	 
               }
         };                
         view.getPrinCU().addActionListener(PrinAL);
@@ -132,6 +132,7 @@ public class Controller {
                
         view.getMULTIFRIZbutton().addActionListener(MULTIFRIZbuttonAL);
         
+        
         CLEARFRIZbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
@@ -141,6 +142,48 @@ public class Controller {
             	};
                
         view.getCLEARFRIZbutton().addActionListener(CLEARFRIZbuttonAL);
+
+        
+        
+        
+        PRINTINDIbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+
+              }
+            	};
+               
+        view.getPRINTINDIbutton().addActionListener(PRINTINDIbuttonAL);
+        
+        
+        PRINTCLASSbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+ 
+              }
+            	};
+               
+        view.getPRINTCLASSbutton().addActionListener(PRINTCLASSbuttonAL);
+        
+        PRINTMASTERbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+            	  PrepareMaster();
+                  PrinCUTT();
+   
+              }
+            	};
+               
+        view.getPRINTMASTERbutton().addActionListener(PRINTMASTERbuttonAL);
+        
+                
+        
+        
+        
+        
         
     }
     
