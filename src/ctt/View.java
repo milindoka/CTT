@@ -66,12 +66,8 @@ public class View {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
             {  
-            	new Thread(new Runnable() {
-                    public void run()
-                    {    
-                        refresh();
-                    }
-               }).start();
+            	        refresh();
+                
             }
         }
     }
@@ -83,13 +79,8 @@ public class View {
             if (!e.getValueIsAdjusting()) 
             { ///threaded refresh to avoid sloth in individual and class display
             	
-            	new Thread(new Runnable() {
-                    public void run() 
-                    {    
-                        refresh();
-                    }
-               }).start();
-            }
+            	        refresh();
+                }
         }
     }
 
@@ -454,12 +445,46 @@ public class View {
     }
     
     
+    class ThreadB extends Thread 
+    {
+        @Override
+        public void run()
+        {
+            synchronized(this)
+            {
+            	for(int i=0;i<ROWS;i++)
+           		 for(int j=0;j<COLS;j++) Matrix[i][j]="";  ////clean matrix               
+                
+                notify();
+            }
+        }
+    }
+    
+    
+    
+    
     public void CreateIndi(String ind)
     {
-    	String sub[];
-    	for(int i=0;i<ROWS;i++)
-		 for(int j=0;j<COLS;j++) Matrix[i][j]="";  ////clean matrix
+    	/////////////////////////////
     	
+    	ThreadB b = new ThreadB();
+        b.start();
+ 
+        synchronized(b){
+            try{
+    //            System.out.println("Waiting for b to complete...");
+                b.wait();
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+ 
+         //   System.out.println("Total is: " + b.total);
+        }
+    
+    	
+    	
+    	//////////////////////////////  	
+     String sub[];
     CC=0;DC=0;GC=0;  ///reset all counts
     lecturecount=0;
 
