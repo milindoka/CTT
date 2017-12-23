@@ -662,7 +662,7 @@ public class View {
 
     
     private void UpdateDisplay(String ind)
-    {ClearIndividualTable();
+    {//ClearIndividualTable();
     for (int i = 0; i < ROWCOUNT2; i++)
 	      for(int j = 0; j < table2.getColumnCount(); j++)
 	          table2.setValueAt(Matrix[i][j], i, j);
