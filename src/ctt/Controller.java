@@ -21,6 +21,7 @@ public class Controller {
 
     private Model model;
     private View view;
+    private RemoveCDG rcdg=new RemoveCDG();
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
@@ -38,7 +39,7 @@ public class Controller {
     
     public void control()
     {  
-    	
+    	rcdg.setView(view);
  /////Set Preferred Printer on Startup
         
         SetPrinter sp=new SetPrinter();
@@ -216,7 +217,7 @@ public class Controller {
         }
     CalculateGlobalCounts();
     DisplayAllCounts();
-     
+    view.jb.setValue(sourcerow);
     //  String plate=String.format("%d %d %d", improved)
       JOptionPane.showMessageDialog(null,"continue");
     }

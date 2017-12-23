@@ -39,13 +39,14 @@ public class View {
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
+        
     JTable table;
     
     JTable table2;
     int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=100; ///Main Table
     int COLCOUNT=7;
-    
+    JProgressBar jb=new JProgressBar(0,30);
     
     int CC,DC,GC,indirow,lecturecount;
     JLabel countLabel; ///,dc,gc; 
@@ -117,6 +118,9 @@ public class View {
     public View(String text){
         frame = new JFrame("View");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+   
+        
+        jb.setValue(0);
         
         ////// Create JTable ---------------------------
         
@@ -351,7 +355,7 @@ public class View {
       //  countpanel.setLayout(new FlowLayout());
         countpanel.setPreferredSize(new Dimension(200, 25));
         countpanel.add(countLabel); 
-        //countpanel.add(dc); 
+        countpanel.add(jb); 
         //countpanel.add(gc);
        
         JPanel southpanel=new JPanel();
