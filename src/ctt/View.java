@@ -3,7 +3,6 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -26,8 +25,6 @@ import java.awt.GridLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 public class View {
       
@@ -49,7 +46,7 @@ public class View {
     JProgressBar jb=new JProgressBar(0,100);
     
     int CC,DC,GC,indirow,lecturecount;
-    JLabel countLabel; ///,dc,gc; 
+    JLabel countLabel,spesLabel,msgLabel; 
     String allcounts;
     ListSelectionModel listSelectionModel;
     
@@ -120,7 +117,8 @@ public class View {
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
    
         
-        jb.setValue(0);
+        jb.setValue(0); jb.setStringPainted(true);jb.setVisible(false);
+        
         
         ////// Create JTable ---------------------------
         
@@ -348,14 +346,16 @@ public class View {
         
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
-        //dc = new JLabel("DC :");
-        //gc = new JLabel("GC :");
-        
+        spesLabel = new JLabel("        ");
+        msgLabel=new JLabel("   Enter To Stop");
+        msgLabel.setVisible(false);
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
       //  countpanel.setLayout(new FlowLayout());
         countpanel.setPreferredSize(new Dimension(200, 25));
-        countpanel.add(countLabel); 
+        countpanel.add(countLabel);
+        countpanel.add(spesLabel);
         countpanel.add(jb); 
+        countpanel.add(msgLabel);
         //countpanel.add(gc);
        
         JPanel southpanel=new JPanel();

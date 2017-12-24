@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeListener
+public class RemoveCDG
    {
 
 	private int n=999;
@@ -22,9 +22,6 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
     int sCCafter,sDCafter,sGCafter;
     int tCCbefore,tDCbefore,tGCbefore;
     int tCCafter,tDCafter,tGCafter;
-
-    
-    
     
 	public void setView(View vu)
 	{
@@ -33,100 +30,10 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
 		
 	}
 	
-    private ProgressMonitor progressMonitor;
-   // private JButton startButton;
-   // private JTextArea taskOutput;
-    private Task task;
-
-    class Task extends SwingWorker<Void, Void> {
-        @Override
-        public Void doInBackground() {
-            Random random = new Random();
-            int progress = 0;
-            setProgress(0);
-            try {
-                Thread.sleep(1000);
-                while (progress < 100 && !isCancelled()) 
-                {
-                    //Sleep for up to one second.
-                    Thread.sleep(random.nextInt(1000));
-                    //Make random progress.
-                    progress += random.nextInt(10);
-                    setProgress(Math.min(progress, 100));
-                }
-            } catch (InterruptedException ignore) {}
-            return null;
-        }
-
-        @Override
-        public void done() {
-            Toolkit.getDefaultToolkit().beep();
-         //   startButton.setEnabled(true);
-            progressMonitor.setProgress(0);
-        }
-    }
-
-    public RemoveCDG() {
-        //super(new BorderLayout());
-
-        //Create the demo's UI.
-  //      startButton = new JButton("Start");
-    //    startButton.setActionCommand("start");
-     //   startButton.addActionListener(this);
-
-
-       // add(startButton, BorderLayout.PAGE_START);
-      //  setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-    }
-
-    /**
-     * Invoked when the user presses the start button.
-     */
-    public void startnow()
-    {
-        progressMonitor = new ProgressMonitor(RemoveCDG.this,
-                                  "Running a Long Task",
-                                  "", 0, 100);
-        progressMonitor.setProgress(0);
-        task = new Task();
-        task.addPropertyChangeListener(this);
-        task.execute();
-
-         }
 
     /**
      * Invoked when task's progress property changes.
      */
-    public void propertyChange(PropertyChangeEvent evt) {
-        if ("progress" == evt.getPropertyName() ) {
-            int progress = (Integer) evt.getNewValue();
-            progressMonitor.setProgress(progress);
-            String message = String.format("Completed %d%%.\n", progress);
-            progressMonitor.setNote(message);
-       //     taskOutput.append(message);
-            if (progressMonitor.isCanceled() || task.isDone()) {
-                Toolkit.getDefaultToolkit().beep();
-                if (progressMonitor.isCanceled()) 
-                {
-                    task.cancel(true);
-         //           taskOutput.append("Task canceled.\n");
-                } else {
-           //         taskOutput.append("Task completed.\n");
-                }
-            //    startButton.setEnabled(true);
-            }
-        }
-
-    }
-
-	@Override     ////unimplemented methods
-	public void actionPerformed(ActionEvent e) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-/////////////////////////////////////////// END OF Progress Monitor Code ////////////
 	
 //////////// Remove class Routine and dependent functions start here /////////////////	
 	
@@ -260,8 +167,9 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;
      CalculateGlobalCounts();
-     int lastrow=GetLastRow();
+     int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
+     view.jb.setVisible(true);view.msgLabel.setVisible(true);
      String class1,class2;
     for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
@@ -285,16 +193,16 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
     view.jb.setValue(sourcerow);
     //  String plate=String.format("%d %d %d", improved)
    createCloseTimer(1).start();  
-     int n=JOptionPane.showConfirmDialog(null,JOptionPane.OK_CANCEL_OPTION);
-     System.out.println(n);
+      n=JOptionPane.showConfirmDialog(null, "Enter to Stop","Processing", JOptionPane.YES_NO_OPTION);
       if( n==JOptionPane.OK_OPTION) break;
      
-   // int n=JOptionPane.showMessageDialog(null,"continue");
     }
      
-  //  createCloseTimer(1).start();
-    //JOptionPane.showMessageDialog((Component) e.getSource(), "nothing to do!");
-    JOptionPane.showMessageDialog(null,"Over");    
+  
+
+    if(n==JOptionPane.OK_OPTION) JOptionPane.showMessageDialog(null,"Session Over - You may process again");
+    JOptionPane.showMessageDialog(null,"Session Over - You may process again");    
+    view.jb.setVisible(false); view.msgLabel.setVisible(false);
     }
    
     
