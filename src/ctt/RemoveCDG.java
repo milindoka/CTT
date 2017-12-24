@@ -13,7 +13,7 @@ import java.util.Set;
 public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeListener
    {
 
-	
+	private int n=999;
     private View view;
     private int globalCC,globalDC,globalGC;
     String o1,o2;
@@ -32,8 +32,6 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
 	//	vu.countLabel.setText("test");
 		
 	}
-	
-	
 	
     private ProgressMonitor progressMonitor;
    // private JButton startButton;
@@ -262,12 +260,14 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
     public void RemoveClashGapDoubles()
     {int sourcerow=1;int sourcecol=1;
      CalculateGlobalCounts();
-    String class1,class2;
-    for(sourcerow=1;sourcerow<30;sourcerow++)
+     int lastrow=GetLastRow();
+     view.jb.setMaximum(lastrow);
+     String class1,class2;
+    for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)
        {
     	if(view.ColorMatrix[sourcerow][sourcecol]==1) continue;
-    	for(int r=0;r<30;r++)
+    	for(int r=0;r<lastrow;r++)
     	
     	  { for(int c=1;c<7;c++)
     		  {if(view.ColorMatrix[r][c]==1) continue;
@@ -281,13 +281,18 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
         }
     CalculateGlobalCounts();
     DisplayAllCounts();
+    
     view.jb.setValue(sourcerow);
     //  String plate=String.format("%d %d %d", improved)
-    createCloseTimer(1).start();  
-    JOptionPane.showMessageDialog(null,"continue");
+   createCloseTimer(1).start();  
+     int n=JOptionPane.showConfirmDialog(null,JOptionPane.OK_CANCEL_OPTION);
+     System.out.println(n);
+      if( n==JOptionPane.OK_OPTION) break;
+     
+   // int n=JOptionPane.showMessageDialog(null,"continue");
     }
      
-    createCloseTimer(1).start();
+  //  createCloseTimer(1).start();
     //JOptionPane.showMessageDialog((Component) e.getSource(), "nothing to do!");
     JOptionPane.showMessageDialog(null,"Over");    
     }
@@ -319,7 +324,16 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
         return t;
     }
 
-    
+    int GetLastRow()
+    {    String temp="";
+    	 int currentrow=0;    	
+    		////Get First Time Slot
+    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
+    	    	{ temp=view.GetData(view.table,currentrow,0); 
+    	    	  if(temp.length()>0) break;
+    	    	}
+    		return currentrow;
+    }
     
     
 }

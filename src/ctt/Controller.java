@@ -26,7 +26,6 @@ public class Controller {
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     
-    //private int globalCC;
     private int globalDC;
     private int globalGC;
     public Controller(Model model, View view)
@@ -179,13 +178,6 @@ public class Controller {
             	};
                
         view.getPRINTMASTERbutton().addActionListener(PRINTMASTERbuttonAL);
-        
-                
-        
-        
-        
-        
-        
     }
     
 ///////////// Methods called in action listeners ////////////////////    
@@ -209,7 +201,6 @@ public class Controller {
 
     }
     
-    
     private void SetDefaultPrinter()
     { 	
     	SetPrinter sp=new SetPrinter();
@@ -217,7 +208,6 @@ public class Controller {
         view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
         model.setPrinterName(printername);
         sp.SavePreferences();
-    	
     }
     
   
@@ -273,7 +263,6 @@ public class Controller {
 
      	// toast.AutoCloseMsg("File Saved");
      }
-
     	
     private void LoadTT()
     {
@@ -317,7 +306,6 @@ public class Controller {
     	    	  if(temp.length()>0) break;
     	    	}
     		return currentrow;
-    	
     }
     
     
@@ -334,7 +322,6 @@ public class Controller {
     
    void PrepareMaster()
    { String temp,temp1[];
-     
      int maxsplit=0; // maximum split count for time slot
 	   int m=GetFirstRow();
 	  int n=GetLastRow();
@@ -376,9 +363,7 @@ public class Controller {
 	  }
 	  System.out.println(m);
 	  System.out.println(n);
-	   
    }
-    
     
 }  
     
