@@ -38,10 +38,10 @@ public class Controller {
     }
     
     public void control()
-    {  
-    	//rcdg.setView(view);
+    {   rcdg=new RemoveCDG();
+        rcdg.setView(view);
  /////Set Preferred Printer on Startup
-    	 rcdg=new RemoveCDG();
+        
         SetPrinter sp=new SetPrinter();
         String printername=sp.LoadPreferences();
         if(printername==null) printername="No Printer";
@@ -92,8 +92,8 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
-                  CalculateGlobalCounts();
-                  DisplayAllCounts();
+                  rcdg.CalculateGlobalCounts();
+                  rcdg.DisplayAllCounts();
               }
         };                
         view.getGLOBALCOUNTbutton().addActionListener(GlobalCountsAL);
@@ -116,8 +116,8 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
-            //	RemoveClashGapDoubles();   
-               rcdg.startnow();
+               rcdg.RemoveClashGapDoubles();   
+             //  rcdg.startnow();
               }
             	};
 
