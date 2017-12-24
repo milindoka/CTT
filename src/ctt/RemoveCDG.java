@@ -283,12 +283,43 @@ public class RemoveCDG extends JPanel implements ActionListener,PropertyChangeLi
     DisplayAllCounts();
     view.jb.setValue(sourcerow);
     //  String plate=String.format("%d %d %d", improved)
-      JOptionPane.showMessageDialog(null,"continue");
+    createCloseTimer(1).start();  
+    JOptionPane.showMessageDialog(null,"continue");
     }
      
+    createCloseTimer(1).start();
+    //JOptionPane.showMessageDialog((Component) e.getSource(), "nothing to do!");
     JOptionPane.showMessageDialog(null,"Over");    
     }
    
+    
+    
+    private Timer createCloseTimer(int miliseconds) 
+    {
+        ActionListener close = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Window[] windows = Window.getWindows();
+                for (Window window : windows) {
+                    if (window instanceof JDialog) {
+                        JDialog dialog = (JDialog) window;
+                        if (dialog.getContentPane().getComponentCount() == 1
+                            && dialog.getContentPane().getComponent(0) instanceof JOptionPane){
+                            dialog.dispose();
+                        }
+                    }
+                }
+
+            }
+
+        };
+        Timer t = new Timer(100, close);
+        t.setRepeats(false);
+        return t;
+    }
+
+    
     
     
 }
