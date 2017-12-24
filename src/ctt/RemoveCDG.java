@@ -26,14 +26,8 @@ public class RemoveCDG
 	public void setView(View vu)
 	{
 		this.view=vu;
-	//	vu.countLabel.setText("test");
 		
 	}
-	
-
-    /**
-     * Invoked when task's progress property changes.
-     */
 	
 //////////// Remove class Routine and dependent functions start here /////////////////	
 	

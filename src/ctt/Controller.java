@@ -214,6 +214,7 @@ public class Controller {
     private void PrinCUTT()
     { 
       PrintMaster pm=new PrintMaster();
+      pm.setView(view);
       String printername=model.getPrinterName();
       System.out.println(printername);
       pm.SetTable(view.table);
@@ -333,7 +334,8 @@ public class Controller {
 		 if(temp.length()==0) continue; //skip blank line
 		 
 		 if(temp.contains(":"))  ///New time Block, print week day names line 
-		 {   String week[]={"Mon","Tue","Wed","Thu","Fri","Sat"};
+		 {   currentrow++;  
+			 String week[]={"Mon","Tue","Wed","Thu","Fri","Sat"};
 		     view.SetData2(temp,currentrow,0);  ///time
 			 for(int j=0;j<6;j++ )
 				 view.SetData2(week[j],currentrow,j+1); /// week days

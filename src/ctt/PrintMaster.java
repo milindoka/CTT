@@ -15,7 +15,14 @@ import java.awt.print.PrinterJob;
 
 public class PrintMaster implements Printable
 {	
+	View view;
 	
+	public void setView(View vu)
+	{
+		this.view=vu;
+		
+	}
+
 	  ///initialize printing parameters
 	JTable table;
 
@@ -108,8 +115,8 @@ public class PrintMaster implements Printable
 		 g.setFont(MyFont);
 		 
 		 
-		 g.drawRect(tlx,tly, w, h);
-	      DrawOpenWallTextLine(50,30,g);
+		 
+	      DrawOpenWallTextLine(50,30,g);  ///left, top and graphics g
 	      System.out.println("printing ends");
 		return 0;
 	 }
@@ -128,12 +135,14 @@ public class PrintMaster implements Printable
 		  //g.drawString("| Time",currentleft,currenttop);
 		  PrintSideWallBoxedString("TEST",currentleft,currenttop, timecolsize, cellheight, g);
 		  currentleft+=timecolsize;
-		  for(int i=0;i<6;i++) 
+		  for(int i=1;i<7;i++) 
 		  { //g.drawString("| Test", currentleft, currenttop);
-		  PrintSideWallBoxedString("TEST",currentleft,currenttop, othercolsize, cellheight, g);
+			String  temp=view.GetData(view.table2, row,i);
+		    PrintSideWallBoxedString(temp,currentleft,currenttop, othercolsize, cellheight, g);
 		    currentleft+=othercolsize;
 		  }
 	  currentleft=x;
+	  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  currenttop+=cellheight;
 	  }
 	  //currenttop=currenttop-cellheight;

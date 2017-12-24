@@ -40,7 +40,7 @@ public class View {
     JTable table;
     
     JTable table2;
-    int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
+    int ROWCOUNT2=500;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=100; ///Main Table
     int COLCOUNT=7;
     JProgressBar jb=new JProgressBar(0,100);
