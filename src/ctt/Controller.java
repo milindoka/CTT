@@ -21,7 +21,7 @@ public class Controller {
 
     private Model model;
     private View view;
-    private RemoveCDG rcdg=new RemoveCDG();
+    private RemoveCDG rcdg;
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
@@ -39,9 +39,9 @@ public class Controller {
     
     public void control()
     {  
-    	rcdg.setView(view);
+    	//rcdg.setView(view);
  /////Set Preferred Printer on Startup
-        
+    	 rcdg=new RemoveCDG();
         SetPrinter sp=new SetPrinter();
         String printername=sp.LoadPreferences();
         if(printername==null) printername="No Printer";
@@ -111,15 +111,16 @@ public class Controller {
         
         
 
-        
+
         REMCLASHbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
-            	RemoveClashGapDoubles();       
-               }
+            //	RemoveClashGapDoubles();   
+               rcdg.startnow();
+              }
             	};
-               
+
         view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
         
         
@@ -365,7 +366,7 @@ public class Controller {
     	   view.CountGaps();
     	   globalCC+=view.CC;globalDC+=view.DC;globalGC+=view.GC;
     		 
-    		}
+    	}
     
        	 
     }
