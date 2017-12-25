@@ -6,6 +6,7 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
 import javax.swing.JTable;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.print.PageFormat;
@@ -16,7 +17,7 @@ import java.awt.print.PrinterJob;
 public class PrintMaster implements Printable
 {	
 	View view;
-
+    Color gre=new Color(221,221,221);
 	public void setView(View vu)  {	this.view=vu; }
              
 	  ///initialize printing parameters
@@ -82,6 +83,7 @@ public class PrintMaster implements Printable
 	public int print(Graphics g, PageFormat pf, int pageno)
 			throws PrinterException
 	{
+		//g.setColor(gre);
 		int tlx=(int) pf.getImageableX()+10,tly=(int) pf.getImageableY()+10;
 		
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
@@ -137,10 +139,13 @@ public class PrintMaster implements Printable
 	 {
 		 pg.drawLine(tlx, tly, tlx, tly+boxheight);
 		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+boxheight);
+		 pg.setColor(gre);
+		 pg.fillRect(tlx, tly,boxwidth, boxheight);
 		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
 		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
 		 
 	        int start = boxwidth/2 - stringLen/2;  
+	        pg.setColor(Color.BLACK);
 	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
 	        
 	 }
