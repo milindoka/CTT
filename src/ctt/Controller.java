@@ -26,8 +26,6 @@ public class Controller {
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     
-    private int globalDC;
-    private int globalGC;
     public Controller(Model model, View view)
     {
         this.model = model;
@@ -363,6 +361,7 @@ public class Controller {
        }
        currentrow=currentrow+maxsplit;
 	  }
+	  view.SetData2("$END",currentrow,0);
 	  System.out.println(m);
 	  System.out.println(n);
    }
