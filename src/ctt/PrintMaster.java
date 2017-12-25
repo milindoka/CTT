@@ -4,7 +4,6 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
-import javax.swing.JTable;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,7 +27,7 @@ public class PrintMaster implements Printable
       
       PrintMaster()
       {   
-    	  timecolsize=100;othercolsize=65;linesperpage=27;
+    	  timecolsize=100;othercolsize=65;linesperpage=40;
     	  
       }
       

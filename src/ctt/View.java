@@ -29,7 +29,7 @@ import java.awt.event.MouseEvent;
 public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
-	int ColorMatrix[][]= new int[100][7];
+	
 	private JFrame frame;
     private JButton SaveBT,LoadBT,PrinCU,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
@@ -40,9 +40,14 @@ public class View {
     JTable table;
     
     JTable table2;
-    int ROWCOUNT2=500;         /////500;////For Master Print ,change to 25 later
-    int ROWCOUNT=100; ///Main Table
+    int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
+    int ROWCOUNT=200; ///Main Table
+    int ColorMatrix[][]= new int[ROWCOUNT][7];
+    
     int COLCOUNT=7;
+    
+    
+    
     JProgressBar jb=new JProgressBar(0,100);
     
     int CC,DC,GC,indirow,lecturecount;
@@ -104,7 +109,7 @@ public class View {
     CountGaps();
     CountDoubles();
     DeleteLastTimeSlot();
-    CreatePerPerDivisionChart();
+ //   CreatePerPerDivisionChart();
     UpdateDisplay(teachercode);
     UpdateCounts(teachercode);
     
