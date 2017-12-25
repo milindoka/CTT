@@ -217,7 +217,6 @@ public class Controller {
       pm.setView(view);
       String printername=model.getPrinterName();
       System.out.println(printername);
-      pm.SetTable(view.table);
       pm.PrintMasterChart(printername);
     }
     

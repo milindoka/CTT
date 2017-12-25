@@ -16,15 +16,11 @@ import java.awt.print.PrinterJob;
 public class PrintMaster implements Printable
 {	
 	View view;
-	
-	public void setView(View vu)
-	{
-		this.view=vu;
-		
-	}
 
+	public void setView(View vu)  {	this.view=vu; }
+             
 	  ///initialize printing parameters
-	JTable table;
+  //	JTable table;
 
 	  int timecolsize,othercolsize,linesperpage;
       
@@ -34,17 +30,7 @@ public class PrintMaster implements Printable
     	  
       }
 	
-      void SetTable(JTable jt)
-      {
-    	  table=jt;
-      }
       
-      public String GetData(int row_index, int col_index)
-  	{ return (String) table.getModel().getValueAt(row_index, col_index); }  
-      
-      
-      
-	
 	///// Here the whole  JAVA Printing Mechanism Starts 
 	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
 	/////
@@ -57,11 +43,8 @@ public class PrintMaster implements Printable
             if (service.getName().equalsIgnoreCase(printerName))
                 return service;
         }
-
         return null;
     }
-	
-
 		
 	  public void PrintMasterChart(String printername)
               {
@@ -71,8 +54,6 @@ public class PrintMaster implements Printable
 		  if(ps==null) return;
 		
 		  
-		  String temp= GetData(2,4);
-		  System.out.println(temp);
 	         PrinterJob job = PrinterJob.getPrinterJob();
 	         job.setJobName("Master");
 	         try {
@@ -85,7 +66,7 @@ public class PrintMaster implements Printable
 	        
 	         ////Widening the print AREA.
 	         //Java Keeps preset Margins of about 1 inch on all corners
-                 //Top Left Corner is  (0,0), then width and height
+             //Top Left Corner is  (0,0), then width and height
 	         HashPrintRequestAttributeSet pattribs=new HashPrintRequestAttributeSet();
 	         pattribs.add(new MediaPrintableArea(0, 0, 210, 297, MediaPrintableArea.MM));
 	         // 210 x 297  A4 size paper in Millimiters.
@@ -96,7 +77,6 @@ public class PrintMaster implements Printable
 	             try {
 	                  job.print(pattribs);
 	             } catch (PrinterException ex) {}
-              
 	         }
 	
 	public int print(Graphics g, PageFormat pf, int pageno)
@@ -109,7 +89,6 @@ public class PrintMaster implements Printable
 		 if (pageno > 0)             // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
-    
 		 
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
@@ -119,17 +98,12 @@ public class PrintMaster implements Printable
 		return 0;
 	 }
 	
-	
-	
 	private void DrawOpenWallTextLine(int x,int y,Graphics g)
 	{ 
-	  int currentleft=x,currenttop=y,cellheight=30;
+	  int currentleft=x,currenttop=y,cellheight=20;
 	  
 	 int horizontalwidth=timecolsize+6*othercolsize;
 	    
-	     
-	     
-	  
 	  for(int row=0;row<linesperpage;row++)
 	  {
 		  String  temp=view.GetData(view.table2, row,0);
@@ -155,33 +129,12 @@ public class PrintMaster implements Printable
 	  //g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  currenttop+=cellheight;
 	  }
-	  //currenttop=currenttop-cellheight;
-	  //g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  	
 	}
 	
-	///0=side walls only, 1=upper + side wall, 2=lower + side, 3=all three walls
-//	private void DrawCentredText(int type,int width,int height,Graphics g)
-	//{
-		
-//	}
-	
-	
-	void PrintBoxedString(String str,int tlx,int tly, int boxwidth, int boxheight, Graphics pg)
-	 {
-		 pg.drawRect(tlx, tly, boxwidth, boxheight);
-	 
-		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
-		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
-		 
-	        int start = boxwidth/2 - stringLen/2;  
-	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
-	        
-	 }
 
 	void PrintSideWallBoxedString(String str,int tlx,int tly, int boxwidth, int boxheight, Graphics pg)
 	 {
-		
 		 pg.drawLine(tlx, tly, tlx, tly+boxheight);
 		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+boxheight);
 		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
