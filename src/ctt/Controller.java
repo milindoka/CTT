@@ -334,8 +334,9 @@ public class Controller {
 		 if(temp.length()==0) continue; //skip blank line
 		 
 		 if(temp.contains(":"))  ///New time Block, print week day names line 
-		 {   currentrow++;  
-			 String week[]={"Mon","Tue","Wed","Thu","Fri","Sat"};
+		 {   if(currentrow !=0) { view.SetData2("$BLANKLINE", currentrow,0);
+			                      currentrow++;  }  ///skip first exceptional blank
+			 String week[]={"MON","TUE","WED","THU","FRI","SAT"};
 		     view.SetData2(temp,currentrow,0);  ///time
 			 for(int j=0;j<6;j++ )
 				 view.SetData2(week[j],currentrow,j+1); /// week days

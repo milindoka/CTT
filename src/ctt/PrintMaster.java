@@ -114,8 +114,6 @@ public class PrintMaster implements Printable
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
 		 
-		 
-		 
 	      DrawOpenWallTextLine(50,30,g);  ///left, top and graphics g
 	      System.out.println("printing ends");
 		return 0;
@@ -128,25 +126,37 @@ public class PrintMaster implements Printable
 	  int currentleft=x,currenttop=y,cellheight=30;
 	  
 	 int horizontalwidth=timecolsize+6*othercolsize;
-	     g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
+	    
+	     
+	     
 	  
 	  for(int row=0;row<linesperpage;row++)
 	  {
-		  //g.drawString("| Time",currentleft,currenttop);
-		  PrintSideWallBoxedString("TEST",currentleft,currenttop, timecolsize, cellheight, g);
-		  currentleft+=timecolsize;
+		  String  temp=view.GetData(view.table2, row,0);
+		  if(temp.contains("$BLANK")) 
+		   { // if(row==0) continue; ///exceptional first blank line
+			  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
+			  currenttop+=cellheight;
+			  continue;
+		   }
+		  if(temp.length()!=0) //then top wall
+		       g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
+		       
+		  PrintSideWallBoxedString(temp,currentleft,currenttop, timecolsize, cellheight, g);
+		        currentleft+=timecolsize;
+		        
 		  for(int i=1;i<7;i++) 
 		  { //g.drawString("| Test", currentleft, currenttop);
-			String  temp=view.GetData(view.table2, row,i);
+			temp=view.GetData(view.table2, row,i);
 		    PrintSideWallBoxedString(temp,currentleft,currenttop, othercolsize, cellheight, g);
 		    currentleft+=othercolsize;
 		  }
 	  currentleft=x;
-	  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
+	  //g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  currenttop+=cellheight;
 	  }
 	  //currenttop=currenttop-cellheight;
-	  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
+	  //g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
 	  	
 	}
 	
