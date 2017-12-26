@@ -163,7 +163,8 @@ public class RemoveCDG
      CalculateGlobalCounts();
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
-     view.jb.setVisible(true);view.msgLabel.setVisible(true);
+     view.jb.setVisible(true);
+     view.msgLabel.setVisible(true);
      String class1,class2;
     for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
     { for(sourcecol=1;sourcecol<7;sourcecol++)

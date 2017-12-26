@@ -92,7 +92,7 @@ public class View {
     
     
     private void refresh()
-    {//ClearIndividualTable();
+    {ClearIndividualTable();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
     String str = (String)table.getValueAt(row, col);
@@ -134,6 +134,7 @@ public class View {
 				 */
 				private static final long serialVersionUID = 1L;
 
+				
 				public String getToolTipText( MouseEvent e )
                 {
                     int row = rowAtPoint( e.getPoint() );
@@ -142,6 +143,7 @@ public class View {
                     Object value = getValueAt(row, column);
                     return value == null ? null : value.toString();
                 }
+                
             };
             
 
@@ -154,7 +156,11 @@ public class View {
             table.getColumnModel().getColumn(0).setMinWidth(100);
            
             JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.getViewport().putClientProperty
+            ("EnableWindowBlit", Boolean.TRUE);
 
+            scrollPane.putClientProperty("minimumPages","1");
+          //  scrollPane.getVerticalScrollBar().setUnitIncrement(100);
             /////////////////
             
             TableColumnModel colModel = table.getColumnModel();
@@ -170,10 +176,11 @@ public class View {
             
             //////////////    Focus Listner
             //////////////
+          
             
-            listSelectionModel = table.getSelectionModel();
-            table.getSelectionModel()
-                    .addListSelectionListener(new MyRowListener());
+           listSelectionModel = table.getSelectionModel();
+           table.getSelectionModel()
+                   .addListSelectionListener(new MyRowListener());
             table.getColumnModel().getSelectionModel()
                     .addListSelectionListener(new MyColListener());
             table.setSelectionModel(listSelectionModel);
@@ -348,7 +355,7 @@ public class View {
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
         spesLabel = new JLabel("        ");
-        msgLabel=new JLabel("   Enter To Stop");
+        msgLabel=new JLabel(" Enter To Stop");
         msgLabel.setVisible(false);
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
       //  countpanel.setLayout(new FlowLayout());
