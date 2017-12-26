@@ -36,17 +36,16 @@ public class View {
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
-        
+    private int focusrow=0,focuscol=1;
     JTable table;
     
     JTable table2;
-    int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
+    int COLS=7;
+    int ROWCOUNT2=300;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=200; ///Main Table
-    int ColorMatrix[][]= new int[ROWCOUNT][7];
-    
+    int MROWS=25;         /// Individual rows in IndiMatrix;
+    int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
-    
-    
     
     JProgressBar jb=new JProgressBar(0,100);
     
@@ -54,9 +53,8 @@ public class View {
     JLabel countLabel,spesLabel,msgLabel; 
     String allcounts;
     ListSelectionModel listSelectionModel;
-    
-    int ROWS=25,COLS=7;  ////For create display matrix
-    String[][] Matrix = new String[ROWS][COLS];
+  
+    String[][] Matrix = new String[MROWS][COLS];
     
     
     
@@ -66,26 +64,27 @@ public class View {
       {  table2.getModel().setValueAt(obj,row_index,col_index);  } 
    
     
-    class MyColListener implements ListSelectionListener {
+    class MyColListener implements ListSelectionListener
+    {
         
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
             {  
-            	        refresh();
-                
+               refresh();
             }
         }
     }
 
-    class MyRowListener implements ListSelectionListener {
+    class MyRowListener implements ListSelectionListener 
+    {
       	 
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) 
-            { ///threaded refresh to avoid sloth in individual and class display
-            	
-            	        refresh();
+            { 
+            	refresh();
+            	        
                 }
         }
     }
@@ -93,13 +92,12 @@ public class View {
     
     
     private void refresh()
-    {ClearIndividualTable();
+    {//ClearIndividualTable();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
-    
     String str = (String)table.getValueAt(row, col);
     if(str.length()==0) return;
-    if(col==0){  DisplayClass(str); return; }
+    if(col==0){ ClearIndividualTable(); DisplayClass(str); return; }
     int left=str.indexOf("(");
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
@@ -109,11 +107,9 @@ public class View {
     CountGaps();
     CountDoubles();
     DeleteLastTimeSlot();
- //   CreatePerPerDivisionChart();
+    CreatePerPerDivisionChart();
     UpdateDisplay(teachercode);
     UpdateCounts(teachercode);
-    
-    
     }
     
     
@@ -479,7 +475,7 @@ public class View {
         {
             synchronized(this)
             {
-            	for(int i=0;i<ROWS;i++)
+            	for(int i=0;i<MROWS;i++)
            		 for(int j=0;j<COLS;j++) Matrix[i][j]="";  ////clean matrix               
                 
                 notify();
@@ -672,7 +668,7 @@ public class View {
     
     private void UpdateDisplay(String ind)
     {//ClearIndividualTable();
-    for (int i = 0; i < ROWCOUNT2; i++)
+    for (int i = 0; i < MROWS; i++)
 	      for(int j = 0; j < table2.getColumnCount(); j++)
 	          table2.setValueAt(Matrix[i][j], i, j);
 	      
@@ -697,10 +693,10 @@ public class View {
     }
     
     
-    public void ClearIndividualTable() /////same as class table
+    public void ClearIndividualTable() /////same as class 
     {
     	
-    	   for (int i = 0; i < ROWCOUNT2; i++)
+    	   for (int i = 0; i < MROWS; i++)
     	      for(int j = 0; j < table2.getColumnCount(); j++)
     	      {
     	          table2.setValueAt("", i, j);
