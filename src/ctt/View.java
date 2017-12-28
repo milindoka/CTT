@@ -36,7 +36,6 @@ public class View {
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b13,b14,b15;
     private DefaultTableModel model;
     private DefaultTableModel model2;
-    private int focusrow=0,focuscol=1;
     JTable table;
     
     JTable table2;
@@ -97,7 +96,12 @@ public class View {
     int col = table.getSelectedColumn();
     String str = (String)table.getValueAt(row, col);
     if(str.length()==0) return;
-    if(col==0){ ClearIndividualTable(); DisplayClass(str); return; }
+    if(col==0)
+       { ClearIndividualTable(); 
+         DisplayClass(str); 
+        // CreatePerPerDivisionChart(); 
+         return; 
+        }
     int left=str.indexOf("(");
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
@@ -129,9 +133,6 @@ public class View {
            table = new JTable(new DefaultTableModel(columnNames, 0))
             { ////added tooltip
 
-                /**
-				 * 
-				 */
 				private static final long serialVersionUID = 1L;
 
 				
@@ -258,7 +259,7 @@ public class View {
             
             
             
-          ExcelAdapter myAd = new ExcelAdapter(table);        
+      ExcelAdapter myAd = new ExcelAdapter(table);        
             
             
             
@@ -490,9 +491,6 @@ public class View {
         }
     }
     
-    
-    
-    
     public void CreateIndi(String ind)
     {
     	/////////////////////////////
@@ -520,7 +518,6 @@ public class View {
 
     String originalclass,newclass;
 	String temp="",currenttime="";    int currentrow=0; boolean foundlecture=false;    	
-	String temp2;
     ////Get First Time Slot
     for(currentrow=0;currentrow<ROWCOUNT-1;currentrow++)
     	{ temp=GetData(table,currentrow,0); if(temp.contains(":")) { currenttime=temp; break; }}
@@ -718,9 +715,6 @@ public class View {
     	table.repaint();
     }
     
-    
-    
-    
     void MultiFrizCellsContaing(String str)
     {for(int r=0;r<ROWCOUNT;r++)
 		for(int c=1;c<7;c++) 
@@ -733,7 +727,11 @@ public class View {
     
     public class ColoringCellRenderer extends DefaultTableCellRenderer
     {
-    	Color clashred=new Color(255,200,200);
+		private static final long serialVersionUID = 1L;
+	
+		
+		
+		Color clashred=new Color(255,200,200);
     	
     	
     	  public Component getTableCellRendererComponent(JTable table, 
@@ -767,7 +765,11 @@ public class View {
     
     class FreezeCellRenderer extends DefaultTableCellRenderer
     {	
-    	Color focusblue=new Color(51,249,255);
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		Color focusblue=new Color(51,249,255);
     	FreezeCellRenderer() 
     	{for(int r=0;r<ROWCOUNT;r++)
     		for(int c=0;c<7;c++) ColorMatrix[r][c]=0;

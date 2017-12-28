@@ -9,13 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
-import com.sun.xml.internal.ws.util.StringUtils;
 
 public class Controller {
 
