@@ -97,9 +97,13 @@ public class View {
     String str = (String)table.getValueAt(row, col);
     if(str.length()==0) return;
     if(col==0)
-       { ClearIndividualTable(); 
-         DisplayClass(str); 
-        // CreatePerPerDivisionChart(); 
+       { //ClearIndividualTable(); 
+         //DisplayClass(str);
+    	 CreateClass(str);
+    	 DeleteLastTimeSlot();
+    	 CreatePerPerDivisionChart();
+    	 UpdateDisplay();
+          
          return; 
         }
     int left=str.indexOf("(");
@@ -112,7 +116,7 @@ public class View {
     CountDoubles();
     DeleteLastTimeSlot();
     CreatePerPerDivisionChart();
-    UpdateDisplay(teachercode);
+    UpdateDisplay();
     UpdateCounts(teachercode);
     }
     
@@ -441,40 +445,49 @@ public class View {
     }
     
     
-    public void DisplayClass(String clas)
-    { 
-	String temp="",currenttime="";
+    public void CreateClass(String clas)
+    {
+/////////////Must wait till Matrix is Clean    	
+    	ThreadB b = new ThreadB();
+        b.start();
+ 
+        synchronized(b){
+            try{  b.wait();
+                }catch(InterruptedException e){
+                e.printStackTrace();
+                }
+        }
+    	
+   ////////////////////////////////////////// 	
+    String temp="",currenttime="";
 	if(clas.contains(":")) return;
 	if(clas.length()==0) return;
-    int currentrow=0;    	
-
-    int clasrow=0; ///initialize class table row pointer
-    //SetData(currenttime,table2,clasrow,0); ///set first time slot in individual
-   // int LAST=0;
-   // for(LAST=ROWCOUNT-2;)
+    int currentrow=0;
+    indirow=0;    	
     
     while(currentrow<ROWCOUNT-1)   	
 	{  ///update time slot if next time slot starts
     	temp=GetData(table,currentrow,0); 
     	if(temp.contains(":"))
-    	 { currenttime=temp; 
-    	   SetData(currenttime,table2,clasrow,0); ///set new time slot in individual
+    	 { currenttime=temp;
+    	   Matrix[indirow][0]=currenttime;
+    	  // SetData(currenttime,table2,clasrow,0); ///set new time slot in individual
     	 }
     	
         if(temp.contains(clas)) 
          {  
         	for(int col=1;col<7;col++)
-        	SetData(GetData(table,currentrow,col),table2,clasrow,col);
-        	clasrow++;
+        	//SetData(GetData(table,currentrow,col),table2,clasrow,col);
+        	Matrix[indirow][col]=GetData(table,currentrow,col);
+        	indirow++;
         	
          }
-       
        currentrow++;
 	}
-   
-    
+    	
     }
     
+        
     
     class ThreadB extends Thread 
     {
@@ -670,7 +683,7 @@ public class View {
    }
 
     
-    private void UpdateDisplay(String ind)
+    private void UpdateDisplay()
     {//ClearIndividualTable();
     for (int i = 0; i < MROWS; i++)
 	      for(int j = 0; j < table2.getColumnCount(); j++)
@@ -690,6 +703,7 @@ public class View {
 		       if(temp.length()!=0) return; ///return if time slot is not extra 
 	          }
 		    Matrix[i][0]="";   ////delete extra
+		    indirow=i-1;
 	      }
 	
 

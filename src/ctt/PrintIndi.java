@@ -15,6 +15,7 @@ import java.awt.print.PrinterJob;
 
 public class PrintIndi implements Printable
 {	
+	public boolean ALL=false;
 	int totalpages,totallines;
 	View view;
     Color gre=new Color(231,231,231);
@@ -31,9 +32,6 @@ public class PrintIndi implements Printable
     	  
       }
       
-      
-	
-      
 	///// Here the whole  JAVA Printing Mechanism Starts 
 	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
 	/////
@@ -49,9 +47,8 @@ public class PrintIndi implements Printable
         return null;
     }
 		
-	  public void PrintAllIndi(String printername)
+	  public void PrintIndividuals(String printername)
               {
-		  
 		  totallines=GetTotalLines();
 		  totalpages=totallines/linesperpage;
 		  if(totalpages>20) totalpages=20; ///resonable limit for total pages
@@ -76,7 +73,6 @@ public class PrintIndi implements Printable
 	         HashPrintRequestAttributeSet pattribs=new HashPrintRequestAttributeSet();
 	         pattribs.add(new MediaPrintableArea(0, 0, 210, 297, MediaPrintableArea.MM));
 	         // 210 x 297  A4 size paper in Millimiters.
-	         
 	  
 	         boolean ok = true; ///job.printDialog();
 	         if (ok) 
@@ -88,22 +84,20 @@ public class PrintIndi implements Printable
 	public int print(Graphics g, PageFormat pf, int pageno)
 			throws PrinterException
 	{
-		//g.setColor(gre);
 		int tlx=(int) pf.getImageableX()+10,tly=(int) pf.getImageableY()+10;
-		
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
 		
-		 if (pageno > totalpages)             // We have only one page, and 'page no' is zero-based
+		 if (pageno >0)              // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
-		 
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
-		 
-	      DrawOpenWallTextLine(50,30,g,pageno);  ///left, top and graphics g
-	      System.out.println("printing ends");
-		return 0;
+         DrawOpenWallTextLine(50,30,g,pageno);  ///left, top and graphics g
+	     System.out.println("printing ends");
+	
+	     return 0;
 	 }
+
 	
 	private void DrawOpenWallTextLine(int x,int y,Graphics g,int pn)
 	{ 
@@ -164,8 +158,6 @@ public class PrintIndi implements Printable
 	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
 	        
 	 }
-
-	
 	
 	int GetTotalLines()
     {    String temp="";
@@ -175,11 +167,8 @@ public class PrintIndi implements Printable
     	    	{ temp=view.GetData(view.table2,currentrow,0); 
     	    	  if(temp.length()>0) break;
     	    	}
-    		
-    	    
     	    
     	    return currentrow;
     }
-	
 	
 }	

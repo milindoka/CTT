@@ -153,7 +153,7 @@ public class Controller {
         PRINTCLASSbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
+              { PrintCurrent();                 
  
               }
             	};
@@ -165,7 +165,7 @@ public class Controller {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
             	  PrepareMaster();
-                  PrinCUTT();
+                  PrintMaster();
    
               }
             	};
@@ -204,7 +204,7 @@ public class Controller {
     }
     
   
-    private void PrinCUTT()
+    private void PrintMaster()
     { 
       PrintMaster pm=new PrintMaster();
       pm.setView(view);
@@ -212,6 +212,17 @@ public class Controller {
       System.out.println(printername);
       pm.PrintMasterChart(printername);
     }
+ 
+    private void PrintCurrent()
+    { 
+      PrintIndi pi=new PrintIndi();
+      pi.setView(view);
+      String printername=model.getPrinterName();
+      pi.PrintIndividuals(printername);
+    }
+ 
+    
+    
     
     String SixTupleColor(int row)
     {String temp="";
