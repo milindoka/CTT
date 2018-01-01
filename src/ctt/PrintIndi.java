@@ -92,12 +92,18 @@ public class PrintIndi implements Printable
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
-         DrawOpenWallTextLine(50,30,g,pageno);  ///left, top and graphics g
+         OnePageIndi.PrintPage(50,30,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
 	     return 0;
 	 }
 
+	
+	private void PrintPage(int topleftx, int toplefty,Graphics g,int pageno)
+	{
+		g.drawString("Hello", topleftx, toplefty);
+	}
+	
 	
 	private void DrawOpenWallTextLine(int x,int y,Graphics g,int pn)
 	{ 
