@@ -21,6 +21,7 @@ public class PrintIndi implements Printable
     Color gre=new Color(231,231,231);
 	public void setView(View vu)  {	this.view=vu; }
              
+	OnePageIndi opi;
 	  ///initialize printing parameters
   //	JTable table;
 
@@ -29,7 +30,7 @@ public class PrintIndi implements Printable
       PrintIndi()
       {   
     	  timecolsize=100;othercolsize=65;linesperpage=40;
-    	  
+    	  opi=new OnePageIndi(); opi.setView(view);
       }
       
 	///// Here the whole  JAVA Printing Mechanism Starts 
@@ -92,18 +93,11 @@ public class PrintIndi implements Printable
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
-         OnePageIndi.PrintPage(50,30,g,pageno);  ///left, top and graphics g
+         opi.PrintOnePage(50,30,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
 	     return 0;
 	 }
-
-	
-	private void PrintPage(int topleftx, int toplefty,Graphics g,int pageno)
-	{
-		g.drawString("Hello", topleftx, toplefty);
-	}
-	
 	
 	private void DrawOpenWallTextLine(int x,int y,Graphics g,int pn)
 	{ 
