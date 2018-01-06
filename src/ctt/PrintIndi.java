@@ -18,7 +18,6 @@ public class PrintIndi implements Printable
 	public boolean ALL=false;
 	int totalpages,totallines;
 	View view;
-    Color gre=new Color(231,231,231);
 	public void setView(View vu)  {	this.view=vu; }
              
 	OnePageIndi opi;
@@ -30,7 +29,8 @@ public class PrintIndi implements Printable
       PrintIndi()
       {   
     	  timecolsize=100;othercolsize=65;linesperpage=40;
-    	  opi=new OnePageIndi(); opi.setView(view);
+    	  opi=new OnePageIndi(); 
+    	  opi.setView(view);
       }
       
 	///// Here the whole  JAVA Printing Mechanism Starts 
@@ -93,6 +93,7 @@ public class PrintIndi implements Printable
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
+		 opi.setView(view);
          opi.PrintOnePage(50,30,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
@@ -148,13 +149,11 @@ public class PrintIndi implements Printable
 	 {
 		 pg.drawLine(tlx, tly, tlx, tly+boxheight);
 		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+boxheight);
-		 pg.setColor(gre);
 		 pg.fillRect(tlx, tly,boxwidth, boxheight);
 		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
 		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
 		 
 	        int start = boxwidth/2 - stringLen/2;  
-	        pg.setColor(Color.BLACK);
 	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
 	        
 	 }
