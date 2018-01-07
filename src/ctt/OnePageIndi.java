@@ -7,16 +7,33 @@ public class OnePageIndi
 {
 	View view;
 	int timecolsize=100,othercolsize=65,linesperpage=40,cellheight=19;
-
+	int horizontalwidth=timecolsize+6*othercolsize;
+	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
+	
+	
+	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno)
+	{   int  tlx=topleftx, tly=toplefty;
+		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
+		g.drawLine(tlx,tly, tlx, tly+cellheight); //leftmost wall
+		DrawRightWallText("MO",tlx,tly, timecolsize, g); // time with right wall
+		tlx=tlx+timecolsize;
+		DrawRightWallText("MO",tlx,tly, MidWidth,g); // mid wall
+		tly=tly+cellheight;
+		tlx=topleftx;
+		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
+		
+		
+	}
+	
 	
 	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno)
 	{
 		int  tlx=topleftx, tly=toplefty;
-		int horizontalwidth=timecolsize+6*othercolsize;
-	    int lastrow=GetLastRow();	
+		int lastrow=GetLastRow();
 		
-	    g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
+		PrintHeaderRow(tlx,tly,g,pageno);
+		tly+=cellheight;
 	
 	    for(int row=0;row<=lastrow;row++)
 	    	{ DrawWallTextLine(tlx,tly,g,row);     
@@ -53,9 +70,7 @@ public class OnePageIndi
 	 
 	 void DrawRightWallText(String str,int tlx,int tly, int boxwidth,Graphics pg)
 	 {
-	//	 pg.drawLine(tlx, tly, tlx, tly+cellheight);
 		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+cellheight);
-	//	 pg.fillRect(tlx, tly,boxwidth, cellheight);
 		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
 		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
 		 
