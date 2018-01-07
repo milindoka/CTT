@@ -14,13 +14,15 @@ public class OnePageIndi
 	{
 		int  tlx=topleftx, tly=toplefty;
 		int horizontalwidth=timecolsize+6*othercolsize;
+	    int lastrow=GetLastRow();	
 		
-		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
+	    g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
 	
-		DrawWallTextLine(tlx,tly,g,0);
-		tly+=cellheight;
-		
-		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
+	    for(int row=0;row<=lastrow;row++)
+	    	{ DrawWallTextLine(tlx,tly,g,row);     
+	    	  tly+=cellheight;
+	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
+	    	}
 	}
 	 
 	
@@ -61,5 +63,33 @@ public class OnePageIndi
 	        pg.drawString(str, start + tlx, tly+(cellheight-stringHeight)/2 +stringHeight-2);
 	        
 	 }
+	 
+	 
+	 
+	 int GetLastTimeRow()
+	    {    String temp="";
+	    	 int currentrow=0;    	
+	    		////Get First Time Slot
+	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
+	    	    	{ temp=view.GetData(view.table2,currentrow,0); 
+	    	    	  if(temp.length()>0) break;
+	    	    	}
+	    		return currentrow;
+	    }
+	 
+	 
+	 int GetLastRow()
+	    {    String temp="";
+	    	 int currentrow=0;    	
+	    		////Get First Time Slot
+	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
+	    	    	{ temp=view.GetData(view.table2,currentrow,1); 
+	    	    	  if(temp.length()>0) break;
+	    	    	}
+	    		return currentrow;
+	    }
+	 
+	 
+	 
 	 
 }

@@ -18,8 +18,10 @@ public class Controller {
     private View view;
     private RemoveCDG rcdg;
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
+    private ActionListener PRINTCURRENTbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
+    
     
     public Controller(Model model, View view)
     {
@@ -60,14 +62,6 @@ public class Controller {
         };                
         view.getLoadBT().addActionListener(LoadAL);
         
-        PrinAL = new ActionListener()
-        {
-              public void actionPerformed(ActionEvent actionEvent) 
-              {            
-            	             	 
-              }
-        };                
-        view.getPrinCU().addActionListener(PrinAL);
         
         SetprnAL = new ActionListener()
         {
@@ -153,10 +147,10 @@ public class Controller {
         PRINTCLASSbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              { PrintCurrent();                 
+              {                  
  
               }
-            	};
+        };
                
         view.getPRINTCLASSbutton().addActionListener(PRINTCLASSbuttonAL);
         
@@ -171,6 +165,22 @@ public class Controller {
             	};
                
         view.getPRINTMASTERbutton().addActionListener(PRINTMASTERbuttonAL);
+        
+   
+        PRINTCURRENTbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {                  
+            	  PrintCurrent();
+              }
+       	};
+               
+        view.getPRINTCURRENTbutton().addActionListener(PRINTCURRENTbuttonAL);
+   
+        
+        
+        
+        
     }
     
 ///////////// Methods called in action listeners ////////////////////    
