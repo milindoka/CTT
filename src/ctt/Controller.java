@@ -225,6 +225,10 @@ public class Controller {
  
     private void PrintCurrent()
     { 
+    	
+    	int col = view.table.getSelectedColumn();
+    	if(col<0) return;
+      if(col==0) { System.out.println("class"); return; }
       PrintIndi pi=new PrintIndi();
       pi.setView(view);
       String printername=model.getPrinterName();
