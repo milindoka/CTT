@@ -16,17 +16,50 @@ public class OnePageIndi
 	{   int  tlx=topleftx, tly=toplefty;
 		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
 		g.drawLine(tlx,tly, tlx, tly+cellheight); //leftmost wall
-		DrawRightWallText("MO",tlx,tly, timecolsize, g); // time with right wall
+		PrintRightWallText(view.LectureCount,tlx,tly, timecolsize, g); // time with right wall
 		tlx=tlx+timecolsize;
-		DrawRightWallText("MO",tlx,tly, MidWidth,g); // mid wall
+		PrintRightWallText("SIWS COLLEGE",tlx,tly, MidWidth,g); // mid cell
+		tlx=tlx+MidWidth;
+		PrintRightWallText(view.allcounts,tlx,tly, 3*othercolsize,g); // last cell
 		tly=tly+cellheight;
-		tlx=topleftx;
+		tlx=topleftx;  ///back to leftmost position
 		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
-		
-		
 	}
 	
+	 void PrintRightWallText(String str,int tlx,int tly, int boxwidth,Graphics pg)
+	 {
+		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+cellheight);
+		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
+		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
+		 
+	        int start = boxwidth/2 - stringLen/2;  
+	        pg.drawString(str, start + tlx, tly+(cellheight-stringHeight)/2 +stringHeight-2);
+	        
+	 }
 	
+	 private void DrawWallTextLine(int x,int y,Graphics g,int TableRowNo)
+		{ 
+		 int currentleft=x,currenttop=y;
+		 
+		 
+		 g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
+	     String  temp=view.GetData(view.table2, TableRowNo,0);
+	     
+	     PrintRightWallText(temp,currentleft,currenttop, timecolsize, g);         /// time with right wall
+	     
+	     currentleft+=timecolsize;
+			        
+			  for(int i=1;i<7;i++) 
+			  { //g.drawString("| Test", currentleft, currenttop);
+				temp=view.GetData(view.table2,TableRowNo,i);
+			    PrintRightWallText(temp,currentleft,currenttop, othercolsize,g);  /// week text with right wall
+			    currentleft+=othercolsize;
+			  }
+		  currentleft=x;
+		  
+		  currenttop+=cellheight;
+		  }
+		
 	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno)
 	{
 		int  tlx=topleftx, tly=toplefty;
@@ -42,45 +75,6 @@ public class OnePageIndi
 	    	}
 	}
 	 
-	
-	private void DrawWallTextLine(int x,int y,Graphics g,int TableRowNo)
-	{ 
-	 int currentleft=x,currenttop=y;
-	 
-	 
-	 g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
-     String  temp=view.GetData(view.table2, TableRowNo,0);
-     
-     DrawRightWallText(temp,currentleft,currenttop, timecolsize, g);         /// time with right wall
-     
-     currentleft+=timecolsize;
-		        
-		  for(int i=1;i<7;i++) 
-		  { //g.drawString("| Test", currentleft, currenttop);
-			temp=view.GetData(view.table2,TableRowNo,i);
-		    DrawRightWallText(temp,currentleft,currenttop, othercolsize,g);  /// week text with right wall
-		    currentleft+=othercolsize;
-		  }
-	  currentleft=x;
-	  
-	  currenttop+=cellheight;
-	  }
-	 
-	
-	 
-	 void DrawRightWallText(String str,int tlx,int tly, int boxwidth,Graphics pg)
-	 {
-		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+cellheight);
-		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
-		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
-		 
-	        int start = boxwidth/2 - stringLen/2;  
-	        pg.drawString(str, start + tlx, tly+(cellheight-stringHeight)/2 +stringHeight-2);
-	        
-	 }
-	 
-	 
-	 
 	 int GetLastTimeRow()
 	    {    String temp="";
 	    	 int currentrow=0;    	
@@ -92,7 +86,6 @@ public class OnePageIndi
 	    		return currentrow;
 	    }
 	 
-	 
 	 int GetLastRow()
 	    {    String temp="";
 	    	 int currentrow=0;    	
@@ -103,8 +96,5 @@ public class OnePageIndi
 	    	    	}
 	    		return currentrow;
 	    }
-	 
-	 
-	 
 	 
 }

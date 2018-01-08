@@ -37,7 +37,7 @@ public class View {
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
-    
+    String LectureCount;    
     JTable table2;
     int COLS=7;
     int ROWCOUNT2=300;         /////500;////For Master Print ,change to 25 later
@@ -667,7 +667,7 @@ public class View {
 		TableColumn tc ;
 		tc= tcm.getColumn(0);
 		
-	    String LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
+	    LectureCount=String.format("%s-%d",ind.substring(1,ind.length()-1),lecturecount);
 	    tc.setHeaderValue(LectureCount);th.repaint();
 	    
 	    allcounts=String.format("CC : %d  DC : %d  GC : %d",CC,DC,GC);
