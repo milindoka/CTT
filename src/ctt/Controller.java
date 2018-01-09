@@ -233,6 +233,7 @@ public class Controller {
       pi.setView(view);
       String printername=model.getPrinterName();
       pi.PrintIndividuals(printername);
+      pi.CollectAllTeachers();
     }
  
     

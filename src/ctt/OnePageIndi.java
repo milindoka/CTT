@@ -96,29 +96,6 @@ public class OnePageIndi
 	    		return currentrow;
 	    }
 
-	 /*
-    String GetTeacherCode(String cellcontent)
-    {
-	 String str = (String)table.getValueAt(row, col);
-	    if(str.length()==0) return;
-	    if(col==0)
-	       { //ClearIndividualTable(); 
-	         //DisplayClass(str);
-	    	 CreateClass(str);
-	    	 DeleteLastTimeSlot();
-	    	 CreatePerPerDivisionChart();
-	    	 UpdateDisplay();
-	          
-	         return; 
-	        }
-	    int left=str.indexOf("(");
-	    int rite=str.indexOf(")");
-	    if(left<0 || rite<0) return;
-	    final String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
-	    //DisplayIndividual(teachercode);
-	    CreateIndi(teachercode);
-
-	 */
 	 
 	 
 }

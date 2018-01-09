@@ -12,11 +12,15 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PrintIndi implements Printable
 {	
 	public boolean ALL=false;
 	int totalpages,totallines;
+    ArrayList<String> oldList=new ArrayList<String>();
+	ArrayList<String> newList;
 	View view;
 	public void setView(View vu)  {	this.view=vu; }
              
@@ -82,7 +86,7 @@ public class PrintIndi implements Printable
 	public int print(Graphics g, PageFormat pf, int pageno)
 			throws PrinterException
 	{
-		int tlx=(int) pf.getImageableX()+10,tly=(int) pf.getImageableY()+10;
+		int tlx=(int) pf.getImageableX()+70,tly=(int) pf.getImageableY()+10;
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
 		
 		 if (pageno >0)              // We have only one page, and 'page no' is zero-based
@@ -99,8 +103,28 @@ public class PrintIndi implements Printable
 	
 	
 	
+	void CollectAllTeachers()
+	{
+	oldList.removeAll(oldList);
 	
-	
+	for(int currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
+		for(int col=1;col<7;col++)
+	       {String str=view.GetData(view.table,currentrow,col);
+	       
+	       int left=str.indexOf("(");
+	       int rite=str.indexOf(")");
+	       if(left<0 || rite<0) continue;
+	       String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
+	       oldList.add(teachercode);
+	       
+	       }
+		
+	ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
+  
+	System.out.println(newList.size());
+	for(int i=0;i<newList.size();i++)
+		System.out.println(newList.get(i));
+	}
 	
 	
 	
