@@ -50,9 +50,6 @@ public class PrintIndi implements Printable
 		
 	  public void PrintIndividuals(String printername)
               {
-		  totallines=GetTotalLines();
-		  totalpages=totallines/linesperpage;
-		  if(totalpages>20) totalpages=20; ///resonable limit for total pages
 		  PrintService ps = findPrintService(printername);
 		  if(ps==null) ps = PrintServiceLookup.lookupDefaultPrintService(); 
 		  if(ps==null) return;
@@ -94,80 +91,20 @@ public class PrintIndi implements Printable
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
 		 opi.setView(view);
-         opi.PrintOnePage(50,30,g,pageno);  ///left, top and graphics g
+         opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
 	     return 0;
 	 }
 	
-	private void DrawOpenWallTextLine(int x,int y,Graphics g,int pn)
-	{ 
-	  int currentleft=x,currenttop=y,cellheight=19;
-	  
-	 int horizontalwidth=timecolsize+6*othercolsize;
-	    
-	  for(int row=0;row<linesperpage;row++)
-	  {   
-		  
-		  String  temp=view.GetData(view.table2, row+pn*linesperpage,0);
-		  
-		  if(temp.contains("$END")) 
-		   { // if(row==0) continue; ///exceptiona END line, leave 
-			  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
-			 
-			  return;
-		   }
-		  
-		  
-		  if(temp.contains("$BLANK")) 
-		   { if(row!=0) ///first blank line so no ending  line of previous block
-			   	  g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
-			  currenttop+=cellheight;
-			  continue;
-		   }
-		  if(temp.length()!=0) //then top wall
-		       g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
-		       
-		  PrintSideWallBoxedString(temp,currentleft,currenttop, timecolsize, cellheight, g);
-		        currentleft+=timecolsize;
-		        
-		  for(int i=1;i<7;i++) 
-		  { //g.drawString("| Test", currentleft, currenttop);
-			temp=view.GetData(view.table2,row+pn*linesperpage,i);
-		    PrintSideWallBoxedString(temp,currentleft,currenttop, othercolsize, cellheight, g);
-		    currentleft+=othercolsize;
-		  }
-	  currentleft=x;
-	  
-	  currenttop+=cellheight;
-	  }
-      //g.drawLine(currentleft,currenttop,currentleft+horizontalwidth,currenttop);
-	}
 	
-
-	void PrintSideWallBoxedString(String str,int tlx,int tly, int boxwidth, int boxheight, Graphics pg)
-	 {
-		 pg.drawLine(tlx, tly, tlx, tly+boxheight);
-		 pg.drawLine(tlx+boxwidth, tly, tlx+boxwidth, tly+boxheight);
-		 pg.fillRect(tlx, tly,boxwidth, boxheight);
-		 int stringLen = (int)  pg.getFontMetrics().getStringBounds(str, pg).getWidth(); 
-		 int stringHeight=(int) pg.getFontMetrics().getStringBounds(str, pg).getHeight();
-		 
-	        int start = boxwidth/2 - stringLen/2;  
-	        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
-	        
-	 }
 	
-	int GetTotalLines()
-    {    String temp="";
-    	 int currentrow=0;    	
-    		////Get First Time Slot
-    	    for(currentrow=view.ROWCOUNT2-1;currentrow>0;currentrow--)
-    	    	{ temp=view.GetData(view.table2,currentrow,0); 
-    	    	  if(temp.length()>0) break;
-    	    	}
-    	    
-    	    return currentrow;
-    }
+	
+	
+	
+	
+	
+	
+	
 	
 }	
