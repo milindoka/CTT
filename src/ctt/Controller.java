@@ -232,12 +232,10 @@ public class Controller {
       PrintIndi pi=new PrintIndi();
       pi.setView(view);
       String printername=model.getPrinterName();
-      pi.PrintIndividuals(printername);
       pi.CollectAllTeachers();
+      pi.PrintIndividuals(printername);
+      
     }
- 
-    
-    
     
     String SixTupleColor(int row)
     {String temp="";

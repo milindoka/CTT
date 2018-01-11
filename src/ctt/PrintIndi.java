@@ -95,7 +95,10 @@ public class PrintIndi implements Printable
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
 		 opi.setView(view);
-         opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
+        
+		 
+		 
+		// opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
 	     return 0;
@@ -124,10 +127,21 @@ public class PrintIndi implements Printable
 	System.out.println(newList.size());
 	for(int i=0;i<newList.size();i++)
 		System.out.println(newList.get(i));
+
+	view.CreateIndi(newList.get(0));
+	  view.CountGaps();
+	    view.CountDoubles();
+	    view.DeleteLastTimeSlot();
+	    view.CreatePerPerDivisionChart();
+	    view.UpdateDisplay();
+	    view.UpdateCounts(newList.get(0));
+
+	
+	
+	
 	}
-	
-	
-	
+
+	 
 	
 	
 	

@@ -605,7 +605,7 @@ public class View {
        }
     }
     
-    private void CreatePerPerDivisionChart()
+    public void CreatePerPerDivisionChart()
     {  String temp="";
     String[] Division = new String[100];
     int[] Count =new int[100];
@@ -659,7 +659,7 @@ public class View {
     }
    }
     
-   private void UpdateCounts(String ind)
+   public void UpdateCounts(String ind)
    {
 	    
 	    JTableHeader th = table2.getTableHeader();
@@ -683,7 +683,7 @@ public class View {
    }
 
     
-    private void UpdateDisplay()
+    public void UpdateDisplay()
     {//ClearIndividualTable();
     for (int i = 0; i < MROWS; i++)
 	      for(int j = 0; j < table2.getColumnCount(); j++)
@@ -693,7 +693,7 @@ public class View {
     }
 
         
-    private void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
+    public void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
     {   String temp;
 
     for (int i = indirow; i>1 ;i--)
