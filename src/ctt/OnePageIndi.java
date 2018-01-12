@@ -62,13 +62,13 @@ public class OnePageIndi
 	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno)
 	{
 		int  tlx=topleftx, tly=toplefty;
-		int lastrow=GetLastRow();
+	//	int lastrow=GetLastRow();
 		
 	//	PrintHeaderRow(tlx,tly,g,pageno);
 	//	tly+=cellheight;
 	
 	    for(int row=0;row<=30;row++)
-	    	{ DrawWallTextLine(tlx,tly,g,row);     
+	    	{ DrawWallTextLine(tlx,tly,g,row+pageno*30);     
 	    	  tly+=cellheight;
 	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	    	}

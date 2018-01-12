@@ -94,7 +94,7 @@ public class PrintIndi implements Printable
 		int tlx=(int) pf.getImageableX()+70,tly=(int) pf.getImageableY()+10;
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
 		
-		 if (pageno >0)              // We have only one page, and 'page no' is zero-based
+		 if (pageno >2)              // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
