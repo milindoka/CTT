@@ -42,7 +42,7 @@ public class OnePageIndi
 		 
 		 
 		 g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
-	     String  temp=view.Matrix[TableRowNo][0];
+	     String  temp=view.GetData(view.table2, TableRowNo,0);
 	     
 	     PrintRightWallText(temp,currentleft,currenttop, timecolsize, g);         /// time with right wall
 	     
@@ -50,7 +50,7 @@ public class OnePageIndi
 			        
 			  for(int i=1;i<7;i++) 
 			  { //g.drawString("| Test", currentleft, currenttop);
-				temp=view.Matrix[TableRowNo][i];
+				temp=view.GetData(view.table2, TableRowNo,i);
 			    PrintRightWallText(temp,currentleft,currenttop, othercolsize,g);  /// week text with right wall
 			    currentleft+=othercolsize;
 			  }
@@ -64,10 +64,10 @@ public class OnePageIndi
 		int  tlx=topleftx, tly=toplefty;
 		int lastrow=GetLastRow();
 		
-		PrintHeaderRow(tlx,tly,g,pageno);
-		tly+=cellheight;
+	//	PrintHeaderRow(tlx,tly,g,pageno);
+	//	tly+=cellheight;
 	
-	    for(int row=0;row<=lastrow;row++)
+	    for(int row=0;row<=30;row++)
 	    	{ DrawWallTextLine(tlx,tly,g,row);     
 	    	  tly+=cellheight;
 	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line

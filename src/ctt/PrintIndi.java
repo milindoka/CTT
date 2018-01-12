@@ -21,6 +21,11 @@ public class PrintIndi implements Printable
 	int totalpages,totallines;
     ArrayList<String> oldList=new ArrayList<String>();
 	ArrayList<String> newList;
+	
+    class Indies  { 	int Matrix[][]= new int[25][7];  }
+
+	ArrayList<Indies> IndArr = new ArrayList<Indies>();
+	
 	View view;
 	public void setView(View vu)  {	this.view=vu; }
              
@@ -98,13 +103,23 @@ public class PrintIndi implements Printable
         
 		 
 		 
-		// opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
+		 opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
 	     return 0;
 	 }
 	
-	
+	 int GetLastRow()
+	    {    String temp="";
+	    	 int currentrow=0;    	
+	    		////Get First Time Slot
+	    	    for(currentrow=view.MROWS-1;currentrow>0;currentrow--)
+	    	    	{ temp=view.Matrix[currentrow][1]; 
+	    	    	  if(temp.length()>0) break;
+	    	    	}
+	    		return currentrow;
+	    }
+
 	
 	void CollectAllTeachers()
 	{
@@ -128,15 +143,27 @@ public class PrintIndi implements Printable
 	for(int i=0;i<newList.size();i++)
 		System.out.println(newList.get(i));
 
-	view.CreateIndi(newList.get(0));
-	  view.CountGaps();
+	int  currentrow=0;
+	for(int i=0;i<newList.size();i++)
+	  { view.CreateIndi(newList.get(i));
+	    view.CountGaps();
 	    view.CountDoubles();
 	    view.DeleteLastTimeSlot();
 	    view.CreatePerPerDivisionChart();
-	    view.UpdateDisplay();
-	    view.UpdateCounts(newList.get(0));
+        int lr=GetLastRow();
+        for (int r = 0; r < lr; r++)
+  	       { for(int c = 0; c < 7; c++)
+  	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 
+  	         //////
+  	         currentrow++; 
+  	       }
+	    //view.UpdateDisplay();
+	    //view.UpdateCounts(newList.get(i));
 
-	
+	   
+	    
+	    
+	  }	
 	
 	
 	}

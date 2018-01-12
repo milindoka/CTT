@@ -232,6 +232,8 @@ public class Controller {
       PrintIndi pi=new PrintIndi();
       pi.setView(view);
       String printername=model.getPrinterName();
+     
+      
       pi.CollectAllTeachers();
       pi.PrintIndividuals(printername);
       

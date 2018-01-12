@@ -691,6 +691,8 @@ public class View {
 	      
         	
     }
+    
+    
 
         
     public void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
