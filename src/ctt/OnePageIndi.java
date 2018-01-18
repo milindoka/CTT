@@ -76,24 +76,24 @@ public class OnePageIndi
 	 
 	 int GetLastTimeRow()
 	    {    String temp="";
-	    	 int currentrow=0;    	
+	    	 int currow=0;    	
 	    		////Get First Time Slot
-	    	    for(currentrow=view.MROWS-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.Matrix[currentrow][0]; 
-	    	    	  if(temp.length()>0) break;
+	    	    for(currow=view.MROWS-1;currow>0;currow--)
+	    	    	{ temp=view.Matrix[currow][0]; 
+	    	    	  if(temp.length()>0) return currow;
 	    	    	}
-	    		return currentrow;
+	    		return currow;
 	    }
 	 
 	 int GetLastRow()
 	    {    String temp="";
-	    	 int currentrow=0;    	
+	    	 int currow=0;    	
 	    		////Get First Time Slot
-	    	    for(currentrow=view.MROWS-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.Matrix[currentrow][1]; 
-	    	    	  if(temp.length()>0) break;
+	    	    for(currow=view.MROWS-1;currow>0;currow--)
+	    	    	{ temp=view.Matrix[currow][1]; 
+	    	    	  if(temp.length()>0) return currow;
 	    	    	}
-	    		return currentrow;
+	    		return currow-1;
 	    }
 
 	 

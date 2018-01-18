@@ -22,10 +22,6 @@ public class PrintIndi implements Printable
     ArrayList<String> oldList=new ArrayList<String>();
 	ArrayList<String> newList;
 	
-    class Indies  { 	int Matrix[][]= new int[25][7];  }
-
-	ArrayList<Indies> IndArr = new ArrayList<Indies>();
-	
 	View view;
 	public void setView(View vu)  {	this.view=vu; }
              
@@ -111,13 +107,12 @@ public class PrintIndi implements Printable
 	
 	 int GetLastRow()
 	    {    String temp="";
-	    	 int currentrow=0;    	
-	    		////Get First Time Slot
-	    	    for(currentrow=view.MROWS-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.Matrix[currentrow][1]; 
-	    	    	  if(temp.length()>0) break;
+	    	 int currow=0;    	
+	    	    for(currow=view.MROWS-1;currow>0;currow--)
+	    	    	{ temp=view.Matrix[currow][1]; 
+	    	    	  if(temp.length()>0) return currow;
 	    	    	}
-	    		return currentrow;
+	    		return currow;
 	    }
 
 	
@@ -150,21 +145,16 @@ public class PrintIndi implements Printable
 	    view.CountDoubles();
 	    view.DeleteLastTimeSlot();
 	    view.CreatePerPerDivisionChart();
-        int lr=GetLastRow();
-        for (int r = 0; r < lr; r++)
+       
+	    int lr=GetLastRow();
+        
+        for (int r = 0; r <= lr; r++)
   	       { for(int c = 0; c < 7; c++)
   	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 
-  	         //////
-  	         currentrow++; 
+  	           currentrow++; 
   	       }
-	    //view.UpdateDisplay();
-	    //view.UpdateCounts(newList.get(i));
-
-	   
-	    
-	    
+        currentrow++;  ///blank row between two individuals
 	  }	
-	
 	
 	}
 
