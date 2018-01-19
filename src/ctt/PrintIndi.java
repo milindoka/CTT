@@ -139,6 +139,8 @@ public class PrintIndi implements Printable
 		System.out.println(newList.get(i));
 
 	int  currentrow=0;
+	int currentpage=1;
+	
 	for(int i=0;i<newList.size();i++)
 	  { view.CreateIndi(newList.get(i));
 	    view.CountGaps();
@@ -147,7 +149,9 @@ public class PrintIndi implements Printable
 	    view.CreatePerPerDivisionChart();
        
 	    int lr=GetLastRow();
-        
+	    System.out.print(currentpage*linesperpage);
+	    System.out.print(" ");System.out.println(currentrow+lr);
+        if((currentpage*linesperpage)<=(currentrow+lr)) { currentrow=currentpage*linesperpage+1; currentpage++; }
         for (int r = 0; r <= lr; r++)
   	       { for(int c = 0; c < 7; c++)
   	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 
