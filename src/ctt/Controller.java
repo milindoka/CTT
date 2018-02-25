@@ -136,7 +136,7 @@ public class Controller {
         PRINTINDIbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
+              {  PrintAllIndi();                  
 
               }
             	};
@@ -184,6 +184,25 @@ public class Controller {
     }
     
 ///////////// Methods called in action listeners ////////////////////    
+
+    
+
+    private void PrintAllIndi()
+    {
+    
+      PrepareIndividualPrint pip=new PrepareIndividualPrint();
+      pip.setView(view);
+      String printername=model.getPrinterName();
+      pip.CollectAllTeachers();
+      pip.PrintIndividuals(printername);
+    	
+    	
+    }
+
+    
+    
+    
+    
     
     public void ClearFreez()
     {
@@ -224,11 +243,20 @@ public class Controller {
     }
  
     private void PrintCurrent()
-    { 	int col = view.table.getSelectedColumn();
-	if(col<0) return;
-    if(col==0)  System.out.println("class"); 
-    if(col>1 && col<7) System.out.println("individual");
+    { 
+    	
+    	int col = view.table.getSelectedColumn();
+    	if(col<0) return;
+      if(col==0) { System.out.println("class"); return; }
+      PrintIndi pi=new PrintIndi();
+      pi.setView(view);
+      String printername=model.getPrinterName();
+      pi.PrintIndividuals(printername);
+    //  pi.CollectAllTeachers();
     }
+ 
+    
+    
     
     String SixTupleColor(int row)
     {String temp="";
@@ -237,19 +265,6 @@ public class Controller {
     	   if(view.ColorMatrix[row][c]==0) temp+="0"; else temp+="1";
     
     return temp;
-    	
-    }
-    
-    
-    private void PrintAllIndi()
-    {
-    
-      PrintIndi pi=new PrintIndi();
-      pi.setView(view);
-      String printername=model.getPrinterName();
-      pi.CollectAllTeachers();
-      pi.PrintIndividuals(printername);
-    	
     	
     }
     

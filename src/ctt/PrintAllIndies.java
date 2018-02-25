@@ -2,7 +2,7 @@ package ctt;
 
 import java.awt.Graphics;
 
-public class OnePageIndi
+public class PrintAllIndies
 {
 	View view;
 	int timecolsize=100,othercolsize=65,linesperpage=40,cellheight=19;
@@ -50,7 +50,7 @@ public class OnePageIndi
 			        
 			  for(int i=1;i<7;i++) 
 			  { //g.drawString("| Test", currentleft, currenttop);
-				temp=view.GetData(view.table2,TableRowNo,i);
+				temp=view.GetData(view.table2, TableRowNo,i);
 			    PrintRightWallText(temp,currentleft,currenttop, othercolsize,g);  /// week text with right wall
 			    currentleft+=othercolsize;
 			  }
@@ -62,13 +62,13 @@ public class OnePageIndi
 	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno)
 	{
 		int  tlx=topleftx, tly=toplefty;
-		int lastrow=GetLastRow();
+	//	int lastrow=GetLastRow();
 		
-		PrintHeaderRow(tlx,tly,g,pageno);
-		tly+=cellheight;
+	//	PrintHeaderRow(tlx,tly,g,pageno);
+	//	tly+=cellheight;
 	
-	    for(int row=0;row<=lastrow;row++)
-	    	{ DrawWallTextLine(tlx,tly,g,row);     
+	    for(int row=0;row<=30;row++)
+	    	{ DrawWallTextLine(tlx,tly,g,row+pageno*30);     
 	    	  tly+=cellheight;
 	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	    	}
@@ -76,24 +76,24 @@ public class OnePageIndi
 	 
 	 int GetLastTimeRow()
 	    {    String temp="";
-	    	 int currentrow=0;    	
+	    	 int currow=0;    	
 	    		////Get First Time Slot
-	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,0); 
-	    	    	  if(temp.length()>0) break;
+	    	    for(currow=view.MROWS-1;currow>0;currow--)
+	    	    	{ temp=view.Matrix[currow][0]; 
+	    	    	  if(temp.length()>0) return currow;
 	    	    	}
-	    		return currentrow;
+	    		return currow;
 	    }
 	 
 	 int GetLastRow()
 	    {    String temp="";
-	    	 int currentrow=0;    	
+	    	 int currow=0;    	
 	    		////Get First Time Slot
-	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,1); 
-	    	    	  if(temp.length()>0) break;
+	    	    for(currow=view.MROWS-1;currow>0;currow--)
+	    	    	{ temp=view.Matrix[currow][1]; 
+	    	    	  if(temp.length()>0) return currow;
 	    	    	}
-	    		return currentrow;
+	    		return currow-1;
 	    }
 
 	 

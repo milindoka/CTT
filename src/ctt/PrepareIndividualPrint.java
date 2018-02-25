@@ -15,25 +15,26 @@ import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class PrintIndi implements Printable
+public class PrepareIndividualPrint implements Printable
 {	
 	public boolean ALL=false;
 	int totalpages,totallines;
     ArrayList<String> oldList=new ArrayList<String>();
 	ArrayList<String> newList;
+	
 	View view;
 	public void setView(View vu)  {	this.view=vu; }
              
-	OnePageIndi opi;
+	PrintAllIndies opi;
 	  ///initialize printing parameters
   //	JTable table;
 
 	  int timecolsize,othercolsize,linesperpage;
       
-      PrintIndi()
+      PrepareIndividualPrint()
       {   
     	  timecolsize=100;othercolsize=65;linesperpage=40;
-    	  opi=new OnePageIndi(); 
+    	  opi=new PrintAllIndies(); 
     	  opi.setView(view);
       }
       
@@ -60,7 +61,7 @@ public class PrintIndi implements Printable
 		
 		  
 	         PrinterJob job = PrinterJob.getPrinterJob();
-	         job.setJobName("current");
+	         job.setJobName("Indi");
 	         try {
 				job.setPrintService(ps);
 			} catch (PrinterException e) {
@@ -89,19 +90,31 @@ public class PrintIndi implements Printable
 		int tlx=(int) pf.getImageableX()+70,tly=(int) pf.getImageableY()+10;
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
 		
-		 if (pageno >0)              // We have only one page, and 'page no' is zero-based
+		 if (pageno >2)              // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
 		 opi.setView(view);
-         opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
+        
+		 
+		 
+		 opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
 	     System.out.println("printing ends");
 	
 	     return 0;
 	 }
 	
-	
+	 int GetLastRow()
+	    {    String temp="";
+	    	 int currow=0;    	
+	    	    for(currow=view.MROWS-1;currow>0;currow--)
+	    	    	{ temp=view.Matrix[currow][1]; 
+	    	    	  if(temp.length()>0) return currow;
+	    	    	}
+	    		return currow;
+	    }
+
 	
 	void CollectAllTeachers()
 	{
@@ -124,6 +137,33 @@ public class PrintIndi implements Printable
 	System.out.println(newList.size());
 	for(int i=0;i<newList.size();i++)
 		System.out.println(newList.get(i));
+
+	int  currentrow=0;
+	int currentpage=1;
+	
+	for(int i=0;i<newList.size();i++)
+	  { view.CreateIndi(newList.get(i));
+	    view.CountGaps();
+	    view.CountDoubles();
+	    view.DeleteLastTimeSlot();
+	    view.CreatePerPerDivisionChart();
+       
+	    int lr=GetLastRow();
+	    System.out.print(currentpage*linesperpage);
+	    System.out.print(" ");System.out.println(currentrow+lr);
+        if((currentpage*linesperpage)<=(currentrow+lr)) { currentrow=currentpage*linesperpage+1; currentpage++; }
+        for (int r = 0; r <= lr; r++)
+  	       { for(int c = 0; c < 7; c++)
+  	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 
+  	           currentrow++; 
+  	       }
+        currentrow++;  ///blank row between two individuals
+	  }	
+	
 	}
+	
+	
+	
+	
 	
 }	
