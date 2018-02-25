@@ -224,19 +224,10 @@ public class Controller {
     }
  
     private void PrintCurrent()
-    { 
-    	
-    	int col = view.table.getSelectedColumn();
-    	if(col<0) return;
-      if(col==0) { System.out.println("class"); return; }
-      PrintIndi pi=new PrintIndi();
-      pi.setView(view);
-      String printername=model.getPrinterName();
-     
-      
-      pi.CollectAllTeachers();
-      pi.PrintIndividuals(printername);
-      
+    { 	int col = view.table.getSelectedColumn();
+	if(col<0) return;
+    if(col==0)  System.out.println("class"); 
+    if(col>1 && col<7) System.out.println("individual");
     }
     
     String SixTupleColor(int row)
@@ -246,6 +237,19 @@ public class Controller {
     	   if(view.ColorMatrix[row][c]==0) temp+="0"; else temp+="1";
     
     return temp;
+    	
+    }
+    
+    
+    private void PrintAllIndi()
+    {
+    
+      PrintIndi pi=new PrintIndi();
+      pi.setView(view);
+      String printername=model.getPrinterName();
+      pi.CollectAllTeachers();
+      pi.PrintIndividuals(printername);
+    	
     	
     }
     

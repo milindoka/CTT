@@ -161,9 +161,6 @@ public class PrintIndi implements Printable
 	  }	
 	
 	}
-
-	 
-	
 	
 	
 }	
