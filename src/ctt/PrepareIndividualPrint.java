@@ -140,23 +140,38 @@ public class PrepareIndividualPrint implements Printable
 
 	int  currentrow=0;
 	int currentpage=1;
-	
+	String lcount="-";
 	for(int i=0;i<newList.size();i++)
 	  { view.CreateIndi(newList.get(i));
 	    view.CountGaps();
 	    view.CountDoubles();
 	    view.DeleteLastTimeSlot();
 	    view.CreatePerPerDivisionChart();
+	    
        
 	    int lr=GetLastRow();
-	    System.out.print(currentpage*linesperpage);
-	    System.out.print(" ");System.out.println(currentrow+lr);
-        if((currentpage*linesperpage)<=(currentrow+lr)) { currentrow=currentpage*linesperpage+1; currentpage++; }
+	   // System.out.print(currentpage*linesperpage);
+	   // System.out.print(" ");System.out.println(currentrow+lr);
+	    //if next tt exceeds the last line, currentrow jumps to top of next page
+        if((currentpage*linesperpage)<=(currentrow+lr)) 
+         { currentrow=currentpage*linesperpage+1;  
+           String str=String.format("LINE NO %d",currentrow);
+           view.table2.setValueAt(str, currentrow,0);
+           currentpage++;currentrow++;
+         }
+      //  lcount.format("-MM%d",view.lecturecount);
+       view.table2.setValueAt(newList.get(i),currentrow,4); currentrow++; 
+     // currentrow++;
+      //  view.table2.setValueAt("SIWS",currenrow,1);
+      //  view.table2.setValueAt(view.allcounts,currentrow,2);
+      //  currentrow++;
         for (int r = 0; r <= lr; r++)
   	       { for(int c = 0; c < 7; c++)
   	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 
   	           currentrow++; 
   	       }
+        view.table2.setValueAt("$BLANKLINE", currentrow,0);
+        
         currentrow++;  ///blank row between two individuals
 	  }	
 	
