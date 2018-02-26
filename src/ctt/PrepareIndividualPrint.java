@@ -96,8 +96,6 @@ public class PrepareIndividualPrint implements Printable
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
 		 PAI.setView(view);
-        
-		 
 		 
 		 PAI.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
 	    // System.out.println("printing ends");
@@ -140,7 +138,6 @@ public class PrepareIndividualPrint implements Printable
 
 	int  currentrow=0;
 	int currentpage=1;
-	String lcount="-";
 	for(int i=0;i<newList.size();i++)
 	  { view.CreateIndi(newList.get(i));
 	    view.CountGaps();
@@ -155,8 +152,8 @@ public class PrepareIndividualPrint implements Printable
 	   // System.out.print(" ");System.out.println(currentrow+lr);
 	    //if next tt exceeds the last line, currentrow jumps to top of next page
         if((currentpage*linesperpage)<=(currentrow+lr)) 
-         { currentrow=currentpage*linesperpage+1;  
-           String str=String.format("LINE NO %d",currentrow);
+         { currentrow=currentpage*linesperpage;  
+           String str=String.format("$FF %d",currentrow);
            view.table2.setValueAt(str, currentrow,0);
            currentpage++;currentrow++;
          }
