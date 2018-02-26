@@ -136,7 +136,7 @@ public class PrepareIndividualPrint implements Printable
 //  for(int i=0;i<newList.size();i++)
 //		System.out.println(newList.get(i));
 
-	int  currentrow=0;
+	int  currentrow=1;
 	int currentpage=1;
 	for(int i=0;i<newList.size();i++)
 	  { view.CreateIndi(newList.get(i));
@@ -148,10 +148,7 @@ public class PrepareIndividualPrint implements Printable
 	    
        
 	    int lr=GetLastRow();
-	   // System.out.print(currentpage*linesperpage);
-	   // System.out.print(" ");System.out.println(currentrow+lr);
-	    //if next tt exceeds the last line, currentrow jumps to top of next page
-        if((currentpage*linesperpage)<=(currentrow+lr)) 
+        if((currentpage*linesperpage)<(currentrow+lr)) 
          { currentrow=currentpage*linesperpage;  
            String str=String.format("$FF %d",currentrow);
            view.table2.setValueAt(str, currentrow,0);
