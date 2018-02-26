@@ -25,7 +25,7 @@ public class PrepareIndividualPrint implements Printable
 	View view;
 	public void setView(View vu)  {	this.view=vu; }
              
-	PrintAllIndies opi;
+	PrintAllIndies PAI;
 	  ///initialize printing parameters
   //	JTable table;
 
@@ -34,8 +34,8 @@ public class PrepareIndividualPrint implements Printable
       PrepareIndividualPrint()
       {   
     	  timecolsize=100;othercolsize=65;linesperpage=40;
-    	  opi=new PrintAllIndies(); 
-    	  opi.setView(view);
+    	  PAI=new PrintAllIndies(); 
+    	  PAI.setView(view);
       }
       
 	///// Here the whole  JAVA Printing Mechanism Starts 
@@ -95,12 +95,12 @@ public class PrepareIndividualPrint implements Printable
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
-		 opi.setView(view);
+		 PAI.setView(view);
         
 		 
 		 
-		 opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
-	     System.out.println("printing ends");
+		 PAI.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
+	    // System.out.println("printing ends");
 	
 	     return 0;
 	 }
@@ -134,9 +134,9 @@ public class PrepareIndividualPrint implements Printable
 		
 	ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
   
-	System.out.println(newList.size());
-	for(int i=0;i<newList.size();i++)
-		System.out.println(newList.get(i));
+//	System.out.println(newList.size());
+//  for(int i=0;i<newList.size();i++)
+//		System.out.println(newList.get(i));
 
 	int  currentrow=0;
 	int currentpage=1;
@@ -147,6 +147,7 @@ public class PrepareIndividualPrint implements Printable
 	    view.CountDoubles();
 	    view.DeleteLastTimeSlot();
 	    view.CreatePerPerDivisionChart();
+	    view.UpdateCounts(newList.get(i));
 	    
        
 	    int lr=GetLastRow();
@@ -160,11 +161,10 @@ public class PrepareIndividualPrint implements Printable
            currentpage++;currentrow++;
          }
       //  lcount.format("-MM%d",view.lecturecount);
-       view.table2.setValueAt(newList.get(i),currentrow,4); currentrow++; 
-     // currentrow++;
-      //  view.table2.setValueAt("SIWS",currenrow,1);
-      //  view.table2.setValueAt(view.allcounts,currentrow,2);
-      //  currentrow++;
+       view.table2.setValueAt(view.LectureCount,currentrow,0); 
+       view.table2.setValueAt("SIWS College",currentrow,1);
+       view.table2.setValueAt(view.allcounts,currentrow,2);
+       currentrow++;
         for (int r = 0; r <= lr; r++)
   	       { for(int c = 0; c < 7; c++)
   	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 

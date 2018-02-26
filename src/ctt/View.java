@@ -659,7 +659,7 @@ public class View {
     }
    }
     
-   private void UpdateCounts(String ind)
+    void UpdateCounts(String ind)
    {
 	    
 	    JTableHeader th = table2.getTableHeader();
