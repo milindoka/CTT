@@ -11,15 +11,19 @@ public class PrintAllIndies
 	public void setView(View vu)  {	this.view=vu; }
 	
 	
-	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno)
+	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno,int row)
 	{   int  tlx=topleftx, tly=toplefty;
-		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
+		
+		String t1=view.GetData(view.table2,row,0);
+		String t2=view.GetData(view.table2,row,1);
+		String t3=view.GetData(view.table2,row,2);
+	    g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
 		g.drawLine(tlx,tly, tlx, tly+cellheight); //leftmost wall
-		PrintRightWallText(view.LectureCount,tlx,tly, timecolsize, g); // time with right wall
+		PrintRightWallText(t1,tlx,tly, timecolsize, g); // time with right wall
 		tlx=tlx+timecolsize;
-		PrintRightWallText("SIWS COLLEGE",tlx,tly, MidWidth,g); // mid cell
+		PrintRightWallText(t2,tlx,tly, MidWidth,g); // mid cell
 		tlx=tlx+MidWidth;
-		PrintRightWallText(view.allcounts,tlx,tly, 3*othercolsize,g); // last cell
+		PrintRightWallText(t3,tlx,tly, 3*othercolsize,g); // last cell
 		tly=tly+cellheight;
 		tlx=topleftx;  ///back to leftmost position
 		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
@@ -63,15 +67,20 @@ public class PrintAllIndies
 	{
 		int  tlx=topleftx, tly=toplefty;
 	//	int lastrow=GetLastRow();
-		
-	//	PrintHeaderRow(tlx,tly,g,pageno);
-	//	tly+=cellheight;
-	
-	    for(int row=0;row<=30;row++)
-	    	{ DrawWallTextLine(tlx,tly,g,row+pageno*30);     
+		int currentrow=pageno*linesperpage+1;
+	 PrintHeaderRow(tlx,tly,g,pageno,currentrow); ///first row is title
+	 tly+=cellheight;
+	 currentrow++;
+	   for(int i=0;i<linesperpage;i++)
+	    	{ DrawWallTextLine(tlx,tly,g,currentrow);     
 	    	  tly+=cellheight;
 	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
+	    	  currentrow++;
+	    	  String  temp=view.GetData(view.table2,currentrow,0);
+	    	  if(temp.contains("$BLANK")) break;
 	    	}
+	    
+	
 	}
 	 
 	 int GetLastTimeRow()
