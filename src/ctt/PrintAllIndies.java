@@ -64,7 +64,7 @@ public class PrintAllIndies
 		  }
 		
 	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno)
-	{
+	{  String temp;
 		int  tlx=topleftx, tly=toplefty;
 	//	int lastrow=GetLastRow();
 		int currentrow=pageno*linesperpage+1;
@@ -76,8 +76,21 @@ public class PrintAllIndies
 	    	  tly+=cellheight;
 	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	    	  currentrow++;
-	    	  String  temp=view.GetData(view.table2,currentrow,0);
-	    	  if(temp.contains("$BLANK")) break;
+	    	  temp=view.GetData(view.table2,currentrow,0);
+	    
+	    	  if(temp.contains("$BLANK"))
+	    		  {
+	    		  System.out.println("$BLANK");
+	    		  currentrow++;
+	    		  temp=view.GetData(view.table2,currentrow,0);
+	    		  if(temp.contains("$END")){System.out.println("$END"); break;}
+	    		  
+	    		  tly+=cellheight; 
+	    		  PrintHeaderRow(tlx,tly,g,pageno,currentrow); ///first row is title
+	    		  tly+=cellheight;
+	    		  currentrow++;
+	    		  }//Draw blank line between two indies
+	    	  
 	    	}
 	    
 	

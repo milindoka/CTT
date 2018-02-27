@@ -149,7 +149,8 @@ public class PrepareIndividualPrint implements Printable
        
 	    int lr=GetLastRow();
         if((currentpage*linesperpage)<(currentrow+lr)) 
-         { currentrow=currentpage*linesperpage;  
+         { view.table2.setValueAt("$END", currentrow,0); 
+           currentrow=currentpage*linesperpage;  
            String str=String.format("$FF %d",currentrow);
            view.table2.setValueAt(str, currentrow,0);
            currentpage++;currentrow++;
