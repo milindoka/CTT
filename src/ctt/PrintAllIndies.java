@@ -5,7 +5,7 @@ import java.awt.Graphics;
 public class PrintAllIndies
 {
 	View view;
-	int timecolsize=100,othercolsize=65,linesperpage=42,cellheight=19;
+	int timecolsize=100,othercolsize=65,cellheight=19;
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
@@ -63,7 +63,7 @@ public class PrintAllIndies
 		  currenttop+=cellheight;
 		  }
 		
-	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno)
+	void PrintOnePage(int topleftx, int toplefty,Graphics g,int pageno,int linesperpage)
 	{  String temp;
 		int  tlx=topleftx, tly=toplefty;
 	//	int lastrow=GetLastRow();

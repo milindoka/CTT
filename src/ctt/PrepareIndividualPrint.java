@@ -97,7 +97,7 @@ public class PrepareIndividualPrint implements Printable
 		 g.setFont(MyFont);
 		 PAI.setView(view);
 		 
-		 PAI.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
+		 PAI.PrintOnePage(tlx,tly,g,pageno,linesperpage);  ///left, top and graphics g
 	    // System.out.println("printing ends");
 	
 	     return 0;
@@ -149,7 +149,7 @@ public class PrepareIndividualPrint implements Printable
 	    
        
 	    int lr=GetLastRow();
-        if(currentrow+lr+3>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
+        if(currentrow+lr+4>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
          { sr.format("%d-",currentrow);
            view.table2.setValueAt("$END", currentrow,0);
            
