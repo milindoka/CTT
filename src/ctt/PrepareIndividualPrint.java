@@ -33,7 +33,7 @@ public class PrepareIndividualPrint implements Printable
       
       PrepareIndividualPrint()
       {   
-    	  timecolsize=100;othercolsize=65;linesperpage=40;
+    	  timecolsize=100;othercolsize=65;linesperpage=42;
     	  PAI=new PrintAllIndies(); 
     	  PAI.setView(view);
       }
@@ -138,6 +138,7 @@ public class PrepareIndividualPrint implements Printable
 
 	int  currentrow=1;
 	int currentpage=1;
+	String sr="";
 	for(int i=0;i<newList.size();i++)
 	  { view.CreateIndi(newList.get(i));
 	    view.CountGaps();
@@ -148,13 +149,16 @@ public class PrepareIndividualPrint implements Printable
 	    
        
 	    int lr=GetLastRow();
-        if(currentrow+lr+5>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
-         { view.table2.setValueAt("$END", currentrow,0); 
+        if(currentrow+lr+3>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
+         { sr.format("%d-",currentrow);
+           view.table2.setValueAt("$END", currentrow,0);
+           
            currentrow=currentpage*linesperpage;  
            String str=String.format("$FF %d",currentrow);
            view.table2.setValueAt(str, currentrow,0);
            currentpage++;currentrow++;
          }
+        sr.format("%d-",currentrow);
       //  lcount.format("-MM%d",view.lecturecount);
        view.table2.setValueAt(view.LectureCount,currentrow,0); 
        view.table2.setValueAt("SIWS College",currentrow,1);
@@ -162,7 +166,11 @@ public class PrepareIndividualPrint implements Printable
        currentrow++;
         for (int r = 0; r <= lr; r++)
   	       { for(int c = 0; c < 7; c++)
-  	    	   view.table2.setValueAt(view.Matrix[r][c], currentrow,c); 
+  	    	   
+  	    	   {sr.format("%d-",currentrow);
+  	    	    view.table2.setValueAt(view.Matrix[r][c], currentrow,c);
+  	    	   
+  	    	   }
   	           currentrow++; 
   	       }
         view.table2.setValueAt("$BLANKLINE", currentrow,0);

@@ -40,7 +40,7 @@ public class View {
     String LectureCount;    
     JTable table2;
     int COLS=7;
-    int ROWCOUNT2=1000;         /////500;////For Master Print ,change to 25 later
+    int ROWCOUNT2=2000;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=200; ///Main Table
     int MROWS=25;         /// Individual rows in IndiMatrix;
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];

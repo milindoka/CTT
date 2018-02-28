@@ -5,7 +5,7 @@ import java.awt.Graphics;
 public class PrintAllIndies
 {
 	View view;
-	int timecolsize=100,othercolsize=65,linesperpage=40,cellheight=19;
+	int timecolsize=100,othercolsize=65,linesperpage=42,cellheight=19;
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
@@ -79,11 +79,13 @@ public class PrintAllIndies
 	    	  temp=view.GetData(view.table2,currentrow,0);
 	    
 	    	  if(temp.contains("$BLANK"))
-	    		  {
-	    		  System.out.println("$BLANK");
+	    		  {System.out.println("$BLANK");
 	    		  currentrow++;
 	    		  temp=view.GetData(view.table2,currentrow,0);
-	    		  if(temp.contains("$END")){System.out.println("$END"); break;}
+	    		  if(temp.contains("$END")){System.out.println("$END"); break; }
+	    		  
+	    		  //currentrow++;
+	    		  
 	    		  
 	    		  tly+=cellheight; 
 	    		  PrintHeaderRow(tlx,tly,g,pageno,currentrow); ///first row is title
