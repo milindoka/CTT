@@ -101,7 +101,7 @@ public class PrintIndi implements Printable
 	     return 0;
 	 }
 	
-	
+	/*
 	
 	void CollectAllTeachers()
 	{
@@ -125,5 +125,6 @@ public class PrintIndi implements Printable
 	for(int i=0;i<newList.size();i++)
 		System.out.println(newList.get(i));
 	}
+	*/
 	
 }	

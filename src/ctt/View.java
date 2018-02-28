@@ -103,7 +103,7 @@ public class View {
     	 DeleteLastTimeSlot();
     	 CreatePerPerDivisionChart();
     	 UpdateDisplay();
-          
+         UpdateCountsClass(str);
          return; 
         }
     int left=str.indexOf("(");
@@ -658,7 +658,24 @@ public class View {
         }
     }
    }
-    
+
+   
+   void UpdateCountsClass(String clasname)
+   {
+	    
+	    JTableHeader th = table2.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc ;
+		tc= tcm.getColumn(0);
+		
+	    tc.setHeaderValue(clasname);th.repaint();
+	   // allcounts=String.format("CC : %d  DC : %d  GC : %d",CC,DC,GC);
+	    countLabel.setText(" ");
+
+	   
+   }
+   
+   
     void UpdateCounts(String ind)
    {
 	    
