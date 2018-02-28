@@ -90,7 +90,7 @@ public class PrepareIndividualPrint implements Printable
 		int tlx=(int) pf.getImageableX()+70,tly=(int) pf.getImageableY()+10;
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
 		
-		 if (pageno >2)              // We have only one page, and 'page no' is zero-based
+		 if (pageno >totalpages)              // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
@@ -148,7 +148,7 @@ public class PrepareIndividualPrint implements Printable
 	    
        
 	    int lr=GetLastRow();
-        if((currentpage*linesperpage)<(currentrow+lr)) 
+        if(currentrow+lr+5>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
          { view.table2.setValueAt("$END", currentrow,0); 
            currentrow=currentpage*linesperpage;  
            String str=String.format("$FF %d",currentrow);
@@ -169,6 +169,8 @@ public class PrepareIndividualPrint implements Printable
         
         currentrow++;  ///blank row between two individuals
 	  }	
+	view.table2.setValueAt("$END", currentrow,0);
+	 totalpages=currentpage-1;
 	
 	}
 	
