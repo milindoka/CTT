@@ -22,9 +22,11 @@ public class PrintIndi implements Printable
     ArrayList<String> oldList=new ArrayList<String>();
 	ArrayList<String> newList;
 	View view;
+	int PRINT_TYPE=0;
 	public void setView(View vu)  {	this.view=vu; }
-             
+    public void SetPrintType(int pt) {PRINT_TYPE=pt;}         
 	OnePageIndi opi;
+	OnePageClass opc;
 	  ///initialize printing parameters
   //	JTable table;
 
@@ -35,7 +37,12 @@ public class PrintIndi implements Printable
     	  timecolsize=100;othercolsize=65;linesperpage=40;
     	  opi=new OnePageIndi(); 
     	  opi.setView(view);
+    	  
+    	  opc=new OnePageClass(); 
+    	  opc.setView(view);
+    	  
       }
+      
       
 	///// Here the whole  JAVA Printing Mechanism Starts 
 	/////  Note 'implements Printable above', It includes the Print Mechanism to our Program
@@ -94,9 +101,10 @@ public class PrintIndi implements Printable
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
-		 opi.setView(view);
-         opi.PrintOnePage(tlx,tly,g,pageno);  ///left, top and graphics g
-	     System.out.println("printing ends");
+		 if(PRINT_TYPE==0)
+		   { opi.setView(view); opi.PrintOnePage(tlx,tly,g,pageno);  }
+		 if(PRINT_TYPE==1)
+		 { opc.setView(view); opc.PrintOnePage(tlx,tly,g,pageno);  }
 	
 	     return 0;
 	 }

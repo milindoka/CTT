@@ -21,6 +21,8 @@ public class Controller {
     private ActionListener PRINTCURRENTbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
+    private int PRINT_TYPE_INDI=0;
+    private int PRINT_TYPE_CLASS=1;
     
     
     public Controller(Model model, View view)
@@ -244,15 +246,20 @@ public class Controller {
     	
     	int col = view.table.getSelectedColumn();
     	if(col<0) return;
+     
+    	PrintIndi pi=new PrintIndi();
+        pi.setView(view);
+        String printername=model.getPrinterName();
+    	
+    	
       if(col==0) 
-        { System.out.println("class"); return;
-        
-        
+        { 
+    	  pi.SetPrintType(PRINT_TYPE_CLASS);
+         pi.PrintIndividuals(printername);
+          return;
         
         }
-      PrintIndi pi=new PrintIndi();
-      pi.setView(view);
-      String printername=model.getPrinterName();
+      pi.SetPrintType(PRINT_TYPE_INDI);
       pi.PrintIndividuals(printername);
     //  pi.CollectAllTeachers();
     }

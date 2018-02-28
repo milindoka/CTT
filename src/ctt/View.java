@@ -667,12 +667,9 @@ public class View {
 		TableColumnModel tcm = th.getColumnModel();
 		TableColumn tc ;
 		tc= tcm.getColumn(0);
-		
+		LectureCount=clasname;
 	    tc.setHeaderValue(clasname);th.repaint();
-	   // allcounts=String.format("CC : %d  DC : %d  GC : %d",CC,DC,GC);
 	    countLabel.setText(" ");
-
-	   
    }
    
    
