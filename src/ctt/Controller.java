@@ -391,7 +391,7 @@ public class Controller {
     
     void PrepareSingleClassToPrint()
     { int lt=GetLastTime();
-      show(lt);
+     // show(lt);
       view.ClearIndividualTable();
       int currentrow=0;
       int maxsplit=0; // maximum split count for time slot

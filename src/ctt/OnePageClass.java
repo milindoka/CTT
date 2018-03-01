@@ -46,7 +46,7 @@ public class OnePageClass
 		PrintHeaderRow(tlx,tly,g,pageno);
 		tly+=cellheight;
 	
-	    for(int row=0;row<=lastrow;row++)
+	    for(int row=0;row<lastrow;row++)
 	    	{ String  temp=view.GetData(view.table2, row,0);
 	    	  if(temp.length()!=0) //then top wall
 	    	  { g.drawLine(tlx,tly,tlx+horizontalwidth,tly);
@@ -76,7 +76,7 @@ public class OnePageClass
 	    	 int currentrow=0;    	
 	    		////Get First Time Slot
 	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,1); 
+	    	    	{ temp=view.GetData(view.table2,currentrow,0); 
 	    	    	  if(temp.length()>0) break;
 	    	    	}
 	    		return currentrow;
