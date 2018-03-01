@@ -180,10 +180,8 @@ public class Controller {
         PRINTCURRENTbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {   PrepareSingleClassToPrint();    
-              
-              
-            //	  PrintCurrent();
+              {       
+                  PrintCurrent();
               }
        	};
                
@@ -263,7 +261,7 @@ public class Controller {
     	
     	
       if(col==0) 
-        { 
+        { PrepareSingleClassToPrint();
     	  pi.SetPrintType(PRINT_TYPE_CLASS);
          pi.PrintIndividuals(printername);
           return;
