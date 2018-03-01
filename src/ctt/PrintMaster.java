@@ -93,7 +93,7 @@ public class PrintMaster implements Printable
 		
 		int w=(int) pf.getImageableWidth()-20,h=(int)pf.getImageableHeight()-20;
 		
-		 if (pageno > totalpages)             // We have only one page, and 'page no' is zero-based
+		 if (pageno > totalpages)    // 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
 		 
