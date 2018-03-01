@@ -24,6 +24,14 @@ public class Controller {
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     
+    public void show(String msg) 
+    {JOptionPane.showMessageDialog(null, msg);}
+    public void show(int msg)
+    {JOptionPane.showMessageDialog(null, msg);}
+    public void show(long msg)
+    {JOptionPane.showMessageDialog(null, msg);}
+
+    
     
     public Controller(Model model, View view)
     {
@@ -172,8 +180,10 @@ public class Controller {
         PRINTCURRENTbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
-            	  PrintCurrent();
+              {   PrepareSingleClassToPrint();    
+              
+              
+            //	  PrintCurrent();
               }
        	};
                
@@ -366,6 +376,70 @@ public class Controller {
     	    	}
     		return currentrow;
     }
+    
+    
+    
+    int GetLastTime()
+    {    String temp="";
+    	 int currentrow=0;    	
+    		////Get First Time Slot
+    	    for(currentrow=view.MROWS-1;currentrow>0;currentrow--)
+    	    	{ temp=view.Matrix[currentrow][0]; 
+    	    	  if(temp.length()>0) break;
+    	    	}
+    		return currentrow;
+    }
+    
+    
+    void PrepareSingleClassToPrint()
+    { int lt=GetLastTime();
+      show(lt);
+      view.ClearIndividualTable();
+      int currentrow=0;
+      int maxsplit=0; // maximum split count for time slot
+      String temp,temp1[];
+      for(int i=0;i<=lt;i++)
+	  {
+		 temp=view.Matrix[i][0];
+		 if(temp.length()==0) continue; //skip blank line
+		 /*
+		 if(temp.contains(":"))  ///New time Block, print week day names line 
+		 {   if(currentrow !=0) { view.SetData2("$BLANKLINE", currentrow,0);
+			                      currentrow++;  }  ///skip first exceptional blank
+			 String week[]={"MON","TUE","WED","THU","FRI","SAT"};
+		     view.SetData2(temp,currentrow,0);  ///time
+			 for(int j=0;j<6;j++ )
+				 view.SetData2(week[j],currentrow,j+1); /// week days
+			 currentrow++;
+			 continue;
+		 }
+		 */
+       view.SetData2(temp,currentrow,0);  ///Time - Copy as it is
+       maxsplit=1;
+       for(int j=1;j<7;j++) ///check lecture cells
+       {temp=view.Matrix[i][j];
+    	if(!temp.contains(","))
+    		{ view.SetData2(temp,currentrow,j);  ///No "," so Copy as it is
+    		 continue;
+    		}
+    		// else at least one comma exists
+    			temp1=temp.split(",");
+    			int count=temp1.length;
+    			for(int k=0;k<count;k++)
+    				{view.SetData2(temp1[k],currentrow+k,j);
+    				
+    				}
+    			if(maxsplit<count) maxsplit=count;
+    	
+       }
+       currentrow=currentrow+maxsplit;
+	  }
+	  view.SetData2("$END",currentrow,0);
+   }
+      
+      
+    	
+    
     
    void PrepareMaster()
    { String temp,temp1[];
