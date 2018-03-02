@@ -4,6 +4,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -16,12 +17,25 @@ import java.util.HashSet;
 
 public class PrepareAllClasses implements Printable
 {	
+	
+	
+	
+	public void show(String msg) 
+	{JOptionPane.showMessageDialog(null, msg);}
+	public void show(int msg)
+	{JOptionPane.showMessageDialog(null, msg);}
+	public void show(long msg)
+	{JOptionPane.showMessageDialog(null, msg);}
+	
+
+	
 	public boolean ALL=false;
 	int totalpages,totallines;
     ArrayList<String> oldList=new ArrayList<String>();
 	ArrayList<String> newList;
 	
 	View view;
+	int ROWPOINTER;
 	public void setView(View vu)  {	this.view=vu; }
              
 	PrintAllIndies PAI;
@@ -119,6 +133,7 @@ public class PrepareAllClasses implements Printable
 	
 	for(int currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
 	       {String str=view.GetData(view.table,currentrow,0);
+	        if(str.length()==0) continue;
 	        if(str.contains(":")) continue;       
   	       oldList.add(str);
 	       
@@ -130,14 +145,26 @@ public class PrepareAllClasses implements Printable
     for(int i=0;i<newList.size();i++)
     	System.out.println(newList.get(i));
 
-	int  currentrow=1;
+	ROWPOINTER=0;
 	int currentpage=1;
 	String sr="";
-	for(int i=0;i<newList.size();i++)
-	  { view.CreateClass(newList.get(i));
+	view.ClearIndividualTable();
+	int TotalClasses=3; //newList.size();
+	
+	for(int i=0;i<2;i++)
+	  { 
+		//int lt=GetLastTime();
+		
+		view.CreateClass(newList.get(i));
 	    view.DeleteLastTimeSlot();
-	    
-       
+	    PrepareSingleClassToPrint();
+	  
+	  //  int maxsplit=0; // maximum split count for time slot
+	      
+	  }
+	  view.SetData2("$END",ROWPOINTER,0);
+	  ROWPOINTER++;
+       /*
 	    int lr=GetLastRow();
         if(currentrow+lr+4>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
          { sr.format("%d-",currentrow);
@@ -169,8 +196,58 @@ public class PrepareAllClasses implements Printable
 	  }	
 	view.table2.setValueAt("$END", currentrow,0);
 	 totalpages=currentpage-1;
-
+   */
 
 	}
+	
+	
+	void PrepareSingleClassToPrint()
+    { int lt=GetLastTime();
+     // show(lt);
+//      view.ClearIndividualTable();
+      int maxsplit=0; // maximum split count for time slot
+      String temp,temp1[];
+      for(int i=0;i<=lt;i++)
+	  {
+		 temp=view.Matrix[i][0];
+		 if(temp.length()==0) continue; //skip blank line
+	
+       view.SetData2(temp,ROWPOINTER,0);  ///Time - Copy as it is
+       maxsplit=1;
+       for(int j=1;j<7;j++) ///check lecture cells
+       {temp=view.Matrix[i][j];
+    	if(!temp.contains(","))
+    		{ view.SetData2(temp,ROWPOINTER,j);  ///No "," so Copy as it is
+    		 continue;
+    		}
+    		// else at least one comma exists
+    			temp1=temp.split(",");
+    			int count=temp1.length;
+    			for(int k=0;k<count;k++)
+    				{view.SetData2(temp1[k],ROWPOINTER+k,j);
+    				
+    				}
+    			if(maxsplit<count) maxsplit=count;
+       }
+       ROWPOINTER=ROWPOINTER+maxsplit;
+	  }
+	  view.SetData2("$BLANKLINE",ROWPOINTER,0);
+	  ROWPOINTER++;
+   }
+    
+	
+
+    
+    int GetLastTime()
+    {    String temp="";
+    	 int currentrow=0;    	
+    		////Get First Time Slot
+    	    for(currentrow=view.MROWS-1;currentrow>0;currentrow--)
+    	    	{ temp=view.Matrix[currentrow][0]; 
+    	    	  if(temp.length()>0) break;
+    	    	}
+    		return currentrow;
+    }
+	
 	
 }	
