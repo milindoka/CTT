@@ -113,38 +113,29 @@ public class PrepareAllClasses implements Printable
 	    }
 
 	
-	void CollectAllTeachers()
+	void CollectAllClasses()
 	{
 	oldList.removeAll(oldList);
 	
 	for(int currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
-		for(int col=1;col<7;col++)
-	       {String str=view.GetData(view.table,currentrow,col);
-	       
-	       int left=str.indexOf("(");
-	       int rite=str.indexOf(")");
-	       if(left<0 || rite<0) continue;
-	       String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
-	       oldList.add(teachercode);
+	       {String str=view.GetData(view.table,currentrow,0);
+	        if(str.contains(":")) continue;       
+  	       oldList.add(str);
 	       
 	       }
 		
 	ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
   
 //	System.out.println(newList.size());
-//  for(int i=0;i<newList.size();i++)
-//		System.out.println(newList.get(i));
+    for(int i=0;i<newList.size();i++)
+    	System.out.println(newList.get(i));
 
 	int  currentrow=1;
 	int currentpage=1;
 	String sr="";
 	for(int i=0;i<newList.size();i++)
-	  { view.CreateIndi(newList.get(i));
-	    view.CountGaps();
-	    view.CountDoubles();
+	  { view.CreateClass(newList.get(i));
 	    view.DeleteLastTimeSlot();
-	    view.CreatePerPerDivisionChart();
-	    view.UpdateCounts(newList.get(i));
 	    
        
 	    int lr=GetLastRow();
@@ -178,11 +169,8 @@ public class PrepareAllClasses implements Printable
 	  }	
 	view.table2.setValueAt("$END", currentrow,0);
 	 totalpages=currentpage-1;
-	
+
+
 	}
-	
-	
-	
-	
 	
 }	

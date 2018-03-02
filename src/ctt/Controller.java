@@ -210,11 +210,11 @@ public class Controller {
     }
     
     private void PrintAllClases()
-    {PrepareAllClasses pac=new PrepareAllClasses();
+    { PrepareAllClasses pac=new PrepareAllClasses();
       pac.setView(view);
       String printername=model.getPrinterName();
-      pac.CollectAllTeachers();
-      pac.PrintIndividuals(printername);
+      pac.CollectAllClasses();
+      //pac.PrintIndividuals(printername);
     	
     }
     
@@ -408,18 +408,7 @@ public class Controller {
 	  {
 		 temp=view.Matrix[i][0];
 		 if(temp.length()==0) continue; //skip blank line
-		 /*
-		 if(temp.contains(":"))  ///New time Block, print week day names line 
-		 {   if(currentrow !=0) { view.SetData2("$BLANKLINE", currentrow,0);
-			                      currentrow++;  }  ///skip first exceptional blank
-			 String week[]={"MON","TUE","WED","THU","FRI","SAT"};
-		     view.SetData2(temp,currentrow,0);  ///time
-			 for(int j=0;j<6;j++ )
-				 view.SetData2(week[j],currentrow,j+1); /// week days
-			 currentrow++;
-			 continue;
-		 }
-		 */
+	
        view.SetData2(temp,currentrow,0);  ///Time - Copy as it is
        maxsplit=1;
        for(int j=1;j<7;j++) ///check lecture cells
@@ -442,7 +431,6 @@ public class Controller {
 	  }
 	  view.SetData2("$END",currentrow,0);
    }
-      
       
     	
     
