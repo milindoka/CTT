@@ -18,8 +18,6 @@ import java.util.HashSet;
 public class PrepareAllClasses implements Printable
 {	
 	
-	
-	
 	public void show(String msg) 
 	{JOptionPane.showMessageDialog(null, msg);}
 	public void show(int msg)
@@ -38,7 +36,7 @@ public class PrepareAllClasses implements Printable
 	int ROWPOINTER;
 	public void setView(View vu)  {	this.view=vu; }
              
-	PrintAllIndies PAI;
+	PrintAllClasses PAC;
 	  ///initialize printing parameters
   //	JTable table;
 
@@ -47,8 +45,8 @@ public class PrepareAllClasses implements Printable
       PrepareAllClasses()
       {   
     	  timecolsize=100;othercolsize=65;linesperpage=42;
-    	  PAI=new PrintAllIndies(); 
-    	  PAI.setView(view);
+    	  PAC=new PrintAllClasses(); 
+    	  PAC.setView(view);
       }
       
 	///// Here the whole  JAVA Printing Mechanism Starts 
@@ -108,9 +106,9 @@ public class PrepareAllClasses implements Printable
 	        }
 		 Font MyFont = new Font("Courier", Font.PLAIN,10);
 		 g.setFont(MyFont);
-		 PAI.setView(view);
+		 PAC.setView(view);
 		 
-		 PAI.PrintOnePage(tlx,tly,g,pageno,linesperpage);  ///left, top and graphics g
+		 PAC.PrintOnePage(tlx,tly,g,pageno,linesperpage);  ///left, top and graphics g
 	    // System.out.println("printing ends");
 	
 	     return 0;
@@ -130,13 +128,11 @@ public class PrepareAllClasses implements Printable
 	void CollectAllClasses()
 	{
 	oldList.removeAll(oldList);
-	
 	for(int currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
 	       {String str=view.GetData(view.table,currentrow,0);
 	        if(str.length()==0) continue;
 	        if(str.contains(":")) continue;       
   	       oldList.add(str);
-	       
 	       }
 		
 	ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
@@ -145,26 +141,43 @@ public class PrepareAllClasses implements Printable
     for(int i=0;i<newList.size();i++)
     	System.out.println(newList.get(i));
 
-	ROWPOINTER=0;
+	ROWPOINTER=1; //leave first row for Form Feed calculation starts from +1
 	int currentpage=1;
-	String sr="";
 	view.ClearIndividualTable();
-	int TotalClasses=3; //newList.size();
-	
-	for(int i=0;i<2;i++)
+	int TotalClasses=newList.size();
+	String sr="";
+	for(int i=0;i<TotalClasses;i++)
 	  { 
-		//int lt=GetLastTime();
-		
+
 		view.CreateClass(newList.get(i));
 	    view.DeleteLastTimeSlot();
+	    int lr=GetClassSize();
+		if(ROWPOINTER+lr+2>currentpage*linesperpage)
+		{// sr.format("%d-",ROWPOINTER);
+        view.table2.setValueAt("$END", ROWPOINTER,0);
+        
+        ROWPOINTER=currentpage*linesperpage;  
+        String str=String.format("$FF %d",ROWPOINTER);
+        view.table2.setValueAt(str, ROWPOINTER,0);
+        currentpage++;ROWPOINTER++;
+			
+		}
+	    
+		
+		view.table2.setValueAt(newList.get(i),ROWPOINTER,0); 
+	    view.table2.setValueAt("SIWS COLLEGE",ROWPOINTER,1);
+	    view.table2.setValueAt("Total LEctures :",ROWPOINTER,2);
+	    ROWPOINTER++;
 	    PrepareSingleClassToPrint();
 	  
 	  //  int maxsplit=0; // maximum split count for time slot
 	      
 	  }
-	  view.SetData2("$END",ROWPOINTER,0);
-	  ROWPOINTER++;
-       /*
+	
+	view.table2.setValueAt("$END", ROWPOINTER,0);
+	 totalpages=currentpage-1;
+      
+	  /*
 	    int lr=GetLastRow();
         if(currentrow+lr+4>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
          { sr.format("%d-",currentrow);
@@ -203,10 +216,9 @@ public class PrepareAllClasses implements Printable
 	
 	void PrepareSingleClassToPrint()
     { int lt=GetLastTime();
-     // show(lt);
-//      view.ClearIndividualTable();
       int maxsplit=0; // maximum split count for time slot
       String temp,temp1[];
+      
       for(int i=0;i<=lt;i++)
 	  {
 		 temp=view.Matrix[i][0];
@@ -235,7 +247,40 @@ public class PrepareAllClasses implements Printable
 	  ROWPOINTER++;
    }
     
+
 	
+	int GetClassSize()
+    { int lt=GetLastTime();
+      int maxsplit=0; // maximum split count for time slot
+      String temp,temp1[];
+      int rowindex=1;
+      for(int i=0;i<=lt;i++)
+	  {
+		 temp=view.Matrix[i][0];
+		 if(temp.length()==0) continue; //skip blank line
+	
+       //view.SetData2(temp,rowindex,0);  ///Time - Copy as it is
+       maxsplit=1;
+       for(int j=1;j<7;j++) ///check lecture cells
+       {temp=view.Matrix[i][j];
+    	if(!temp.contains(","))
+    		{ //view.SetData2(temp,rowindex,j);  ///No "," so Copy as it is
+    		 continue;
+    		}
+    		// else at least one comma exists
+    			temp1=temp.split(",");
+    			int count=temp1.length;
+    			for(int k=0;k<count;k++)
+    				{ //view.SetData2(temp1[k],rowindex+k,j);
+    				
+    				}
+    			if(maxsplit<count) maxsplit=count;
+       }
+        rowindex=rowindex+maxsplit;
+	  }
+      return rowindex;
+   }
+
 
     
     int GetLastTime()

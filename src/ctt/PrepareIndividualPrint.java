@@ -138,7 +138,7 @@ public class PrepareIndividualPrint implements Printable
 
 	int  currentrow=1;
 	int currentpage=1;
-	String sr="";
+	//String sr="";
 	for(int i=0;i<newList.size();i++)
 	  { view.CreateIndi(newList.get(i));
 	    view.CountGaps();
@@ -150,7 +150,7 @@ public class PrepareIndividualPrint implements Printable
        
 	    int lr=GetLastRow();
         if(currentrow+lr+4>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
-         { sr.format("%d-",currentrow);
+         {// sr.format("%d-",currentrow);
            view.table2.setValueAt("$END", currentrow,0);
            
            currentrow=currentpage*linesperpage;  
@@ -158,7 +158,7 @@ public class PrepareIndividualPrint implements Printable
            view.table2.setValueAt(str, currentrow,0);
            currentpage++;currentrow++;
          }
-        sr.format("%d-",currentrow);
+    //    sr.format("%d-",currentrow);
       //  lcount.format("-MM%d",view.lecturecount);
        view.table2.setValueAt(view.LectureCount,currentrow,0); 
        view.table2.setValueAt("SIWS College",currentrow,1);
@@ -167,7 +167,7 @@ public class PrepareIndividualPrint implements Printable
         for (int r = 0; r <= lr; r++)
   	       { for(int c = 0; c < 7; c++)
   	    	   
-  	    	   {sr.format("%d-",currentrow);
+  	    	   {//sr.format("%d-",currentrow);
   	    	    view.table2.setValueAt(view.Matrix[r][c], currentrow,c);
   	    	   
   	    	   }

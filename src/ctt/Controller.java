@@ -214,7 +214,7 @@ public class Controller {
       pac.setView(view);
       String printername=model.getPrinterName();
       pac.CollectAllClasses();
-      //pac.PrintIndividuals(printername);
+      pac.PrintIndividuals(printername);
     	
     }
     

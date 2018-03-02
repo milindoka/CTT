@@ -52,7 +52,6 @@ public class OnePageClass
 	    	  { g.drawLine(tlx,tly,tlx+horizontalwidth,tly);
 	    	    
 	    	  }
-	    	
 	    	  DrawOpenWallTextLine(tlx,tly,g,row);     
 	    	  tly+=cellheight;
 	    	 
