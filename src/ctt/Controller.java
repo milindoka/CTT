@@ -158,7 +158,7 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {                  
- 
+               PrintAllClases();
               }
         };
                
@@ -209,6 +209,14 @@ public class Controller {
     	
     }
     
+    private void PrintAllClases()
+    {PrepareAllClasses pac=new PrepareAllClasses();
+      pac.setView(view);
+      String printername=model.getPrinterName();
+      pac.CollectAllTeachers();
+      pac.PrintIndividuals(printername);
+    	
+    }
     
     
     public void ClearFreez()
