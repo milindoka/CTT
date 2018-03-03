@@ -177,39 +177,6 @@ public class PrepareAllClasses implements Printable
 	view.table2.setValueAt("$END", ROWPOINTER,0);
 	 totalpages=currentpage-1;
       
-	  /*
-	    int lr=GetLastRow();
-        if(currentrow+lr+4>currentpage*linesperpage)  //lr+blankline+FF=lr+2 
-         { sr.format("%d-",currentrow);
-           view.table2.setValueAt("$END", currentrow,0);
-           
-           currentrow=currentpage*linesperpage;  
-           String str=String.format("$FF %d",currentrow);
-           view.table2.setValueAt(str, currentrow,0);
-           currentpage++;currentrow++;
-         }
-        sr.format("%d-",currentrow);
-      //  lcount.format("-MM%d",view.lecturecount);
-       view.table2.setValueAt(view.LectureCount,currentrow,0); 
-       view.table2.setValueAt("SIWS College",currentrow,1);
-       view.table2.setValueAt(view.allcounts,currentrow,2);
-       currentrow++;
-        for (int r = 0; r <= lr; r++)
-  	       { for(int c = 0; c < 7; c++)
-  	    	   
-  	    	   {sr.format("%d-",currentrow);
-  	    	    view.table2.setValueAt(view.Matrix[r][c], currentrow,c);
-  	    	   
-  	    	   }
-  	           currentrow++; 
-  	       }
-        view.table2.setValueAt("$BLANKLINE", currentrow,0);
-        
-        currentrow++;  ///blank row between two individuals
-	  }	
-	view.table2.setValueAt("$END", currentrow,0);
-	 totalpages=currentpage-1;
-   */
 
 	}
 	

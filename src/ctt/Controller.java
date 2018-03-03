@@ -186,11 +186,6 @@ public class Controller {
        	};
                
         view.getPRINTCURRENTbutton().addActionListener(PRINTCURRENTbuttonAL);
-   
-        
-        
-        
-        
     }
     
 ///////////// Methods called in action listeners ////////////////////    
@@ -212,8 +207,10 @@ public class Controller {
     private void PrintAllClases()
     { PrepareAllClasses pac=new PrepareAllClasses();
       pac.setView(view);
-      String printername=model.getPrinterName();
       pac.CollectAllClasses();
+      
+      String printername=model.getPrinterName();
+     
       pac.PrintIndividuals(printername);
     	
     }
