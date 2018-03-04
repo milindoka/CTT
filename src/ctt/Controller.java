@@ -321,18 +321,16 @@ public class Controller {
     	 }
     	 try {f0.close();} catch (IOException e) {e.printStackTrace();}
 
+    	 
+    	 
      	// toast.AutoCloseMsg("File Saved");
      }
     	
     private void LoadTT()
     {
-    	File f = new File(System.getProperty("java.class.path"));
-    	File dir = f.getAbsoluteFile().getParentFile();
-    	String path = dir.toString();
-    	String fnem=path+"/test.ctt";
-    	//System.out.println(fnem);
-    	
+    	String fnem=LoadFile.BrowseAndGet();
 
+    	// show(fnem);
     	BufferedReader reader=null;
     	try { 	reader = new BufferedReader(new FileReader(fnem));}
     	catch (FileNotFoundException e1) {e1.printStackTrace();}
@@ -354,6 +352,8 @@ public class Controller {
            for(int c=0;c<6;c++) view.ColorMatrix[i][c+1]=temp[7].charAt(c)-'0';
     	   
     	}
+    	
+    	LoadFile.WriteLastFile(fnem);
     	
        }
     

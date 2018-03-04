@@ -122,7 +122,7 @@ public class View {
     
     
     public View(String text){
-        frame = new JFrame("View");                  
+        frame = new JFrame("College Time Table ( CTT )");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
    
         
