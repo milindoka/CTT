@@ -14,9 +14,28 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class LoadFile 
 {
-
-
-static String BrowseAndGet()
+	
+static String BrowseAndGetTimeTableFile()
+{String fylename="";
+File f = new File(System.getProperty("java.class.path"));
+File dir = f.getAbsoluteFile().getParentFile();
+String path = dir.toString();
+JFileChooser chooser = new JFileChooser(path);
+FileNameExtensionFilter filter = new FileNameExtensionFilter(
+    "CTT", "ctt");
+chooser.setFileFilter(filter);
+int returnVal = chooser.showOpenDialog(null);
+if(returnVal == JFileChooser.APPROVE_OPTION)
+{
+	fylename=chooser.getSelectedFile().getPath();
+}
+return fylename;
+	
+}
+	
+	
+	
+static String GetLastFileIfAny()
  {  String fylename="";
 	String LastFile;
 
@@ -50,21 +69,6 @@ static String BrowseAndGet()
     	//else  do nothing and go down to browse dialog
 	}
 	
-   /// else proceed for browse file dialog and let user choose different file. 
-
-	fylename="";
-	JFileChooser chooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "CTT", "ctt");
-    chooser.setFileFilter(filter);
-    int returnVal = chooser.showOpenDialog(null);
-    if(returnVal == JFileChooser.APPROVE_OPTION)
-    {
-    	fylename=chooser.getSelectedFile().getPath();
-    
-    //   show("You chose to open this file: " + fnem);
-       
-    }
 	return fylename;
 	
   }
@@ -78,8 +82,6 @@ static void WriteLastFile(String path)
     	File dir = f.getAbsoluteFile().getParentFile();
     	String jarpath = dir.toString();
     	String fnem=jarpath+"/LastFile.txt";
-    	//System.out.println(fnem);
-    	
     	
     	FileWriter f0=null;
     	try {f0 = new FileWriter(fnem); }       catch (IOException e1){e1.printStackTrace();}

@@ -37,8 +37,6 @@ public class Controller {
     {
         this.model = model;
         this.view = view;
-     
-	     System.out.println(model.getJarPath()); ///set JAR path in model variable path;
     }
     
     public void control()
@@ -52,7 +50,9 @@ public class Controller {
         model.setPrinterName(printername);
         view.getSetPRN().setText("Printer : "+ printername);
     	
-    	
+        
+    	String lastfile = LoadFile.GetLastFileIfAny();
+    	if(lastfile.length()!=0) LoadTT(lastfile);
     	
     	
         SaveAL = new ActionListener()
@@ -66,8 +66,11 @@ public class Controller {
         LoadAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
-                  LoadTT();
+              {         
+            	   	String fnem=LoadFile.BrowseAndGetTimeTableFile();
+                	if(fnem.length()==0) return;
+             
+                  LoadTT(fnem);
               }
         };                
         view.getLoadBT().addActionListener(LoadAL);
@@ -326,13 +329,11 @@ public class Controller {
      	// toast.AutoCloseMsg("File Saved");
      }
     	
-    private void LoadTT()
+    private void LoadTT(String ttfile)
     {
-    	String fnem=LoadFile.BrowseAndGet();
-
-    	// show(fnem);
+    	
     	BufferedReader reader=null;
-    	try { 	reader = new BufferedReader(new FileReader(fnem));}
+    	try { 	reader = new BufferedReader(new FileReader(ttfile));}
     	catch (FileNotFoundException e1) {e1.printStackTrace();}
     	
     	ArrayList<String> strArray = new ArrayList<String>();
@@ -353,7 +354,7 @@ public class Controller {
     	   
     	}
     	
-    	LoadFile.WriteLastFile(fnem);
+    	LoadFile.WriteLastFile(ttfile);
     	
        }
     
