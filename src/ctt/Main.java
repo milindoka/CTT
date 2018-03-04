@@ -54,7 +54,6 @@ public class Main
 		
         SwingUtilities.invokeLater(new Runnable()   
         {
-            @Override
             public void run() {                                           
             	
             	setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.BOLD,14));

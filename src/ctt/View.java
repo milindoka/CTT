@@ -66,7 +66,6 @@ public class View {
     class MyColListener implements ListSelectionListener
     {
         
-        @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
             {  
@@ -78,7 +77,6 @@ public class View {
     class MyRowListener implements ListSelectionListener 
     {
       	 
-        @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) 
             { 
@@ -88,6 +86,19 @@ public class View {
         }
     }
 
+    
+    public void ClearMasterTable() /////same as class 
+    {
+    	
+    	   for (int i = 0; i < ROWCOUNT-2; i++)
+    	      for(int j = 0; j < table.getColumnCount(); j++)
+    	      {
+    	          table.setValueAt("", i, j);
+    	      }
+    	  
+    }
+    
+    
     
     
     private void refresh()
@@ -560,19 +571,34 @@ public class View {
        for(int col=1;col<7;col++)
        {temp=GetData(table,currentrow,col);
         
-        if(temp.contains(ind)) 
-         {  foundlecture=true;
-            originalclass=Matrix[indirow][col];
-            sub=temp.split("\\(");
-           // System.out.println(sub[0]);
-            newclass=GetData(table,currentrow,0)+"-"+sub[0];
-            if(originalclass.length()!=0)
-            	{ Matrix[indirow][col]=originalclass+";"+newclass; CC++;}
-            else
-            	Matrix[indirow][col]=newclass;
-            
-            lecturecount++;
-         }
+   
+       if(temp.contains(ind)) 
+       {  foundlecture=true;
+          originalclass=Matrix[indirow][col];
+          String subject="";
+          int n=temp.indexOf(ind);
+          if(n<7) subject=temp.substring(0,n);
+          else 
+        	  try {
+        	  subject=temp.substring(n-3,n); 
+        	  } catch (IndexOutOfBoundsException e) 
+        	  {
+        		  subject="---";
+        	      System.out.println(temp);
+        	  }
+          
+          
+  
+        // 
+          newclass=GetData(table,currentrow,0)+"-"+subject;
+          if(originalclass.length()!=0)
+          	{ Matrix[indirow][col]=originalclass+";"+newclass; CC++;}
+          else
+          	Matrix[indirow][col]=newclass;
+          
+          lecturecount++;
+       }
+      
        }
        currentrow++; 
 		
@@ -580,6 +606,10 @@ public class View {
     	
    }
 
+    
+    
+    
+    
     
     public void CountGaps()
     { String temp;

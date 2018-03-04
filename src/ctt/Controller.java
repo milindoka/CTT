@@ -70,6 +70,7 @@ public class Controller {
             	   	String fnem=LoadFile.BrowseAndGetTimeTableFile();
                 	if(fnem.length()==0) return;
              
+                	view.ClearMasterTable();
                   LoadTT(fnem);
               }
         };                
@@ -101,7 +102,7 @@ public class Controller {
         DEMObuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
+              {   view.ClearMasterTable();               
                   SetDemoTimeTable();
               }
         };                
