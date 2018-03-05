@@ -114,8 +114,9 @@ public class Controller {
         REMCLASHbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
-               rcdg.RemoveClashGapDoubles();   
+              {           
+            	  rcdg.ValidateAllCells();
+             //  rcdg.RemoveClashGapDoubles();   
              //  rcdg.startnow();
               }
             	};

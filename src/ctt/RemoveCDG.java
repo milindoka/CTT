@@ -29,6 +29,48 @@ public class RemoveCDG
 		
 	}
 	
+	
+///// Validate All Cells	
+	public void ValidateAllCells()
+	{
+		String temp,tcode;
+		String Display,CorrectedText;
+		
+		
+		for(int r=0;r<view.ROWCOUNT-1;r++)	
+		 for(int c=1;c<7;c++)
+	     	 { 
+		      temp=view.GetData(view.table, r, c);
+		      if(temp.length()==0) continue;
+		      if(temp.contains(",")) 
+		   		 { String parts[]=temp.split(temp);
+		   		   for(int i=0;i<parts.length;i++)
+		   			   { 
+		   			    if(parts[i].length()!=7)
+		   			       {
+		   			        
+		   			         CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",temp);
+		   			         if(CorrectedText==null) return;
+		   			         else view.SetData(CorrectedText, view.table,r,c);
+		   			       } //if ends
+		   	          
+		   		        }  //for loop ends
+		   		   continue;
+		   		 }  ///if comma ends
+		   		   
+		       if(temp.length()!=7)
+	   		      {
+	   			    Display=temp.trim();
+	   			    CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",Display);
+	   			    if(CorrectedText==null) return;
+	   			    else view.SetData(CorrectedText, view.table,r,c);
+	   		       } //if ends
+		   } //for loop ends
+		
+	} // function ends
+	
+	
+	
 //////////// Remove class Routine and dependent functions start here /////////////////	
 	
 
