@@ -34,7 +34,7 @@ public class RemoveCDG
 	public void ValidateAllCells()
 	{
 		String temp,tcode;
-		String Display,CorrectedText;
+		String Display,CorrectedText="";
 		
 		
 		for(int r=0;r<view.ROWCOUNT-1;r++)	
@@ -43,29 +43,32 @@ public class RemoveCDG
 		      temp=view.GetData(view.table, r, c);
 		      if(temp.length()==0) continue;
 		      if(temp.contains(",")) 
-		   		 { String parts[]=temp.split(temp);
+		   		 { String parts[]=temp.split(",");
 		   		   for(int i=0;i<parts.length;i++)
 		   			   { 
 		   			    if(parts[i].length()!=7)
-		   			       {
-		   			        
-		   			         CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",temp);
+		   			       {System.out.print(parts[i].length() + " ");
+		   			        System.out.println(parts[i]);
+		   			         CorrectedText=JOptionPane.showInputDialog(null, "Enter entries in SUB(BY) Format. Split lectures separated by , (comma)",temp);
 		   			         if(CorrectedText==null) return;
-		   			         else view.SetData(CorrectedText, view.table,r,c);
+		   			       
 		   			       } //if ends
-		   	          
+		   			 view.SetData(CorrectedText, view.table,r,c);
 		   		        }  //for loop ends
 		   		   continue;
 		   		 }  ///if comma ends
 		   		   
-		       if(temp.length()!=7)
+		      CorrectedText=temp.trim();
+		       if(CorrectedText.length()!=7)
 	   		      {
-	   			    Display=temp.trim();
-	   			    CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",Display);
+	   			   
+	   			    CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",CorrectedText);
 	   			    if(CorrectedText==null) return;
-	   			    else view.SetData(CorrectedText, view.table,r,c);
+	   			   
 	   		       } //if ends
-		   } //for loop ends
+		       view.SetData(CorrectedText, view.table,r,c);
+	     	 
+	     	 } //for loop ends
 		
 	} // function ends
 	
