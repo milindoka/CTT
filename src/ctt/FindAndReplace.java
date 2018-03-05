@@ -35,8 +35,8 @@ public class FindAndReplace
 			  find=Find.getText();
 			  replace=Replace.getText();
 		
-		        System.out.println(Find.getText());
-		        System.out.println(Replace.getText());
+		        //System.out.println(Find.getText());
+		      //  System.out.println(Replace.getText());
 		    }  
 		else return;
 		

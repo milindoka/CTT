@@ -21,6 +21,9 @@ public class RemoveCDG
     int tCCbefore,tDCbefore,tGCbefore;
     int tCCafter,tDCafter,tGCafter;
     
+    
+    private String CorrectedText="";
+    
 	public void setView(View vu)
 	{
 		this.view=vu;
@@ -28,48 +31,73 @@ public class RemoveCDG
 	}
 		
 	
+	
+	private boolean ValidationDialog(String original)
+	{
+		JTextField strField = new JTextField();
+		strField.setText(original);
+		String str="";
+		Object[] message = 
+		 {
+		    "Correct The Entry :", strField,
+	 	};
+
+		int option = JOptionPane.showConfirmDialog(null, message, "Validation", JOptionPane.OK_CANCEL_OPTION);
+		if (option == JOptionPane.OK_OPTION) 
+		{
+			  CorrectedText=strField.getText();
+		      return true;
+		 }  
+		else
+        return false;		
+	}
+	
+	
+	
+	
+	
+	
 ///// Validate All Cells	
 	public boolean ValidateAllCells()
 	{
-		String temp,tcode;
-		String Display,CorrectedText="";
+		String temp,temp2;
 		
 		
 		for(int r=0;r<view.ROWCOUNT-1;r++)	
-		 for(int c=1;c<7;c++)
+		  for(int c=1;c<7;c++)
 	     	 { 
-		      temp=view.GetData(view.table, r, c);
+		      temp2=view.GetData(view.table, r, c);
+		      temp=temp2.trim();
 		      if(temp.length()==0) continue;
 		      if(temp.contains(",")) 
 		   		 { String parts[]=temp.split(",");
 		   		   for(int i=0;i<parts.length;i++)
 		   			   { 
 		   			    if(parts[i].length()!=7)
-		   			       {System.out.print(parts[i].length() + " ");
-		   			        System.out.println(parts[i]);
-		   			         CorrectedText=JOptionPane.showInputDialog(null, "Enter entries in SUB(BY) Format. Split lectures separated by , (comma)",temp);
-		   			         if(CorrectedText==null) return false;
-		   			       
-		   			       } //if ends
-		   			 view.SetData(CorrectedText, view.table,r,c);
-		   		        }  //for loop ends
-		   		   continue;
-		   		 }  ///if comma ends
-		   		   
-		      CorrectedText=temp.trim();
-		       if(CorrectedText.length()!=7)
-	   		      {
-	   			   
-	   			    CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",CorrectedText);
-	   			    if(CorrectedText==null) return false;
-	   			   
-	   		       } //if ends
-		       view.SetData(CorrectedText, view.table,r,c);
-	     	 
-	     	 } //for loop ends
+		   			      { 
+		   			    	System.out.print(parts[i].length());
+			   			    System.out.println(parts[i]);
+		   			    	System.out.println("in"); 
+		   			    	 if(ValidationDialog(temp))
+		   			    	    {
+		   			                 view.SetData(CorrectedText, view.table,r,c);
+		   			                  break;
+		   			            }  // if parts[i] ends
+		   			    	  else return false;
+		   	               } //if parts[i] ends
+		   			    } //for loop i ends       
+		   		  } //// if comma ends
+		      else
+		       if(temp.length()!=7)
+	   		      { if(ValidationDialog(temp))
+	   		      		{ view.SetData(CorrectedText, view.table,r,c); 
+	   		             } //if ends
+	   		         else return false;
+	   		      }
+		   		 
+		 } //for loop ends
 		return true;
 	} // function ends
-	
 	
 	
 //////////// Remove class Routine and dependent functions start here /////////////////	
