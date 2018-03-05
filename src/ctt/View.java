@@ -33,7 +33,8 @@ public class View {
 	private JFrame frame;
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
-    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b13,b14,b15;
+    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,b14,b15;
+    private JButton FINDREPLACEbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
@@ -342,7 +343,7 @@ public class View {
         PRINTCLASSbutton = new JButton("Print All Classes");
         PRINTMASTERbutton = new JButton("Print Master");
 
-        b13= new JButton("Button13");
+        FINDREPLACEbutton = new JButton("Find/Replace");
         b14= new JButton("Button14");
         b15= new JButton("Button15");
         
@@ -364,7 +365,7 @@ public class View {
         buttonPanel.add(PRINTCLASSbutton);
         buttonPanel.add(PRINTMASTERbutton);
         
-        buttonPanel.add(b13);
+        buttonPanel.add(FINDREPLACEbutton);
         buttonPanel.add(b14);
         buttonPanel.add(b15);
         
@@ -399,7 +400,10 @@ public class View {
         
     }
 
-    
+    public JButton getFindReplaceBT()
+    {
+    	return FINDREPLACEbutton;
+    }
     
     public JButton getSaveBT()
     {

@@ -17,10 +17,12 @@ public class Controller {
     private Model model;
     private View view;
     private RemoveCDG rcdg;
+    private FindAndReplace far;
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTCURRENTbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
+    private ActionListener FINDREPLACEbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     
@@ -42,6 +44,8 @@ public class Controller {
     public void control()
     {   rcdg=new RemoveCDG();
         rcdg.setView(view);
+        far=new FindAndReplace();
+        far.setView(view);
  /////Set Preferred Printer on Startup
         
         SetPrinter sp=new SetPrinter();
@@ -55,6 +59,22 @@ public class Controller {
     	if(lastfile.length()!=0) LoadTT(lastfile);
     	
     	
+    	
+    	
+    	
+    	FINDREPLACEbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) {                  
+                  far.FindAndReplaceRoutine();
+              }
+        };                
+        view.getFindReplaceBT().addActionListener(FINDREPLACEbuttonAL);
+    	    		
+    	
+    	
+    	
+    	
+    	
         SaveAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) {                  
@@ -62,6 +82,8 @@ public class Controller {
               }
         };                
         view.getSaveBT().addActionListener(SaveAL);
+
+        
         
         LoadAL = new ActionListener()
         {
@@ -115,9 +137,9 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {           
-            	  rcdg.ValidateAllCells();
-             //  rcdg.RemoveClashGapDoubles();   
-             //  rcdg.startnow();
+            	  if(rcdg.ValidateAllCells())
+                 rcdg.RemoveClashGapDoubles();   
+                //rcdg.startnow();
               }
             	};
 

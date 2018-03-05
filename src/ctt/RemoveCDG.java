@@ -5,9 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import java.beans.*;
 import java.util.LinkedHashSet;
-import java.util.Random;
 import java.util.Set;
 
 public class RemoveCDG
@@ -28,10 +26,10 @@ public class RemoveCDG
 		this.view=vu;
 		
 	}
-	
+		
 	
 ///// Validate All Cells	
-	public void ValidateAllCells()
+	public boolean ValidateAllCells()
 	{
 		String temp,tcode;
 		String Display,CorrectedText="";
@@ -50,7 +48,7 @@ public class RemoveCDG
 		   			       {System.out.print(parts[i].length() + " ");
 		   			        System.out.println(parts[i]);
 		   			         CorrectedText=JOptionPane.showInputDialog(null, "Enter entries in SUB(BY) Format. Split lectures separated by , (comma)",temp);
-		   			         if(CorrectedText==null) return;
+		   			         if(CorrectedText==null) return false;
 		   			       
 		   			       } //if ends
 		   			 view.SetData(CorrectedText, view.table,r,c);
@@ -63,13 +61,13 @@ public class RemoveCDG
 	   		      {
 	   			   
 	   			    CorrectedText=JOptionPane.showInputDialog(null, "Enter in SUB(BY) Format ",CorrectedText);
-	   			    if(CorrectedText==null) return;
+	   			    if(CorrectedText==null) return false;
 	   			   
 	   		       } //if ends
 		       view.SetData(CorrectedText, view.table,r,c);
 	     	 
 	     	 } //for loop ends
-		
+		return true;
 	} // function ends
 	
 	
@@ -231,11 +229,12 @@ public class RemoveCDG
     DisplayAllCounts();
     
     view.jb.setValue(sourcerow);
-    //  String plate=String.format("%d %d %d", improved)
-   createCloseTimer(1).start();  
+     //uncomment for progress bar and ui durimg process
+    /*
+    createCloseTimer(1).start();  
       n=JOptionPane.showConfirmDialog(null, "Enter to Stop","Processing", JOptionPane.YES_NO_OPTION);
       if( n==JOptionPane.OK_OPTION) break;
-     
+    */
     }
      
   
