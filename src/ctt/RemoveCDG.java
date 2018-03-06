@@ -235,7 +235,7 @@ public class RemoveCDG
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
      view.jb.setVisible(true);
-     view.msgLabel.setVisible(true);
+  //   view.msgLabel.setVisible(true);
      String class1,class2;
     for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
     { 
@@ -271,44 +271,14 @@ public class RemoveCDG
      DisplayAllCounts();
      
     view.jb.setValue(sourcerow);
-     //uncomment for progress bar and ui durimg process
-    /*
-    createCloseTimer(1).start();  
-      n=JOptionPane.showConfirmDialog(null, "Enter to Stop","Processing", JOptionPane.YES_NO_OPTION);
-      if( n==JOptionPane.OK_OPTION) break;
-    */
     }
 
     if(n==JOptionPane.OK_OPTION) JOptionPane.showMessageDialog(null,"Session Over - You may process again");
-    JOptionPane.showMessageDialog(null,"Session Over - You may process again");    
-    view.jb.setVisible(false); view.msgLabel.setVisible(false);
+    JOptionPane.showMessageDialog(null,"Session Over - You may process again.");    
+    view.jb.setVisible(false); //view.msgLabel.setVisible(false);
     }
     
-    private Timer createCloseTimer(int miliseconds) 
-    {
-        ActionListener close = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Window[] windows = Window.getWindows();
-                for (Window window : windows) {
-                    if (window instanceof JDialog) {
-                        JDialog dialog = (JDialog) window;
-                        if (dialog.getContentPane().getComponentCount() == 1
-                            && dialog.getContentPane().getComponent(0) instanceof JOptionPane){
-                            dialog.dispose();
-                        }
-                    }
-                }
-
-            }
-
-        };
-        Timer t = new Timer(100, close);
-        t.setRepeats(false);
-        return t;
-    }
-
+    
     int GetLastRow()
     {    String temp="";
     	 int currentrow=0;    	

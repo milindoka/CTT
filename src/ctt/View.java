@@ -122,7 +122,6 @@ public class View {
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
     final String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
-    //DisplayIndividual(teachercode);
     CreateIndi(teachercode);
     CountGaps();
     CountDoubles();
@@ -375,13 +374,10 @@ public class View {
         msgLabel=new JLabel(" Enter To Stop");
         msgLabel.setVisible(false);
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-      //  countpanel.setLayout(new FlowLayout());
         countpanel.setPreferredSize(new Dimension(200, 25));
         countpanel.add(countLabel);
         countpanel.add(spesLabel);
         countpanel.add(jb); 
-        countpanel.add(msgLabel);
-        //countpanel.add(gc);
        
         JPanel southpanel=new JPanel();
         southpanel.setLayout(new BorderLayout());
@@ -392,7 +388,6 @@ public class View {
 		panel.setLayout(new BorderLayout());
         panel.add(southpanel, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.NORTH);
-       // panel.add(nameLabelPanel,BorderLayout.CENTER);
         
         frame.add(scrollPane);
         frame.add(panel);
