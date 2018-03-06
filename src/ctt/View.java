@@ -3,6 +3,7 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -46,8 +47,11 @@ public class View {
     int MROWS=25;         /// Individual rows in IndiMatrix;
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
+    TextField tcField;
     
     JProgressBar jb=new JProgressBar(0,100);
+    
+    
     
     int CC,DC,GC,indirow,lecturecount;
     JLabel countLabel,spesLabel,msgLabel; 
@@ -371,13 +375,22 @@ public class View {
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
         spesLabel = new JLabel("        ");
-        msgLabel=new JLabel(" Enter To Stop");
+        msgLabel=new JLabel(" Teacher code : ");
+        tcField=new TextField(2);
+        //tcField.setMaximumSize(new Dimension(17,5));  
         msgLabel.setVisible(false);
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        countpanel.setPreferredSize(new Dimension(200, 25));
+        
+        countpanel.setPreferredSize(new Dimension(300, 45));
+        
+       // countpanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        
         countpanel.add(countLabel);
         countpanel.add(spesLabel);
+        countpanel.add(msgLabel);
+        countpanel.add(tcField);
         countpanel.add(jb); 
+        
        
         JPanel southpanel=new JPanel();
         southpanel.setLayout(new BorderLayout());
