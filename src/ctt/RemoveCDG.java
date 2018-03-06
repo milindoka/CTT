@@ -227,10 +227,10 @@ public class RemoveCDG
       
     }
 
-    
+    int sourcerow=1;int sourcecol=1;
     
     public void RemoveClashGapDoubles()
-    {int sourcerow=1;int sourcecol=1;
+    {//int sourcerow=1;int sourcecol=1;
      CalculateGlobalCounts();
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
@@ -238,13 +238,13 @@ public class RemoveCDG
      view.msgLabel.setVisible(true);
      String class1,class2;
     for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
-    { for(sourcecol=1;sourcecol<7;sourcecol++)
+    { 
+      for(sourcecol=1;sourcecol<7;sourcecol++)
        {
     	if(view.ColorMatrix[sourcerow][sourcecol]==1) continue;
     	for(int r=0;r<lastrow;r++)
-    	
     	  { for(int c=1;c<7;c++)
-    		  {if(view.ColorMatrix[r][c]==1) continue;
+    		  { if(view.ColorMatrix[r][c]==1) continue;
     		  class1=view.GetData(view.table,sourcerow,0);
     		  class2=view.GetData(view.table,r,0);
     		  if(!class1.contains(class2)) continue;
@@ -252,10 +252,24 @@ public class RemoveCDG
     		   ExchangeCells(sourcerow,sourcecol,r,c);
     		  }
     	   }
-        }
-    CalculateGlobalCounts();
-    DisplayAllCounts();
-    
+    	//inside your long running thread when you want to update a Swing component
+    	SwingUtilities.invokeLater(new Runnable() 
+    	{
+    	    public void run() {
+    	        //This will be called on the EDT
+
+    	    //    CalculateGlobalCounts();
+    	        //DisplayAllCounts();
+    	        
+    	       view.jb.setValue(sourcerow);
+
+    	    }
+    	});
+
+       }
+     CalculateGlobalCounts();
+     DisplayAllCounts();
+     
     view.jb.setValue(sourcerow);
      //uncomment for progress bar and ui durimg process
     /*
@@ -264,15 +278,11 @@ public class RemoveCDG
       if( n==JOptionPane.OK_OPTION) break;
     */
     }
-     
-  
 
     if(n==JOptionPane.OK_OPTION) JOptionPane.showMessageDialog(null,"Session Over - You may process again");
     JOptionPane.showMessageDialog(null,"Session Over - You may process again");    
     view.jb.setVisible(false); view.msgLabel.setVisible(false);
     }
-   
-    
     
     private Timer createCloseTimer(int miliseconds) 
     {

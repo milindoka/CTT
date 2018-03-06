@@ -137,9 +137,16 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {           
-            	  if(rcdg.ValidateAllCells())
-                 rcdg.RemoveClashGapDoubles();   
-                //rcdg.startnow();
+        //    	  if(rcdg.ValidateAllCells())
+            	  new Thread(new Runnable() {
+                      @Override
+                      public void run() {
+                     	  rcdg.RemoveClashGapDoubles();
+                      }
+                  }).start();
+              
+                
+            	  //rcdg.startnow();
               }
             	};
 
