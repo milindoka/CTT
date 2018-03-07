@@ -24,6 +24,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -47,7 +48,7 @@ public class View {
     int MROWS=25;         /// Individual rows in IndiMatrix;
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
-    TextField tcField;
+    JTextField tcField;
     
     JProgressBar jb=new JProgressBar(0,100);
     
@@ -102,8 +103,6 @@ public class View {
     	      }
     	  
     }
-    
-    
     
     
     private void refresh()
@@ -374,11 +373,12 @@ public class View {
         
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
-        spesLabel = new JLabel("        ");
-        msgLabel=new JLabel(" Teacher code : ");
-        tcField=new TextField(2);
-        //tcField.setMaximumSize(new Dimension(17,5));  
-        msgLabel.setVisible(false);
+        spesLabel = new JLabel("       ");
+        msgLabel=new JLabel("Teacher code : ");
+        tcField=new JTextField(2);
+        tcField.setDocument(new JTextFieldLimit(2));
+        
+        msgLabel.setVisible(true);
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         
         countpanel.setPreferredSize(new Dimension(300, 45));

@@ -235,7 +235,8 @@ public class RemoveCDG
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
      view.jb.setVisible(true);
-  //   view.msgLabel.setVisible(true);
+     view.msgLabel.setVisible(false);
+     view.tcField.setVisible(false);
      String class1,class2;
     for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
     { 
@@ -275,7 +276,9 @@ public class RemoveCDG
 
     if(n==JOptionPane.OK_OPTION) JOptionPane.showMessageDialog(null,"Session Over - You may process again");
     JOptionPane.showMessageDialog(null,"Session Over - You may process again.");    
-    view.jb.setVisible(false); //view.msgLabel.setVisible(false);
+    view.jb.setVisible(false);
+    view.msgLabel.setVisible(true);
+    view.tcField.setVisible(true);
     }
     
     
