@@ -15,6 +15,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -49,6 +51,8 @@ public class View {
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
     JTextField tcField;
+
+ 
     
     JProgressBar jb=new JProgressBar(0,100);
     
@@ -136,7 +140,13 @@ public class View {
     
     
     public View(String text){
-        frame = new JFrame("College Time Table ( CTT )");                  
+    
+    	
+    	
+
+    	
+    	
+    	frame = new JFrame("College Time Table ( CTT )");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
    
         
@@ -377,7 +387,7 @@ public class View {
         msgLabel=new JLabel("Teacher code : ");
         tcField=new JTextField(2);
         tcField.setDocument(new JTextFieldLimit(2));
-        
+    	tcField.getDocument().addDocumentListener(onTeacherCode); 
         msgLabel.setVisible(true);
         JPanel countpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         
@@ -904,6 +914,51 @@ public class View {
 
     
     }
+    
+    DocumentListener onTeacherCode=new DocumentListener()
+    {
+
+		@Override
+		public void changedUpdate(DocumentEvent arg0) 
+		{//tcFieldAction();
+			
+			
+		}
+
+		@Override
+		public void insertUpdate(DocumentEvent arg0) {
+			// TODO Auto-generated method stub
+			tcFieldAction();	
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
+    };
+    
+
+   void tcFieldAction()
+   {
+	    
+	    String str = tcField.getText();
+	    String trimmed=str.trim();
+	    if(trimmed.length()<2) return;
+	    String tc="("+trimmed+")";
+	    CreateIndi(tc);
+	    CountGaps();
+	    CountDoubles();
+	    DeleteLastTimeSlot();
+	    CreatePerPerDivisionChart();
+	    UpdateDisplay();
+	    UpdateCounts(tc);
+	   
+   }
+      
+    
+    
     
     
 

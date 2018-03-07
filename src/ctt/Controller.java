@@ -203,7 +203,8 @@ public class Controller {
         PRINTMASTERbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                  
+              {      
+            	  view.ClearIndividualTable();
             	  PrepareMaster();
                   PrintMaster();
    
