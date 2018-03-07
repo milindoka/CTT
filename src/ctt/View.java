@@ -114,7 +114,8 @@ public class View {
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
     String str = (String)table.getValueAt(row, col);
-    if(str.length()==0) return;
+    if(str.length()==0 ) return;
+    
     if(col==0)
        { //ClearIndividualTable(); 
          //DisplayClass(str);
@@ -125,6 +126,8 @@ public class View {
          UpdateCountsClass(str);
          return; 
         }
+    if(str.length()<7) return;
+    if(str.charAt(3)!='(') return;
     int left=str.indexOf("(");
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;

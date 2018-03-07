@@ -139,7 +139,7 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {           
-        //    	  if(rcdg.ValidateAllCells())
+            	  if(rcdg.ValidateAllCells())
             	  new Thread(new Runnable() {
                       @Override
                       public void run() {

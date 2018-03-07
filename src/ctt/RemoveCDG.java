@@ -55,8 +55,6 @@ public class RemoveCDG
 	
 	
 	
-	
-	
 ///// Validate All Cells	
 	public boolean ValidateAllCells()
 	{
@@ -73,11 +71,10 @@ public class RemoveCDG
 		   		 { String parts[]=temp.split(",");
 		   		   for(int i=0;i<parts.length;i++)
 		   			   { 
-		   			    if(parts[i].length()!=7)
+                           			   
+		   			   
+		   			    if(parts[i].length()!=7 || !parts[i].contains("(") || !parts[i].contains(")"))
 		   			      { 
-		   			    	System.out.print(parts[i].length());
-			   			    System.out.println(parts[i]);
-		   			    	System.out.println("in"); 
 		   			    	 if(ValidationDialog(temp))
 		   			    	    {
 		   			                 view.SetData(CorrectedText, view.table,r,c);
@@ -85,6 +82,10 @@ public class RemoveCDG
 		   			            }  // if parts[i] ends
 		   			    	  else return false;
 		   	               } //if parts[i] ends
+		   			    
+		   			    
+		   			    	
+		   			    
 		   			    } //for loop i ends       
 		   		  } //// if comma ends
 		      else
