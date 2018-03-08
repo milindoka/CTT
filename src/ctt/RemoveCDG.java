@@ -231,7 +231,8 @@ public class RemoveCDG
     int sourcerow=1;int sourcecol=1;
     
     public void RemoveClashGapDoubles()
-    {//int sourcerow=1;int sourcecol=1;
+    { sourcerow=1;
+      sourcecol=1;
      CalculateGlobalCounts();
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
@@ -259,8 +260,7 @@ public class RemoveCDG
     	{
     	    public void run() {
     	        //This will be called on the EDT
-
-    	    //    CalculateGlobalCounts();
+                // CalculateGlobalCounts();
     	        //DisplayAllCounts();
     	        
     	       view.jb.setValue(sourcerow);
@@ -268,13 +268,15 @@ public class RemoveCDG
     	    }
     	});
 
+    	 CalculateGlobalCounts();
+         DisplayAllCounts();
        }
-     CalculateGlobalCounts();
-     DisplayAllCounts();
      
-    view.jb.setValue(sourcerow);
     }
 
+    CalculateGlobalCounts();
+    DisplayAllCounts();
+    
     if(n==JOptionPane.OK_OPTION) JOptionPane.showMessageDialog(null,"Session Over - You may process again");
     JOptionPane.showMessageDialog(null,"Session Over - You may process again.");    
     view.jb.setVisible(false);

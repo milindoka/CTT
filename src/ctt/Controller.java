@@ -148,20 +148,31 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {           
-            	  if(rcdg.ValidateAllCells())
-            	  new Thread(new Runnable() {
-                      @Override
-                      public void run() {
-                     	  rcdg.RemoveClashGapDoubles();
-                      }
-                  }).start();
+            	  
+            	  OnRemoveClashThread();
+            	  /*
               
+            	 // if(rcdg.ValidateAllCells())
+            	 // {
+                  new Thread(null, new Runnable() {
+                      public void run() {
+                    	  rcdg.RemoveClashGapDoubles();
+                      }
+                  }, "1", 1 << 23).start();
+            	  
+            	//  }
+            	  
+            	  */
                 
             	  //rcdg.startnow();
               }
             	};
 
         view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
+        
+        
+       
+        
         
         
         MULTIFRIZbuttonAL = new ActionListener()
@@ -236,6 +247,34 @@ public class Controller {
     
 ///////////// Methods called in action listeners ////////////////////    
 
+    
+    public void OnRemoveClashThread()
+    {
+    	Thread.UncaughtExceptionHandler h = new Thread.UncaughtExceptionHandler() {
+    	    public void uncaughtException(Thread th, Throwable ex) {
+    	        System.out.println("Uncaught exception: " + ex);
+    	    }
+    	};
+    	Thread t = new Thread() {
+    	    public void run() {
+    	        System.out.println("Processing ...");
+    	        try {
+    	           Thread.sleep(100);
+    	          rcdg.RemoveClashGapDoubles();
+    	        } catch (InterruptedException e) {
+    	            System.out.println("Interrupted.");
+    	        }
+    	        System.out.println("Throwing exception ...");
+    	        throw new RuntimeException();
+    	    }
+    	};
+    	t.setUncaughtExceptionHandler(h);
+    	t.start();
+    	
+    	
+    	
+    	
+    }
     
 
     private void PrintAllIndi()
