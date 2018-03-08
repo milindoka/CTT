@@ -22,7 +22,7 @@ public class Controller {
     private ActionListener PRINTCURRENTbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
-    private ActionListener FINDREPLACEbuttonAL;
+    private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     
@@ -59,6 +59,15 @@ public class Controller {
     	if(lastfile.length()!=0) LoadTT(lastfile);
     	
     	
+
+    	WIZARD01buttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent)
+              {                  
+            	  new Wizard01(null,"Hello",true);
+              }
+        };                
+        view.getWizard01BT().addActionListener(WIZARD01buttonAL);
     	
     	
     	
