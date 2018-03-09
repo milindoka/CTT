@@ -63,8 +63,18 @@ public class Controller {
     	WIZARD01buttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent)
-              {                  
-            	  new Wizard01(null,"Hello",true);
+              {  
+            	  /*
+            	  
+            	  try {
+					new Help(null,"Help",true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				 */
+            	 new Wizard01(null,"Hello",true);
               }
         };                
         view.getWizard01BT().addActionListener(WIZARD01buttonAL);
