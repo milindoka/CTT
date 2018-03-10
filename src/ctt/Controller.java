@@ -23,6 +23,7 @@ public class Controller {
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
+    private ActionListener b15AL,b16AL,b17AL,b18AL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     
@@ -58,8 +59,52 @@ public class Controller {
     	String lastfile = LoadFile.GetLastFileIfAny();
     	if(lastfile.length()!=0) LoadTT(lastfile);
     	
+  /////////////Actions  	
+    	
+    	
+    	b15AL=new ActionListener()
+    	{
+            public void actionPerformed(ActionEvent actionEvent) 
+            {                  
+                show("b15");
+            }
+    	};
+        view.getButtonb15().addActionListener(b15AL);    	
     	
 
+        b16AL=new ActionListener()
+    	{
+            public void actionPerformed(ActionEvent actionEvent) 
+            {                  
+                show("b16");
+            }
+    	};
+        view.getButtonb16().addActionListener(b16AL);
+        
+        
+        b17AL=new ActionListener()
+    	{
+            public void actionPerformed(ActionEvent actionEvent) 
+            {                  
+                show("b17");
+            }
+    	};
+        view.getButtonb17().addActionListener(b17AL);
+        
+        
+        b18AL=new ActionListener()
+    	{
+            public void actionPerformed(ActionEvent actionEvent) 
+            {                  
+                show("b18");
+            }
+    	};
+        view.getButtonb18().addActionListener(b18AL);
+
+    
+    	
+    	
+    	
     	WIZARD01buttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent)

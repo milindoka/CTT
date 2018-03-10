@@ -37,7 +37,8 @@ public class View {
 	private JFrame frame;
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
-    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton,WIZARD01button,b15;
+    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
+    private JButton WIZARD01button,b15,b16,b17,b18;
     private JButton FINDREPLACEbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -361,9 +362,11 @@ public class View {
         FINDREPLACEbutton = new JButton("Find/Replace");
         WIZARD01button= new JButton("Wizard-01");
         b15= new JButton("Button15");
+        b16= new JButton("Button16");
+        b17= new JButton("Button17");
+        b18= new JButton("Button18");
         
-        
-        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(5,3,2,2));
+        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(6,3,2,2));
         buttonPanel.add(SaveBT);
         buttonPanel.add(LoadBT);
         buttonPanel.add(PRINTCURRENTbutton);
@@ -383,7 +386,9 @@ public class View {
         buttonPanel.add(FINDREPLACEbutton);
         buttonPanel.add(WIZARD01button);
         buttonPanel.add(b15);
-        
+        buttonPanel.add(b16);
+        buttonPanel.add(b17);
+        buttonPanel.add(b18);
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
         spesLabel = new JLabel("       ");
@@ -421,6 +426,28 @@ public class View {
         
     }
 
+    
+    public JButton getButtonb15()
+    { return b15;
+    	
+    }
+    
+    public JButton getButtonb16()
+    { return b16;
+    	
+    }
+   
+    public JButton getButtonb17()
+    { return b17;
+    	
+    }
+   
+    public JButton getButtonb18()
+    { return b18;
+    	
+    }
+   
+    
     
     public JButton getWizard01BT()
     {
