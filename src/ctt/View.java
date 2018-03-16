@@ -38,7 +38,7 @@ public class View {
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
-    private JButton WIZARD01button,b15,b16,b17,b18;
+    private JButton WIZARD01button,INSERTROWbutton,b16,b17,DELETEROWbutton;
     private JButton FINDREPLACEbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -108,7 +108,6 @@ public class View {
     	      }
     	  
     }
-    
     
     private void refresh()
     {ClearIndividualTable();
@@ -205,11 +204,8 @@ public class View {
                 
             }
             
-            
-            
             //////////////    Focus Listner
             //////////////
-          
             
            listSelectionModel = table.getSelectionModel();
            table.getSelectionModel()
@@ -361,10 +357,10 @@ public class View {
 
         FINDREPLACEbutton = new JButton("Find/Replace");
         WIZARD01button= new JButton("Wizard-01");
-        b15= new JButton("Button15");
+        INSERTROWbutton= new JButton("Insert Row");
         b16= new JButton("Button16");
         b17= new JButton("Button17");
-        b18= new JButton("Button18");
+        DELETEROWbutton= new JButton("Delete Row");
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(6,3,2,2));
         buttonPanel.add(SaveBT);
@@ -385,10 +381,10 @@ public class View {
         
         buttonPanel.add(FINDREPLACEbutton);
         buttonPanel.add(WIZARD01button);
-        buttonPanel.add(b15);
+        buttonPanel.add(INSERTROWbutton);
         buttonPanel.add(b16);
         buttonPanel.add(b17);
-        buttonPanel.add(b18);
+        buttonPanel.add(DELETEROWbutton);
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
         spesLabel = new JLabel("       ");
@@ -427,8 +423,8 @@ public class View {
     }
 
     
-    public JButton getButtonb15()
-    { return b15;
+    public JButton getINSERTROWbutton()
+    { return INSERTROWbutton;
     	
     }
     
@@ -442,8 +438,8 @@ public class View {
     	
     }
    
-    public JButton getButtonb18()
-    { return b18;
+    public JButton getDELETEROWbutton()
+    { return DELETEROWbutton;
     	
     }
    

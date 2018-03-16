@@ -23,7 +23,7 @@ public class Controller {
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
-    private ActionListener b15AL,b16AL,b17AL,b18AL;
+    private ActionListener INSERTROWbuttonAL,b16AL,b17AL,DELETEROWbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     
@@ -62,21 +62,35 @@ public class Controller {
   /////////////Actions  	
     	
     	
-    	b15AL=new ActionListener()
+    	INSERTROWbuttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
             {                  
-                show("b15");
+            	int rowcount=view.table.getRowCount();
+            	int currentrow=view.table.getSelectedRow();
+            	if(currentrow<0) return;
+            	
+           	  for(int i=rowcount-2;i>=currentrow;i--)
+           		 for(int j=0;j<7;j++)
+           	        {  String str=view.GetData(view.table,i,j);
+           	           int cellcolor=view.ColorMatrix[i][j];
+           	           
+           	           view.SetData(str, view.table, i+1,j);
+           	           view.ColorMatrix[i+1][j]=cellcolor;
+           	        }
+           	  
+           	for(int j=0;j<7;j++) view.SetData("", view.table, currentrow,j);
+
             }
     	};
-        view.getButtonb15().addActionListener(b15AL);    	
+        view.getINSERTROWbutton().addActionListener(INSERTROWbuttonAL);    	
     	
 
         b16AL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {                  
-                show("b16");
+            {               show("b17");   
+            
             }
     	};
         view.getButtonb16().addActionListener(b16AL);
@@ -92,23 +106,60 @@ public class Controller {
         view.getButtonb17().addActionListener(b17AL);
         
         
-        b18AL=new ActionListener()
+        DELETEROWbuttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {                  
-                show("b18");
+            {      
+             	int rowcount=view.table.getRowCount();
+            	int currentrow=view.table.getSelectedRow();
+            	if(currentrow<0) return;
+            	
+           	  for(int i=currentrow;i<rowcount-2;i++)
+           		 for(int j=0;j<7;j++)
+           	        {  String str=view.GetData(view.table,i+1,j);
+           	           int cellcolor=view.ColorMatrix[i+1][j];
+           	           
+           	           view.SetData(str, view.table, i,j);
+           	           view.ColorMatrix[i][j]=cellcolor;
+           	        }
+
             }
     	};
-        view.getButtonb18().addActionListener(b18AL);
-
-    
-    	
-    	
+        view.getDELETEROWbutton().addActionListener(DELETEROWbuttonAL);
     	
     	WIZARD01buttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent)
               {  
+            	  String timearray[]={"12:30-01:10","01:10-01:50","01:50-02:30",
+            			  			  "03:00-03:40","03:40-04:20","04:20-05:00"};
+
+            	  
+            	  int result=JOptionPane.showOptionDialog(null, 
+            		        "This Will Remove The Current Time Table, Continue ?", 
+            		        "Feedback", 
+            		        JOptionPane.OK_CANCEL_OPTION, 
+            		        JOptionPane.INFORMATION_MESSAGE, 
+            		        null, 
+            		        new String[]{"Yes I have Saved Time Table", "No, Will Save and Come back"}, // this is the array
+            		        "default");
+            	  
+            	  if(result==JOptionPane.OK_OPTION)
+            	  {
+            		  String AH="ABCDEFGH";
+            		  view.ClearMasterTable();
+            		  view.ClearColorMatrix();
+            		  ///create time-class column
+            		  for(int i=0;i<6;i++)
+            		  	{ view.SetData(timearray[i], view.table, i*17,0);
+            			  for(int j=0;j<8;j++)
+            				  view.SetData("FY-"+AH.charAt(j), view.table, i*17+j+1,0);
+            		  	}
+            		  		
+            			  
+            		  
+            	  }
+            	  
             	  /*
             	  
             	  try {
@@ -119,7 +170,7 @@ public class Controller {
 				}
 				
 				 */
-            	 new Wizard01(null,"Hello",true);
+            	// new Wizard01(null,"Hello",true);
               }
         };                
         view.getWizard01BT().addActionListener(WIZARD01buttonAL);
