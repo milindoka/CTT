@@ -109,12 +109,24 @@ public class View {
     	  
     }
     
+    
+    private void SetEmptyHeader()
+    {JTableHeader th = table2.getTableHeader();
+	TableColumnModel tcm = th.getColumnModel();
+	TableColumn tc ;
+	tc= tcm.getColumn(0);
+    tc.setHeaderValue("");th.repaint();
+    }
+    
+    
     private void refresh()
     {ClearIndividualTable();
+     SetEmptyHeader();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
     String str = (String)table.getValueAt(row, col);
     if(str.length()==0 ) return;
+    if(str.contains(":")) return;
     
     if(col==0)
        { //ClearIndividualTable(); 
@@ -795,7 +807,7 @@ public class View {
     void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
     {   String temp;
 
-    for (int i = indirow; i>1 ;i--)
+    for (int i = indirow; i>0 ;i--)
 	      { 
 		      for(int j = 1; j < COLCOUNT; j++)
 		      {temp=Matrix[i][j];

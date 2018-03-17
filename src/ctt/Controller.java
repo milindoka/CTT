@@ -141,7 +141,7 @@ public class Controller {
             		        JOptionPane.OK_CANCEL_OPTION, 
             		        JOptionPane.INFORMATION_MESSAGE, 
             		        null, 
-            		        new String[]{"Yes I have Saved Time Table", "No, Will Save and Come back"}, // this is the array
+            		        new String[]{"Yes, I have Saved Time Table", "No, Will Save and Come back"}, // this is the array
             		        "default");
             	  
             	  if(result==JOptionPane.OK_OPTION)
@@ -151,9 +151,11 @@ public class Controller {
             		  view.ClearColorMatrix();
             		  ///create time-class column
             		  for(int i=0;i<6;i++)
-            		  	{ view.SetData(timearray[i], view.table, i*17,0);
+            		  	{ view.SetData(timearray[i], view.table, i*18,0);
             			  for(int j=0;j<8;j++)
-            				  view.SetData("FY-"+AH.charAt(j), view.table, i*17+j+1,0);
+            				  view.SetData("FY-"+AH.charAt(j), view.table, i*18+j+1,0);
+            			  for(int j=0;j<8;j++)
+            				  view.SetData("SY-"+AH.charAt(j), view.table, i*18+j+9,0);
             		  	}
             		  		
             			  

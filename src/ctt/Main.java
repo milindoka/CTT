@@ -56,7 +56,7 @@ public class Main
         {
             public void run() {                                           
             	
-            	setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.BOLD,14));
+            	setUIFont (new javax.swing.plaf.FontUIResource("Serif",Font.BOLD,13));
             	
             	Model model = new Model();
             	View view = new View("-"); 
