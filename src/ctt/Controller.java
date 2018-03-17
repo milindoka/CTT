@@ -23,7 +23,7 @@ public class Controller {
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
-    private ActionListener INSERTROWbuttonAL,b16AL,b17AL,DELETEROWbuttonAL;
+    private ActionListener INSERTROWbuttonAL,b16AL,WIZARD02buttonAL,DELETEROWbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     
@@ -89,21 +89,23 @@ public class Controller {
         b16AL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {               show("b17");   
+            {               show("b16");   
             
             }
     	};
         view.getButtonb16().addActionListener(b16AL);
         
         
-        b17AL=new ActionListener()
+        WIZARD02buttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {                  
-                show("b17");
+            {               
+            	Wizard02 w2 = new Wizard02();
+            	w2.setModal(true);
+            	w2.setVisible(true);
             }
     	};
-        view.getButtonb17().addActionListener(b17AL);
+        view.getWIZARD02button().addActionListener(WIZARD02buttonAL);
         
         
         DELETEROWbuttonAL=new ActionListener()
@@ -172,7 +174,7 @@ public class Controller {
 				}
 				
 				 */
-            	// new Wizard01(null,"Hello",true);
+            	
               }
         };                
         view.getWizard01BT().addActionListener(WIZARD01buttonAL);

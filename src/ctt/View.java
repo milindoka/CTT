@@ -38,7 +38,7 @@ public class View {
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
-    private JButton WIZARD01button,INSERTROWbutton,b16,b17,DELETEROWbutton;
+    private JButton WIZARD01button,INSERTROWbutton,b16,WIZARD02button,DELETEROWbutton;
     private JButton FINDREPLACEbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -96,7 +96,6 @@ public class View {
                 }
         }
     }
-
     
     public void ClearMasterTable() /////same as class 
     {
@@ -108,7 +107,6 @@ public class View {
     	      }
     	  
     }
-    
     
     private void SetEmptyHeader()
     {JTableHeader th = table2.getTableHeader();
@@ -154,13 +152,8 @@ public class View {
     }
     
     
-    public View(String text){
-    
-    	
-    	
-
-    	
-    	
+    public View(String text)
+    {
     	frame = new JFrame("College Time Table ( CTT )");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
    
@@ -371,7 +364,7 @@ public class View {
         WIZARD01button= new JButton("Wizard-01");
         INSERTROWbutton= new JButton("Insert Row");
         b16= new JButton("Button16");
-        b17= new JButton("Button17");
+        WIZARD02button= new JButton("Wizard-02");
         DELETEROWbutton= new JButton("Delete Row");
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(6,3,2,2));
@@ -395,7 +388,7 @@ public class View {
         buttonPanel.add(WIZARD01button);
         buttonPanel.add(INSERTROWbutton);
         buttonPanel.add(b16);
-        buttonPanel.add(b17);
+        buttonPanel.add(WIZARD02button);
         buttonPanel.add(DELETEROWbutton);
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
@@ -445,8 +438,8 @@ public class View {
     	
     }
    
-    public JButton getButtonb17()
-    { return b17;
+    public JButton getWIZARD02button()
+    { return WIZARD02button;
     	
     }
    
