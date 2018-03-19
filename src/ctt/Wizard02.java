@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,18 +38,50 @@ public Wizard02()
     claslist.addItem("abcd");
      centerpanel.add(claslist);
     
-    JTextField subteacherpair=new JTextField(8);
-    centerpanel.add(subteacherpair);
+    final JTextField sub=new JTextField(3);
+    centerpanel.add(sub);
+
+    final JTextField tea=new JTextField(2);
+    centerpanel.add(tea);
+
+    
+    
     
                                            ////init,min,max,step
     SpinnerModel value = new SpinnerNumberModel(5,  1,   30, 1);   
     JSpinner spinner = new JSpinner(value);   
     centerpanel.add(spinner);
 	
-	JLabel labelWEST = new JLabel("WEST");
+	
+    sub.addKeyListener(new KeyAdapter(){
+        public void keyPressed(KeyEvent e){
+        String value=sub.getText();
+        if(value.length()==2){
+        tea.requestFocus();
+          }
+        }
+   });
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    JLabel labelWEST = new JLabel("WEST");
 	JLabel labelNORTH = new JLabel("NORTH",JLabel.CENTER);
 	JLabel labelCENTER = new JLabel("CENTER",JLabel.CENTER);
 	JLabel labelEAST = new JLabel("EAST");
+	
+	
+	
+	
+	
 	
 	Container dlgpane=getContentPane();
 	dlgpane.setLayout(new BorderLayout());
