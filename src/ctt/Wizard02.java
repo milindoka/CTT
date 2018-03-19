@@ -7,59 +7,87 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
- 
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 public class Wizard02 extends JDialog 
 {
-public String sName;
+public String Response;
 
 public Wizard02() 
 {
-setBounds(0,0 , 500, 275);
-setTitle("Wizard - Step 2");
-setLocationRelativeTo(null);
-Container dlgpane=getContentPane();
-dlgpane.setLayout(new BorderLayout());
-JLabel label0 = new JLabel("Test");
-JLabel label1 = new JLabel("Test",JLabel.CENTER);
-JLabel label2 = new JLabel("Test",JLabel.CENTER);
-JLabel label4 = new JLabel("Test",JLabel.CENTER);
-JLabel label3 = new JLabel("Test");
-final JTextField name = new JTextField(5);
-//name.setBounds(57, 36, 175, 20);
-dlgpane.add(label0,BorderLayout.WEST);
-//dlgpane.add(name,BorderLayout.CENTER);
-dlgpane.add(label1,BorderLayout.NORTH);
-dlgpane.add(label2,BorderLayout.CENTER);
-dlgpane.add(label3,BorderLayout.EAST);
-dlgpane.add(label4,BorderLayout.SOUTH);
-// Button OK
-JButton btnOK = new JButton("OK");
-btnOK.addActionListener(new ActionListener() 
-{
-public void actionPerformed(ActionEvent e) {
-sName = name.getText();
-dispose();
-}
-});
+	setBounds(0,0 , 500, 275);
+	setTitle("BorderLayout and JDialog Demo");
+	setLocationRelativeTo(null);
 
-//btnOK.setBounds(70, 93, 78, 23);
-//dlgpane.add(btnOK,BorderLayout.SOUTH);
- 
-// Button Cancel
-JButton btnCancel = new JButton("Cancel");
-btnCancel.addActionListener(new ActionListener() {
-public void actionPerformed(ActionEvent e) 
-{
-sName = "";
-dispose();
-}
-});
-//getContentPane().add(btnCancel);
- 
+	
+	JPanel centerpanel=new JPanel();
+	//centerpanel.setSize(new Dimension(100,100));
+
+	
+	JComboBox<String> claslist = new JComboBox<String>();
+    claslist.addItem("asdf");
+    claslist.addItem("abcd");
+     centerpanel.add(claslist);
+    
+    JTextField subteacherpair=new JTextField(8);
+    centerpanel.add(subteacherpair);
+    
+                                           ////init,min,max,step
+    SpinnerModel value = new SpinnerNumberModel(5,  1,   30, 1);   
+    JSpinner spinner = new JSpinner(value);   
+    centerpanel.add(spinner);
+	
+	JLabel labelWEST = new JLabel("WEST");
+	JLabel labelNORTH = new JLabel("NORTH",JLabel.CENTER);
+	JLabel labelCENTER = new JLabel("CENTER",JLabel.CENTER);
+	JLabel labelEAST = new JLabel("EAST");
+	
+	Container dlgpane=getContentPane();
+	dlgpane.setLayout(new BorderLayout());
+
+	dlgpane.add(labelWEST,BorderLayout.WEST);
+	dlgpane.add(labelNORTH,BorderLayout.NORTH);
+	dlgpane.add(centerpanel,BorderLayout.CENTER);
+	dlgpane.add(labelEAST,BorderLayout.EAST);
+	JPanel buttonpanel=new JPanel();
+
+
+
+	// Button OK
+	JButton btnOK = new JButton("OK");
+	btnOK.addActionListener(new ActionListener() 
+	{
+	public void actionPerformed(ActionEvent e) 
+	{
+	Response = "You Pressed OK";
+	dispose();
+	}
+	});
+
+
+	buttonpanel.add(btnOK);
+	 
+	// Button Cancel
+	JButton btnCancel = new JButton("Cancel");
+	btnCancel.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) 
+	{
+		Response = "You Pressed CANCEL";
+		dispose();
+	}
+	});
+	buttonpanel.add(btnCancel);
+
+	dlgpane.add(buttonpanel,BorderLayout.SOUTH);
+
+	
 }
 }
  
