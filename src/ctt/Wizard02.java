@@ -3,6 +3,8 @@ package ctt;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -25,31 +27,40 @@ public String Response;
 public Wizard02() 
 {
 	setBounds(0,0 , 500, 275);
-	setTitle("BorderLayout and JDialog Demo");
+	setTitle("Wizard-02 - Add Time Table Entries");
 	setLocationRelativeTo(null);
 
 	
 	JPanel centerpanel=new JPanel();
 	//centerpanel.setSize(new Dimension(100,100));
 
-	
-	JComboBox<String> claslist = new JComboBox<String>();
+    JLabel bracketLeft=new JLabel("(");
+    bracketLeft.setFont(new Font("Serif", Font.PLAIN, 20));
+    
+    JLabel bracketRite=new JLabel(")");
+    bracketRite.setFont(new Font("Serif", Font.PLAIN, 20));
+    JComboBox<String> claslist = new JComboBox<String>();
     claslist.addItem("asdf");
     claslist.addItem("abcd");
-     centerpanel.add(claslist);
+    claslist.setPreferredSize(new Dimension(100,28));
+    centerpanel.add(claslist);
     
-    final JTextField sub=new JTextField(3);
+    final JTextField sub=new JTextField(4);
+    sub.setDocument(new JTextFieldLimit(3));
+    sub.setPreferredSize(new Dimension(100,28));
     centerpanel.add(sub);
-
-    final JTextField tea=new JTextField(2);
+    centerpanel.add(bracketLeft);
+    
+    final JTextField tea=new JTextField(3);
+    tea.setDocument(new JTextFieldLimit(2));
+    tea.setPreferredSize(new Dimension(100,28));
+    
     centerpanel.add(tea);
-
-    
-    
-    
+    centerpanel.add(bracketRite);
                                            ////init,min,max,step
     SpinnerModel value = new SpinnerNumberModel(5,  1,   30, 1);   
-    JSpinner spinner = new JSpinner(value);   
+    JSpinner spinner = new JSpinner(value);  
+    spinner.setPreferredSize(new Dimension(30,28));
     centerpanel.add(spinner);
 	
 	
@@ -64,23 +75,10 @@ public Wizard02()
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     JLabel labelWEST = new JLabel("WEST");
 	JLabel labelNORTH = new JLabel("NORTH",JLabel.CENTER);
 	JLabel labelCENTER = new JLabel("CENTER",JLabel.CENTER);
 	JLabel labelEAST = new JLabel("EAST");
-	
-	
-	
-	
 	
 	
 	Container dlgpane=getContentPane();
