@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,13 +26,21 @@ import javax.swing.SpinnerNumberModel;
 public class Wizard02 extends JDialog 
 {
 public String Response;
+ArrayList<String> oldList=new ArrayList<String>();
+ArrayList<String> newList;
+
+View view;
+public void setView(View vu)  {	this.view=vu; }
+JComboBox<String> claslist;
+
 
 public Wizard02() 
 {
+	
 	setBounds(0,0 , 500, 275);
 	setTitle("Wizard-02 - Add Time Table Entries");
 	setLocationRelativeTo(null);
-
+    
 	
 	JPanel centerpanel=new JPanel();
 	//centerpanel.setSize(new Dimension(100,100));
@@ -39,9 +50,8 @@ public Wizard02()
     
     JLabel bracketRite=new JLabel(")");
     bracketRite.setFont(new Font("Serif", Font.PLAIN, 20));
-    JComboBox<String> claslist = new JComboBox<String>();
-    claslist.addItem("asdf");
-    claslist.addItem("abcd");
+    claslist = new JComboBox<String>();
+    
     claslist.setPreferredSize(new Dimension(100,28));
     centerpanel.add(claslist);
     
@@ -118,8 +128,28 @@ public Wizard02()
 	buttonpanel.add(btnCancel);
 
 	dlgpane.add(buttonpanel,BorderLayout.SOUTH);
+}
+
+
+void CollectAllClasses()
+{ oldList.removeAll(oldList);
+  for(int currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
+    { String str=view.GetData(view.table,currentrow,0);
+      if(str.length()==0) continue;
+      if(str.contains(":")) continue;       
+      oldList.add(str);
+     }
+
+ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
+
+Collections.sort(newList);
+
+for(int i=0;i<newList.size();i++) claslist.addItem(newList.get(i));
 
 	
+
 }
+
+
 }
  

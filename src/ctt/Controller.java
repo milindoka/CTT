@@ -101,6 +101,8 @@ public class Controller {
             public void actionPerformed(ActionEvent actionEvent) 
             {               
             	Wizard02 w2 = new Wizard02();
+            	w2.setView(view);
+            	w2.CollectAllClasses();
             	w2.setModal(true);
             	w2.setVisible(true);
             }
