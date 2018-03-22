@@ -22,8 +22,11 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
-public class Wizard02 extends JDialog 
+public class Wizard02 extends JDialog
 {
 public String Response;
 ArrayList<String> oldList=new ArrayList<String>();
@@ -51,10 +54,53 @@ public Wizard02()
     JLabel bracketRite=new JLabel(")");
     bracketRite.setFont(new Font("Serif", Font.PLAIN, 20));
     claslist = new JComboBox<String>();
-    
     claslist.setPreferredSize(new Dimension(100,28));
-    centerpanel.add(claslist);
     
+
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    final PopupMenuListener listener = new PopupMenuListener() {
+        //boolean initialized = false;
+
+
+		@Override
+		public void popupMenuCanceled(PopupMenuEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			// TODO Auto-generated method stub
+			SwingUtilities.invokeLater(new Runnable(){
+
+        	    public void run()
+        	    {  
+        	       claslist.showPopup();
+        	    }
+        	});
+		}
+
+		@Override
+		public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+      };
+    
+    
+      claslist.addPopupMenuListener(listener);
+
+      
+      
+    centerpanel.add(claslist);
+
     final JTextField sub=new JTextField(4);
     sub.setDocument(new JTextFieldLimit(3));
     sub.setPreferredSize(new Dimension(100,28));
@@ -75,14 +121,18 @@ public Wizard02()
 	
 	
     sub.addKeyListener(new KeyAdapter(){
-        public void keyPressed(KeyEvent e){
+        public void keyPressed(KeyEvent e)
+        {
+        char ch=e.getKeyChar();
+        if(Character.isAlphabetic(ch))
+        {
         String value=sub.getText();
         if(value.length()==2){
         tea.requestFocus();
           }
         }
+        }
    });
-
     
     
     JLabel labelWEST = new JLabel("WEST");
@@ -109,7 +159,8 @@ public Wizard02()
 	public void actionPerformed(ActionEvent e) 
 	{
 	Response = "You Pressed OK";
-	dispose();
+	//claslist.showPopup();
+	//dispose();
 	}
 	});
 
@@ -122,6 +173,7 @@ public Wizard02()
 	public void actionPerformed(ActionEvent e) 
 	{
 		Response = "You Pressed CANCEL";
+		claslist.removePopupMenuListener(listener);  //removeActionListener(this);
 		dispose();
 	}
 	});
@@ -145,11 +197,10 @@ ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
 Collections.sort(newList);
 
 for(int i=0;i<newList.size();i++) claslist.addItem(newList.get(i));
-
-	
-
 }
 
 
+
+
+
 }
- 

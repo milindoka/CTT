@@ -105,6 +105,7 @@ public class Controller {
             	w2.CollectAllClasses();
             	w2.setModal(true);
             	w2.setVisible(true);
+            	
             }
     	};
         view.getWIZARD02button().addActionListener(WIZARD02buttonAL);
