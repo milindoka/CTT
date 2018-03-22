@@ -35,7 +35,7 @@ ArrayList<String> newList;
 View view;
 public void setView(View vu)  {	this.view=vu; }
 JComboBox<String> claslist;
-
+int lectures;
 
 public Wizard02() 
 {
@@ -55,15 +55,6 @@ public Wizard02()
     bracketRite.setFont(new Font("Serif", Font.PLAIN, 20));
     claslist = new JComboBox<String>();
     claslist.setPreferredSize(new Dimension(100,28));
-    
-
-    
-        
-    
-    
-    
-    
-    
     
     
     final PopupMenuListener listener = new PopupMenuListener() {
@@ -94,9 +85,7 @@ public Wizard02()
 		}
       };
     
-    
-      claslist.addPopupMenuListener(listener);
-
+    claslist.addPopupMenuListener(listener);
       
       
     centerpanel.add(claslist);
@@ -152,24 +141,39 @@ public Wizard02()
 
 
 
-	// Button OK
-	JButton btnOK = new JButton("OK");
-	btnOK.addActionListener(new ActionListener() 
+	// Button Add
+	JButton btnAdd = new JButton(" Add ");
+	btnAdd.addActionListener(new ActionListener() 
 	{
 	public void actionPerformed(ActionEvent e) 
 	{
+	
+	String clas=(String) claslist.getSelectedItem();	
+    String subject=sub.getText();
+    String teacher=tea.getText();
+    
+		    try {
+		        lectures = Integer.parseInt(spinner.getValue().toString());
+		    } catch(NumberFormatException nfe) {
+		       System.out.println("Could not parse " + nfe);
+		    }
+
+	System.out.println(lectures);
+	System.out.println(clas);
+	System.out.println(subject);
+	System.out.println(teacher);
+	
 	Response = "You Pressed OK";
 	//claslist.showPopup();
 	//dispose();
 	}
 	});
 
-
-	buttonpanel.add(btnOK);
+	buttonpanel.add(btnAdd);
 	 
-	// Button Cancel
-	JButton btnCancel = new JButton("Cancel");
-	btnCancel.addActionListener(new ActionListener() {
+	// Button Finish
+	JButton btnFinish = new JButton(" Finish ");
+	btnFinish.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) 
 	{
 		Response = "You Pressed CANCEL";
@@ -177,7 +181,7 @@ public Wizard02()
 		dispose();
 	}
 	});
-	buttonpanel.add(btnCancel);
+	buttonpanel.add(btnFinish);
 
 	dlgpane.add(buttonpanel,BorderLayout.SOUTH);
 }
