@@ -104,7 +104,7 @@ public Wizard02()
     centerpanel.add(bracketRite);
                                            ////init,min,max,step
     SpinnerModel value = new SpinnerNumberModel(5,  1,   30, 1);   
-    JSpinner spinner = new JSpinner(value);  
+    final JSpinner spinner = new JSpinner(value);  
     spinner.setPreferredSize(new Dimension(30,28));
     centerpanel.add(spinner);
 	
@@ -157,11 +157,8 @@ public Wizard02()
 		    } catch(NumberFormatException nfe) {
 		       System.out.println("Could not parse " + nfe);
 		    }
-
-	System.out.println(lectures);
-	System.out.println(clas);
-	System.out.println(subject);
-	System.out.println(teacher);
+	String L32=subject+"("+teacher+")";
+	AddOneLecture(clas,L32);
 	
 	Response = "You Pressed OK";
 	//claslist.showPopup();
@@ -196,11 +193,34 @@ void CollectAllClasses()
       oldList.add(str);
      }
 
-ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
+   ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
+   Collections.sort(newList);
+   for(int i=0;i<newList.size();i++) 
+	   claslist.addItem(newList.get(i));
 
-Collections.sort(newList);
 
-for(int i=0;i<newList.size();i++) claslist.addItem(newList.get(i));
+}
+
+
+boolean AddOneLecture(String TheClass, String ThreeTwo)
+{
+	int rc=view.table.getRowCount();
+	for(int i=0;i<rc;i++)
+	{ String anvilclas=view.GetData(view.table,i,0);
+	  if(anvilclas.contains(TheClass))
+	  {   for(int j=1;j<7;j++)
+	  		{ String temp=view.GetData(view.table,i,j);
+	  		  if(temp.length()==0)
+	  			  { view.SetData(ThreeTwo, view.table,i,j);
+	  			    return true;
+	  			  }
+	  		}
+		  
+	  }
+	}
+	
+	return false;
+	
 }
 
 
