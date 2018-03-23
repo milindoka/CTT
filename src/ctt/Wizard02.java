@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -40,10 +41,16 @@ int lectures;
 public Wizard02() 
 {
 	
-	setBounds(0,0 , 500, 275);
+	setBounds(0,0 , 500, 375);
 	setTitle("Wizard-02 - Add Time Table Entries");
 	setLocationRelativeTo(null);
     
+	JPanel toppanel=new JPanel();
+	toppanel.setLayout(new GridLayout(3,3));
+	for(int i=0;i<9;i++)
+		toppanel.add(new JLabel("Test",JLabel.CENTER));
+	
+	
 	
 	JPanel centerpanel=new JPanel();
 	//centerpanel.setSize(new Dimension(100,100));
@@ -127,14 +134,14 @@ public Wizard02()
     JLabel labelWEST = new JLabel("WEST");
 	JLabel labelNORTH = new JLabel("NORTH",JLabel.CENTER);
 	JLabel labelCENTER = new JLabel("CENTER",JLabel.CENTER);
-	JLabel labelEAST = new JLabel("EAST");
+	JLabel labelEAST = new JLabel("-------EAST----------");
 	
 	
 	Container dlgpane=getContentPane();
 	dlgpane.setLayout(new BorderLayout());
 
 	dlgpane.add(labelWEST,BorderLayout.WEST);
-	dlgpane.add(labelNORTH,BorderLayout.NORTH);
+	dlgpane.add(toppanel,BorderLayout.NORTH);
 	dlgpane.add(centerpanel,BorderLayout.CENTER);
 	dlgpane.add(labelEAST,BorderLayout.EAST);
 	JPanel buttonpanel=new JPanel();
