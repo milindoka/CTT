@@ -29,7 +29,6 @@ import javax.swing.event.PopupMenuListener;
 
 public class Wizard02 extends JDialog
 {
-public String Response;
 ArrayList<String> oldList=new ArrayList<String>();
 ArrayList<String> newList;
 
@@ -165,9 +164,9 @@ public Wizard02()
 		       System.out.println("Could not parse " + nfe);
 		    }
 	String L32=subject+"("+teacher+")";
-	AddOneLecture(clas,L32);
+	if(!AddOneLecture(clas,L32))
+	Toast.AutoCloseMsg("Empty cell NOT available, Try another Division or Increase Time Table Slots");
 	
-	Response = "You Pressed OK";
 	//claslist.showPopup();
 	//dispose();
 	}
@@ -180,7 +179,6 @@ public Wizard02()
 	btnFinish.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) 
 	{
-		Response = "You Pressed CANCEL";
 		claslist.removePopupMenuListener(listener);  //removeActionListener(this);
 		dispose();
 	}
