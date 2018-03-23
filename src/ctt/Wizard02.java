@@ -45,11 +45,15 @@ public Wizard02()
 	setLocationRelativeTo(null);
     
 	JPanel toppanel=new JPanel();
-	toppanel.setLayout(new GridLayout(3,3));
-	for(int i=0;i<9;i++)
-		toppanel.add(new JLabel("Test",JLabel.CENTER));
+	toppanel.setLayout(new GridLayout(4,1));
 	
-	
+	JLabel MsgLabel= new JLabel("Add Lecture Entried in SUB(TR) Format",JLabel.CENTER);
+	toppanel.add(new JLabel(" ",JLabel.CENTER));
+	toppanel.add(MsgLabel);
+	toppanel.add(new JLabel(" ",JLabel.CENTER));
+	toppanel.add(new JLabel(" ",JLabel.CENTER));
+
+	JLabel Lcount=new JLabel("Total : ");
 	
 	JPanel centerpanel=new JPanel();
 	//centerpanel.setSize(new Dimension(100,100));
@@ -112,7 +116,7 @@ public Wizard02()
     SpinnerModel value = new SpinnerNumberModel(5,  1,   30, 1);   
     final JSpinner spinner = new JSpinner(value);  
     spinner.setPreferredSize(new Dimension(30,28));
-    centerpanel.add(spinner);
+    centerpanel.add(Lcount);
 	
 	
     sub.addKeyListener(new KeyAdapter(){
@@ -130,10 +134,8 @@ public Wizard02()
    });
     
     
-    JLabel labelWEST = new JLabel("WEST");
-	JLabel labelNORTH = new JLabel("NORTH",JLabel.CENTER);
-	JLabel labelCENTER = new JLabel("CENTER",JLabel.CENTER);
-	JLabel labelEAST = new JLabel("-------EAST----------");
+    JLabel labelWEST = new JLabel("    ");
+	JLabel labelEAST = new JLabel("    ");
 	
 	
 	Container dlgpane=getContentPane();
