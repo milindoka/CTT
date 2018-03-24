@@ -19,10 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -34,7 +31,6 @@ ArrayList<String> newList;
 View view;
 public void setView(View vu)  {	this.view=vu; }
 JComboBox<String> claslist;
-int lectures;
 JLabel Lcount;
 JTextField sub,tea;
 
@@ -43,6 +39,15 @@ JTextField sub,tea;
 
 public Wizard02() 
 {
+	
+	sub=new JTextField(4);
+    sub.setDocument(new JTextFieldLimit(3));
+    sub.setPreferredSize(new Dimension(100,28));
+
+    JTextField tea=new JTextField(3);
+    tea.setDocument(new JTextFieldLimit(2));
+    tea.setPreferredSize(new Dimension(100,28));
+    
 	
 	setBounds(0,0 , 500, 375);
 	setTitle("Wizard-02 - Add Time Table Entries");
@@ -78,6 +83,7 @@ public Wizard02()
 		@Override
 		public void popupMenuCanceled(PopupMenuEvent arg0) {
 			// TODO Auto-generated method stub
+
 			
 		}
 
@@ -89,6 +95,7 @@ public Wizard02()
         	    public void run()
         	    {  
         	       claslist.showPopup();
+        	     
         	    }
         	});
 		}
@@ -96,30 +103,42 @@ public Wizard02()
 		@Override
 		public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			// TODO Auto-generated method stub
-		}
+		
+ 		}
       };
     
     claslist.addPopupMenuListener(listener);
-      
+    
+    claslist.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+            //
+            // Get the source of the component, which is our combo
+            // box.
+            //
+            JComboBox claslist = (JComboBox) event.getSource();
+
+            Object selected = claslist.getSelectedItem();
+            String clas=selected.toString();
+        	String subject=sub.getText();
+        	String teacher=tea.getText();
+        	String L32=subject+"("+teacher+")";
+            Updatecount(clas,L32);
+
+        }
+    });
+ 
+    
+    
+    
       
     centerpanel.add(claslist);
 
-    sub=new JTextField(4);
-    sub.setDocument(new JTextFieldLimit(3));
-    sub.setPreferredSize(new Dimension(100,28));
+    
     centerpanel.add(sub);
     centerpanel.add(bracketLeft);
     
-    JTextField tea=new JTextField(3);
-    tea.setDocument(new JTextFieldLimit(2));
-    tea.setPreferredSize(new Dimension(100,28));
-    
     centerpanel.add(tea);
     centerpanel.add(bracketRite);
-                                           ////init,min,max,step
-    SpinnerModel value = new SpinnerNumberModel(5,  1,   30, 1);   
-    final JSpinner spinner = new JSpinner(value);  
-    spinner.setPreferredSize(new Dimension(30,28));
     centerpanel.add(Lcount);
 	
 	
@@ -134,6 +153,15 @@ public Wizard02()
         tea.requestFocus();
           }
         }
+
+    	String clas=(String) claslist.getSelectedItem();	
+        String subject=sub.getText();
+        String teacher=tea.getText();
+    	String L32=subject+"("+teacher+")";
+    	Updatecount(clas,L32);
+
+        
+        
         }
    });
     
@@ -163,12 +191,6 @@ public Wizard02()
 	String clas=(String) claslist.getSelectedItem();	
     String subject=sub.getText();
     String teacher=tea.getText();
-    
-		    try {
-		        lectures = Integer.parseInt(spinner.getValue().toString());
-		    } catch(NumberFormatException nfe) {
-		       System.out.println("Could not parse " + nfe);
-		    }
 	String L32=subject+"("+teacher+")";
 	
 	if(!AddOneLecture(clas,L32))
@@ -259,7 +281,20 @@ for(int i=0;i<rc;i++)
 String cntLabel=String.format("Total : %02d", counter);
 
 Lcount.setText(cntLabel);
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
