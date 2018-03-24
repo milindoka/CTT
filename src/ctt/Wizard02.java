@@ -31,11 +31,15 @@ public class Wizard02 extends JDialog
 {
 ArrayList<String> oldList=new ArrayList<String>();
 ArrayList<String> newList;
-
 View view;
 public void setView(View vu)  {	this.view=vu; }
 JComboBox<String> claslist;
 int lectures;
+JLabel Lcount;
+JTextField sub,tea;
+
+
+
 
 public Wizard02() 
 {
@@ -53,7 +57,7 @@ public Wizard02()
 	toppanel.add(new JLabel(" ",JLabel.CENTER));
 	toppanel.add(new JLabel(" ",JLabel.CENTER));
 
-	JLabel Lcount=new JLabel("Total : ");
+	Lcount=new JLabel("Total : ");
 	
 	JPanel centerpanel=new JPanel();
 	//centerpanel.setSize(new Dimension(100,100));
@@ -100,13 +104,13 @@ public Wizard02()
       
     centerpanel.add(claslist);
 
-    final JTextField sub=new JTextField(4);
+    sub=new JTextField(4);
     sub.setDocument(new JTextFieldLimit(3));
     sub.setPreferredSize(new Dimension(100,28));
     centerpanel.add(sub);
     centerpanel.add(bracketLeft);
     
-    final JTextField tea=new JTextField(3);
+    JTextField tea=new JTextField(3);
     tea.setDocument(new JTextFieldLimit(2));
     tea.setPreferredSize(new Dimension(100,28));
     
@@ -166,9 +170,11 @@ public Wizard02()
 		       System.out.println("Could not parse " + nfe);
 		    }
 	String L32=subject+"("+teacher+")";
+	
 	if(!AddOneLecture(clas,L32))
 	Toast.AutoCloseMsg("Empty cell NOT available, Try another Division or Increase Time Table Slots");
 	
+	Updatecount(clas,L32);
 	//claslist.showPopup();
 	//dispose();
 	}
@@ -231,6 +237,29 @@ boolean AddOneLecture(String TheClass, String ThreeTwo)
 }
 
 
+void Updatecount(String TheClass, String ThreeTwo)
+{ int counter=0;
+	int rc=view.table.getRowCount();
+for(int i=0;i<rc;i++)
+ { String anvilclas=view.GetData(view.table,i,0);
+   if(anvilclas.contains(TheClass))
+    {   for(int j=1;j<7;j++)
+  		{ String temp=view.GetData(view.table,i,j);
+  		   if(temp.contains(ThreeTwo)) 
+  			  { counter++;view.SetData(ThreeTwo, view.table,i,j);
+  			  }
+  		}
+	  
+     }
+  else ;  //continue next class
+ } //end big for loop
+	
+// Show counter in label;
+
+String cntLabel=String.format("Total : %02d", counter);
+
+Lcount.setText(cntLabel);
+}
 
 
 
