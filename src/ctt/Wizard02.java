@@ -267,6 +267,30 @@ public Wizard02()
 	
 	String clas=(String) claslist.getSelectedItem();	
     String subject=sub.getText();
+    if(subject.length()!=3) return;
+    String teacher=tea.getText();
+    if(teacher.length()!=2) return;
+	String L32=subject+"("+teacher+")";
+	
+	
+	if(!AddOneLecture(clas,L32))
+	Toast.AutoCloseMsg("Empty cell NOT available, Try another Division or Increase Time Table Slots");
+	
+	Updatecount(clas,L32);
+	//claslist.showPopup();
+	//dispose();
+	}
+	});
+	buttonpanel.add(btnAdd);
+	//////Remove Button
+	JButton btnRemove = new JButton(" Remove ");
+	btnRemove.addActionListener(new ActionListener() 
+	{
+	public void actionPerformed(ActionEvent e) 
+	{
+	
+	String clas=(String) claslist.getSelectedItem();	
+    String subject=sub.getText();
     String teacher=tea.getText();
 	String L32=subject+"("+teacher+")";
 	
@@ -278,8 +302,10 @@ public Wizard02()
 	//dispose();
 	}
 	});
-	buttonpanel.add(btnAdd);
-	 
+	buttonpanel.add(btnRemove);
+	
+	
+	
 	// Button Finish
 	JButton btnFinish = new JButton(" Finish ");
 	btnFinish.addActionListener(new ActionListener() {
