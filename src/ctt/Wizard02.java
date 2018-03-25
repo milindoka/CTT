@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -127,6 +129,41 @@ public Wizard02()
         }
     });
  
+    tea.getDocument().addDocumentListener(new DocumentListener() {
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            updateLabel(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            updateLabel(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            updateLabel(e);
+        }
+
+        private void updateLabel(DocumentEvent e) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run()
+                {
+                	String clas=(String) claslist.getSelectedItem();	
+                    String subject=sub.getText();
+                    String teacher=tea.getText();
+                	String L32=subject+"("+teacher+")";
+                	Updatecount(clas,L32);
+                }
+            });
+        }
+    });
+
+    
+    
     
     
     
@@ -141,7 +178,7 @@ public Wizard02()
     centerpanel.add(bracketRite);
     centerpanel.add(Lcount);
 	
-	
+	/*
     sub.addKeyListener(new KeyAdapter(){
         public void keyPressed(KeyEvent e)
         {
@@ -164,6 +201,46 @@ public Wizard02()
         
         }
    });
+    */
+    
+
+
+    sub.getDocument().addDocumentListener(new DocumentListener() {
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            updateLabel(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            updateLabel(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            updateLabel(e);
+        }
+
+        private void updateLabel(DocumentEvent e) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run()
+                {
+                	String clas=(String) claslist.getSelectedItem();	
+                    String subject=sub.getText();
+                    String teacher=tea.getText();
+                	String L32=subject+"("+teacher+")";
+                	
+                	Updatecount(clas,L32);
+                }
+            });
+        }
+    });
+
+    
+
     
     
     JLabel labelWEST = new JLabel("    ");
@@ -201,7 +278,6 @@ public Wizard02()
 	//dispose();
 	}
 	});
-
 	buttonpanel.add(btnAdd);
 	 
 	// Button Finish
@@ -238,7 +314,7 @@ void CollectAllClasses()
 
 
 boolean AddOneLecture(String TheClass, String ThreeTwo)
-{
+{   
 	int rc=view.table.getRowCount();
 	for(int i=0;i<rc;i++)
 	{ String anvilclas=view.GetData(view.table,i,0);
@@ -260,15 +336,17 @@ boolean AddOneLecture(String TheClass, String ThreeTwo)
 
 
 void Updatecount(String TheClass, String ThreeTwo)
-{ int counter=0;
+{  if(ThreeTwo.length()!=7) { Lcount.setText("Total : 00"); return; }
+   int counter=0;
 	int rc=view.table.getRowCount();
 for(int i=0;i<rc;i++)
  { String anvilclas=view.GetData(view.table,i,0);
    if(anvilclas.contains(TheClass))
     {   for(int j=1;j<7;j++)
   		{ String temp=view.GetData(view.table,i,j);
-  		   if(temp.contains(ThreeTwo)) 
-  			  { counter++;view.SetData(ThreeTwo, view.table,i,j);
+  		  if(temp.length()==0) continue;
+  		  if(temp.contains(ThreeTwo)) 
+  			  { counter++;
   			  }
   		}
 	  
