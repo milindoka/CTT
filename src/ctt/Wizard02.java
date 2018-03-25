@@ -44,7 +44,7 @@ public Wizard02()
     sub.setDocument(new JTextFieldLimit(3));
     sub.setPreferredSize(new Dimension(100,28));
 
-    JTextField tea=new JTextField(3);
+    tea=new JTextField(3);
     tea.setDocument(new JTextFieldLimit(2));
     tea.setPreferredSize(new Dimension(100,28));
     
@@ -282,15 +282,7 @@ String cntLabel=String.format("Total : %02d", counter);
 
 Lcount.setText(cntLabel);
 
-
-
 }
-
-
-
-
-
-
 
 
 
