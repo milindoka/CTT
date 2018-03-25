@@ -162,11 +162,6 @@ public Wizard02()
         }
     });
 
-    
-    
-    
-    
-    
       
     centerpanel.add(claslist);
 
@@ -178,30 +173,6 @@ public Wizard02()
     centerpanel.add(bracketRite);
     centerpanel.add(Lcount);
 	
-	/*
-    sub.addKeyListener(new KeyAdapter(){
-        public void keyPressed(KeyEvent e)
-        {
-        char ch=e.getKeyChar();
-        if(Character.isAlphabetic(ch))
-        {
-        String value=sub.getText();
-        if(value.length()==2){
-        tea.requestFocus();
-          }
-        }
-
-    	String clas=(String) claslist.getSelectedItem();	
-        String subject=sub.getText();
-        String teacher=tea.getText();
-    	String L32=subject+"("+teacher+")";
-    	Updatecount(clas,L32);
-
-        
-        
-        }
-   });
-    */
     
 
 
@@ -238,8 +209,6 @@ public Wizard02()
             });
         }
     });
-
-    
 
     
     
@@ -282,6 +251,8 @@ public Wizard02()
 	}
 	});
 	buttonpanel.add(btnAdd);
+	
+	
 	//////Remove Button
 	JButton btnRemove = new JButton(" Remove ");
 	btnRemove.addActionListener(new ActionListener() 
@@ -294,12 +265,10 @@ public Wizard02()
     String teacher=tea.getText();
 	String L32=subject+"("+teacher+")";
 	
-	if(!AddOneLecture(clas,L32))
-	Toast.AutoCloseMsg("Empty cell NOT available, Try another Division or Increase Time Table Slots");
+	if(!RemoveOneLecture(clas,L32))
+	Toast.AutoCloseMsg("No Such Lecture Found");
 	
 	Updatecount(clas,L32);
-	//claslist.showPopup();
-	//dispose();
 	}
 	});
 	buttonpanel.add(btnRemove);
@@ -359,6 +328,30 @@ boolean AddOneLecture(String TheClass, String ThreeTwo)
 	return false;
 	
 }
+
+
+
+boolean RemoveOneLecture(String TheClass, String ThreeTwo)
+{   
+	int rc=view.table.getRowCount();
+	for(int i=rc-1;i>=0;i--)
+	{ String anvilclas=view.GetData(view.table,i,0);
+	  if(anvilclas.contains(TheClass))
+	  {   for(int j=6;j>0;j--)
+	  		{ String temp=view.GetData(view.table,i,j);
+	  		  if(temp.contains(ThreeTwo))
+	  			  { view.SetData("", view.table,i,j);
+	  			    return true;
+	  			  }
+	  		}
+		  
+	  }
+	}
+	
+	return false;
+	
+}
+
 
 
 void Updatecount(String TheClass, String ThreeTwo)
