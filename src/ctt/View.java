@@ -3,7 +3,6 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -26,7 +25,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -39,7 +37,7 @@ public class View {
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,b16,WIZARD02button,DELETEROWbutton;
-    private JButton FINDREPLACEbutton;
+    private JButton FINDREPLACEbutton,NEWbutton,b17,b18;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
@@ -366,8 +364,12 @@ public class View {
         b16= new JButton("Button16");
         WIZARD02button= new JButton("Wizard-02");
         DELETEROWbutton= new JButton("Delete Row");
+        NEWbutton=new JButton("New");
+        b17=new JButton("Button17");
+        b18=new JButton("Button18");
         
-        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(6,3,2,2));
+        
+        JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(7,3,2,2));
         buttonPanel.add(SaveBT);
         buttonPanel.add(LoadBT);
         buttonPanel.add(PRINTCURRENTbutton);
@@ -387,9 +389,15 @@ public class View {
         buttonPanel.add(FINDREPLACEbutton);
         buttonPanel.add(WIZARD01button);
         buttonPanel.add(INSERTROWbutton);
+        
         buttonPanel.add(b16);
         buttonPanel.add(WIZARD02button);
         buttonPanel.add(DELETEROWbutton);
+        
+        buttonPanel.add(NEWbutton);
+        buttonPanel.add(b17);
+        buttonPanel.add(b18);
+        
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
         spesLabel = new JLabel("       ");
