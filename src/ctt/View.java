@@ -37,7 +37,7 @@ public class View {
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,b16,WIZARD02button,DELETEROWbutton;
-    private JButton FINDREPLACEbutton,NEWbutton,b17,b18;
+    private JButton FINDREPLACEbutton,REMGAPDbutton,b17,b18;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
@@ -361,7 +361,7 @@ public class View {
         GLOBALCOUNTbutton = new JButton("Global Counts");
         
         DEMObutton = new JButton("Demo Time Table");
-        REMCLASHbutton = new JButton("Remove Clash");
+        REMGAPDbutton = new JButton("Remove Gaps-Doubles");
         MULTIFRIZbutton = new JButton("Multi Freeze");
         CLEARFRIZbutton = new JButton("Clear Freez");
        
@@ -375,7 +375,7 @@ public class View {
         b16= new JButton("Button16");
         WIZARD02button= new JButton("Wizard-02");
         DELETEROWbutton= new JButton("Delete Row");
-        NEWbutton=new JButton("New");
+        REMCLASHbutton=new JButton("Remove Clashes");
         b17=new JButton("Button17");
         b18=new JButton("Button18");
         
@@ -388,7 +388,7 @@ public class View {
         
         buttonPanel.add(GLOBALCOUNTbutton);
         buttonPanel.add(DEMObutton);
-        buttonPanel.add(REMCLASHbutton);
+        buttonPanel.add(REMGAPDbutton); 
         buttonPanel.add(MULTIFRIZbutton);
         buttonPanel.add(CLEARFRIZbutton);
         
@@ -404,8 +404,8 @@ public class View {
         buttonPanel.add(b16);
         buttonPanel.add(WIZARD02button);
         buttonPanel.add(DELETEROWbutton);
-        
-        buttonPanel.add(NEWbutton);
+        buttonPanel.add(REMCLASHbutton);
+       
         buttonPanel.add(b17);
         buttonPanel.add(b18);
         
@@ -508,6 +508,13 @@ public class View {
     {
     	return REMCLASHbutton;
     }
+    
+
+    public JButton getREMGAPDbutton()
+    {
+    	return REMGAPDbutton;
+    }
+
     
     public JButton getDEMObutton()
     { return DEMObutton;
@@ -866,8 +873,6 @@ public class View {
     {
 		private static final long serialVersionUID = 1L;
 	
-		
-		
 		Color clashred=new Color(255,200,200);
     	
     	
@@ -892,12 +897,7 @@ public class View {
     	   return cell;
 
     	  }
-    	  
-
     }
-
-     
-    
     
     
     class FreezeCellRenderer extends DefaultTableCellRenderer

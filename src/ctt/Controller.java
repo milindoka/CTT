@@ -19,7 +19,7 @@ public class Controller {
     private RemoveCDG rcdg;
     private FindAndReplace far;
     private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
-    private ActionListener PRINTCURRENTbuttonAL;
+    private ActionListener PRINTCURRENTbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
@@ -141,15 +141,8 @@ public class Controller {
             			  			  "03:00-03:40","03:40-04:20","04:20-05:00"};
 
             	  
-            	  int result=JOptionPane.showOptionDialog(null, 
-            		        "This Will Remove The Current Time Table, Continue ?", 
-            		        "Feedback", 
-            		        JOptionPane.OK_CANCEL_OPTION, 
-            		        JOptionPane.INFORMATION_MESSAGE, 
-            		        null, 
-            		        new String[]{"Yes, I have Saved Time Table", "No, Will Save and Come back"}, // this is the array
-            		        "default");
             	  
+            	  int result=WarnBefore();
             	  if(result==JOptionPane.OK_OPTION)
             	  {
             		  String AH="ABCDEFGH";
@@ -258,33 +251,28 @@ public class Controller {
         
 
 
+        REMGAPDbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {           
+            	  rcdg.onlyclash=false;
+            	  OnRemoveClashThread();
+              }
+            	};
+
+        view.getREMGAPDbutton().addActionListener(REMGAPDbuttonAL);
+        
+        
         REMCLASHbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {           
-            	  
+            	  rcdg.onlyclash=true;
             	  OnRemoveClashThread();
-            	  /*
-              
-            	 // if(rcdg.ValidateAllCells())
-            	 // {
-                  new Thread(null, new Runnable() {
-                      public void run() {
-                    	  rcdg.RemoveClashGapDoubles();
-                      }
-                  }, "1", 1 << 23).start();
-            	  
-            	//  }
-            	  
-            	  */
-                
-            	  //rcdg.startnow();
               }
             	};
 
         view.getREMCLASHbutton().addActionListener(REMCLASHbuttonAL);
-        
-        
        
         
         
@@ -364,6 +352,7 @@ public class Controller {
     
     public void OnRemoveClashThread()
     {
+    
     	Thread.UncaughtExceptionHandler h = new Thread.UncaughtExceptionHandler() {
     	    public void uncaughtException(Thread th, Throwable ex) {
     	        System.out.println("Uncaught exception: " + ex);
@@ -670,12 +659,25 @@ public class Controller {
 	  System.out.println(m);
 	  System.out.println(n);
    }
-    
+   
+   
+   int WarnBefore()
+   {
+   int choice=JOptionPane.showOptionDialog(null, 
+	        "This Will Remove The Current Time Table, Continue ?", 
+	        "Warning ..", 
+	        JOptionPane.OK_CANCEL_OPTION, 
+	        JOptionPane.INFORMATION_MESSAGE, 
+	        null, 
+	        new String[]{"Yes, I have Saved Time Table", "No, Will Save and Come back"}, // this is the array
+	        "default");
+   
+   
+   return choice;
+	   
+   }
+   
 }  
     
     
-    
-    
-    
-
    

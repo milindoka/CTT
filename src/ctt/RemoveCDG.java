@@ -225,7 +225,8 @@ public class RemoveCDG
     }
 
     int sourcerow=1;int sourcecol=1;
-    
+    boolean onlyclash=true;
+    //boolean exit=false;
     public void RemoveClashGapDoubles()
     { sourcerow=1;
       sourcecol=1;
@@ -247,6 +248,18 @@ public class RemoveCDG
     		  class1=view.GetData(view.table,sourcerow,0);
     		  class2=view.GetData(view.table,r,0);
     		  if(!class1.contains(class2)) continue;
+    		  
+    		  if(onlyclash)
+    		  { o1=view.GetData(view.table, r,c);
+    	        if(o1.length()==0) continue;    
+    	        //o2=view.GetData(view.table, r2,c2);
+    	      //if(o2.length()==0) return;
+    	     // CalculateGlobalCounts();
+    	        
+    	        getIndividualCounts(o1);
+    	        if(occ==0) continue;
+    		  }
+    		  
               //JOptionPane.showMessageDialog(null, class1+"="+class2)    		  
     		   ExchangeCells(sourcerow,sourcecol,r,c);
     		  }
@@ -266,6 +279,7 @@ public class RemoveCDG
 
     	 CalculateGlobalCounts();
          DisplayAllCounts();
+         if(globalCC==0 && onlyclash==true) break; 
        }
      
     }
