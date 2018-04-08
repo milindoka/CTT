@@ -231,6 +231,7 @@ public class RemoveCDG
     { sourcerow=1;
       sourcecol=1;
      CalculateGlobalCounts();
+     if(onlyclash && globalCC==0) { Toast.AutoCloseMsg("No Clashes, You May Try Remove Gaps-Doubles !");return; }
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
      view.jb.setVisible(true);
@@ -288,7 +289,10 @@ public class RemoveCDG
     DisplayAllCounts();
     
     if(n==JOptionPane.OK_OPTION) JOptionPane.showMessageDialog(null,"Session Over - You may process again");
-    JOptionPane.showMessageDialog(null,"Session Over - You may process again.");    
+    if(onlyclash)
+    	JOptionPane.showMessageDialog(null,"Session Over - You may process again if Clashes Still Exist.");
+    else 
+    	JOptionPane.showMessageDialog(null,"Session Over - You may process again.");    
     view.jb.setVisible(false);
     view.msgLabel.setVisible(true);
     view.tcField.setVisible(true);
