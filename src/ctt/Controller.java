@@ -624,8 +624,6 @@ public class Controller {
 	  view.SetData2("$END",currentrow,0);
    }
       
-    	
-    
     
    void PrepareMaster()
    { String temp,temp1[];
@@ -663,10 +661,8 @@ public class Controller {
     			int count=temp1.length;
     			for(int k=0;k<count;k++)
     				{view.SetData2(temp1[k],currentrow+k,j);
-    				
     				}
     			if(maxsplit<count) maxsplit=count;
-    	
        }
        currentrow=currentrow+maxsplit;
 	  }
