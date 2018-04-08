@@ -98,10 +98,46 @@ static void WriteLastFile(String path)
     	 try { f0.write(newLine); }    
          catch (IOException e) {e.printStackTrace();}
     	 try {f0.close();} catch (IOException e) {e.printStackTrace();}
-    	 
      }    
-    
-	 
+
+	
+static String BrowseAndSaveTimeTableFile()
+{String fylename="";
+File f = new File(System.getProperty("java.class.path"));
+File dir = f.getAbsoluteFile().getParentFile();
+String path = dir.toString();
+JFileChooser chooser = new JFileChooser(path);
+chooser.setDialogTitle("Specify a file to save");
+FileNameExtensionFilter filter = new FileNameExtensionFilter(
+    "CTT", "ctt");
+chooser.setFileFilter(filter);
+int returnVal = chooser.showSaveDialog(null);
+if(returnVal == JFileChooser.APPROVE_OPTION)
+{
+	fylename=chooser.getSelectedFile().getPath();
+}
+
+if (!fylename.endsWith(".CTT") || !fylename.endsWith(".ctt")) fylename += ".CTT";
+
+return fylename;
+	
+}
+
+	
+
+/*
+FileChooser fileChooser = new JFileChooser();
+fileChooser.setDialogTitle("Specify a file to save");   
+ 
+int userSelection = fileChooser.showSaveDialog(parentFrame);
+ 
+if (userSelection == JFileChooser.APPROVE_OPTION) {
+    File fileToSave = fileChooser.getSelectedFile();
+    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+}
+*/
+
+
 	 
  }
 

@@ -36,7 +36,7 @@ public class View {
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
-    private JButton WIZARD01button,INSERTROWbutton,b16,WIZARD02button,DELETEROWbutton;
+    private JButton WIZARD01button,INSERTROWbutton,SAVEASbutton,WIZARD02button,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,b17,b18;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -372,7 +372,7 @@ public class View {
         FINDREPLACEbutton = new JButton("Find/Replace");
         WIZARD01button= new JButton("Wizard-01");
         INSERTROWbutton= new JButton("Insert Row");
-        b16= new JButton("Button16");
+        SAVEASbutton= new JButton("Save As");
         WIZARD02button= new JButton("Wizard-02");
         DELETEROWbutton= new JButton("Delete Row");
         REMCLASHbutton=new JButton("Remove Clashes");
@@ -401,7 +401,7 @@ public class View {
         buttonPanel.add(WIZARD01button);
         buttonPanel.add(INSERTROWbutton);
         
-        buttonPanel.add(b16);
+        buttonPanel.add(SAVEASbutton);
         buttonPanel.add(WIZARD02button);
         buttonPanel.add(DELETEROWbutton);
         buttonPanel.add(REMCLASHbutton);
@@ -452,8 +452,8 @@ public class View {
     	
     }
     
-    public JButton getButtonb16()
-    { return b16;
+    public JButton getSAVEASbutton()
+    { return SAVEASbutton;
     	
     }
    

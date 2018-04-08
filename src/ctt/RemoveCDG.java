@@ -1,8 +1,5 @@
 package ctt;
 
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
 
 import java.util.LinkedHashSet;
@@ -11,7 +8,6 @@ import java.util.Set;
 public class RemoveCDG
    {
 
-	private int n=999;
     private View view;
     private int globalCC,globalDC,globalGC;
     String o1,o2;
@@ -36,7 +32,6 @@ public class RemoveCDG
 	{
 		JTextField strField = new JTextField();
 		strField.setText(original);
-		String str="";
 		Object[] message = 
 		 {
 		    "Correct The Entry :", strField,

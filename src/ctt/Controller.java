@@ -18,12 +18,12 @@ public class Controller {
     private View view;
     private RemoveCDG rcdg;
     private FindAndReplace far;
-    private ActionListener SaveAL,LoadAL,PrinAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
+    private ActionListener SaveAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTCURRENTbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
-    private ActionListener INSERTROWbuttonAL,b16AL,WIZARD02buttonAL,DELETEROWbuttonAL;
+    private ActionListener INSERTROWbuttonAL,SAVEASbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     private String currentfilename="New-Untitled"; ///including path
@@ -60,6 +60,7 @@ public class Controller {
         
     	String lastfile = LoadFile.GetLastFileIfAny();
     	if(lastfile.length()!=0) LoadTT(lastfile);
+    	currentfilename=lastfile;
   /////////////Actions  	
     	
     	
@@ -87,14 +88,14 @@ public class Controller {
         view.getINSERTROWbutton().addActionListener(INSERTROWbuttonAL);    	
     	
 
-        b16AL=new ActionListener()
+        SAVEASbuttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {               show("b16");   
+            {               show("SAVEAS");   
             
             }
     	};
-        view.getButtonb16().addActionListener(b16AL);
+        view.getSAVEASbutton().addActionListener(SAVEASbuttonAL);
         
         
         WIZARD02buttonAL=new ActionListener()
@@ -158,7 +159,8 @@ public class Controller {
             		  	}
             		  		
             			  
-            		  
+            		  currentfilename="New-Untitled"; ///including path
+            	      view.SetTitle(currentfilename);
             	  }
             	  
             	  /*
@@ -186,10 +188,6 @@ public class Controller {
         };                
         view.getFindReplaceBT().addActionListener(FINDREPLACEbuttonAL);
     	    		
-    	
-    	
-    	
-    	
     	
         SaveAL = new ActionListener()
         {
@@ -477,12 +475,20 @@ public class Controller {
     }
     
     private void SaveTT()
-    {
+    {   
+    	if (view.table.isEditing())
+    	     view.table.getCellEditor().stopCellEditing();
+
+    	String fnem="";
     	File f = new File(System.getProperty("java.class.path"));
     	File dir = f.getAbsoluteFile().getParentFile();
     	String path = dir.toString();
-    	String fnem=path+"/test.ctt";
-    	//System.out.println(fnem);
+    	if(currentfilename.contains("New-Untitled"))
+    	   { fnem=LoadFile.BrowseAndSaveTimeTableFile();
+		      if (fnem.length()==0) return;
+		   }
+    	else	
+    		fnem=currentfilename;  /////contains full path
     	
     	
     	FileWriter f0=null;
@@ -536,7 +542,6 @@ public class Controller {
            for(int c=0;c<6;c++) view.ColorMatrix[i][c+1]=temp[7].charAt(c)-'0';
     	   
     	}
-    	
     	LoadFile.WriteLastFile(ttfile);
     	view.SetTitle(ttfile);
        }
