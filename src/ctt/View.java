@@ -64,8 +64,7 @@ public class View {
   
     String[][] Matrix = new String[MROWS][COLS];
     
-    
-    
+    public void SetTitle(String title) {frame.setTitle("College Time Table ( CTT ) : "+title);}
     public void SetData(Object obj, JTable table, int row_index, int col_index)    {  table.getModel().setValueAt(obj,row_index,col_index);  }
     public String GetData(JTable table, int row_index, int col_index) {  return (String) table.getModel().getValueAt(row_index, col_index); }    
     public void SetData2(Object obj, int row_index, int col_index)   

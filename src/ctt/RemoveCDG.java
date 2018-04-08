@@ -135,10 +135,6 @@ public class RemoveCDG
     	   globalCC+=view.CC;globalDC+=view.DC;globalGC+=view.GC;
     		 
     	}
-    	 
-    	 
-    
-       	 
     }
 	
 	
@@ -283,6 +279,9 @@ public class RemoveCDG
     view.msgLabel.setVisible(true);
     view.tcField.setVisible(true);
     }
+    
+    
+    
     
     
     int GetLastRow()

@@ -26,6 +26,7 @@ public class Controller {
     private ActionListener INSERTROWbuttonAL,b16AL,WIZARD02buttonAL,DELETEROWbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
+    private String currentfilename="New-Untitled"; ///including path
     
     public void show(String msg) 
     {JOptionPane.showMessageDialog(null, msg);}
@@ -47,6 +48,7 @@ public class Controller {
         rcdg.setView(view);
         far=new FindAndReplace();
         far.setView(view);
+        view.SetTitle(currentfilename);
  /////Set Preferred Printer on Startup
         
         SetPrinter sp=new SetPrinter();
@@ -58,7 +60,6 @@ public class Controller {
         
     	String lastfile = LoadFile.GetLastFileIfAny();
     	if(lastfile.length()!=0) LoadTT(lastfile);
-    	
   /////////////Actions  	
     	
     	
@@ -385,8 +386,6 @@ public class Controller {
     	t.start();
     	
     	
-    	
-    	
     }
     
 
@@ -550,7 +549,7 @@ public class Controller {
     	}
     	
     	LoadFile.WriteLastFile(ttfile);
-    	
+    	view.SetTitle(ttfile);
        }
     
     int GetFirstRow()
