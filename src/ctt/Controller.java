@@ -506,9 +506,10 @@ public class Controller {
     	File dir = f.getAbsoluteFile().getParentFile();
     	String path = dir.toString();
     	if(currentfilename.contains("New-Untitled"))
-    	   {System.out.println("T"); 
+    	   { //System.out.println("T"); 
     		fnem=LoadFile.BrowseAndSaveTimeTableFile();
 		      if (fnem.length()==0) return;
+		      currentfilename=fnem;
 		   }
     	else	
     		fnem=currentfilename;  /////contains full path
@@ -562,10 +563,10 @@ public class Controller {
     
     	 }
     	 try {f0.close();} catch (IOException e) {e.printStackTrace();}
-
     	 
-    	 
-     	// toast.AutoCloseMsg("File Saved");
+     	Toast.AutoCloseMsg("File Saved");
+     	LoadFile.WriteLastFile(fnem);
+    	view.SetTitle(fnem);
      }
     	
     private void LoadTT(String ttfile)

@@ -117,7 +117,7 @@ if(returnVal == JFileChooser.APPROVE_OPTION)
 	fylename=chooser.getSelectedFile().getPath();
 }
 
-if (!fylename.endsWith(".CTT") || !fylename.endsWith(".ctt")) fylename += ".CTT";
+if (!fylename.endsWith(".CTT") && !fylename.endsWith(".ctt")) fylename += ".CTT";
 
 return fylename;
 	
