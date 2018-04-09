@@ -541,6 +541,10 @@ public class View {
     { return PRINTMASTERbutton;
     }
     
+
+    public JButton getB17()
+    { return b17;
+    }
     
     public void CreateClass(String clas)
     {

@@ -27,7 +27,6 @@ public class Controller {
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     private String currentfilename="New-Untitled"; ///including path
-    
     public void show(String msg) 
     {JOptionPane.showMessageDialog(null, msg);}
     public void show(int msg)
@@ -35,7 +34,9 @@ public class Controller {
     public void show(long msg)
     {JOptionPane.showMessageDialog(null, msg);}
 
+    public String collegename="School/College";    
     
+    String Header[]={"","","","",""};
     
     public Controller(Model model, View view)
     {
@@ -50,17 +51,19 @@ public class Controller {
         far.setView(view);
         view.SetTitle(currentfilename);
  /////Set Preferred Printer on Startup
-        
+      
         SetPrinter sp=new SetPrinter();
         String printername=sp.LoadPreferences();
         if(printername==null) printername="No Printer";
         model.setPrinterName(printername);
         view.getSetPRN().setText("Printer : "+ printername);
+        
+        view.getB17().setText(collegename);
+        view.getSetPRN().setText("Printer : "+ printername);
     	
         
     	String lastfile = LoadFile.GetLastFileIfAny();
-    	if(lastfile.length()!=0) LoadTT(lastfile);
-    	currentfilename=lastfile;
+    	if(lastfile.length()!=0) { LoadTT(lastfile);  currentfilename=lastfile; }
   /////////////Actions  	
     	
     	
@@ -365,7 +368,6 @@ public class Controller {
     	        } catch (InterruptedException e) {
     	            System.out.println("Interrupted.");
     	        }
-    	        System.out.println("Throwing exception ...");
     	        throw new RuntimeException();
     	    }
     	};
@@ -423,7 +425,7 @@ public class Controller {
     { 	
     	SetPrinter sp=new SetPrinter();
         String printername=sp.SelectPrinter();
-        view.getSetPRN().setText("Printer : "+ printername+"  (Click To Change");
+        view.getSetPRN().setText("Printer : "+ printername);
         model.setPrinterName(printername);
         sp.SavePreferences();
     }
@@ -484,7 +486,8 @@ public class Controller {
     	File dir = f.getAbsoluteFile().getParentFile();
     	String path = dir.toString();
     	if(currentfilename.contains("New-Untitled"))
-    	   { fnem=LoadFile.BrowseAndSaveTimeTableFile();
+    	   {System.out.println("T"); 
+    		fnem=LoadFile.BrowseAndSaveTimeTableFile();
 		      if (fnem.length()==0) return;
 		   }
     	else	
@@ -497,6 +500,33 @@ public class Controller {
     	// try { f0.write(newLine);	} 
     	 int rowcount=view.table.getRowCount();
     	
+    	 try { f0.write(collegename); }    
+         catch (IOException e) {e.printStackTrace();}
+    	 try { f0.write(newLine);}                        //// New line after every row
+         catch (IOException e) {e.printStackTrace();}
+    	 
+    	 try { f0.write("Reserved"); }    
+         catch (IOException e) {e.printStackTrace();}
+    	 try { f0.write(newLine);}                        //// New line after every row
+         catch (IOException e) {e.printStackTrace();}
+    	 
+    	 try { f0.write("Reserved"); }    
+         catch (IOException e) {e.printStackTrace();}
+    	 try { f0.write(newLine);}                        //// New line after every row
+         catch (IOException e) {e.printStackTrace();}
+    	 
+    	 try { f0.write("Reserved"); }    
+         catch (IOException e) {e.printStackTrace();}
+    	 try { f0.write(newLine);}                        //// New line after every row
+         catch (IOException e) {e.printStackTrace();}
+    	 
+    	 try { f0.write("Reserved"); }    
+         catch (IOException e) {e.printStackTrace();}
+    	 try { f0.write(newLine);}                        //// New line after every row
+         catch (IOException e) {e.printStackTrace();}
+    	 
+    	 
+    	 
     	 for(int i=0;i<rowcount-1;i++)
     	 {  
     		 for(int j=0;j<7;j++)
@@ -525,8 +555,17 @@ public class Controller {
     	try { 	reader = new BufferedReader(new FileReader(ttfile));}
     	catch (FileNotFoundException e1) {e1.printStackTrace();}
     	
-    	ArrayList<String> strArray = new ArrayList<String>();
+    	
     	String line = null;
+    	
+    	for(int i=0;i<5;i++)
+    	try { if((line = reader.readLine()) != null) { Header[i]=line; } } 
+    	catch (IOException e) {	e.printStackTrace();   }
+    
+    	
+    	
+    	ArrayList<String> strArray = new ArrayList<String>();
+    	
     	try { while ((line = reader.readLine()) != null) { strArray.add(line); } } 
     	catch (IOException e) {	e.printStackTrace();   }
 
