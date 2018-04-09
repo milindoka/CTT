@@ -438,7 +438,8 @@ public class Controller {
 				   view.SetData(Demo.demoarr[i][j],view.table,i,j);
 			   }
 		}	    
-
+		currentfilename="New-Untitled"; ///including path
+		view.SetTitle(currentfilename);
     }
     
     private void SetDefaultPrinter()
@@ -509,7 +510,9 @@ public class Controller {
     	   { //System.out.println("T"); 
     		fnem=LoadFile.BrowseAndSaveTimeTableFile();
 		      if (fnem.length()==0) return;
+		      if (!fnem.endsWith(".CTT") && !fnem.endsWith(".ctt")) fnem += ".CTT";
 		      currentfilename=fnem;
+		      
 		   }
     	else	
     		fnem=currentfilename;  /////contains full path
