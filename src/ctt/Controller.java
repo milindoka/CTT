@@ -24,6 +24,7 @@ public class Controller {
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
     private ActionListener INSERTROWbuttonAL,SAVEASbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
+    private ActionListener SCHOOLbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     private String currentfilename="New-Untitled"; ///including path
@@ -34,9 +35,8 @@ public class Controller {
     public void show(long msg)
     {JOptionPane.showMessageDialog(null, msg);}
 
-    public String collegename="School/College";    
     
-    String Header[]={"","","","",""};
+    String Header[]={"SCHOOL/COLLEGE","","","",""};
     
     public Controller(Model model, View view)
     {
@@ -58,12 +58,12 @@ public class Controller {
         model.setPrinterName(printername);
         view.getSetPRN().setText("Printer : "+ printername);
         
-        view.getB17().setText(collegename);
+        view.getSCHOOLbutton().setText(Header[0]);
         view.getSetPRN().setText("Printer : "+ printername);
     	
         
     	String lastfile = LoadFile.GetLastFileIfAny();
-    	if(lastfile.length()!=0) { LoadTT(lastfile);  currentfilename=lastfile; }
+    	if(lastfile.length()!=0)  LoadTT(lastfile); 
   /////////////Actions  	
     	
     	
@@ -340,12 +340,32 @@ public class Controller {
         PRINTCURRENTbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {       
-                  PrintCurrent();
+              {   PrintCurrent();    
+            	
               }
        	};
                
         view.getPRINTCURRENTbutton().addActionListener(PRINTCURRENTbuttonAL);
+        
+        
+        SCHOOLbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {       
+            	  String schoolname = JOptionPane.showInputDialog(null, "Input School-College Name");
+            	  
+            	  if(schoolname!=null) 
+            		  { Header[0]=schoolname;
+            		    view.getSCHOOLbutton().setText(Header[0]);
+            		  }
+            		  
+            	  
+              }
+       	};
+               
+        view.getSCHOOLbutton().addActionListener(SCHOOLbuttonAL);
+        
+        
     }
     
 ///////////// Methods called in action listeners ////////////////////    
@@ -500,7 +520,7 @@ public class Controller {
     	// try { f0.write(newLine);	} 
     	 int rowcount=view.table.getRowCount();
     	
-    	 try { f0.write(collegename); }    
+    	 try { f0.write(Header[0]); }    
          catch (IOException e) {e.printStackTrace();}
     	 try { f0.write(newLine);}                        //// New line after every row
          catch (IOException e) {e.printStackTrace();}
@@ -550,7 +570,7 @@ public class Controller {
     	
     private void LoadTT(String ttfile)
     {
-    	
+    	 currentfilename=ttfile;
     	BufferedReader reader=null;
     	try { 	reader = new BufferedReader(new FileReader(ttfile));}
     	catch (FileNotFoundException e1) {e1.printStackTrace();}
@@ -583,6 +603,7 @@ public class Controller {
     	}
     	LoadFile.WriteLastFile(ttfile);
     	view.SetTitle(ttfile);
+    	view.getSCHOOLbutton().setText(Header[0]);
        }
     
     int GetFirstRow()

@@ -37,7 +37,7 @@ public class View {
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,SAVEASbutton,WIZARD02button,DELETEROWbutton;
-    private JButton FINDREPLACEbutton,REMGAPDbutton,b17,b18;
+    private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,b18;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     JTable table;
@@ -376,7 +376,7 @@ public class View {
         WIZARD02button= new JButton("Wizard-02");
         DELETEROWbutton= new JButton("Delete Row");
         REMCLASHbutton=new JButton("Remove Clashes");
-        b17=new JButton("Button17");
+        SCHOOLbutton=new JButton("Button17");
         b18=new JButton("Button18");
         
         
@@ -406,7 +406,7 @@ public class View {
         buttonPanel.add(DELETEROWbutton);
         buttonPanel.add(REMCLASHbutton);
        
-        buttonPanel.add(b17);
+        buttonPanel.add(SCHOOLbutton);
         buttonPanel.add(b18);
         
         
@@ -542,8 +542,8 @@ public class View {
     }
     
 
-    public JButton getB17()
-    { return b17;
+    public JButton getSCHOOLbutton()
+    { return SCHOOLbutton;
     }
     
     public void CreateClass(String clas)
