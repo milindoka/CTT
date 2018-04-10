@@ -40,12 +40,16 @@ public class View {
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,b18;
     private DefaultTableModel model;
     private DefaultTableModel model2;
+    private DefaultTableModel model3;
+    
+    String LectureCount;
     JTable table;
-    String LectureCount;    
     JTable table2;
+    JTable table3;
     int COLS=7;
-    int ROWCOUNT2=2000;         /////500;////For Master Print ,change to 25 later
+    int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
     int ROWCOUNT=200; ///Main Table
+    int ROWCOUNT3=2000; //for prepare print table 3
     int MROWS=25;         /// Individual rows in IndiMatrix;
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
@@ -70,6 +74,8 @@ public class View {
     public void SetData2(Object obj, int row_index, int col_index)   
       {  table2.getModel().setValueAt(obj,row_index,col_index);  } 
    
+    public void SetData3(Object obj, int row_index, int col_index)   
+    {  table3.getModel().setValueAt(obj,row_index,col_index);  }
     
     class MyColListener implements ListSelectionListener
     {
@@ -346,7 +352,24 @@ public class View {
                  column.setCellRenderer(cellRenderer);
                 // column.setCellRenderer(fRenderer);
              }
-            
+
+             ////************IMPORTANT********************************************
+             ////table3 largr & is not visible, only used for pagination in printing;
+             //// Columnnames2 are not used anywhere in table3
+             ////******************************************************************
+             table3 = new JTable(new DefaultTableModel(columnNames2, 0)); 
+             
+             
+             
+             model3 =  (DefaultTableModel) table3.getModel();
+             for(int i=0;i<ROWCOUNT3;i++) model3.addRow(new Object[]{"", "", "","","","",""});
+             
+             //table2.getColumnModel().getColumn(0).setMinWidth(100);
+
+             
+             
+             
+             
         JScrollPane scrollPane2 = new JScrollPane(table2);
         frame.getContentPane().setLayout(new GridLayout(1,2));                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
@@ -856,6 +879,18 @@ public class View {
     	  
     }	
     
+    
+    
+    public void ClearTable3() /////same as class 
+    {
+    	
+    	   for (int i = 0; i < MROWS; i++)
+    	      for(int j = 0; j < table3.getColumnCount(); j++)
+    	      {
+    	          table3.setValueAt("", i, j);
+    	      }
+    	  
+    }
     
     void ClearColorMatrix()
     {for(int r=0;r<ROWCOUNT;r++)

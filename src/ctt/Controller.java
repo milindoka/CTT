@@ -327,7 +327,7 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {      
-            	  view.ClearIndividualTable();
+            	  view.ClearTable3();
             	  PrepareMaster();
                   PrintMaster();
    
@@ -400,7 +400,7 @@ public class Controller {
 
     private void PrintAllIndi()
     {
-    
+      view.ClearTable3();
       PrepareIndividualPrint pip=new PrepareIndividualPrint();
       pip.setView(view);
       String printername=model.getPrinterName();
@@ -650,7 +650,7 @@ public class Controller {
     void PrepareSingleClassToPrint()
     { int lt=GetLastTime();
      // show(lt);
-      view.ClearIndividualTable();
+      view.ClearTable3();
       int currentrow=0;
       int maxsplit=0; // maximum split count for time slot
       String temp,temp1[];

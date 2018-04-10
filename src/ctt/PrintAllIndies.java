@@ -14,9 +14,9 @@ public class PrintAllIndies
 	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno,int row)
 	{   int  tlx=topleftx, tly=toplefty;
 		
-		String t1=view.GetData(view.table2,row,0);
-		String t2=view.GetData(view.table2,row,1);
-		String t3=view.GetData(view.table2,row,2);
+		String t1=view.GetData(view.table3,row,0);
+		String t2=view.GetData(view.table3,row,1);
+		String t3=view.GetData(view.table3,row,2);
 	    g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// top line
 		g.drawLine(tlx,tly, tlx, tly+cellheight); //leftmost wall
 		PrintRightWallText(t1,tlx,tly, timecolsize, g); // time with right wall
@@ -46,7 +46,7 @@ public class PrintAllIndies
 		 
 		 
 		 g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
-	     String  temp=view.GetData(view.table2, TableRowNo,0);
+	     String  temp=view.GetData(view.table3, TableRowNo,0);
 	     
 	     PrintRightWallText(temp,currentleft,currenttop, timecolsize, g);         /// time with right wall
 	     
@@ -54,7 +54,7 @@ public class PrintAllIndies
 			        
 			  for(int i=1;i<7;i++) 
 			  { //g.drawString("| Test", currentleft, currenttop);
-				temp=view.GetData(view.table2, TableRowNo,i);
+				temp=view.GetData(view.table3, TableRowNo,i);
 			    PrintRightWallText(temp,currentleft,currenttop, othercolsize,g);  /// week text with right wall
 			    currentleft+=othercolsize;
 			  }
@@ -76,12 +76,12 @@ public class PrintAllIndies
 	    	  tly+=cellheight;
 	    	  g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	    	  currentrow++;
-	    	  temp=view.GetData(view.table2,currentrow,0);
+	    	  temp=view.GetData(view.table3,currentrow,0);
 	    
 	    	  if(temp.contains("$BLANK"))
 	    		  {System.out.println("$BLANK");
 	    		  currentrow++;
-	    		  temp=view.GetData(view.table2,currentrow,0);
+	    		  temp=view.GetData(view.table3,currentrow,0);
 	    		  if(temp.contains("$END")){System.out.println("$END"); break; }
 	    		  
 	    		  //currentrow++;

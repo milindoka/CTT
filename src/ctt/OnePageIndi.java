@@ -42,7 +42,7 @@ public class OnePageIndi
 		 
 		 
 		 g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
-	     String  temp=view.GetData(view.table2, TableRowNo,0);
+	     String  temp=view.GetData(view.table3, TableRowNo,0);
 	     
 	     PrintRightWallText(temp,currentleft,currenttop, timecolsize, g);         /// time with right wall
 	     
@@ -50,7 +50,7 @@ public class OnePageIndi
 			        
 			  for(int i=1;i<7;i++) 
 			  { //g.drawString("| Test", currentleft, currenttop);
-				temp=view.GetData(view.table2,TableRowNo,i);
+				temp=view.GetData(view.table3,TableRowNo,i);
 			    PrintRightWallText(temp,currentleft,currenttop, othercolsize,g);  /// week text with right wall
 			    currentleft+=othercolsize;
 			  }
@@ -79,7 +79,7 @@ public class OnePageIndi
 	    	 int currentrow=0;    	
 	    		////Get First Time Slot
 	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,0); 
+	    	    	{ temp=view.GetData(view.table3,currentrow,0); 
 	    	    	  if(temp.length()>0) break;
 	    	    	}
 	    		return currentrow;
@@ -90,7 +90,7 @@ public class OnePageIndi
 	    	 int currentrow=0;    	
 	    		////Get First Time Slot
 	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,1); 
+	    	    	{ temp=view.GetData(view.table3,currentrow,1); 
 	    	    	  if(temp.length()>0) break;
 	    	    	}
 	    		return currentrow;
