@@ -154,19 +154,19 @@ public class PrepareAllClasses implements Printable
 	    int lr=GetClassSize();
 		if(ROWPOINTER+lr+2>currentpage*linesperpage)
 		{// sr.format("%d-",ROWPOINTER);
-        view.table2.setValueAt("$END", ROWPOINTER,0);
+        view.table3.setValueAt("$END", ROWPOINTER,0);
         
         ROWPOINTER=currentpage*linesperpage;  
         String str=String.format("$FF %d",ROWPOINTER);
-        view.table2.setValueAt(str, ROWPOINTER,0);
+        view.table3.setValueAt(str, ROWPOINTER,0);
         currentpage++;ROWPOINTER++;
 			
 		}
 	    
 		
-		view.table2.setValueAt(newList.get(i),ROWPOINTER,0); 
-	    view.table2.setValueAt("SIWS COLLEGE",ROWPOINTER,1);
-	    view.table2.setValueAt("Total LEctures :",ROWPOINTER,2);
+		view.table3.setValueAt(newList.get(i),ROWPOINTER,0); 
+	    view.table3.setValueAt("SIWS COLLEGE",ROWPOINTER,1);
+	    view.table3.setValueAt("Total LEctures :",ROWPOINTER,2);
 	    ROWPOINTER++;
 	    PrepareSingleClassToPrint();
 	  
@@ -174,7 +174,7 @@ public class PrepareAllClasses implements Printable
 	      
 	  }
 	
-	view.table2.setValueAt("$END", ROWPOINTER,0);
+	view.table3.setValueAt("$END", ROWPOINTER,0);
 	 totalpages=currentpage-1;
       
 
@@ -191,26 +191,26 @@ public class PrepareAllClasses implements Printable
 		 temp=view.Matrix[i][0];
 		 if(temp.length()==0) continue; //skip blank line
 	
-       view.SetData2(temp,ROWPOINTER,0);  ///Time - Copy as it is
+       view.SetData3(temp,ROWPOINTER,0);  ///Time - Copy as it is
        maxsplit=1;
        for(int j=1;j<7;j++) ///check lecture cells
        {temp=view.Matrix[i][j];
     	if(!temp.contains(","))
-    		{ view.SetData2(temp,ROWPOINTER,j);  ///No "," so Copy as it is
+    		{ view.SetData3(temp,ROWPOINTER,j);  ///No "," so Copy as it is
     		 continue;
     		}
     		// else at least one comma exists
     			temp1=temp.split(",");
     			int count=temp1.length;
     			for(int k=0;k<count;k++)
-    				{view.SetData2(temp1[k],ROWPOINTER+k,j);
+    				{view.SetData3(temp1[k],ROWPOINTER+k,j);
     				
     				}
     			if(maxsplit<count) maxsplit=count;
        }
        ROWPOINTER=ROWPOINTER+maxsplit;
 	  }
-	  view.SetData2("$BLANKLINE",ROWPOINTER,0);
+	  view.SetData3("$BLANKLINE",ROWPOINTER,0);
 	  ROWPOINTER++;
    }
     
@@ -226,19 +226,19 @@ public class PrepareAllClasses implements Printable
 		 temp=view.Matrix[i][0];
 		 if(temp.length()==0) continue; //skip blank line
 	
-       //view.SetData2(temp,rowindex,0);  ///Time - Copy as it is
+       //view.SetData3(temp,rowindex,0);  ///Time - Copy as it is
        maxsplit=1;
        for(int j=1;j<7;j++) ///check lecture cells
        {temp=view.Matrix[i][j];
     	if(!temp.contains(","))
-    		{ //view.SetData2(temp,rowindex,j);  ///No "," so Copy as it is
+    		{ //view.SetData3(temp,rowindex,j);  ///No "," so Copy as it is
     		 continue;
     		}
     		// else at least one comma exists
     			temp1=temp.split(",");
     			int count=temp1.length;
     			for(int k=0;k<count;k++)
-    				{ //view.SetData2(temp1[k],rowindex+k,j);
+    				{ //view.SetData3(temp1[k],rowindex+k,j);
     				
     				}
     			if(maxsplit<count) maxsplit=count;

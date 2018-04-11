@@ -47,7 +47,7 @@ public class OnePageClass
 		tly+=cellheight;
 	
 	    for(int row=0;row<lastrow;row++)
-	    	{ String  temp=view.GetData(view.table2, row,0);
+	    	{ String  temp=view.GetData(view.table3, row,0);
 	    	  if(temp.length()!=0) //then top wall
 	    	  { g.drawLine(tlx,tly,tlx+horizontalwidth,tly);
 	    	    
@@ -63,8 +63,8 @@ public class OnePageClass
 	    {    String temp="";
 	    	 int currentrow=0;    	
 	    		////Get First Time Slot
-	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,0); 
+	    	    for(currentrow=view.ROWCOUNT3-1;currentrow>0;currentrow--)
+	    	    	{ temp=view.GetData(view.table3,currentrow,0); 
 	    	    	  if(temp.length()>0) break;
 	    	    	}
 	    		return currentrow;
@@ -74,8 +74,8 @@ public class OnePageClass
 	    {    String temp="";
 	    	 int currentrow=0;    	
 	    		////Get First Time Slot
-	    	    for(currentrow=view.ROWCOUNT-1;currentrow>0;currentrow--)
-	    	    	{ temp=view.GetData(view.table2,currentrow,0); 
+	    	    for(currentrow=view.ROWCOUNT3-1;currentrow>0;currentrow--)
+	    	    	{ temp=view.GetData(view.table3,currentrow,0); 
 	    	    	  if(temp.length()>0) break;
 	    	    	}
 	    		return currentrow;
@@ -87,13 +87,13 @@ public class OnePageClass
 		  int currentleft=x,currenttop=y,cellheight=19;
           String temp;
 		  
-          temp=view.GetData(view.table2,row,0);
+          temp=view.GetData(view.table3,row,0);
           PrintSideWallBoxedString(temp,currentleft,currenttop, timecolsize, cellheight, g);
           currentleft+=timecolsize;
 			  
 		  for(int c=1;c<7;c++) 
 		  {
-			  temp=view.GetData(view.table2,row,c);
+			  temp=view.GetData(view.table3,row,c);
 			       
 			  PrintSideWallBoxedString(temp,currentleft,currenttop, othercolsize, cellheight, g);
 			    currentleft+=othercolsize;

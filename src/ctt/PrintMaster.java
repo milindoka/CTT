@@ -114,7 +114,7 @@ public class PrintMaster implements Printable
 	  for(int row=0;row<linesperpage;row++)
 	  {   
 		  
-		  String  temp=view.GetData(view.table2, row+pn*linesperpage,0);
+		  String  temp=view.GetData(view.table3, row+pn*linesperpage,0);
 		  
 		  if(temp.contains("$END")) 
 		   { // if(row==0) continue; ///exceptiona END line, leave 
@@ -138,7 +138,7 @@ public class PrintMaster implements Printable
 		        
 		  for(int i=1;i<7;i++) 
 		  { //g.drawString("| Test", currentleft, currenttop);
-			temp=view.GetData(view.table2,row+pn*linesperpage,i);
+			temp=view.GetData(view.table3,row+pn*linesperpage,i);
 		    PrintSideWallBoxedString(temp,currentleft,currenttop, othercolsize, cellheight, g);
 		    currentleft+=othercolsize;
 		  }
@@ -171,8 +171,8 @@ public class PrintMaster implements Printable
     {    String temp="";
     	 int currentrow=0;    	
     		////Get First Time Slot
-    	    for(currentrow=view.ROWCOUNT2-1;currentrow>0;currentrow--)
-    	    	{ temp=view.GetData(view.table2,currentrow,0); 
+    	    for(currentrow=view.ROWCOUNT3-1;currentrow>0;currentrow--)
+    	    	{ temp=view.GetData(view.table3,currentrow,0); 
     	    	  if(temp.length()>0) break;
     	    	}
     		

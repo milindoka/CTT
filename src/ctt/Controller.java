@@ -411,7 +411,8 @@ public class Controller {
     }
     
     private void PrintAllClases()
-    { PrepareAllClasses pac=new PrepareAllClasses();
+    { view.ClearTable3();
+      PrepareAllClasses pac=new PrepareAllClasses();
       pac.setView(view);
       pac.CollectAllClasses();
       
@@ -659,19 +660,19 @@ public class Controller {
 		 temp=view.Matrix[i][0];
 		 if(temp.length()==0) continue; //skip blank line
 	
-       view.SetData2(temp,currentrow,0);  ///Time - Copy as it is
+       view.SetData3(temp,currentrow,0);  ///Time - Copy as it is
        maxsplit=1;
        for(int j=1;j<7;j++) ///check lecture cells
        {temp=view.Matrix[i][j];
     	if(!temp.contains(","))
-    		{ view.SetData2(temp,currentrow,j);  ///No "," so Copy as it is
+    		{ view.SetData3(temp,currentrow,j);  ///No "," so Copy as it is
     		 continue;
     		}
     		// else at least one comma exists
     			temp1=temp.split(",");
     			int count=temp1.length;
     			for(int k=0;k<count;k++)
-    				{view.SetData2(temp1[k],currentrow+k,j);
+    				{view.SetData3(temp1[k],currentrow+k,j);
     				
     				}
     			if(maxsplit<count) maxsplit=count;
@@ -679,12 +680,13 @@ public class Controller {
        }
        currentrow=currentrow+maxsplit;
 	  }
-	  view.SetData2("$END",currentrow,0);
+	  view.SetData3("$END",currentrow,0);
    }
       
     
    void PrepareMaster()
-   { String temp,temp1[];
+   { view.ClearTable3();
+	 String temp,temp1[];
      int maxsplit=0; // maximum split count for time slot
 	   int m=GetFirstRow();
 	  int n=GetLastRow();
@@ -696,35 +698,35 @@ public class Controller {
 		 if(temp.length()==0) continue; //skip blank line
 		 
 		 if(temp.contains(":"))  ///New time Block, print week day names line 
-		 {   if(currentrow !=0) { view.SetData2("$BLANKLINE", currentrow,0);
+		 {   if(currentrow !=0) { view.SetData3("$BLANKLINE", currentrow,0);
 			                      currentrow++;  }  ///skip first exceptional blank
 			 String week[]={"MON","TUE","WED","THU","FRI","SAT"};
-		     view.SetData2(temp,currentrow,0);  ///time
+		     view.SetData3(temp,currentrow,0);  ///time
 			 for(int j=0;j<6;j++ )
-				 view.SetData2(week[j],currentrow,j+1); /// week days
+				 view.SetData3(week[j],currentrow,j+1); /// week days
 			 currentrow++;
 			 continue;
 		 }
 		 
-       view.SetData2(temp,currentrow,0);  ///Copy as it is, must be class name FY-A,FY-B etc
+       view.SetData3(temp,currentrow,0);  ///Copy as it is, must be class name FY-A,FY-B etc
        maxsplit=1;
        for(int j=1;j<7;j++) ///check lecture cells
        {temp=view.GetData(view.table,i,j);
     	if(!temp.contains(","))
-    		{ view.SetData2(temp,currentrow,j);  ///No "," so Copy as it is
+    		{ view.SetData3(temp,currentrow,j);  ///No "," so Copy as it is
     		 continue;
     		}
     		// else at least one comma exists
     			temp1=temp.split(",");
     			int count=temp1.length;
     			for(int k=0;k<count;k++)
-    				{view.SetData2(temp1[k],currentrow+k,j);
+    				{view.SetData3(temp1[k],currentrow+k,j);
     				}
     			if(maxsplit<count) maxsplit=count;
        }
        currentrow=currentrow+maxsplit;
 	  }
-	  view.SetData2("$END",currentrow,0);
+	  view.SetData3("$END",currentrow,0);
 	  System.out.println(m);
 	  System.out.println(n);
    }
