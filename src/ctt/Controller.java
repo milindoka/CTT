@@ -24,7 +24,7 @@ public class Controller {
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
     private ActionListener INSERTROWbuttonAL,SAVEASbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
-    private ActionListener SCHOOLbuttonAL;
+    private ActionListener SCHOOLbuttonAL,HELPbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
     private String currentfilename="New-Untitled"; ///including path
@@ -364,6 +364,25 @@ public class Controller {
        	};
                
         view.getSCHOOLbutton().addActionListener(SCHOOLbuttonAL);
+       
+        
+        HELPbuttonAL = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) 
+              {       
+            	  HelpDialog hd = new HelpDialog();
+            		hd.setModal(true);
+            		hd.setVisible(true);
+            	   
+            	  
+              }
+       	};
+               
+        view.getHELPbutton().addActionListener(HELPbuttonAL);
+       
+        
+        
+        
         
         
     }

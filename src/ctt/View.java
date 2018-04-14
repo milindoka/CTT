@@ -37,7 +37,7 @@ public class View {
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,SAVEASbutton,WIZARD02button,DELETEROWbutton;
-    private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,b18;
+    private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
     private DefaultTableModel model3;
@@ -400,7 +400,7 @@ public class View {
         DELETEROWbutton= new JButton("Delete Row");
         REMCLASHbutton=new JButton("Remove Clashes");
         SCHOOLbutton=new JButton("Button17");
-        b18=new JButton("Button18");
+        HELPbutton=new JButton("Help");
         
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(7,3,2,2));
@@ -430,7 +430,7 @@ public class View {
         buttonPanel.add(REMCLASHbutton);
        
         buttonPanel.add(SCHOOLbutton);
-        buttonPanel.add(b18);
+        buttonPanel.add(HELPbutton);
         
         
         countLabel = new JLabel("CC : 0  DC : 0  GC : 0");
@@ -567,6 +567,10 @@ public class View {
 
     public JButton getSCHOOLbutton()
     { return SCHOOLbutton;
+    }
+    
+    public JButton getHELPbutton()
+    { return HELPbutton;
     }
     
     public void CreateClass(String clas)
