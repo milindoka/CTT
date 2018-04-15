@@ -24,7 +24,9 @@ public HelpDialog()
     JPanel p6=new JPanel();  
     
     String text="<H4 align=center>College Time Table CTT is a Free" +
-    		" and Open Source Software</H4><P>Next Para</P>";
+    		" and Open Source Software</H4><P align=justify p style=margin-left:10px>College Time Table is a" +
+    		"Free and Open Source Software to Generate, Edit, Modify and Manage School / College Time" +
+    		"Table.</P>";
     JEditorPane editor = new JEditorPane("text/html",text);
       editor.setEditable(false);
       p1.setLayout(new BorderLayout());
