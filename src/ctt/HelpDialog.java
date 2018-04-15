@@ -17,30 +17,33 @@ public class HelpDialog extends JDialog
 public HelpDialog() 
 {
     JPanel p1=new JPanel();  
-    p1.setPreferredSize(new Dimension(200, 200));
-    p1.setBackground(Color.RED);
-    
     JPanel p2=new JPanel();  
-    p2.setPreferredSize(new Dimension(200, 200));
-    p2.setBackground(Color.GREEN);
-    
     JPanel p3=new JPanel();  
-    p3.setPreferredSize(new Dimension(200, 200));
-    p3.setBackground(Color.BLUE);
+    JPanel p4=new JPanel();  
+    JPanel p5=new JPanel();  
+    JPanel p6=new JPanel();  
+
+    
+    
+    
     
     JTabbedPane tp=new JTabbedPane();  
-    tp.setBounds(50,50,200,200);  
-    tp.add("Pane1",p1);  
-    tp.add("Pane2",p2);  
-    tp.add("Pane3",p3);    
+    tp.setBounds(50,50,300,500);  
+    tp.add("Introduction",p1);  
+    tp.add("Quick Start",p2);  
+    tp.add("Input Details",p3);    
+    tp.add("Other Details",p4);  
+    tp.add("Wizard",p5);  
+    tp.add("More Open Source..",p6);    
 	
-    setBounds(0,0 , 500, 275);
-    setTitle("Tabbed Pane Demo");
+    
+    setBounds(0,0 , 800, 500);
+    setTitle("Time Table Help");
     setLocationRelativeTo(null);
 
     Container dlgpane=getContentPane();
     dlgpane.setLayout(new BorderLayout());
-    dlgpane.add(tp,BorderLayout.NORTH);
+    dlgpane.add(tp,BorderLayout.CENTER);
 
    }
 }
