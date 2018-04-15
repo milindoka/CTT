@@ -165,17 +165,6 @@ public class Controller {
             		  currentfilename="New-Untitled"; ///including path
             	      view.SetTitle(currentfilename);
             	  }
-            	  
-            	  /*
-            	  
-            	  try {
-					new Help(null,"Help",true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				 */
             	
               }
         };                
