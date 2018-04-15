@@ -22,9 +22,14 @@ public HelpDialog()
     JPanel p4=new JPanel();  
     JPanel p5=new JPanel();  
     JPanel p6=new JPanel();  
-
     
-    
+    String text="<H4 align=center>College Time Table CTT is a Free" +
+    		" and Open Source Software</H4><P>Next Para</P>";
+    JEditorPane editor = new JEditorPane("text/html",text);
+      editor.setEditable(false);
+      p1.setLayout(new BorderLayout());
+      JScrollPane pane = new JScrollPane(editor);
+      p1.add(pane,BorderLayout.CENTER);
     
     
     JTabbedPane tp=new JTabbedPane();  
