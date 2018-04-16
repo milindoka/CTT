@@ -57,11 +57,11 @@ public HelpDialog()
     		+ "a comfortable look and feel for a computer novice." +
     		" Take a quick look at demo timetable. Do some trials on it and then start"
     		+ " with Wizard1 followed by Wizard2.</P>";
-    TEXTp2+="<H4 align=center>Steps to quickly steps ....</H4>"+
+    TEXTp2+="<H4 align=center>Quickly build Time Table ....</H4>"+
 "<ol>"+
 "<li> Use Wizard1 to clean the table and Fill Sample Time Slots.</li>"+
-"<li> Starts generating time table instantly and on-the-fly.</li>"+
-"<li> Detects clashes,gaps between the letures, removes them automatically.</li>"+
+"<li> Replace preset time slots with your own time slots, also put your classes.</li>"+
+"<li> Do not write anything in time row, write Lectures (Periods) at appropriate places.</li>"+
 "<li> Detects double lectures and spreads them over the week.</li>"+
 "<li> Freezes particular lecture(s), if required, during auto adjustment routine.</li>"+
 "<li> Swaps Teachers or Subjects within seconds.</li>"+
