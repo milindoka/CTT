@@ -62,13 +62,12 @@ public HelpDialog()
 "<li> Use Wizard1 to clean the table and Fill Sample Time Slots.</li>"+
 "<li> Replace preset time slots with your own time slots, also put your classes.</li>"+
 "<li> Do not write anything in time row, write Lectures (Periods) at appropriate places.</li>"+
-"<li> Detects double lectures and spreads them over the week.</li>"+
-"<li> Freezes particular lecture(s), if required, during auto adjustment routine.</li>"+
-"<li> Swaps Teachers or Subjects within seconds.</li>"+
-"<li> Handles Parallel Lectures and Practicals easily.</li>"+
-"<li> Optional Wizard to generate time table from scratch.</li>"+
-"<li> Prints all type of reports - Classes, Teachers and Master.</li>"+
-"<li> Excellent User Interface.</li>"+
+"<li> Enter lectures in SUB(TR) format, 3 letters for subject and 2 letters for Teacher.</li>"+
+"<li> Moving Cell-Pointer to any Lecture Item will show the respective Individual Time Table.</li>"+
+"<li> Moving the Cell-Pointer to any Class, will show respective class time table.</li>"+
+"<li> (CC) Clash-Count is the total number of clashes. Red cell indicates clash.</li>"+
+"<li> (GC) Gap-Count is the total number of Free Lectures between First and Last Lecture.</li>"+
+"<li> (DC) Double-Count is the total pairs of repeated lectures.</li>"+
   "</ol>";
     
     JEditorPane EDITORp2 = new JEditorPane("text/html",TEXTp2);
