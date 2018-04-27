@@ -77,7 +77,35 @@ public HelpDialog()
     p2.add(pane2,BorderLayout.CENTER);
     
     
-    
+//////Content p3
+
+ String TEXTp3="<H4 align=center> Input Details</H4>"
+ 		+ "<P align=justify p style=margin:10px>After understanding the basic working " +
+ 		"of the CTT, you can start building the actual time table. All the entries are"
+ 		+ " to be done in Master Time Table (Left Side Spreadesheet). The individual and class"
+ 		+ " time tables are updated immediately. Remember that parallel lectures (split lectures) " +
+ 		" are to entered in the same cell, separated by comma (, ). Please refer demo time table"
+ 		+ " if you are in doubt.</P>";
+ TEXTp3+="<H4 align=center>Points to Remember ....</H4>"+
+"<ol>"+
+"<li> Save your work periodically, preferably in different incremental files TT01, TT02,.. etc</li>"+
+"<li> You can copy and paste any cell or selected cells to speed up your work.</li>"+
+"<li> Complete the Master Time Table in all respect, do not worry about clashes.</li>"+
+"<li> If you want specific lectures at specific places, for example Practicals, put them first.</li>"+
+"<li> Freeze these lecture by Freeze button. Freezed lectures will be shown by Yellow color cells.</li>"+
+"<li> Freezed lectures will not be moved during Remove-clash and Remove-Gap routins.</li>"+
+"<li> Check that the required number of lectures are allocated to classes and individuals.</li>"+
+"<li> Just move the cell pointer to get lecture count and distribution of respective individual or class.</li>"+
+"<li> Once you complete entries, save the time table. You may take additional backup of your work.</li>"+
+"<li> Finally Run the [Remove-Clashes] routine and your time table will be ready in a minute or two.</li>"+
+"</ol>";
+ 
+ JEditorPane EDITORp3 = new JEditorPane("text/html",TEXTp3);
+ EDITORp3.setEditable(false);
+ p3.setLayout(new BorderLayout());
+ JScrollPane pane3 = new JScrollPane(EDITORp3);
+ p3.add(pane3,BorderLayout.CENTER);
+ 
     
 //////-------------------    
     
