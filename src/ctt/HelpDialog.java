@@ -106,7 +106,39 @@ public HelpDialog()
  JScrollPane pane3 = new JScrollPane(EDITORp3);
  p3.add(pane3,BorderLayout.CENTER);
  
-    
+
+ 
+//////Content p4
+
+String TEXTp4="<H4 align=center>Other Details</H4>"
+	+ "<P align=justify p style=margin:10px>One your time table is complete and clashes are " 
+	+"removed by Remove-Clashes routine, you can go for fine tuning of the time table."
+	+" You can manually do minor changes as per your requirements. The automated Remove-Gap-Doubles"
+	+ " routine can marginally improve your time table. This rotine will remove double lectures " +
+	" and spread them over week. It also removes unnecessary gaps between the lectures, so lectures are"
+	+ " arranged in consecutive blocks on each day. This is very convenietnt as teachers get uninterrupted free time" +
+	" to complete their non-teaching work.</P>";
+TEXTp4+="<H4 align=center>Points to Remember ....</H4>"+
+"<ol>"+
+"<li> Always Save your work before running Remove-Clashes or Remove-Gaps routines.</li>"+
+"<li> These routines make major changes in your time table. So use them carefully.</li>"+
+"<li> Freezed (Yellow) lectures are unaffected by Remove Clash/Gap Routines.</li>"+
+"<li> Practical lectures are generally Freezed lectures due to Lab availability.</li>"+
+"<li> Enter your college name using corresponding button. Changed name will appear on Button.</li>"+
+"<li> Ensure that there are no clashes for any teacher using global counts button.</li>"+
+"<li> Just move the cell pointer to get lecture count and distribution of respective individual or class.</li>"+
+"<li> You can also use small edit box to display any individual time table.</li>"+
+"<li> Once you finalize Master, Save it. Set Printer and print all the reports."+
+"</ol>";
+
+JEditorPane EDITORp4 = new JEditorPane("text/html",TEXTp4);
+EDITORp4.setEditable(false);
+p4.setLayout(new BorderLayout());
+JScrollPane pane4 = new JScrollPane(EDITORp4);
+p4.add(pane4,BorderLayout.CENTER);
+
+ 
+ 
 //////-------------------    
     
     JTabbedPane tp=new JTabbedPane();  
