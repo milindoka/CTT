@@ -111,7 +111,7 @@ public HelpDialog()
 //////Content p4
 
 String TEXTp4="<H4 align=center>Other Details</H4>"
-	+ "<P align=justify p style=margin:10px>One your time table is complete and clashes are " 
+	+ "<P align=justify p style=margin:10px>Once your time table is complete and clashes are " 
 	+"removed by Remove-Clashes routine, you can go for fine tuning of the time table."
 	+" You can manually do minor changes as per your requirements. The automated Remove-Gap-Doubles"
 	+ " routine can marginally improve your time table. This rotine will remove double lectures " +
@@ -137,6 +137,35 @@ p4.setLayout(new BorderLayout());
 JScrollPane pane4 = new JScrollPane(EDITORp4);
 p4.add(pane4,BorderLayout.CENTER);
 
+//////Content p4
+
+String TEXTp5="<H4 align=center>Wizard</H4>"
++ "<P align=justify p style=margin:10px>Wizard is useful to create time table from scratch." 
++" If you already have last years time table, then loading it and making few changes can give you the required time table."
++" Hence Wizard may not be required. If you are going to create time table first time then Wizard can be used. Wizard is divided in two steps."
++ " First step (Wizard1) cleans the existing time table from memory and gives the formatted time and class entries." +
+" You need to change those entries according to your needs. Use cut and paste or Find/Replace to do these changes quickly."
++ " Next do Wizart2 to put Lecture Items. The time and class slots in wizard1 will be used i Wizard2." +
+" If you already have class and time slots from previous time table, you can delete all Lecture Items and directly run Wizard2.</P>";
+TEXTp5+="<H4 align=center>Steps to Generate time table using Wizard ....</H4>"+
+"<ol>"+
+"<li> Save your work first before running Wizard. Also take proper backup before you begin.</li>"+
+"<li> Run Wizard1, it will clean the Master Sheet and fill it with Time and Class slots.</li>"+
+"<li> Using these Slots as guide, replace your own Time and Class Slots. Use Copy-Paste or Find-Replace.</li>"+
+"<li> Put the Fixed Slot Lectures, such as Practicals and Freeze them by Ctrl-D</li>" +
+"<li> Run Wizard2. Enter Lecture Items as per your need. </li>"+
+"<li> You can Run Wizard2 any time later if you need to correct lecture allocation.</li>"+
+"<li> You can add Lecture Items manually also in Master Sheet. But stick to SUB(TR) Format.</li>"+
+"<li> After you complete Wizard2, there will be many clashes in the time table. This is normal.</li>"+
+"<li> Finally Run Remove-Gap-Doubles. This process will remove all the clashes make  a balanced time table.</li>"+
+"<li> Once you finalize Master, Save it. Set Printer and print all the reports."+
+"</ol>";
+
+JEditorPane EDITORp5 = new JEditorPane("text/html",TEXTp5);
+EDITORp5.setEditable(false);
+p5.setLayout(new BorderLayout());
+JScrollPane pane5 = new JScrollPane(EDITORp5);
+p5.add(pane5,BorderLayout.CENTER);
  
  
 //////-------------------    
