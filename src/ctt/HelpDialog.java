@@ -137,7 +137,7 @@ p4.setLayout(new BorderLayout());
 JScrollPane pane4 = new JScrollPane(EDITORp4);
 p4.add(pane4,BorderLayout.CENTER);
 
-//////Content p4
+//////Content p5
 
 String TEXTp5="<H4 align=center>Wizard</H4>"
 + "<P align=justify p style=margin:10px>Wizard is useful to create time table from scratch." 
@@ -157,7 +157,7 @@ TEXTp5+="<H4 align=center>Steps to Generate time table using Wizard ....</H4>"+
 "<li> You can Run Wizard2 any time later if you need to correct lecture allocation.</li>"+
 "<li> You can add Lecture Items manually also in Master Sheet. But stick to SUB(TR) Format.</li>"+
 "<li> After you complete Wizard2, there will be many clashes in the time table. This is normal.</li>"+
-"<li> Finally Run Remove-Gap-Doubles. This process will remove all the clashes make  a balanced time table.</li>"+
+"<li> Finally Run Remove-Gap-Doubles. This will remove all the clashes making a balanced time table.</li>"+
 "<li> Once you finalize Master, Save it. Set Printer and print all the reports."+
 "</ol>";
 
@@ -167,7 +167,36 @@ p5.setLayout(new BorderLayout());
 JScrollPane pane5 = new JScrollPane(EDITORp5);
 p5.add(pane5,BorderLayout.CENTER);
  
- 
+
+//////Content p6
+
+String TEXTp6="<H4 align=center>More Free and Open Source Software ..</H4>"
++ "<P align=justify p style=margin:10px>There is an urgent need of good quality open source software for school in India." 
++" Teachers and Educational Institutes are unaware of the fact that ONLY open source software can give right computer education."
++" From 2015, Linux Users Group Mumbai, has started approaching Schools and Colleges of Maharashtra to spread awareness about FOSS"
++ " (Free and Open Source Sofwares). This and other softwares are my little contributions to help teachers and support Free Software Movement " +
+" in India, especially in Mumbai. As a members of Linux User's Group Mumbai, I request all to join this group.<BR>"+
+" Website : www.ilug-bom.org.in</P>";
+TEXTp6+="<H4 align=center>Please Try the following Softwares ....</H4>"+
+"<ol>"+
+"<li> Save your work first before running Wizard. Also take proper backup before you begin.</li>"+
+"<li> Run Wizard1, it will clean the Master Sheet and fill it with Time and Class slots.</li>"+
+"<li> Using these Slots as guide, replace your own Time and Class Slots. Use Copy-Paste or Find-Replace.</li>"+
+"<li> Put the Fixed Slot Lectures, such as Practicals and Freeze them by Ctrl-D</li>" +
+"<li> Run Wizard2. Enter Lecture Items as per your need. </li>"+
+"<li> You can Run Wizard2 any time later if you need to correct lecture allocation.</li>"+
+"<li> You can add Lecture Items manually also in Master Sheet. But stick to SUB(TR) Format.</li>"+
+"<li> After you complete Wizard2, there will be many clashes in the time table. This is normal.</li>"+
+"<li> Finally Run Remove-Gap-Doubles. This will remove all the clashes making a balanced time table.</li>"+
+"<li> Once you finalize Master, Save it. Set Printer and print all the reports."+
+"</ol>";
+
+JEditorPane EDITORp6 = new JEditorPane("text/html",TEXTp6);
+EDITORp6.setEditable(false);
+p6.setLayout(new BorderLayout());
+JScrollPane pane6 = new JScrollPane(EDITORp6);
+p6.add(pane6,BorderLayout.CENTER);
+
 //////-------------------    
     
     JTabbedPane tp=new JTabbedPane();  
