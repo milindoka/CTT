@@ -579,6 +579,7 @@ public class Controller {
      	Toast.AutoCloseMsg("File Saved");
      	LoadFile.WriteLastFile(fnem);
     	view.SetTitle(fnem);
+    	view.modified=false;
      }
     	
     private void LoadTT(String ttfile)
@@ -617,6 +618,7 @@ public class Controller {
     	LoadFile.WriteLastFile(ttfile);
     	view.SetTitle(ttfile);
     	view.getSCHOOLbutton().setText(Header[0]);
+    	view.modified=false;
        }
     
     int GetFirstRow()

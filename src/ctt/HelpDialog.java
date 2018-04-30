@@ -187,8 +187,8 @@ TEXTp6+="<H4 align=center>Please Try the following Free Softwares ....</H4>"+
 "<li> MRKprint - Print Marklists created by Mobile App.</li>"+
 "<li> MRKcollector - Compile all Mark Lists to One Single Result Data File.</li>"+
 "<li> ResultView - View and Print the School/College Result from the Compiled Data File.</li>" +
-"<li> <a href=https://sourceforge.net/projects/collegetimetable/>https://sourceforge.net/projects/collegetimetable/</a></li>"+
-"<li> <a href=https://sourceforge.net/projects/marklist/>https://sourceforge.net/projects/marklist/</a></li>"+
+"<li> Download <a href=https://sourceforge.net/projects/collegetimetable/>https://sourceforge.net/projects/collegetimetable/</a></li>"+
+"<li> Download <a href=https://sourceforge.net/projects/marklist/>https://sourceforge.net/projects/marklist/</a></li>"+
 "<li> All Source Codes : <a href=https://github.com/milindoka>https://github.com/milindoka</a></li>"+
 "</ul>";
 

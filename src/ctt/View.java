@@ -33,7 +33,7 @@ import java.awt.event.MouseEvent;
 public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
-	boolean modified;
+	boolean modified=false;
 	private JFrame frame;
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
@@ -311,16 +311,6 @@ public class View {
      /////////---------------END OF FREEZE-------------------------------------
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
       ExcelAdapter myAd = new ExcelAdapter(table);        
             
             
@@ -386,7 +376,7 @@ public class View {
              
         JScrollPane scrollPane2 = new JScrollPane(table2);
         frame.getContentPane().setLayout(new GridLayout(1,2));                                          
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);           
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
         
@@ -484,22 +474,25 @@ public class View {
         
         frame.add(scrollPane);
         frame.add(panel);
+        frame.setVisible(true);
         
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
+            
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(frame, 
-                    "Are you sure to close this window?", "Really Closing?", 
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+                if(modified==false) System.exit(0);
+                
+            	int choice=JOptionPane.showConfirmDialog(frame, 
+                    "Time Table Modified, do you want to Save Changes ?", "Table Modified Message ", 
+                    JOptionPane.YES_NO_OPTION);
+                
+                if(choice  == JOptionPane.NO_OPTION)
                 {
                     System.exit(0);
                 }
+                else ;
             }
         });
         
-        
-        frame.setVisible(true);
         
     }
 
