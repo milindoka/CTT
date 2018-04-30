@@ -18,6 +18,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -31,7 +33,7 @@ import java.awt.event.MouseEvent;
 public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
-	
+	boolean modified;
 	private JFrame frame;
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
@@ -126,6 +128,7 @@ public class View {
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
     String str = (String)table.getValueAt(row, col);
+    if(str==null) return;
     if(str.length()==0 ) return;
     if(str.contains(":")) return;
     
@@ -221,8 +224,17 @@ public class View {
             table.getColumnModel().getSelectionModel()
                     .addListSelectionListener(new MyColListener());
             table.setSelectionModel(listSelectionModel);
-     
-            
+     //////////////////////////
+            table.getModel().addTableModelListener(new TableModelListener() {
+
+				@Override
+				public void tableChanged(TableModelEvent arg0) 
+				{
+					modified=true;
+					
+				}
+              });
+////////////////////////////////////////            
             
             
               ///--------DELETE KEY TO CLEART CELL or RANGE OF CELLS-------------------------------------
@@ -257,6 +269,8 @@ public class View {
             });            
      /////////------------------------------------------------------------------------
 
+                     
+            
   ///--------CTRL-D KEY TO FREEZE CURRENT CELL CONTENT--------------------------------------
             
             InputMap inputMap2 = table.getInputMap(JComponent.WHEN_FOCUSED);
@@ -463,8 +477,28 @@ public class View {
         panel.add(southpanel, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.NORTH);
         
+        
+        
+        
+        
+        
         frame.add(scrollPane);
         frame.add(panel);
+        
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame, 
+                    "Are you sure to close this window?", "Really Closing?", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+                {
+                    System.exit(0);
+                }
+            }
+        });
+        
+        
         frame.setVisible(true);
         
     }
