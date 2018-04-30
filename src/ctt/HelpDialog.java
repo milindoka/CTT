@@ -173,16 +173,17 @@ p5.add(pane5,BorderLayout.CENTER);
 String TEXTp6="<H4 align=center>More Free and Open Source Software ..</H4>"
 + "<P align=justify p style=margin:10px>There is an urgent need of good quality open source software for school in India." 
 +" Teachers and Educational Institutes are unaware of the fact that ONLY open source software can give right computer education."
-+" From 2015, Linux Users Group Mumbai, has started approaching Schools and Colleges of Maharashtra to spread awareness about FOSS"
-+ " (Free and Open Source Sofwares). This and other softwares are my little contributions to help teachers and support Free Software Movement " +
-" in India, especially in Mumbai. As a members of Linux User's Group Mumbai, I request all to join this group.<BR>"+
++" Linux Users Group Mumbai, has started approaching Schools and Colleges to spread awareness about FOSS"
++ " (Free and Open Source Sofwares). This softwares is a small contributions to help teachers and at the smae time" +
+"  support Free Software Movement " +
+"  I request all to join this group.<BR>"+
 " Website : www.ilug-bom.org.in</P>";
-TEXTp6+="<H4 align=center>Please Try the following Softwares ....</H4>"+
+TEXTp6+="<H4 align=center>Please Try the following Free Softwares ....</H4>"+
 "<ol>"+
-"<li> Save your work first before running Wizard. Also take proper backup before you begin.</li>"+
-"<li> Run Wizard1, it will clean the Master Sheet and fill it with Time and Class slots.</li>"+
-"<li> Using these Slots as guide, replace your own Time and Class Slots. Use Copy-Paste or Find-Replace.</li>"+
-"<li> Put the Fixed Slot Lectures, such as Practicals and Freeze them by Ctrl-D</li>" +
+"<li> MarkList - An Android App to Create Mark Lists Quickly and easily Print them. Availbale on Playstore.</li>"+
+"<li> MRKprint - Print Marklists created by Mobile App.</li>"+
+"<li> MRKcollector - Compile all Mark Lists to One Single Result Data File.</li>"+
+"<li> ResultView - View and Print the School/College Result from the Compiled Data File.</li>" +
 "<li> Run Wizard2. Enter Lecture Items as per your need. </li>"+
 "<li> You can Run Wizard2 any time later if you need to correct lecture allocation.</li>"+
 "<li> You can add Lecture Items manually also in Master Sheet. But stick to SUB(TR) Format.</li>"+
