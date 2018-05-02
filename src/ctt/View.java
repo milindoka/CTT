@@ -34,7 +34,7 @@ public class View {
       
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	boolean modified=false;
-	private JFrame frame;
+	public JFrame frame;
     private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
@@ -469,29 +469,10 @@ public class View {
         
         
         
-        
-        
-        
         frame.add(scrollPane);
         frame.add(panel);
         frame.setVisible(true);
         
-        frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if(modified==false) System.exit(0);
-                
-            	int choice=JOptionPane.showConfirmDialog(frame, 
-                    "Time Table Modified, do you want to Save Changes ?", "Table Modified Message ", 
-                    JOptionPane.YES_NO_OPTION);
-                
-                if(choice  == JOptionPane.NO_OPTION)
-                {
-                    System.exit(0);
-                }
-                else ;
-            }
-        });
         
         
     }

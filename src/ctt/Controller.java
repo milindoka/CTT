@@ -368,7 +368,23 @@ public class Controller {
        	};
                
         view.getHELPbutton().addActionListener(HELPbuttonAL);
-       
+
+        
+  view.frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if(view.modified==false) System.exit(0);
+                
+            	int choice=JOptionPane.showConfirmDialog(view.frame, 
+                    "Time Table Modified, do you want to Save Changes ?", "Table Modified Message ", 
+                    JOptionPane.YES_NO_CANCEL_OPTION);
+                
+                if(choice  == JOptionPane.NO_OPTION)  System.exit(0);
+                if(choice  == JOptionPane.YES_OPTION) {SaveTT(); System.exit(0);}
+                
+            }
+        });
+      
         
         
         
