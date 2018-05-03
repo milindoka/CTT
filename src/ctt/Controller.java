@@ -202,7 +202,8 @@ public class Controller {
                 	if(fnem.length()==0) return;
                 	view.ClearMasterTable();
                 	view.ClearColorMatrix();
-                	
+                	view.ClearIndividualTable();
+                	view.ClearTable3();
                   LoadTT(fnem);
               }
         };                

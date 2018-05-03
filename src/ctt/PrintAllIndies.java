@@ -1,6 +1,7 @@
 package ctt;
 
 import java.awt.Graphics;
+import java.util.Arrays;
 
 public class PrintAllIndies
 {
@@ -9,7 +10,12 @@ public class PrintAllIndies
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
-	
+	private String week[]; //={"TIME","MON","TUE","WED","THU","FRI","SAT"} from WeekDays.java 
+	PrintAllIndies()
+	{WeekDays wd=new WeekDays();
+     week = Arrays.copyOf(wd.weekdays, wd.weekdays.length);
+	}
+
 	
 	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno,int row)
 	{   int  tlx=topleftx, tly=toplefty;
@@ -28,6 +34,27 @@ public class PrintAllIndies
 		tlx=topleftx;  ///back to leftmost position
 		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	}
+	
+	
+	private void PrintWeekLine(int x,int y,Graphics g)
+	{ 
+	  int currentleft=x,currenttop=y;
+	  g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
+      PrintRightWallText(week[0],currentleft,currenttop, timecolsize, g); /// time with right wall
+      currentleft+=timecolsize;
+      
+		  for(int i=1;i<7;i++) 
+		  { 
+		    PrintRightWallText(week[i],currentleft,currenttop, othercolsize,g);  /// week text with right wall
+		    currentleft+=othercolsize;
+		  }
+	  currentleft=x;
+	  currenttop+=cellheight;
+	  g.drawLine(x,currenttop,x+horizontalwidth,currenttop); /////// bot line	
+	}
+
+	
+	
 	
 	 void PrintRightWallText(String str,int tlx,int tly, int boxwidth,Graphics pg)
 	 {
@@ -70,6 +97,8 @@ public class PrintAllIndies
 		int currentrow=pageno*linesperpage+1;
 	 PrintHeaderRow(tlx,tly,g,pageno,currentrow); ///first row is title
 	 tly+=cellheight;
+	 PrintWeekLine(tlx,tly,g);
+	 tly+=cellheight;
 	 currentrow++;
 	   for(int i=0;i<linesperpage;i++)
 	    	{ DrawWallTextLine(tlx,tly,g,currentrow);     
@@ -90,12 +119,11 @@ public class PrintAllIndies
 	    		  tly+=cellheight; 
 	    		  PrintHeaderRow(tlx,tly,g,pageno,currentrow); ///first row is title
 	    		  tly+=cellheight;
+	    		  PrintWeekLine(tlx,tly,g);
+	    	      tly+=cellheight;
 	    		  currentrow++;
 	    		  }//Draw blank line between two indies
-	    	  
 	    	}
-	    
-	
 	}
 	 
 	 int GetLastTimeRow()

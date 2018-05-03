@@ -110,7 +110,7 @@ public class PrepareIndividualPrint implements Printable
 	    	    	{ temp=view.Matrix[currow][1]; 
 	    	    	  if(temp.length()>0) return currow;
 	    	    	}
-	    		return currow;
+	    		return currow+1;
 	    }
 
 	
@@ -121,6 +121,19 @@ public class PrepareIndividualPrint implements Printable
 	for(int currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)
 		for(int col=1;col<7;col++)
 	       {String str=view.GetData(view.table,currentrow,col);
+	        if(str.contains(","))
+	         { String temp,temp2[];
+	           temp2=str.split(",");
+	           for(int j=0;j<temp2.length;j++)
+	            {int left=temp2[j].indexOf("(");
+	 	         int rite=temp2[j].indexOf(")");
+		         if(left<0 || rite<0) continue;
+		         String teachercode = temp2[j].substring(temp2[j].indexOf("("),temp2[j].indexOf(")")+1);
+		         oldList.add(teachercode);
+	            }
+	           continue;
+	         }
+	       
 	       
 	       int left=str.indexOf("(");
 	       int rite=str.indexOf(")");
@@ -132,9 +145,9 @@ public class PrepareIndividualPrint implements Printable
 		
 	ArrayList<String> newList = new ArrayList<String>(new HashSet<String>(oldList));
   
-//	System.out.println(newList.size());
-//  for(int i=0;i<newList.size();i++)
-//		System.out.println(newList.get(i));
+   System.out.println(newList.size());
+    for(int i=0;i<newList.size();i++)
+     System.out.println(newList.get(i));
 
 	int  currentrow=1;
 	int currentpage=1;

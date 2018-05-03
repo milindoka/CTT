@@ -1,6 +1,7 @@
 package ctt;
 
 import java.awt.Graphics;
+import java.util.Arrays;
 
 public class OnePageIndi
 {
@@ -9,7 +10,12 @@ public class OnePageIndi
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
-	String week[]={"TIME","MON","TUE","WED","THU","FRI","SAT"};
+	
+	private String week[]; //={"TIME","MON","TUE","WED","THU","FRI","SAT"} from WeekDays.java 
+	OnePageIndi()
+	{WeekDays wd=new WeekDays();
+    week = Arrays.copyOf(wd.weekdays, wd.weekdays.length);
+	}
 	
 	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno)
 	{   int  tlx=topleftx, tly=toplefty;
@@ -26,7 +32,8 @@ public class OnePageIndi
 	}
 	
 	private void PrintWeekLine(int x,int y,Graphics g)
-	{ int currentleft=x,currenttop=y;
+	{ 
+	  int currentleft=x,currenttop=y;
 	  g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
       PrintRightWallText(week[0],currentleft,currenttop, timecolsize, g); /// time with right wall
       currentleft+=timecolsize;
