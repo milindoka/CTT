@@ -748,6 +748,7 @@ public class Controller {
 		 {   if(currentrow !=0) { view.SetData3("$BLANKLINE", currentrow,0);
 			                      currentrow++;  }  ///skip first exceptional blank
 			 String week[]={"MON","TUE","WED","THU","FRI","SAT"};
+			// String week[]={"SAT","SUN","MON","TUE","WED","THU"};
 		     view.SetData3(temp,currentrow,0);  ///time
 			 for(int j=0;j<6;j++ )
 				 view.SetData3(week[j],currentrow,j+1); /// week days

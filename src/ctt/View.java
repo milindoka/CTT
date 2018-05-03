@@ -169,8 +169,9 @@ public class View {
         
         ////// Create JTable ---------------------------
         
-           Object columnNames[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
-            
+           Object columnNames[] = { "TIME", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+        
+           //Object columnNames[]={"TIME","SAT","SUN","MON","TUE","WED","THU"};
           //  JTable table = new JTable(rowData, columnNames);
            table = new JTable(new DefaultTableModel(columnNames, 0))
             { ////added tooltip

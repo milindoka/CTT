@@ -190,6 +190,7 @@ TEXTp6+="<H4 align=center>Please Try the following Free Softwares ....</H4>"+
 "<li> Download <a href=https://sourceforge.net/projects/collegetimetable/>https://sourceforge.net/projects/collegetimetable/</a></li>"+
 "<li> Download <a href=https://sourceforge.net/projects/marklist/>https://sourceforge.net/projects/marklist/</a></li>"+
 "<li> All Source Codes : <a href=https://github.com/milindoka>https://github.com/milindoka</a></li>"+
+"<li> For Comments and Suggestions, please email : oak444@gmail.com </li>"+
 "</ul>";
 
 JEditorPane EDITORp6 = new JEditorPane("text/html",TEXTp6);
