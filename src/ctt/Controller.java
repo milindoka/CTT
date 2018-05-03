@@ -94,7 +94,7 @@ public class Controller {
         SAVEASbuttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {               show("SAVEAS");   
+            {  SaveAs(); 
             
             }
     	};
@@ -184,7 +184,7 @@ public class Controller {
         SaveAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) {                  
-                  SaveTT();
+                  PrepareSave();
               }
         };                
         view.getSaveBT().addActionListener(SaveAL);
@@ -380,7 +380,7 @@ public class Controller {
                     JOptionPane.YES_NO_CANCEL_OPTION);
                 
                 if(choice  == JOptionPane.NO_OPTION)  System.exit(0);
-                if(choice  == JOptionPane.YES_OPTION) {SaveTT(); System.exit(0);}
+                if(choice  == JOptionPane.YES_OPTION) {PrepareSave(); System.exit(0);}
                 
             }
         });
@@ -521,27 +521,48 @@ public class Controller {
     return temp;
     	
     }
-    
-    private void SaveTT()
-    {   
-    	if (view.table.isEditing())
-    	     view.table.getCellEditor().stopCellEditing();
 
-    	String fnem="";
-    	File f = new File(System.getProperty("java.class.path"));
-    	File dir = f.getAbsoluteFile().getParentFile();
-    	String path = dir.toString();
-    	if(currentfilename.contains("New-Untitled"))
-    	   { //System.out.println("T"); 
-    		fnem=LoadFile.BrowseAndSaveTimeTableFile();
-		      if (fnem.length()==0) return;
-		      if (!fnem.endsWith(".CTT") && !fnem.endsWith(".ctt")) fnem += ".CTT";
-		      currentfilename=fnem;
-		      
-		   }
-    	else	
-    		fnem=currentfilename;  /////contains full path
+    private void SaveAs()
+    {if (view.table.isEditing())
+	     view.table.getCellEditor().stopCellEditing();
+
+	String fnem="";
+	File f = new File(System.getProperty("java.class.path"));
+	File dir = f.getAbsoluteFile().getParentFile();
+	String path = dir.toString();
+	fnem=LoadFile.BrowseAndSaveTimeTableFile();
+    if (fnem.length()==0) return;
+    if (!fnem.endsWith(".CTT") && !fnem.endsWith(".ctt")) fnem += ".CTT";
+    currentfilename=fnem;
+    SaveTT(fnem);
+    }
+    
+    
+    private void PrepareSave()   /// 
+    {	if (view.table.isEditing())
+	     view.table.getCellEditor().stopCellEditing();
+
+	String fnem="";
+	File f = new File(System.getProperty("java.class.path"));
+	File dir = f.getAbsoluteFile().getParentFile();
+	String path = dir.toString();
+	if(currentfilename.contains("New-Untitled"))
+	   { //System.out.println("T"); 
+		fnem=LoadFile.BrowseAndSaveTimeTableFile();
+	      if (fnem.length()==0) return;
+	      if (!fnem.endsWith(".CTT") && !fnem.endsWith(".ctt")) fnem += ".CTT";
+	      currentfilename=fnem;
+	      
+	   }
+	else	
+		fnem=currentfilename;  /////contains full path
+     
+	 SaveTT(fnem);
     	
+    }
+    
+    private void SaveTT(String fnem)
+    {   
     	
     	FileWriter f0=null;
     	try {f0 = new FileWriter(fnem); }       catch (IOException e1){e1.printStackTrace();}
