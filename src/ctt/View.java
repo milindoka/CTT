@@ -29,6 +29,7 @@ import java.awt.GridLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 public class View {
       
@@ -169,7 +170,9 @@ public class View {
         
         ////// Create JTable ---------------------------
         
-           Object columnNames[] = { "TIME", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+           WeekDays wd=new WeekDays();
+           String columnNames[] =Arrays.copyOf(wd.weekdays, wd.weekdays.length); 
+
         
            //Object columnNames[]={"TIME","SAT","SUN","MON","TUE","WED","THU"};
           //  JTable table = new JTable(rowData, columnNames);
@@ -318,8 +321,10 @@ public class View {
             
      ////// Create Table2  ---------------------------
             
-            Object columnNames2[] = { "Time", "MON", "TUE" ,"WED","THU","FRI","SAT"};
+             String columnNames2[] =Arrays.copyOf(wd.weekdays, wd.weekdays.length);
+             //String columnNames2[] = { "TIME", "MON", "TUE" ,"WED","THU","FRI","SAT"};
              
+            
            //  JTable table = new JTable(rowData, columnNames);
             table2 = new JTable(new DefaultTableModel(columnNames2, 0))
              { ////added tooltip
