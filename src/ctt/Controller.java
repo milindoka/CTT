@@ -53,8 +53,8 @@ public class Controller {
         far.setView(view);
         view.SetTitle(currentfilename);
         WeekDays wd=new WeekDays();
- /////Set Preferred Printer on Startup
         week = Arrays.copyOf(wd.weekdays, wd.weekdays.length);
+        /////Set Preferred Printer on Startup
         SetPrinter sp=new SetPrinter();
         String printername=sp.LoadPreferences();
         if(printername==null) printername="No Printer";

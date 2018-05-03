@@ -9,7 +9,7 @@ public class OnePageIndi
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
-	
+	String week[]={"TIME","MON","TUE","WED","THU","FRI","SAT"};
 	
 	void PrintHeaderRow(int topleftx, int toplefty,Graphics g,int pageno)
 	{   int  tlx=topleftx, tly=toplefty;
@@ -24,6 +24,23 @@ public class OnePageIndi
 		tlx=topleftx;  ///back to leftmost position
 		g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	}
+	
+	private void PrintWeekLine(int x,int y,Graphics g)
+	{ int currentleft=x,currenttop=y;
+	  g.drawLine(currentleft, currenttop, currentleft, currenttop+cellheight); //leftmost wall   
+      PrintRightWallText(week[0],currentleft,currenttop, timecolsize, g); /// time with right wall
+      currentleft+=timecolsize;
+      
+		  for(int i=1;i<7;i++) 
+		  { 
+		    PrintRightWallText(week[i],currentleft,currenttop, othercolsize,g);  /// week text with right wall
+		    currentleft+=othercolsize;
+		  }
+	  currentleft=x;
+	  currenttop+=cellheight;
+	  g.drawLine(x,currenttop,x+horizontalwidth,currenttop); /////// bot line	
+	}
+	
 	
 	 void PrintRightWallText(String str,int tlx,int tly, int boxwidth,Graphics pg)
 	 {
@@ -66,7 +83,8 @@ public class OnePageIndi
 		
 		PrintHeaderRow(tlx,tly,g,pageno);
 		tly+=cellheight;
-	
+		PrintWeekLine(tlx,tly,g);
+		tly+=cellheight;
 	    for(int row=0;row<=lastrow;row++)
 	    	{ DrawWallTextLine(tlx,tly,g,row);     
 	    	  tly+=cellheight;
