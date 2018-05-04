@@ -174,7 +174,7 @@ public class PrepareIndividualPrint implements Printable
     //    sr.format("%d-",currentrow);
       //  lcount.format("-MM%d",view.lecturecount);
        view.table3.setValueAt(view.LectureCount,currentrow,0); 
-       view.table3.setValueAt("SIWS College",currentrow,1);
+       view.table3.setValueAt(view.collegename,currentrow,1);
        view.table3.setValueAt(view.allcounts,currentrow,2);
        currentrow++;
         for (int r = 0; r <= lr; r++)

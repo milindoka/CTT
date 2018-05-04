@@ -62,6 +62,7 @@ public class Controller {
         view.getSetPRN().setText("Printer : "+ printername);
         
         view.getSCHOOLbutton().setText(Header[0]);
+        view.collegename=Header[0];
         view.getSetPRN().setText("Printer : "+ printername);
     	
         
@@ -659,6 +660,7 @@ public class Controller {
     	LoadFile.WriteLastFile(ttfile);
     	view.SetTitle(ttfile);
     	view.getSCHOOLbutton().setText(Header[0]);
+    	view.collegename=Header[0];
     	view.modified=false;
        }
     

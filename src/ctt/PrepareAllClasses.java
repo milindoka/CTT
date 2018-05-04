@@ -165,8 +165,8 @@ public class PrepareAllClasses implements Printable
 	    
 		
 		view.table3.setValueAt(newList.get(i),ROWPOINTER,0); 
-	    view.table3.setValueAt("SIWS COLLEGE",ROWPOINTER,1);
-	    view.table3.setValueAt("Total LEctures :",ROWPOINTER,2);
+	    view.table3.setValueAt(view.collegename,ROWPOINTER,1);
+	    view.table3.setValueAt("Total Lectures :",ROWPOINTER,2);
 	    ROWPOINTER++;
 	    PrepareSingleClassToPrint();
 	  

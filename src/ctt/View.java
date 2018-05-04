@@ -44,6 +44,7 @@ public class View {
     private DefaultTableModel model;
     private DefaultTableModel model2;
     private DefaultTableModel model3;
+    public String collegename="SCHOOL/COLLEGE";
     
     String LectureCount;
     JTable table;

@@ -23,7 +23,7 @@ public class OnePageIndi
 		g.drawLine(tlx,tly, tlx, tly+cellheight); //leftmost wall
 		PrintRightWallText(view.LectureCount,tlx,tly, timecolsize, g); // time with right wall
 		tlx=tlx+timecolsize;
-		PrintRightWallText("SIWS COLLEGE",tlx,tly, MidWidth,g); // mid cell
+		PrintRightWallText(view.collegename,tlx,tly, MidWidth,g); // mid cell
 		tlx=tlx+MidWidth;
 		PrintRightWallText(view.allcounts,tlx,tly, 3*othercolsize,g); // last cell
 		tly=tly+cellheight;
