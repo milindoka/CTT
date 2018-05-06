@@ -1,7 +1,10 @@
 package ctt;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +14,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 public class Controller {
 
@@ -389,7 +397,31 @@ public class Controller {
                 
             }
         });
+
+  
+  
+  
+  InputMap inputMap2 = view.table.getInputMap(JComponent.WHEN_FOCUSED);
+  ActionMap actionMap2 = view.table.getActionMap();
+
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), "Savett");
+  actionMap2.put("Savett", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{
+			PrepareSave();
+            
+         }
       
+  });            
+/////////---------------END OF FREEZE-------------------------------------
+
+  
+  
         
         
         

@@ -389,7 +389,7 @@ public class View {
         
         
         LoadBT = new JButton("Load Time Table");        
-        SaveBT = new JButton("Save Time Table");
+        SaveBT = new JButton("Save  (Ctrl-S)");
         PRINTCURRENTbutton = new JButton("Print Current Table");
         SetPRN = new JButton("Set Printer");
         GLOBALCOUNTbutton = new JButton("Global Counts");
