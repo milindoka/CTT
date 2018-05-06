@@ -10,7 +10,7 @@ import javax.swing.JViewport;
 
 public class FindAndReplace 
 { View view;
-
+  int counter=0;
 	public void setView(View vu)
 	{
 		this.view=vu;
@@ -40,12 +40,12 @@ public class FindAndReplace
 		    }  
 		else return;
 		
-		
+		counter=0;
 		
 		String temp;
 		
 		for(int r=0;r<view.ROWCOUNT-1;r++)	
-		 for(int c=1;c<7;c++)
+		 for(int c=0;c<7;c++)
 	     	 { 
 		      temp=view.GetData(view.table, r, c);
 		      
@@ -53,15 +53,13 @@ public class FindAndReplace
 		      if(temp.contains(find)) 
 		   		 { String str=temp.replace(find,replace);	
 		   		   view.SetData(str, view.table,r,c);
+		   		   counter++;
 		   		 }
 	     	 
 	     	 } //for loop ends
-		
+		String strmsg=String.format("Replaced %d Occurrences",counter);
+		Toast.AutoCloseMsg(strmsg);
 	} // function ends
-	
-
-	
-	
 	
 	
 	
