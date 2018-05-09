@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -244,8 +245,8 @@ public class Controller {
         DEMObuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {   view.ClearMasterTable();   
-                  view.ClearColorMatrix();
+              {  
+            	 
                   SetDemoTimeTable();
               }
         };                
@@ -401,7 +402,7 @@ public class Controller {
   
   
   
-  InputMap inputMap2 = view.table.getInputMap(JComponent.WHEN_FOCUSED);
+  InputMap inputMap2 = view.table.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
   ActionMap actionMap2 = view.table.getActionMap();
 
   inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), "Savett");
@@ -418,16 +419,11 @@ public class Controller {
          }
       
   });            
-/////////---------------END OF FREEZE-------------------------------------
 
-  
-  
         
         
         
-        
-        
-    }
+ }
     
 ///////////// Methods called in action listeners ////////////////////    
 
@@ -489,9 +485,25 @@ public class Controller {
        view.ClearColorMatrix();
     }
     
+    public int ModifiedDialog()
+    {   if(!view.modified) return -999;
+    	int choice=JOptionPane.showConfirmDialog
+    			(view.frame, 
+                "Time Table Modified, do you want to Save Changes ?", "Table Modified Message ", 
+                JOptionPane.YES_NO_CANCEL_OPTION);
+           return choice;
+    }
+    
     
 	public void SetDemoTimeTable()
     {
+		if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
+		
+		int choice=ModifiedDialog();
+		if(choice==JOptionPane.CANCEL_OPTION || choice<0) return;
+		if(choice==JOptionPane.YES_OPTION) PrepareSave();
+   	     view.ClearMasterTable();   
+         view.ClearColorMatrix();
     	//view.SetData(Demo.demoarr[0][0], view.table, 0,0);
 		for (int i=0;i<Demo.demoarr.length;i++)
 		{    
