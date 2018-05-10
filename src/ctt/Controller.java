@@ -497,15 +497,20 @@ public class Controller {
     
 	public void SetDemoTimeTable()
     {
-		if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
+	    if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
 		
 		int choice=ModifiedDialog();
-		if(choice==JOptionPane.CANCEL_OPTION || choice<0) return;
-		if(choice==JOptionPane.YES_OPTION) PrepareSave();
-   	     view.ClearMasterTable();   
-         view.ClearColorMatrix();
-    	//view.SetData(Demo.demoarr[0][0], view.table, 0,0);
-		for (int i=0;i<Demo.demoarr.length;i++)
+		if(choice!=-999) //if modified
+		{
+		   if(choice==JOptionPane.CANCEL_OPTION) return;
+		   if(choice==JOptionPane.YES_OPTION) PrepareSave();
+   	     
+          }
+		
+		  view.ClearMasterTable();   
+          view.ClearColorMatrix();
+ 
+          for (int i=0;i<Demo.demoarr.length;i++)
 		{    
 			   for(int j=0;j<Demo.demoarr[i].length;j++)
 			   {

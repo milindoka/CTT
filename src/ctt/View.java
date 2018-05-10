@@ -126,6 +126,7 @@ public class View {
     
     private void refresh()
     {ClearIndividualTable();
+     tcField.setText("");
      SetEmptyHeader();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
@@ -344,6 +345,8 @@ public class View {
                      return value == null ? null : value.toString();
                  }
              };
+             
+             table2.setEnabled(false);
              
              table2.setRowHeight(20);
              
