@@ -18,8 +18,11 @@ import java.util.Arrays;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 
 public class Controller {
@@ -29,7 +32,7 @@ public class Controller {
     private View view;
     private RemoveCDG rcdg;
     private FindAndReplace far;
-    private ActionListener SaveAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
+    private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTCURRENTbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
@@ -153,33 +156,8 @@ public class Controller {
     	WIZARD01buttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent)
-              {  
-            	  String timearray[]={"12:30-01:10","01:10-01:50","01:50-02:30",
-            			  			  "03:00-03:40","03:40-04:20","04:20-05:00"};
-
-            	  
-            	  
-            	  int result=WarnBefore();
-            	  if(result==JOptionPane.OK_OPTION)
-            	  {
-            		  String AH="ABCDEFGH";
-            		  view.ClearMasterTable();
-            		  view.ClearColorMatrix();
-            		  ///create time-class column
-            		  for(int i=0;i<6;i++)
-            		  	{ view.SetData(timearray[i], view.table, i*18,0);
-            			  for(int j=0;j<8;j++)
-            				  view.SetData("FY-"+AH.charAt(j), view.table, i*18+j+1,0);
-            			  for(int j=0;j<8;j++)
-            				  view.SetData("SY-"+AH.charAt(j), view.table, i*18+j+9,0);
-            		  	}
-            		  		
-            			  
-            		  currentfilename="New-Untitled"; ///including path
-            	      view.SetTitle(currentfilename);
-            	  }
-            	
-              }
+              { NewTimeTable(); 
+            	              }
         };                
         view.getWizard01BT().addActionListener(WIZARD01buttonAL);
     	
@@ -194,13 +172,15 @@ public class Controller {
         view.getFindReplaceBT().addActionListener(FINDREPLACEbuttonAL);
     	    		
     	
-        SaveAL = new ActionListener()
+        FileAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) {                  
-                  PrepareSave();
+                  //PrepareSave();
+            	  FileMenus();
+                  
               }
         };                
-        view.getSaveBT().addActionListener(SaveAL);
+        view.getSaveBT().addActionListener(FileAL);
 
         
         
@@ -442,6 +422,32 @@ public class Controller {
 ///////////// Methods called in action listeners ////////////////////    
 
     
+    public void NewTimeTable() ////same as wizard01
+    {  String timearray[]={"12:30-01:10","01:10-01:50","01:50-02:30",
+			  "03:00-03:40","03:40-04:20","04:20-05:00"};
+
+    int result=WarnBefore();
+if(result==JOptionPane.OK_OPTION)
+{
+String AH="ABCDEFGH";
+view.ClearMasterTable();
+view.ClearColorMatrix();
+///create time-class column
+for(int i=0;i<6;i++)
+{ view.SetData(timearray[i], view.table, i*18,0);
+for(int j=0;j<8;j++)
+	  view.SetData("FY-"+AH.charAt(j), view.table, i*18+j+1,0);
+for(int j=0;j<8;j++)
+	  view.SetData("SY-"+AH.charAt(j), view.table, i*18+j+9,0);
+}
+	
+
+currentfilename="New-Untitled"; ///including path
+view.SetTitle(currentfilename);
+}
+    	
+    }
+    
     
     public void LoadTimeTable()
     {
@@ -617,6 +623,73 @@ public class Controller {
     currentfilename=fnem;
     SaveTT(fnem);
     }
+    
+    
+    
+    void FileMenus()
+    {	    	 
+     final JPopupMenu menu = new JPopupMenu("Menu");
+    
+    JMenuItem item1 = new JMenuItem("New Time Table (Ctrl-N)");
+    item1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        NewTimeTable();
+      }
+    });
+    menu.add(item1);    
+
+    menu.addSeparator();
+    
+    JMenuItem item2 = new JMenuItem("Save Time Table (Ctrl-S)");
+    item2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        PrepareSave();
+      }
+    });
+    menu.add(item2);
+    
+    menu.addSeparator();
+    
+    JMenuItem item3 = new JMenuItem("Save Time Table As..");
+    item3.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+      SaveAs();
+      }
+    });
+    menu.add(item3);
+    
+    menu.addSeparator();
+
+    JMenuItem item4 = new JMenuItem("Load Time Table (Ctrl-O)");
+    item4.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        LoadTimeTable();
+      }
+    });
+    menu.add(item4);
+    
+    menu.addSeparator();
+    
+    
+    
+    JMenuItem item5 = new JMenuItem("Close this Popup ");
+    item5.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        
+      }
+    });
+    menu.add(item5);
+    
+    JButton b=view.getSaveBT();
+    menu.show(b, b.getWidth()/2, b.getHeight()/2);
+    	
+    }
+    
     
     
     private void PrepareSave()   /// 

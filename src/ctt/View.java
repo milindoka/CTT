@@ -36,7 +36,7 @@ public class View {
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	boolean modified=false;
 	public JFrame frame;
-    private JButton SaveBT,LoadBT,PRINTCURRENTbutton,SetPRN;
+    private JButton FileBT,LoadBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,SAVEASbutton,WIZARD02button,DELETEROWbutton;
@@ -393,7 +393,7 @@ public class View {
         
         
         LoadBT = new JButton("Load Time Table");        
-        SaveBT = new JButton("Save  (Ctrl-S)");
+        FileBT = new JButton("File Menu");
         PRINTCURRENTbutton = new JButton("Print Current Table");
         SetPRN = new JButton("Set Printer");
         GLOBALCOUNTbutton = new JButton("Global Counts");
@@ -419,7 +419,7 @@ public class View {
         
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(7,3,2,2));
-        buttonPanel.add(SaveBT);
+        buttonPanel.add(FileBT);
         buttonPanel.add(LoadBT);
         buttonPanel.add(PRINTCURRENTbutton);
         buttonPanel.add(SetPRN);
@@ -524,7 +524,7 @@ public class View {
     
     public JButton getSaveBT()
     {
-        return SaveBT;
+        return FileBT;
     }
     
     public JButton getLoadBT()
