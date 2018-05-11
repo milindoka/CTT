@@ -187,8 +187,8 @@ public class Controller {
         LoadAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {         
-            	   LoadTimeTable();
+              {        
+               Freeze();
               }
         };                
         view.getLoadBT().addActionListener(LoadAL);
@@ -351,8 +351,6 @@ public class Controller {
             	  HelpDialog hd = new HelpDialog();
             		hd.setModal(true);
             		hd.setVisible(true);
-            	   
-            	  
               }
        	};
                
@@ -411,16 +409,53 @@ public class Controller {
       
   });            
   
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), "freeze");
+  actionMap2.put("freeze", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{  
+			if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
+			Freeze();
+			//view.table.requestFocus();
+			view.table.repaint();
+            
+         }
+      
+  });            
   
-  
-        
-        
         
  }
 //////////////    
 ///////////////    
 ///////////// Methods called in action listeners ////////////////////    
 
+    
+    
+    void Freeze()
+    {
+    	
+  	  int row = view.table.getSelectedRow();
+      int col = view.table.getSelectedColumn();
+      if(row<0 || col<1) return;
+	 //  LoadTimeTable();
+	  //view.table.requestFocus();
+     if( view.ColorMatrix[row][col]==1) 
+    	 view.ColorMatrix[row][col]=0;
+    	 else
+         view.ColorMatrix[row][col]=1;
+      col=col%6+1;
+	  view.table.setColumnSelectionInterval(col,col);
+	  view.table.setRowSelectionInterval(row,row);
+	  view.modified=true;
+    	
+    }
+    
+    
+    
     
     public void NewTimeTable() ////same as wizard01
     {  String timearray[]={"12:30-01:10","01:10-01:50","01:50-02:30",

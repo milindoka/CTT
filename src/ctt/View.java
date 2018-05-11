@@ -36,7 +36,7 @@ public class View {
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	boolean modified=false;
 	public JFrame frame;
-    private JButton FileBT,LoadBT,PRINTCURRENTbutton,SetPRN;
+    private JButton FileBT,FreezeBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,SAVEASbutton,WIZARD02button,DELETEROWbutton;
@@ -87,7 +87,7 @@ public class View {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting())
             {  
-               refresh();
+              refresh();
             }
         }
     }
@@ -274,50 +274,6 @@ public class View {
                 }
             });            
      /////////------------------------------------------------------------------------
-
-                     
-            
-  ///--------CTRL-D KEY TO FREEZE CURRENT CELL CONTENT--------------------------------------
-            
-            InputMap inputMap2 = table.getInputMap(JComponent.WHEN_FOCUSED);
-            ActionMap actionMap2 = table.getActionMap();
-
-            inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), "Freeze");
-            actionMap2.put("Freeze", new AbstractAction() {
-                /**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
-
-				public void actionPerformed(ActionEvent evt) {
-                   // Note, you can use getSelectedRows() and/or getSelectedColumns
-                   // to get all the rows/columns that have being selected
-                   // and simply loop through them using the same method as
-                   // described below.
-                   // As is, it will only get the lead selection
-                   int row = table.getSelectedRow();
-                   int col = table.getSelectedColumn();
-                   if (row >= 0 && col >= 0) {
-                       row = table.convertRowIndexToModel(row);
-                       col = table.convertColumnIndexToModel(col);
-                      if(col!=0)
-                      {
-                    	  Color color=fRenderer.getCellColor(row,col);  
-                    	  if(color==Color.WHITE)
-                    	  fRenderer.setCellColor(row,col,Color.YELLOW);
-                    	  else
-                    		  fRenderer.setCellColor(row,col,Color.WHITE);
-                      
-                    	  table.repaint();
-                      modified=true;
-                      }
-                      
-                   }
-                }
-            });            
-     /////////---------------END OF FREEZE-------------------------------------
-            
-            
       ExcelAdapter myAd = new ExcelAdapter(table);        
             
             
@@ -392,7 +348,7 @@ public class View {
         frame.setLocationRelativeTo(null);
         
         
-        LoadBT = new JButton("Load Time Table");        
+        FreezeBT = new JButton("Freeze Cell (Ctrl-D)");        
         FileBT = new JButton("File Menu");
         PRINTCURRENTbutton = new JButton("Print Current Table");
         SetPRN = new JButton("Set Printer");
@@ -420,13 +376,14 @@ public class View {
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(7,3,2,2));
         buttonPanel.add(FileBT);
-        buttonPanel.add(LoadBT);
-        buttonPanel.add(PRINTCURRENTbutton);
-        buttonPanel.add(SetPRN);
-        
-        buttonPanel.add(GLOBALCOUNTbutton);
         buttonPanel.add(DEMObutton);
-        buttonPanel.add(REMGAPDbutton); 
+        buttonPanel.add(PRINTCURRENTbutton);
+
+        buttonPanel.add(SetPRN);
+        buttonPanel.add(GLOBALCOUNTbutton);
+        buttonPanel.add(REMGAPDbutton);
+        
+        buttonPanel.add(FreezeBT);
         buttonPanel.add(MULTIFRIZbutton);
         buttonPanel.add(CLEARFRIZbutton);
         
@@ -529,7 +486,7 @@ public class View {
     
     public JButton getLoadBT()
     {
-        return LoadBT;
+        return FreezeBT;
     }
    
     public JButton getPRINTCURRENTbutton()
