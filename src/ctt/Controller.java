@@ -32,12 +32,13 @@ public class Controller {
     private View view;
     private RemoveCDG rcdg;
     private FindAndReplace far;
+    private SwapTT swp;
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTCURRENTbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
-    private ActionListener INSERTROWbuttonAL,SAVEASbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
+    private ActionListener INSERTROWbuttonAL,SWAPbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
     private ActionListener SCHOOLbuttonAL,HELPbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
@@ -63,6 +64,10 @@ public class Controller {
         rcdg.setView(view);
         far=new FindAndReplace();
         far.setView(view);
+        
+        swp=new SwapTT();
+        swp.setView(view);
+        
         view.SetTitle(currentfilename);
         WeekDays wd=new WeekDays();
         week = Arrays.copyOf(wd.weekdays, wd.weekdays.length);
@@ -107,14 +112,14 @@ public class Controller {
         view.getINSERTROWbutton().addActionListener(INSERTROWbuttonAL);    	
     	
 
-        SAVEASbuttonAL=new ActionListener()
+        SWAPbuttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
-            {  SaveAs(); 
-            
+            {  
+               swp.SwapRoutine();
             }
     	};
-        view.getSAVEASbutton().addActionListener(SAVEASbuttonAL);
+        view.getSAVEASbutton().addActionListener(SWAPbuttonAL);
         
         
         WIZARD02buttonAL=new ActionListener()
@@ -433,7 +438,10 @@ public class Controller {
 ///////////////    
 ///////////// Methods called in action listeners ////////////////////    
 
-    
+    void SwapTeacher()
+    {
+    	
+    }
     
     void Freeze()
     {

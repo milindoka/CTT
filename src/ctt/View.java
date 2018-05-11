@@ -39,7 +39,7 @@ public class View {
     private JButton FileBT,FreezeBT,PRINTCURRENTbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
-    private JButton WIZARD01button,INSERTROWbutton,SAVEASbutton,WIZARD02button,DELETEROWbutton;
+    private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,WIZARD02button,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -366,7 +366,7 @@ public class View {
         FINDREPLACEbutton = new JButton("Find/Replace");
         WIZARD01button= new JButton("Wizard-01");
         INSERTROWbutton= new JButton("Insert Row");
-        SAVEASbutton= new JButton("Save As");
+        SWAPbutton= new JButton("Swap Time Tables");
         WIZARD02button= new JButton("Wizard-02");
         DELETEROWbutton= new JButton("Delete Row");
         REMCLASHbutton=new JButton("Remove Clashes");
@@ -396,7 +396,7 @@ public class View {
         buttonPanel.add(WIZARD01button);
         buttonPanel.add(INSERTROWbutton);
         
-        buttonPanel.add(SAVEASbutton);
+        buttonPanel.add(SWAPbutton);
         buttonPanel.add(WIZARD02button);
         buttonPanel.add(DELETEROWbutton);
         buttonPanel.add(REMCLASHbutton);
@@ -452,7 +452,7 @@ public class View {
     }
     
     public JButton getSAVEASbutton()
-    { return SAVEASbutton;
+    { return SWAPbutton;
     	
     }
    
