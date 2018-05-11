@@ -208,16 +208,11 @@ public class Controller {
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {         
-            	   	String fnem=LoadFile.BrowseAndGetTimeTableFile();
-                	if(fnem.length()==0) return;
-                	view.ClearMasterTable();
-                	view.ClearColorMatrix();
-                	view.ClearIndividualTable();
-                	view.ClearTable3();
-                  LoadTT(fnem);
+            	   LoadTimeTable();
               }
         };                
         view.getLoadBT().addActionListener(LoadAL);
+        
         
         
         SetprnAL = new ActionListener()
@@ -420,13 +415,45 @@ public class Controller {
       
   });            
 
+  
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK), "loadtt");
+  actionMap2.put("loadtt", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{
+			LoadTimeTable();
+            
+         }
+      
+  });            
+  
+  
+  
         
         
         
  }
-    
+//////////////    
+///////////////    
 ///////////// Methods called in action listeners ////////////////////    
 
+    
+    
+    public void LoadTimeTable()
+    {
+    	String fnem=LoadFile.BrowseAndGetTimeTableFile();
+    	if(fnem.length()==0) return;
+    	view.ClearMasterTable();
+    	view.ClearColorMatrix();
+    	view.ClearIndividualTable();
+    	view.ClearTable3();
+      LoadTT(fnem);
+    }
+    
     
     public void OnRemoveClashThread()
     {
@@ -663,7 +690,6 @@ public class Controller {
   		
     	    try { f0.write(newLine);}                        //// New line after every row
     	          catch (IOException e) {e.printStackTrace();}
-    
     	 }
     	 try {f0.close();} catch (IOException e) {e.printStackTrace();}
     	 

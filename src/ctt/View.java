@@ -309,6 +309,7 @@ public class View {
                     		  fRenderer.setCellColor(row,col,Color.WHITE);
                       
                     	  table.repaint();
+                      modified=true;
                       }
                       
                    }
