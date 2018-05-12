@@ -34,7 +34,7 @@ public class Controller {
     private FindAndReplace far;
     private SwapTT swp;
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
-    private ActionListener PRINTCURRENTbuttonAL, REMGAPDbuttonAL;
+    private ActionListener PRINTMENUbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
     private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
@@ -119,7 +119,7 @@ public class Controller {
                swp.SwapRoutine();
             }
     	};
-        view.getSAVEASbutton().addActionListener(SWAPbuttonAL);
+        view.getSWAPbutton().addActionListener(SWAPbuttonAL);
         
         
         WIZARD02buttonAL=new ActionListener()
@@ -185,7 +185,7 @@ public class Controller {
                   
               }
         };                
-        view.getSaveBT().addActionListener(FileAL);
+        view.getFileBT().addActionListener(FileAL);
 
         
         
@@ -320,15 +320,15 @@ public class Controller {
         view.getPRINTMASTERbutton().addActionListener(PRINTMASTERbuttonAL);
         
    
-        PRINTCURRENTbuttonAL = new ActionListener()
+        PRINTMENUbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {   PrintCurrent();    
+              {   PrintMenus();    
             	
               }
        	};
                
-        view.getPRINTCURRENTbutton().addActionListener(PRINTCURRENTbuttonAL);
+       	view.getPRINTMENUbutton().addActionListener(PRINTMENUbuttonAL);
         
         
         SCHOOLbuttonAL = new ActionListener()
@@ -666,8 +666,7 @@ view.SetTitle(currentfilename);
     currentfilename=fnem;
     SaveTT(fnem);
     }
-    
-    
+       
     
     void FileMenus()
     {	    	 
@@ -717,7 +716,70 @@ view.SetTitle(currentfilename);
     
     menu.addSeparator();
     
+    JMenuItem item5 = new JMenuItem("Close this Popup ");
+    item5.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        
+      }
+    });
+    menu.add(item5);
     
+    JButton b=view.getFileBT();
+    menu.show(b, b.getWidth()/2, b.getHeight()/2);
+    	
+    }
+    
+
+    void PrintMenus()
+    {	    	 
+     final JPopupMenu menu = new JPopupMenu("Menu");
+    
+    JMenuItem item1 = new JMenuItem("Print Current (Ctrl-P)");
+    item1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        PrintCurrent();
+      }
+    });
+    menu.add(item1);    
+
+    menu.addSeparator();
+    
+    JMenuItem item2 = new JMenuItem("Print All Individuals");
+    item2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+        PrintAllIndi();
+      }
+    });
+    menu.add(item2);
+    
+    menu.addSeparator();
+    
+    JMenuItem item3 = new JMenuItem("Print All Classes");
+    item3.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+       PrintAllClases();
+      }
+    });
+    menu.add(item3);
+    
+    menu.addSeparator();
+
+    JMenuItem item4 = new JMenuItem("Print Master Table");
+    item4.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) 
+      {
+    	  view.ClearTable3();
+    	  PrepareMaster();
+          PrintMaster();
+      }
+    });
+    menu.add(item4);
+    
+    menu.addSeparator();
     
     JMenuItem item5 = new JMenuItem("Close this Popup ");
     item5.addActionListener(new ActionListener() {
@@ -728,10 +790,12 @@ view.SetTitle(currentfilename);
     });
     menu.add(item5);
     
-    JButton b=view.getSaveBT();
+    JButton b=view.getPRINTMENUbutton();;
     menu.show(b, b.getWidth()/2, b.getHeight()/2);
     	
     }
+
+    
     
     
     

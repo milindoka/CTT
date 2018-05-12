@@ -36,7 +36,7 @@ public class View {
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	boolean modified=false;
 	public JFrame frame;
-    private JButton FileBT,FreezeBT,PRINTCURRENTbutton,SetPRN;
+    private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
     private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,WIZARD02button,DELETEROWbutton;
@@ -350,7 +350,7 @@ public class View {
         
         FreezeBT = new JButton("Freeze Cell (Ctrl-D)");        
         FileBT = new JButton("File Menu");
-        PRINTCURRENTbutton = new JButton("Print Current Table");
+        PRINTMENUbutton = new JButton("Print Menu");
         SetPRN = new JButton("Set Printer");
         GLOBALCOUNTbutton = new JButton("Global Counts");
         
@@ -375,11 +375,13 @@ public class View {
         
         
         JPanel buttonPanel=new JPanel(); buttonPanel.setLayout(new GridLayout(7,3,2,2));
+        
         buttonPanel.add(FileBT);
-        buttonPanel.add(DEMObutton);
-        buttonPanel.add(PRINTCURRENTbutton);
-
+        buttonPanel.add(PRINTMENUbutton);
         buttonPanel.add(SetPRN);
+       
+
+        buttonPanel.add(DEMObutton);
         buttonPanel.add(GLOBALCOUNTbutton);
         buttonPanel.add(REMGAPDbutton);
         
@@ -451,7 +453,7 @@ public class View {
     	
     }
     
-    public JButton getSAVEASbutton()
+    public JButton getSWAPbutton()
     { return SWAPbutton;
     	
     }
@@ -479,7 +481,7 @@ public class View {
     	return FINDREPLACEbutton;
     }
     
-    public JButton getSaveBT()
+    public JButton getFileBT()
     {
         return FileBT;
     }
@@ -489,8 +491,8 @@ public class View {
         return FreezeBT;
     }
    
-    public JButton getPRINTCURRENTbutton()
-    { return PRINTCURRENTbutton;
+    public JButton getPRINTMENUbutton()
+    { return PRINTMENUbutton;
     }
     
 
