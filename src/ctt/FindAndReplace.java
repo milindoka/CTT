@@ -14,7 +14,6 @@ public class FindAndReplace
 	public void setView(View vu)
 	{
 		this.view=vu;
-		
 	}
 	
 	
@@ -90,22 +89,41 @@ public class FindAndReplace
 
 	
 	void Find(String findstr)
-	{/*
-		 JTextField txfName = new JTextField();
+	{
+		 JTextField FindField = new JTextField();
 		  // By passing a list of option strings (and a default of null), the focus goes in your custom component
 		  String[] options = {"OK", "Cancel"};
-		  int result = JOptionPane.showOptionDialog(null, txfName, "Enter a name", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+		  int result = JOptionPane.showOptionDialog(null,FindField, "Enter a name", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
     
-		*/  
-		  view.table.requestFocus();
+		//  view.table.requestFocus();
 		  //
 		//  view.table.setColumnSelectionInterval(1,1);
 		//  view.table.setRowSelectionInterval(7,7);
-		  scrollToVisible(view.table,50,1);
-		//  view.table.changeSelection(50,1,false, false);
-		  view.table.setColumnSelectionInterval(1,1);
-		 view.table.setRowSelectionInterval(50,50);
-		  
+
+		  if(result==JOptionPane.OK_OPTION)
+		  {
+			  String fstring=FindField.getText();
+
+			  String temp;
+				
+				for(int r=0;r<view.ROWCOUNT-1;r++)	
+				 for(int c=0;c<7;c++)
+			     	 { 
+				      temp=view.GetData(view.table, r, c);
+				    
+				      if(temp.length()==0) continue;
+				      if(temp.contains(fstring)) 
+				   		 { 
+				   		 
+				   		 scrollToVisible(view.table,r,c);
+				 		//  view.table.changeSelection(50,1,false, false);
+				 		  view.table.setColumnSelectionInterval(c,c);
+				 		 view.table.setRowSelectionInterval(r,r);		
+				   		 return;
+				   		 }
+			     	 
+			     	 } //for loop ends
+		  }
 		  
 		  // 
 	}

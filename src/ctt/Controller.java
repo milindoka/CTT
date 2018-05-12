@@ -36,7 +36,7 @@ public class Controller {
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTMENUbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
-    private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,PRINTMASTERbuttonAL;
+    private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
     private ActionListener INSERTROWbuttonAL,SWAPbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
     private ActionListener SCHOOLbuttonAL,HELPbuttonAL;
@@ -307,7 +307,7 @@ public class Controller {
                
         view.getPRINTCLASSbutton().addActionListener(PRINTCLASSbuttonAL);
         
-        PRINTMASTERbuttonAL = new ActionListener()
+        FINDbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
               {  
@@ -321,7 +321,7 @@ public class Controller {
               }
             	};
                
-        view.getPRINTMASTERbutton().addActionListener(PRINTMASTERbuttonAL);
+        view.getFINDbutton().addActionListener(FINDbuttonAL);
         
    
         PRINTMENUbuttonAL = new ActionListener()

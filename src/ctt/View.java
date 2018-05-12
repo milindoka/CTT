@@ -38,7 +38,7 @@ public class View {
 	public JFrame frame;
     private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
-    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,PRINTMASTERbutton;
+    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,FINDbutton;
     private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,WIZARD02button,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
@@ -62,8 +62,6 @@ public class View {
  
     
     JProgressBar jb=new JProgressBar(0,100);
-    
-    
     
     int CC,DC,GC,indirow,lecturecount;
     JLabel countLabel,spesLabel,msgLabel; 
@@ -167,8 +165,6 @@ public class View {
     {
     	frame = new JFrame("College Time Table ( CTT )");                  
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-   
-        
         jb.setValue(0); jb.setStringPainted(true);jb.setVisible(false);
         
         
@@ -196,7 +192,6 @@ public class View {
                 }
                 
             };
-            
 
          
             table.setRowHeight(20);
@@ -363,7 +358,7 @@ public class View {
        
         PRINTINDIbutton = new JButton("Print All Indi's");
         PRINTCLASSbutton = new JButton("Print All Classes");
-        PRINTMASTERbutton = new JButton("Print Master");
+        FINDbutton = new JButton("Find  (Ctrl-F)");
 
         FINDREPLACEbutton = new JButton("Find/Replace");
         WIZARD01button= new JButton("Wizard-01");
@@ -392,9 +387,10 @@ public class View {
         buttonPanel.add(CLEARFRIZbutton);
         
         
+        buttonPanel.add(FINDbutton);
         buttonPanel.add(PRINTINDIbutton);
         buttonPanel.add(PRINTCLASSbutton);
-        buttonPanel.add(PRINTMASTERbutton);
+        
         
         buttonPanel.add(FINDREPLACEbutton);
         buttonPanel.add(WIZARD01button);
@@ -540,8 +536,8 @@ public class View {
     { return PRINTCLASSbutton;
     }
 
-    public JButton getPRINTMASTERbutton()
-    { return PRINTMASTERbutton;
+    public JButton getFINDbutton()
+    { return FINDbutton;
     }
     
 
