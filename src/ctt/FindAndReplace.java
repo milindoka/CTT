@@ -89,5 +89,27 @@ public class FindAndReplace
 	
 
 	
+	void Find(String findstr)
+	{/*
+		 JTextField txfName = new JTextField();
+		  // By passing a list of option strings (and a default of null), the focus goes in your custom component
+		  String[] options = {"OK", "Cancel"};
+		  int result = JOptionPane.showOptionDialog(null, txfName, "Enter a name", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+    
+		*/  
+		  view.table.requestFocus();
+		  //
+		//  view.table.setColumnSelectionInterval(1,1);
+		//  view.table.setRowSelectionInterval(7,7);
+		  scrollToVisible(view.table,50,1);
+		//  view.table.changeSelection(50,1,false, false);
+		  view.table.setColumnSelectionInterval(1,1);
+		 view.table.setRowSelectionInterval(50,50);
+		  
+		  
+		  // 
+	}
+	
+	
 	
 }

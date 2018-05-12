@@ -192,7 +192,8 @@ public class Controller {
         LoadAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {        
+              {       
+              if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
                Freeze();
               }
         };                
@@ -309,10 +310,13 @@ public class Controller {
         PRINTMASTERbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {      
-            	  view.ClearTable3();
-            	  PrepareMaster();
-                  PrintMaster();
+              {  
+            	  
+            	  
+            	 // view.ClearTable3();
+            	 // PrepareMaster();
+                 // PrintMaster();
+            	  far.Find("tt");
    
               }
             	};
@@ -426,7 +430,7 @@ public class Controller {
 			if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
 			Freeze();
 			//view.table.requestFocus();
-			view.table.repaint();
+			//view.table.repaint();
             
          }
       
@@ -463,7 +467,6 @@ public class Controller {
     
     void Freeze()
     {
-    	
   	  int row = view.table.getSelectedRow();
       int col = view.table.getSelectedColumn();
       if(row<0 || col<1) return;
@@ -477,7 +480,6 @@ public class Controller {
 	  view.table.setColumnSelectionInterval(col,col);
 	  view.table.setRowSelectionInterval(row,row);
 	  view.modified=true;
-    	
     }
     
     

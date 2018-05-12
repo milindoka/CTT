@@ -130,6 +130,8 @@ public class View {
      SetEmptyHeader();
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
+    
+    if(row<0 || col<0) return;
     String str = (String)table.getValueAt(row, col);
     if(str==null) return;
     if(str.length()==0 ) return;
