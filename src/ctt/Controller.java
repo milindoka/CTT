@@ -432,7 +432,25 @@ public class Controller {
       
   });            
   
-        
+
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK), "printcurrent");
+  actionMap2.put("printcurrent", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{  
+         PrintCurrent();   
+         }
+      
+  });            
+
+  
+  
+  
+  
  }
 //////////////    
 ///////////////    
