@@ -28,6 +28,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
@@ -58,7 +59,7 @@ public class View {
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
     JTextField tcField;
-
+   
  
     
     JProgressBar jb=new JProgressBar(0,100);
@@ -150,7 +151,8 @@ public class View {
     int left=str.indexOf("(");
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
-    final String teachercode = str.substring(str.indexOf("("),str.indexOf(")")+1);
+    final String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
+    /*
     CreateIndi(teachercode);
     CountGaps();
     CountDoubles();
@@ -158,6 +160,10 @@ public class View {
     CreatePerPerDivisionChart();
     UpdateDisplay();
     UpdateCounts(teachercode);
+    */
+    
+    tcField.setText(teachercode);
+   // System.out.println(teachercode);
     }
     
     
@@ -409,6 +415,14 @@ public class View {
         spesLabel = new JLabel("       ");
         msgLabel=new JLabel("Teacher code : ");
         tcField=new JTextField(2);
+        tcField.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                tcField.setText("");
+            }
+        });
+        
+        
         tcField.setDocument(new JTextFieldLimit(2));
     	tcField.getDocument().addDocumentListener(onTeacherCode); 
         msgLabel.setVisible(true);
@@ -1030,35 +1044,6 @@ public class View {
 	    CreatePerPerDivisionChart();
 	    UpdateDisplay();
 	    UpdateCounts(tc);
-	   
-   
-/*    
-
-	    InputMap inputMap = table.getInputMap(JComponent.WHEN_FOCUSED);
-	    ActionMap actionMap = table.getActionMap();
-
-	    inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "delete");
-	    actionMap.put("delete", new AbstractAction() {
-	        public void actionPerformed(ActionEvent evt) {
-	           // Note, you can use getSelectedRows() and/or getSelectedColumns
-	           // to get all the rows/columns that have being selected
-	           // and simply loop through them using the same method as
-	           // described below.
-	           // As is, it will only get the lead selection
-	           int row = table.getSelectedRow();
-	           int col = table.getSelectedColumn();
-	           if (row >= 0 && col >= 0) {
-	               row = table.convertRowIndexToModel(row);
-	               col = table.convertColumnIndexToModel(col);
-	               table.getModel().setValueAt(" ", row, col);
-	               System.out.println("TT");
-	           }
-	        }
-	    });    
-
-*/
-
-
 }
 
    
@@ -1066,11 +1051,6 @@ public class View {
    
 
 }
-
-
-
-
-	
 
 
 

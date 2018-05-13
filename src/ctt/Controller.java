@@ -452,6 +452,23 @@ public class Controller {
   });            
 
   
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK), "find");
+  actionMap2.put("find", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{  
+         far.Find();   
+         }
+      
+  });            
+
+  
+  
+  
   inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK), "nextfind");
   actionMap2.put("nextfind", new AbstractAction() {
       /**
@@ -617,7 +634,8 @@ view.SetTitle(currentfilename);
    	     
           }
 		
-		  view.ClearMasterTable();   
+		  view.ClearMasterTable();
+		  view.ClearIndividualTable();
           view.ClearColorMatrix();
  
           for (int i=0;i<Demo.demoarr.length;i++)

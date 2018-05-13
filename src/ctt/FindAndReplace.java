@@ -1,12 +1,9 @@
 package ctt;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JViewport;
 
 public class FindAndReplace 
 { View view;
@@ -62,45 +59,14 @@ public class FindAndReplace
 		Toast.AutoCloseMsg(strmsg);
 	} // function ends
 	
-	
-	/*
-	public static void scrollToVisible(JTable table, int rowIndex, int vColIndex) {
-        if (!(table.getParent() instanceof JViewport)) {
-            return;
-        }
-        JViewport viewport = (JViewport)table.getParent();
-
-        // This rectangle is relative to the table where the
-        // northwest corner of cell (0,0) is always (0,0).
-        Rectangle rect = table.getCellRect(rowIndex, vColIndex, true);
-
-        // The location of the viewport relative to the table
-        Point pt = viewport.getViewPosition();
-
-        // Translate the cell location so that it is relative
-        // to the view, assuming the northwest corner of the
-        // view is (0,0)
-        rect.setLocation(rect.x-pt.x, rect.y-pt.y);
-
-        table.scrollRectToVisible(rect);
-
-        // Scroll the area into view
-        //viewport.scrollRectToVisible(rect);
-    }
-	
-*/
-	
+		
 	void Find()
 	{
 		 JTextField FindField = new JTextField();
 		  // By passing a list of option strings (and a default of null), the focus goes in your custom component
 		  String[] options = {"OK", "Cancel"};
-		  int result = JOptionPane.showOptionDialog(null,FindField, "Enter a name", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+		  int result = JOptionPane.showOptionDialog(null,FindField, "Enter String To Find", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
     
-		//  view.table.requestFocus();
-		  //
-		//  view.table.setColumnSelectionInterval(1,1);
-		//  view.table.setRowSelectionInterval(7,7);
 
 		  if(result==JOptionPane.OK_OPTION)
 		  {
