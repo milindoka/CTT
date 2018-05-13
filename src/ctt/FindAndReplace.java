@@ -108,27 +108,24 @@ public class FindAndReplace
 
 			  String temp;
 				
-				for(int r=0;r<view.ROWCOUNT-1;r++)	
-				 for(int c=0;c<7;c++)
+				for(currentrow=0;currentrow<view.ROWCOUNT-1;currentrow++)	
+				 for(currentcol=0;currentcol<7;currentcol++)
 			     	 { 
-				      temp=view.GetData(view.table, r, c);
+				      temp=view.GetData(view.table, currentrow, currentcol);
 				    
 				      if(temp.length()==0) continue;
 				      if(temp.contains(findstring)) 
 				   		 { 
 				   		 
-				   		 //scrollToVisible(view.table,r,c);
-				 		//  view.table.changeSelection(50,1,false, false);
-				 		  view.table.setColumnSelectionInterval(c,c);
-				 		 view.table.setRowSelectionInterval(r,r);
-				 		view.table.scrollRectToVisible(new Rectangle(view.table.getCellRect(r, 0, true)));
+				 		  view.table.setColumnSelectionInterval(currentcol,currentcol);
+				 		 view.table.setRowSelectionInterval(currentrow,currentrow);
+				 		view.table.scrollRectToVisible(new Rectangle(view.table.getCellRect(currentrow, 0, true)));
 				   		 return;
 				   		 }
 			     	 
 			     	 } //for loop ends
 		  }
 		  
-		  // 
 	}
 	
 	
