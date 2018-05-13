@@ -11,6 +11,8 @@ import javax.swing.JViewport;
 public class FindAndReplace 
 { View view;
   int counter=0;
+  private String findstring="";
+  private int currentrow=0,currentcol=0;
 	public void setView(View vu)
 	{
 		this.view=vu;
@@ -31,7 +33,7 @@ public class FindAndReplace
 		int option = JOptionPane.showConfirmDialog(null, message, "Find and Replace", JOptionPane.OK_CANCEL_OPTION);
 		if (option == JOptionPane.OK_OPTION) 
 		{
-			  find=Find.getText();
+			  findstring=Find.getText();
 			  replace=Replace.getText();
 		
 		        //System.out.println(Find.getText());
@@ -49,8 +51,8 @@ public class FindAndReplace
 		      temp=view.GetData(view.table, r, c);
 		      
 		      if(temp.length()==0) continue;
-		      if(temp.contains(find)) 
-		   		 { String str=temp.replace(find,replace);	
+		      if(temp.contains(findstring)) 
+		   		 { String str=temp.replace(findstring,replace);	
 		   		   view.SetData(str, view.table,r,c);
 		   		   counter++;
 		   		 }
@@ -61,7 +63,7 @@ public class FindAndReplace
 	} // function ends
 	
 	
-	
+	/*
 	public static void scrollToVisible(JTable table, int rowIndex, int vColIndex) {
         if (!(table.getParent() instanceof JViewport)) {
             return;
@@ -86,9 +88,9 @@ public class FindAndReplace
         //viewport.scrollRectToVisible(rect);
     }
 	
-
+*/
 	
-	void Find(String findstr)
+	void Find()
 	{
 		 JTextField FindField = new JTextField();
 		  // By passing a list of option strings (and a default of null), the focus goes in your custom component
@@ -102,7 +104,7 @@ public class FindAndReplace
 
 		  if(result==JOptionPane.OK_OPTION)
 		  {
-			  String fstring=FindField.getText();
+			  findstring=FindField.getText();
 
 			  String temp;
 				
@@ -112,13 +114,14 @@ public class FindAndReplace
 				      temp=view.GetData(view.table, r, c);
 				    
 				      if(temp.length()==0) continue;
-				      if(temp.contains(fstring)) 
+				      if(temp.contains(findstring)) 
 				   		 { 
 				   		 
-				   		 scrollToVisible(view.table,r,c);
+				   		 //scrollToVisible(view.table,r,c);
 				 		//  view.table.changeSelection(50,1,false, false);
 				 		  view.table.setColumnSelectionInterval(c,c);
-				 		 view.table.setRowSelectionInterval(r,r);		
+				 		 view.table.setRowSelectionInterval(r,r);
+				 		view.table.scrollRectToVisible(new Rectangle(view.table.getCellRect(r, 0, true)));
 				   		 return;
 				   		 }
 			     	 
@@ -129,5 +132,41 @@ public class FindAndReplace
 	}
 	
 	
+	void NextFind()
+	{   
+		if(findstring==null) return;
+		if(findstring.length()==0) return;
+		String temp;
+//	    boolean found=false;
 	
+	    while(true)
+	    {
+	    	currentcol++;
+	    	if(currentcol>6) { currentcol=0; currentrow++; }
+	    	if(currentrow>view.ROWCOUNT-2) { currentrow=0;currentcol=0;return;}
+            
+	        temp=view.GetData(view.table, currentrow,currentcol);
+		    
+		      if(temp.length()==0) continue;
+		      if(temp.contains(findstring)) 
+		   		 { 
+		   		 
+		   		
+		   		if (view.table.isEditing()) view.table.getCellEditor().stopCellEditing();
+		   	 
+		   		 //  view.table.changeSelection(50,1,false, false);
+		 		  view.table.setColumnSelectionInterval(currentcol,currentcol);
+		 		  view.table.setRowSelectionInterval(currentrow,currentrow);		
+		 		
+		 		//view.table.getSelectionModel().setSelectionInterval(i, i);
+		 		view.table.scrollRectToVisible(new Rectangle(view.table.getCellRect(currentrow, 0, true)));
+		 		  
+		 		  
+		 		  return;
+		   		 }
+	    
+	    }
+				
+		
+	}
 }

@@ -36,7 +36,7 @@ public class Controller {
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTMENUbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
-    private ActionListener PRINTINDIbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
+    private ActionListener NEXTFINDbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
     private ActionListener INSERTROWbuttonAL,SWAPbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
     private ActionListener SCHOOLbuttonAL,HELPbuttonAL;
@@ -286,15 +286,15 @@ public class Controller {
         
         
         
-        PRINTINDIbuttonAL = new ActionListener()
+        NEXTFINDbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {  PrintAllIndi();                  
-
+              {                 
+            	  far.NextFind();
               }
             	};
                
-        view.getPRINTINDIbutton().addActionListener(PRINTINDIbuttonAL);
+        view.getNEXTFINDbutton().addActionListener(NEXTFINDbuttonAL);
         
         
         PRINTCLASSbuttonAL = new ActionListener()
@@ -316,7 +316,7 @@ public class Controller {
             	 // view.ClearTable3();
             	 // PrepareMaster();
                  // PrintMaster();
-            	  far.Find("tt");
+            	  far.Find();
    
               }
             	};
@@ -452,6 +452,20 @@ public class Controller {
   });            
 
   
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK), "nextfind");
+  actionMap2.put("nextfind", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{  
+         far.NextFind();   
+         }
+      
+  });            
+
   
   
   

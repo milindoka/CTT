@@ -38,7 +38,7 @@ public class View {
 	public JFrame frame;
     private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
-    private JButton CLEARFRIZbutton,PRINTINDIbutton,PRINTCLASSbutton,FINDbutton;
+    private JButton CLEARFRIZbutton,NEXTFINDbutton,PRINTCLASSbutton,FINDbutton;
     private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,WIZARD02button,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
@@ -356,7 +356,7 @@ public class View {
         MULTIFRIZbutton = new JButton("Multi Freeze");
         CLEARFRIZbutton = new JButton("Clear Freez");
        
-        PRINTINDIbutton = new JButton("Print All Indi's");
+        NEXTFINDbutton = new JButton("Next Find (Ctrl-K)");
         PRINTCLASSbutton = new JButton("Print All Classes");
         FINDbutton = new JButton("Find  (Ctrl-F)");
 
@@ -388,7 +388,7 @@ public class View {
         
         
         buttonPanel.add(FINDbutton);
-        buttonPanel.add(PRINTINDIbutton);
+        buttonPanel.add(NEXTFINDbutton);
         buttonPanel.add(PRINTCLASSbutton);
         
         
@@ -528,8 +528,8 @@ public class View {
     }
     
 
-    public JButton getPRINTINDIbutton()
-    { return PRINTINDIbutton;
+    public JButton getNEXTFINDbutton()
+    { return NEXTFINDbutton;
     }
 
     public JButton getPRINTCLASSbutton()
