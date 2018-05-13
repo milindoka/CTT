@@ -56,13 +56,21 @@ public HelpDialog()
     		+ " can easily start using CTT in a few minutes. Its Spreadsheet design gives "
     		+ "a comfortable look and feel for a computer novice." +
     		" Take a quick look at demo timetable. Do some trials on it and then start"
-    		+ " with Wizard1 followed by Wizard2.</P>";
+    		+ " with New Time Table (Same as Wizard1). Wizard1 gives you a skeleton, where" +
+    		" you have to edit/modify class and time slot. After completeting wizard1, please enter fixed" +
+    		" lectures such as practicals or tutorials which you do not want to move anywhere." +
+    		" These lectures should be Freezed (Yellow). Freezed lecures will not be moved" +
+    		" by Clash or Gap Remove Routines." +
+    		" After entering fixed lectures go to Wizard2.</P>";
     TEXTp2+="<H4 align=center>Quickly build Time Table ....</H4>"+
 "<ol>"+
 "<li> Use Wizard1 to clean the table and Fill Sample Time Slots.</li>"+
 "<li> Replace preset time slots with your own time slots, also put your classes.</li>"+
 "<li> Do not write anything in time row, write Lectures (Periods) at appropriate places.</li>"+
-"<li> Enter lectures in SUB(TR) format, 3 letters for subject and 2 letters for Teacher.</li>"+
+"<li> Enter Fixed Lectures, such as practicals. Split lectures are separated by comma. Freeze fixed lectures.</li>"+
+"<li> After Freezed Lectures, enter normal lectures. Do not write anything in time row.</li>"+
+"<li> You can use Wizard2 to populate the Master or you can enter them manually and multiply by copy paste.</li>"+
+"<li> Always enter lectures in SUB(TR) format, 3 letters for subject and 2 letters for Teacher.</li>"+
 "<li> Moving Cell-Pointer to any Lecture Item will show the respective Individual Time Table.</li>"+
 "<li> Moving the Cell-Pointer to any Class, will show respective class time table.</li>"+
 "<li> (CC) Clash-Count is the total number of clashes. Red cell indicates clash.</li>"+

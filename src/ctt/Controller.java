@@ -344,6 +344,8 @@ public class Controller {
             	  if(schoolname!=null) 
             		  { Header[0]=schoolname;
             		    view.getSCHOOLbutton().setText(Header[0]);
+            		    view.collegename=Header[0];
+            		    view.modified=true;
             		  }
             		  
             	  
