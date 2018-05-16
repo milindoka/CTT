@@ -85,7 +85,8 @@ public class Controller {
         
     	String lastfile = LoadFile.GetLastFileIfAny();
     	if(lastfile.length()!=0)  LoadTT(lastfile);
-        ShowHelpTip();
+   
+    	//ShowHelpTip();
     	
     	
   /////////////Actions  	
@@ -496,14 +497,14 @@ public class Controller {
 //////////////    
 ///////////////    
 ///////////// Methods called in action listeners ////////////////////    
-
+/*
      void ShowHelpTip()
      {Tipoftheday tod=new Tipoftheday();
       String tip=tod.GetTip();
       
      view.centerLabel.setText(tip);	
      }
-    
+  */  
     
     
     
