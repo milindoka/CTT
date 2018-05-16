@@ -438,6 +438,10 @@ public class View {
         countpanel.add(tcField);
         countpanel.add(jb); 
         
+      // JPanel centerpanel=new JPanel();
+       
+       JLabel centerLabel = new JLabel("Tip of the Day :     ");
+      // centerpanel.add(centerLabel)
        
         JPanel southpanel=new JPanel();
         southpanel.setLayout(new BorderLayout());
@@ -447,6 +451,7 @@ public class View {
         JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
         panel.add(southpanel, BorderLayout.SOUTH);
+        panel.add(centerLabel,BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.NORTH);
         
         
