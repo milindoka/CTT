@@ -65,7 +65,7 @@ public class View {
     JProgressBar jb=new JProgressBar(0,100);
     
     int CC,DC,GC,indirow,lecturecount;
-    JLabel countLabel,spesLabel,msgLabel; 
+    JLabel countLabel,spesLabel,msgLabel,centerLabel; 
     String allcounts;
     ListSelectionModel listSelectionModel;
   
@@ -440,7 +440,7 @@ public class View {
         
       // JPanel centerpanel=new JPanel();
        
-       JLabel centerLabel = new JLabel("Tip of the Day :     ");
+       centerLabel = new JLabel(" ");
       // centerpanel.add(centerLabel)
        
         JPanel southpanel=new JPanel();
