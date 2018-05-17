@@ -226,7 +226,9 @@ public class RemoveCDG
     { sourcerow=1;
       sourcecol=1;
      CalculateGlobalCounts();
-     if(onlyclash && globalCC==0) { Toast.AutoCloseMsg("No Clashes, You May Try Remove Gaps-Doubles !");return; }
+     if(onlyclash && globalCC==0) {
+    	 view.toast.AutoCloseMsg("No Clashes, You May Try Remove Gaps-Doubles !");
+    	 return; }
      int lastrow=GetLastRow(),n=-1;
      view.jb.setMaximum(lastrow);
      view.jb.setVisible(true);

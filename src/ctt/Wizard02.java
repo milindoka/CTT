@@ -243,7 +243,7 @@ public Wizard02()
 	
 	
 	if(!AddOneLecture(clas,L32))
-	Toast.AutoCloseMsg("Empty cell NOT available, Try another Division or Increase Time Table Slots");
+	view.toast.AutoCloseMsg("Empty cell NOT available, Try another Division or Increase Time Table Slots");
 	
 	Updatecount(clas,L32);
 	//claslist.showPopup();
@@ -266,7 +266,7 @@ public Wizard02()
 	String L32=subject+"("+teacher+")";
 	
 	if(!RemoveOneLecture(clas,L32))
-	Toast.AutoCloseMsg("No Such Lecture Found");
+	//Toast.AutoCloseMsg("No Such Lecture Found");
 	
 	Updatecount(clas,L32);
 	}

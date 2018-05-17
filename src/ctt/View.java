@@ -45,6 +45,7 @@ public class View {
     private DefaultTableModel model;
     private DefaultTableModel model2;
     private DefaultTableModel model3;
+    public Toast toast;
     public String collegename="SCHOOL/COLLEGE";
     
     String LectureCount;
@@ -460,7 +461,7 @@ public class View {
         frame.add(panel);
         frame.setVisible(true);
         
-        
+        toast=new Toast();
         
     }
 

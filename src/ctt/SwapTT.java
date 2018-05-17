@@ -90,7 +90,7 @@ public class SwapTT
 		
 		
 		String strmsg=String.format("Exchanged %d Entries",counter);
-		Toast.AutoCloseMsg(strmsg);
+	    view.toast.AutoCloseMsg(strmsg);
 	} // function ends
 	
 	

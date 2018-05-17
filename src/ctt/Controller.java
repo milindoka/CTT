@@ -33,6 +33,7 @@ public class Controller {
     private RemoveCDG rcdg;
     private FindAndReplace far;
     private SwapTT swp;
+    ;
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTMENUbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
@@ -64,6 +65,8 @@ public class Controller {
         rcdg.setView(view);
         far=new FindAndReplace();
         far.setView(view);
+        
+       
         
         swp=new SwapTT();
         swp.setView(view);
@@ -937,7 +940,7 @@ view.SetTitle(currentfilename);
     	 }
     	 try {f0.close();} catch (IOException e) {e.printStackTrace();}
     	 
-     	Toast.AutoCloseMsg("File Saved");
+       view.toast.AutoCloseMsg("File Saved");
      	LoadFile.WriteLastFile(fnem);
     	view.SetTitle(fnem);
     	view.modified=false;

@@ -56,7 +56,7 @@ public class FindAndReplace
 	     	 
 	     	 } //for loop ends
 		String strmsg=String.format("Replaced %d Occurrences",counter);
-		Toast.AutoCloseMsg(strmsg);
+	   view.toast.AutoCloseMsg(strmsg);
 	} // function ends
 	
 		
