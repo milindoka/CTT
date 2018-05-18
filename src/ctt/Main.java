@@ -40,8 +40,6 @@ public class Main
 		  }
 		  // setting discardEvent to true will not forward the key event to the focused component
 		  boolean discardEvent = false;
-		 
-	
 		  return discardEvent;
 	
 		    }

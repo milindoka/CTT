@@ -1,11 +1,9 @@
 package ctt;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -247,7 +245,11 @@ public class Controller {
         REMGAPDbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {           
+              {          
+            	  if(view.modified) 
+            	  { int  result=WarnBeforeCGD(); 
+            	    if(result!=JOptionPane.OK_OPTION) return; 
+            	   }
             	  rcdg.onlyclash=false;
             	  OnRemoveClashThread();
               }
@@ -259,7 +261,11 @@ public class Controller {
         REMCLASHbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {           
+              {     
+            	  if(view.modified) 
+            	  { int  result=WarnBeforeCGD(); 
+            	    if(result!=JOptionPane.OK_OPTION) return; 
+            	   }
             	  rcdg.onlyclash=true;
             	  OnRemoveClashThread();
               }
@@ -940,7 +946,7 @@ view.SetTitle(currentfilename);
     	 }
     	 try {f0.close();} catch (IOException e) {e.printStackTrace();}
     	 
-       view.toast.AutoCloseMsg("File Saved");
+        view.toast.AutoCloseMsg("File Saved");
      	LoadFile.WriteLastFile(fnem);
     	view.SetTitle(fnem);
     	view.modified=false;
@@ -948,7 +954,7 @@ view.SetTitle(currentfilename);
     	
     private void LoadTT(String ttfile)
     {
-    	 currentfilename=ttfile;
+    	currentfilename=ttfile;
     	BufferedReader reader=null;
     	try { 	reader = new BufferedReader(new FileReader(ttfile));}
     	catch (FileNotFoundException e1) {e1.printStackTrace();}
@@ -1123,6 +1129,25 @@ view.SetTitle(currentfilename);
    return choice;
 	   
    }
+   
+   int WarnBeforeCGD()
+   {
+   int choice=JOptionPane.showOptionDialog(null, 
+	        "Table modified. This routine will make several changes, Continue ?", 
+	        "Warning ..", 
+	        JOptionPane.OK_CANCEL_OPTION, 
+	        JOptionPane.INFORMATION_MESSAGE, 
+	        null, 
+	        new String[]{"Yes, discard changes and continue", "No, I Will Save and Come back"}, // this is the array
+	        "default");
+   
+   
+   return choice;
+	   
+   }
+   
+   
+   
    
 }  
     

@@ -460,7 +460,13 @@ public class View {
         frame.add(scrollPane);
         frame.add(panel);
         frame.setVisible(true);
-        
+     /*  
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	 toast=new Toast();
+            }
+        });
+       */ 
         toast=new Toast();
         
     }

@@ -45,15 +45,17 @@ class Toast extends JFrame
     	dialog.setLocationRelativeTo(null);
     	dialog.pack();
     	dialog.setVisible(true);
-    	//create timer to dispose of dialog after 2 seconds
+    	//create timer to dispose of dialog after few seconds
     	Timer timer = new Timer(5000, new AbstractAction() {
     	    /**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
-			public void actionPerformed(ActionEvent ae) {
+			public void actionPerformed(ActionEvent ae) 
+			{
     	        dialog.setVisible(false);
+    	        
     	    }
     	});
     	timer.setRepeats(false);//the timer should only go off once
