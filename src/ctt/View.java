@@ -258,6 +258,7 @@ public class View {
                 SetData(DragCellBuffer,table,row,col);
                 Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
                 frame.setCursor(normalCursor);
+                refresh();
                 }
 
             });
