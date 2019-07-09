@@ -3,6 +3,7 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -69,7 +70,7 @@ public class View {
     int CC,DC,GC,indirow,lecturecount;
     JLabel countLabel,spesLabel,msgLabel,centerLabel; 
     String allcounts;
-    ListSelectionModel listSelectionModel;
+//    ListSelectionModel listSelectionModel;
   
     String[][] Matrix = new String[MROWS][COLS];
     
@@ -202,6 +203,36 @@ public class View {
             };
 
          
+           //////88888888888888888
+            
+            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            table.setDragEnabled(true);
+            table.setDropMode(DropMode.USE_SELECTION);
+            table.setTransferHandler(TH);
+
+           /* 
+            
+            table.addMouseListener(new MouseAdapter() {
+                public void mouseReleased(MouseEvent e) {
+                    Point p = e.getPoint();
+                    int row = table.rowAtPoint(p);
+                    int col = table.columnAtPoint(p);
+                //    table.setSelectionRowInterval(row);
+                    table.setRowSelectionInterval(row,row);
+                    table.setColumnSelectionInterval(col,col);
+                    
+                }
+            });
+            
+            */
+            
+            
+            
+            
+             //////888888888888888
+            
+            
+            
             table.setRowHeight(20);
             table.setCellSelectionEnabled(true);     	
             model =  (DefaultTableModel) table.getModel();
@@ -229,12 +260,12 @@ public class View {
             //////////////    Focus Listner
             //////////////
             
-           listSelectionModel = table.getSelectionModel();
+        //   listSelectionModel = table.getSelectionModel();
            table.getSelectionModel()
                    .addListSelectionListener(new MyRowListener());
             table.getColumnModel().getSelectionModel()
                     .addListSelectionListener(new MyColListener());
-            table.setSelectionModel(listSelectionModel);
+           // table.setSelectionModel(listSelectionModel);
      //////////////////////////
             table.getModel().addTableModelListener(new TableModelListener() {
 
@@ -248,15 +279,7 @@ public class View {
 ////////////////////////////////////////     
             
             
-            //////88888888888888888
-            
-            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            table.setDragEnabled(true);
-            table.setDropMode(DropMode.USE_SELECTION);
-            table.setTransferHandler(TH);
-
-             
-             //////888888888888888
+ 
          /*  
              table.addMouseMotionListener(new MouseAdapter() {
        	      @Override public void mouseDragged(MouseEvent e) {
@@ -497,6 +520,9 @@ public class View {
         });
        */ 
         toast=new Toast();
+       // TH.SetVP(this);
+        
+    //   SetFocusToCell(5,5);
         
     }
 
@@ -1014,7 +1040,7 @@ public class View {
             return Color.YELLOW;
         }
 
-       // @Override
+        @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column)
         {
@@ -1087,6 +1113,14 @@ public class View {
 	    UpdateCounts(tc);
 }
 
+   
+
+   void SetFocusToCell(int row,int col)
+   {
+	   table.setRowSelectionInterval(row,row);
+	    table.setColumnSelectionInterval(col,col);
+
+   }
    
    
    

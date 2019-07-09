@@ -23,8 +23,12 @@ private JTable table;
  private DefaultTableModel model;
  private int rowIndex;
  private int colIndex;
+ // View vu=new View("-");
+ 
+ //void SetVP(View v){this.vu=v;}
+ 
 
-@Override
+ @Override
 public int getSourceActions(JComponent c) {
     return COPY_OR_MOVE;
 }
@@ -36,7 +40,7 @@ protected Transferable createTransferable(JComponent source) {
     model = (DefaultTableModel) table.getModel();
     rowIndex = table.getSelectedRow();
     colIndex = table.getSelectedColumn();
-
+    
 
     model.getValueAt(rowIndex, colIndex);
 
@@ -52,9 +56,10 @@ protected void exportDone(JComponent source, Transferable data, int action) {
     model = (DefaultTableModel) table.getModel();
     rowIndex = table.getSelectedRow();
     colIndex = table.getSelectedColumn();
-   if(action==MOVE) 
-      model.setValueAt("", rowIndex, colIndex);
-   System.out.println(action);
+    
+    
+ 
+  // table.changeSelection(rowIndex,colIndex,true,true);
 }
 
 
@@ -74,8 +79,7 @@ public boolean importData(TransferSupport support) {
     int row = table.getSelectedRow();
     int col = table.getSelectedColumn();
 
-
-
+   
     try {
         data = (Object) support.getTransferable().getTransferData(DataFlavor.stringFlavor);
     } catch (UnsupportedFlavorException e) {
@@ -87,7 +91,9 @@ public boolean importData(TransferSupport support) {
     }
 
     model.setValueAt(data, row, col);
-    model.fireTableStructureChanged();
+    
+   // vu.SetFocusToCell(row, col);
+  //  model.fireTableStructureChanged();
     return false;
 }
 
