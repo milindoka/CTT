@@ -47,7 +47,8 @@ public class View {
     private DefaultTableModel model3;
     public Toast toast;
     public String collegename="SCHOOL/COLLEGE";
-    
+   
+    private MyTransferHandlerT TH=new MyTransferHandlerT();
     String LectureCount;
     JTable table;
     JTable table2;
@@ -244,7 +245,29 @@ public class View {
 					
 				}
               });
-////////////////////////////////////////            
+////////////////////////////////////////     
+            
+            
+            //////88888888888888888
+            
+            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            table.setDragEnabled(true);
+            table.setDropMode(DropMode.USE_SELECTION);
+            table.setTransferHandler(TH);
+
+             
+             //////888888888888888
+         /*  
+             table.addMouseMotionListener(new MouseAdapter() {
+       	      @Override public void mouseDragged(MouseEvent e) {
+       	        JComponent c = (JComponent) e.getComponent();
+       	        Optional.ofNullable(c.getTransferHandler())
+       	                .ifPresent(th -> th.exportAsDrag(c, e, TransferHandler.COPY));
+       	      }
+       	    });
+
+           */  
+
             
             
               ///--------DELETE KEY TO CLEART CELL or RANGE OF CELLS-------------------------------------
@@ -451,9 +474,15 @@ public class View {
         
         JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-        panel.add(southpanel, BorderLayout.SOUTH);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
         panel.add(centerLabel,BorderLayout.CENTER);
-        panel.add(buttonPanel, BorderLayout.NORTH);
+        panel.add(southpanel, BorderLayout.NORTH);
+        
+        
+        
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,30,0));
+
+
         
         
         
