@@ -3,6 +3,7 @@ package ctt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 
@@ -48,8 +49,9 @@ public class View {
     private DefaultTableModel model3;
     public Toast toast;
     public String collegename="SCHOOL/COLLEGE";
+    private String DragCellBuffer="";
    
-    private MyTransferHandlerT TH=new MyTransferHandlerT();
+    Cursor hourglassCursor = new Cursor(Cursor.WAIT_CURSOR);
     String LectureCount;
     JTable table;
     JTable table2;
@@ -206,27 +208,59 @@ public class View {
            //////88888888888888888
             
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            table.setDragEnabled(true);
-            table.setDropMode(DropMode.USE_SELECTION);
-            table.setTransferHandler(TH);
+          //  table.setDragEnabled(true);
+          //  table.setDropMode(DropMode.USE_SELECTION);
+          //  table.setTransferHandler(TH);
 
-           /* 
-            
+           
+            /*
             table.addMouseListener(new MouseAdapter() {
                 public void mouseReleased(MouseEvent e) {
                     Point p = e.getPoint();
                     int row = table.rowAtPoint(p);
                     int col = table.columnAtPoint(p);
                 //    table.setSelectionRowInterval(row);
-                    table.setRowSelectionInterval(row,row);
-                    table.setColumnSelectionInterval(col,col);
+                    table.setRowSelectionInterval(TH.targetrow,TH.targetrow);
+                    table.setColumnSelectionInterval(TH.targetcol,TH.targetcol);
                     
                 }
             });
             
-            */
+           */
             
-            
+           table.addMouseListener(new MouseAdapter() {
+
+            //    @Override
+                public void mouseDragged(MouseEvent e) {
+                    System.out.println("mouseDragged");
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) 
+                { Point p = e.getPoint();
+                int row = table.rowAtPoint(p);
+                int col = table.columnAtPoint(p);
+                if(row>=0 && col>=0)
+                DragCellBuffer=GetData(table,row,col);
+                
+                
+                frame.setCursor(hourglassCursor);
+                 
+                
+                }
+
+           //     @Override
+                public void mouseReleased(MouseEvent e) 
+                {Point p = e.getPoint();
+                	int row = table.rowAtPoint(p);
+                int col = table.columnAtPoint(p);
+                if(row>=0 && col>=0)
+                SetData(DragCellBuffer,table,row,col);
+                Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                frame.setCursor(normalCursor);
+                }
+
+            });
             
             
              //////888888888888888
