@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -24,6 +26,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -51,7 +54,11 @@ public class View {
     public String collegename="SCHOOL/COLLEGE";
     private String DragCellBuffer="";
    
-    Cursor hourglassCursor = new Cursor(Cursor.WAIT_CURSOR);
+    
+    
+    
+    
+    Cursor dragCursor = new Cursor(Cursor.TEXT_CURSOR);
     String LectureCount;
     JTable table;
     JTable table2;
@@ -244,7 +251,22 @@ public class View {
                 DragCellBuffer=GetData(table,row,col);
                 
                 
-                frame.setCursor(hourglassCursor);
+           //     Toolkit toolkit = Toolkit. getDefaultToolkit();
+             //   Image image = toolkit.getImage("/Image/dragcursor.png");
+             //   dragCursor = toolkit.createCustomCursor(image , new Point(frame.getX(), 
+               //            frame.getY()), "");
+             //   frame.setCursor (dragCursor);
+                
+                
+                ImageIcon imageIcon = new ImageIcon ("Image/dragcursor.png"); 
+                Image img = imageIcon.getImage (); 
+                Toolkit t = Toolkit.getDefaultToolkit (); 
+                dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
+              //  this.setCursor (cursor);
+                
+                
+                
+                frame.setCursor(dragCursor);
                  
                 
                 }
