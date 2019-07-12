@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -27,6 +28,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import org.omg.CORBA.portable.InputStream;
+
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -35,6 +38,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.util.Arrays;
 
 public class View {
@@ -54,7 +58,7 @@ public class View {
     public String collegename="SCHOOL/COLLEGE";
     private String DragCellBuffer="";
    
-    
+   
     
     
     
@@ -249,25 +253,21 @@ public class View {
                 int col = table.columnAtPoint(p);
                 if(row>=0 && col>=0)
                 DragCellBuffer=GetData(table,row,col);
+               
+               
                 
-                
-           //     Toolkit toolkit = Toolkit. getDefaultToolkit();
-             //   Image image = toolkit.getImage("/Image/dragcursor.png");
-             //   dragCursor = toolkit.createCustomCursor(image , new Point(frame.getX(), 
-               //            frame.getY()), "");
-             //   frame.setCursor (dragCursor);
-                
-                
-                ImageIcon imageIcon = new ImageIcon ("Image/dragcursor.png"); 
-                Image img = imageIcon.getImage (); 
-                Toolkit t = Toolkit.getDefaultToolkit (); 
+             //  URL url = ClassLoader.getSystemClassLoader().getResource(".");
+              
+             //System.out.println(getClass().getClassLoader().getResource("."));
+        		
+            
+                Toolkit t = Toolkit.getDefaultToolkit ();
+                Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
                 dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
-              //  this.setCursor (cursor);
-                
-                
-                
                 frame.setCursor(dragCursor);
-                 
+              
+                
+               
                 
                 }
 
