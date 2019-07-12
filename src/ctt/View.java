@@ -268,8 +268,17 @@ public class View {
             });
             
             
-             //////888888888888888
-            
+                       
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
             
             
             table.setRowHeight(20);
@@ -412,6 +421,106 @@ public class View {
                  column.setCellRenderer(cellRenderer);
                 // column.setCellRenderer(fRenderer);
              }
+             
+             
+             
+             
+             //////99999999999999999
+             
+             table2.addMouseListener(new MouseAdapter() {
+
+                 //    @Override
+                     public void mouseDragged(MouseEvent e) {
+                         System.out.println("mouseDragged");
+                     }
+
+                     @Override
+                     public void mousePressed(MouseEvent e) 
+                     { Point p = e.getPoint();
+                     int row = table2.rowAtPoint(p);
+                     int col = table2.columnAtPoint(p);
+                     if(row>=0 && col>=0)
+                       {
+                  	   
+                  	   DragCellBuffer=GetData(table2,row,col);
+                      // String temp=GetData(table2,row,0);
+                      // if(temp.contains(":")) 
+                      	 
+                       
+                       
+                       }
+                    
+                 
+                     Toolkit t = Toolkit.getDefaultToolkit ();
+                     Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
+                     dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
+                     frame.setCursor(dragCursor);
+                     
+                     }
+
+                //     @Override
+                     public void mouseReleased(MouseEvent e) 
+                     { int i=0,j=0;
+                    	Point p = e.getPoint();
+                     	int row = table2.rowAtPoint(p);
+                     int col = table2.columnAtPoint(p);
+                     if(row>=0 && col>=0)
+                     {  String source=GetData(table2,row,0);
+                        if(source.contains(":")) /// is it time row ? 
+                         {  boolean timefound=false; //if yes then find in Master
+                        	for ( i=0;i<ROWCOUNT;i++)
+                        	  {String temptime=GetData(table,i,0);
+                        		if(temptime.contains(source)) {timefound=true;break;}
+                        	  }
+                      	  
+                          if(timefound)  ///if time found then locate class 
+                          { 
+                        	  for(j=i+1;j<ROWCOUNT;j++)
+                        	  { String tempclas=GetData(table,j,0);
+                        		if(tempclas.contains(LectureCount))
+                        		{SetData(DragCellBuffer,table,j,col);
+                                Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                                frame.setCursor(normalCursor);
+                        		break;
+                        		}
+                        			 
+                        	  if(tempclas.contains(":")) break;	
+                        	  }
+                          }
+                        	
+                        	
+                        	
+                         }
+                  	   
+                  	 
+                     }
+                     refresh();
+                     }
+
+                 });
+                 
+                 
+                  //////9999999999999999
+
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
 
              ////************IMPORTANT********************************************
              ////table3 largr & is not visible, only used for pagination in printing;
