@@ -9,7 +9,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -27,18 +26,12 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
-import org.omg.CORBA.portable.InputStream;
-
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 import java.util.Arrays;
 
 public class View {
@@ -58,8 +51,6 @@ public class View {
     public String collegename="SCHOOL/COLLEGE";
     private String DragCellBuffer="";
    
-   
-    
     
     
     Cursor dragCursor = new Cursor(Cursor.TEXT_CURSOR);
