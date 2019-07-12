@@ -254,20 +254,11 @@ public class View {
                 if(row>=0 && col>=0)
                 DragCellBuffer=GetData(table,row,col);
                
-               
-                
-             //  URL url = ClassLoader.getSystemClassLoader().getResource(".");
-              
-             //System.out.println(getClass().getClassLoader().getResource("."));
-        		
             
                 Toolkit t = Toolkit.getDefaultToolkit ();
                 Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
                 dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
                 frame.setCursor(dragCursor);
-              
-                
-               
                 
                 }
 
