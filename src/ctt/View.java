@@ -463,38 +463,41 @@ public class View {
                      { int i=0,j=0;
                     	Point p = e.getPoint();
                      	int row = table2.rowAtPoint(p);
-                     int col = table2.columnAtPoint(p);
-                     if(row>=0 && col>=0)
-                     {  String source=GetData(table2,row,0);
-                        if(source.contains(":")) /// is it time row ? 
-                         {  boolean timefound=false; //if yes then find in Master
-                        	for ( i=0;i<ROWCOUNT;i++)
-                        	  {String temptime=GetData(table,i,0);
-                        		if(temptime.contains(source)) {timefound=true;break;}
-                        	  }
-                      	  
-                          if(timefound)  ///if time found then locate class 
-                          { 
-                        	  for(j=i+1;j<ROWCOUNT;j++)
-                        	  { String tempclas=GetData(table,j,0);
-                        		if(tempclas.contains(LectureCount))
-                        		{SetData(DragCellBuffer,table,j,col);
-                                Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
-                                frame.setCursor(normalCursor);
-                        		break;
-                        		}
+                        int col = table2.columnAtPoint(p);
+                       if(row>=0 && col>=0)
+                        { 
+                    	   
+                    	   
+                    	   String source=GetData(table2,row,0);
+                           int coloncounter=0;
+                           boolean timefound=false;
+                           for(i=0;i<ROWCOUNT;i++)
+                            {  String temp=GetData(table,i,0);
+                        	   if(temp.contains(":"))
+                                 { if(coloncounter==row) { timefound=true; break;}
+                                   coloncounter++;
+                                 }
+                             }
+
+                           if(timefound)  ///if time found then locate class 
+                                { 
+                        	       for(j=i+1;j<ROWCOUNT;j++)
+                        	        { String tempclas=GetData(table,j,0);
+                        		      if(tempclas.contains(LectureCount))
+                        		       { SetData(DragCellBuffer,table,j,col);
+                                         Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                                         frame.setCursor(normalCursor);
+                        		         break;
+                        	         	}
                         			 
-                        	  if(tempclas.contains(":")) break;	
-                        	  }
-                          }
-                        	
-                        	
-                        	
-                         }
+                        	             if(tempclas.contains(":")) break;	
+                        	        }
+                                 }
+                             
                   	   
                   	 
-                     }
-                     refresh();
+                          }
+                      refresh();
                      }
 
                  });
