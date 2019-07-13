@@ -439,7 +439,7 @@ public class View {
                         
                             int i=0,j=0;
                     	   
-                    	    String source=GetData(table2,row,0);
+                    	 //   String source=GetData(table2,row,0);
                             int coloncounter=0;
                             boolean timefound=false;
                             for(i=0;i<ROWCOUNT;i++)
@@ -493,11 +493,23 @@ public class View {
 
                              if(timefound)  ///if time found then locate class 
                                 {  int len=DragCellBuffer.length();
-                            	 	String sourceclass=DragCellBuffer.substring(0,len-4);
-                            	//   show(sourceclass);
+                            	   String sourceclass="";
+                                
+                                   if(len>4)
+                            	   {
+                                    sourceclass=DragCellBuffer.substring(0,len-4);
                             	 	String sub=DragCellBuffer.substring(len-3);
                             	 	DragCellBuffer=sub+"("+LectureCount.substring(0,2)+")";
-                        	       for(j=i+1;j<ROWCOUNT;j++)
+                            	   }
+                                   else
+                                   {String targetcell=GetData(table2,row,col);
+                                    len=targetcell.length();
+                                    if(len<4) return;
+                                    sourceclass=targetcell.substring(0,len-4);
+                                    DragCellBuffer="";
+                                   }
+                            	 	
+                            	 	for(j=i+1;j<ROWCOUNT;j++)
                         	        { String tempclas=GetData(table,j,0);
                         		      if(tempclas.contains(sourceclass))
                         		       { SetData(DragCellBuffer,table,j,col);
