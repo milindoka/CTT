@@ -492,9 +492,17 @@ public class View {
                              }
 
                              if(timefound)  ///if time found then locate class 
-                                {  int len=DragCellBuffer.length();
+                                {     if(DragCellBuffer.contains(";"))
+                                        { String temp[]=DragCellBuffer.split(";");
+                                          DragCellBuffer=temp[0];
+                                	
+                                         }
+                            	 
+                            	   int len=DragCellBuffer.length();
                             	   String sourceclass="";
                                 
+                            	   
+                            	   
                                    if(len>4)
                             	   {
                                     sourceclass=DragCellBuffer.substring(0,len-4);
@@ -503,6 +511,12 @@ public class View {
                             	   }
                                    else
                                    {String targetcell=GetData(table2,row,col);
+                                   if(targetcell.contains(";"))
+                                   { String temp[]=targetcell.split(";");
+                                     targetcell=temp[0];
+                           	
+                                    }
+                                   
                                     len=targetcell.length();
                                     if(len<4) return;
                                     sourceclass=targetcell.substring(0,len-4);
@@ -531,24 +545,6 @@ public class View {
                  
                   //////9999999999999999
 
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
              
 
              ////************IMPORTANT********************************************
