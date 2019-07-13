@@ -50,7 +50,7 @@ public class View {
     public Toast toast;
     public String collegename="SCHOOL/COLLEGE";
     private String DragCellBuffer="";
-   
+    private boolean isClass=true; // 1=true, 0 false;
     
     
     Cursor dragCursor = new Cursor(Cursor.TEXT_CURSOR);
@@ -151,6 +151,7 @@ public class View {
     	 CreatePerPerDivisionChart();
     	 UpdateDisplay();
          UpdateCountsClass(str);
+         isClass=true;
          return; 
         }
     if(str.length()<7) return;
@@ -170,7 +171,7 @@ public class View {
     */
     
     tcField.setText(teachercode);
-   // System.out.println(teachercode);
+    isClass=false;
     }
     
     
@@ -394,47 +395,50 @@ public class View {
              
              //////99999999999999999
              
-             table2.addMouseListener(new MouseAdapter() {
-
+             table2.addMouseListener(new MouseAdapter() 
+             { 
                  //    @Override
                      public void mouseDragged(MouseEvent e) {
-                         System.out.println("mouseDragged");
+                      //   System.out.println("mouseDragged");
                      }
 
                      @Override
                      public void mousePressed(MouseEvent e) 
-                     { Point p = e.getPoint();
-                     int row = table2.rowAtPoint(p);
-                     int col = table2.columnAtPoint(p);
-                     if(row>=0 && col>=1)
-                       {
-                  	   DragCellBuffer=GetData(table2,row,col);
-                  	 Toolkit t = Toolkit.getDefaultToolkit ();
-                     Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
-                     dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
-                     frame.setCursor(dragCursor);                   
-                       }
+                     {  if(!isClass)return;
+                    	 Point p = e.getPoint();
+                         int row = table2.rowAtPoint(p);
+                         int col = table2.columnAtPoint(p);
+                         if(row>=0 && col>=1)
+                           {
+                  	       DragCellBuffer=GetData(table2,row,col);
+                  	       Toolkit t = Toolkit.getDefaultToolkit ();
+                           Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
+                           dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
+                           frame.setCursor(dragCursor);                   
+                           }
                      }
 
                 //     @Override
                      public void mouseReleased(MouseEvent e) 
-                     { 
-                    	Point p = e.getPoint();
-                     	int row = table2.rowAtPoint(p);
-                        int col = table2.columnAtPoint(p);
+                     {
+                       if(isClass)
+                       {
+                    	 
+                    	   Point p = e.getPoint();
+                     	   int row = table2.rowAtPoint(p);
+                           int col = table2.columnAtPoint(p);
                         
-                        Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
-                        frame.setCursor(normalCursor);
+                           Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                           frame.setCursor(normalCursor);
                         
-                        if(row<0 || col<1) return;
+                            if(row<0 || col<1) return;
                         
-                        
-                        int i=0,j=0;
+                            int i=0,j=0;
                     	   
-                    	   String source=GetData(table2,row,0);
-                           int coloncounter=0;
-                           boolean timefound=false;
-                           for(i=0;i<ROWCOUNT;i++)
+                    	    String source=GetData(table2,row,0);
+                            int coloncounter=0;
+                            boolean timefound=false;
+                            for(i=0;i<ROWCOUNT;i++)
                             {  String temp=GetData(table,i,0);
                         	   if(temp.contains(":"))
                                  { if(coloncounter==row) { timefound=true; break;}
@@ -442,7 +446,7 @@ public class View {
                                  }
                              }
 
-                           if(timefound)  ///if time found then locate class 
+                             if(timefound)  ///if time found then locate class 
                                 { 
                         	       for(j=i+1;j<ROWCOUNT;j++)
                         	        { String tempclas=GetData(table,j,0);
@@ -455,12 +459,15 @@ public class View {
                         	             if(tempclas.contains(":")) break;	
                         	        }
                                  }
-                             
-                  	   
-                  	 
-                          
-                      refresh();
+                         refresh();
+                        }
                      }
+                     
+                     
+                     
+                     
+                     
+                     
 
                  });
                  
