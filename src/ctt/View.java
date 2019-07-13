@@ -210,25 +210,6 @@ public class View {
            //////88888888888888888
             
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-          //  table.setDragEnabled(true);
-          //  table.setDropMode(DropMode.USE_SELECTION);
-          //  table.setTransferHandler(TH);
-
-           
-            /*
-            table.addMouseListener(new MouseAdapter() {
-                public void mouseReleased(MouseEvent e) {
-                    Point p = e.getPoint();
-                    int row = table.rowAtPoint(p);
-                    int col = table.columnAtPoint(p);
-                //    table.setSelectionRowInterval(row);
-                    table.setRowSelectionInterval(TH.targetrow,TH.targetrow);
-                    table.setColumnSelectionInterval(TH.targetcol,TH.targetcol);
-                    
-                }
-            });
-            
-           */
             
            table.addMouseListener(new MouseAdapter() {
 
@@ -266,20 +247,6 @@ public class View {
                 }
 
             });
-            
-            
-                       
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-            
             
             table.setRowHeight(20);
             table.setCellSelectionEnabled(true);     	
@@ -439,34 +406,30 @@ public class View {
                      { Point p = e.getPoint();
                      int row = table2.rowAtPoint(p);
                      int col = table2.columnAtPoint(p);
-                     if(row>=0 && col>=0)
+                     if(row>=0 && col>=1)
                        {
-                  	   
                   	   DragCellBuffer=GetData(table2,row,col);
-                      // String temp=GetData(table2,row,0);
-                      // if(temp.contains(":")) 
-                      	 
-                       
-                       
-                       }
-                    
-                 
-                     Toolkit t = Toolkit.getDefaultToolkit ();
+                  	 Toolkit t = Toolkit.getDefaultToolkit ();
                      Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
                      dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
-                     frame.setCursor(dragCursor);
-                     
+                     frame.setCursor(dragCursor);                   
+                       }
                      }
 
                 //     @Override
                      public void mouseReleased(MouseEvent e) 
-                     { int i=0,j=0;
+                     { 
                     	Point p = e.getPoint();
                      	int row = table2.rowAtPoint(p);
                         int col = table2.columnAtPoint(p);
-                       if(row>=0 && col>=0)
-                        { 
-                    	   
+                        
+                        Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                        frame.setCursor(normalCursor);
+                        
+                        if(row<0 || col<1) return;
+                        
+                        
+                        int i=0,j=0;
                     	   
                     	   String source=GetData(table2,row,0);
                            int coloncounter=0;
@@ -485,8 +448,7 @@ public class View {
                         	        { String tempclas=GetData(table,j,0);
                         		      if(tempclas.contains(LectureCount))
                         		       { SetData(DragCellBuffer,table,j,col);
-                                         Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
-                                         frame.setCursor(normalCursor);
+                                         
                         		         break;
                         	         	}
                         			 
@@ -496,7 +458,7 @@ public class View {
                              
                   	   
                   	 
-                          }
+                          
                       refresh();
                      }
 
