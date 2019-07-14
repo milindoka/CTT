@@ -1,1 +1,1 @@
-/mnt/df34c866-2a00-4ea7-ac0f-98e88a170671/student/Data4/JAProjects/CTT/T1.CTT
+/home/milind/Data/Projects/CTT/T1.CTT

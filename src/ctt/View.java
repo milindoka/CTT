@@ -422,11 +422,39 @@ public class View {
                            }
                      
                            if(isClass) 
-                          {
+                          {    int len=DragCellBuffer.length();
+                               if(len<4) return;
+                               if(!DragCellBuffer.contains("(")) return;
+                               if(!DragCellBuffer.contains(")")) return; 
                         	   String teachercode = DragCellBuffer.substring(DragCellBuffer.indexOf("(")+1,DragCellBuffer.indexOf(")"));
                         	   CreateIndi("("+teachercode+")");
                         	   UpdatePinkDisplay();
                            }
+                           else
+                           {
+                        	   int len=DragCellBuffer.length();
+                        	   String sourceclass="";
+                               if(len>4)
+                        	   {   
+                            	   if(DragCellBuffer.contains(";"))
+                                   { String temp[]=DragCellBuffer.split(";");
+                                     int len2=temp[0].length();
+                                     if(len2<4) return;
+                                     sourceclass=temp[0].substring(0,len2-4);
+                           	         
+                                    }
+                            	   else
+                            		   sourceclass=DragCellBuffer.substring(0,len-4);
+                            	       
+                            	   CreateClass(sourceclass);
+                         	         UpdatePinkDisplay();
+   
+                        	   }
+                               
+                           //   show(sourceclass);
+                               
+                           } 	   
+                        	   
                      }
 
                 //     @Override
@@ -507,9 +535,6 @@ public class View {
                             	 
                             	   int len=DragCellBuffer.length();
                             	   String sourceclass="";
-                                
-                            	   
-                            	   
                                    if(len>4)
                             	   {
                                     sourceclass=DragCellBuffer.substring(0,len-4);
