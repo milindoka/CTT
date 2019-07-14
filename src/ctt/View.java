@@ -47,7 +47,7 @@ public class View {
     private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,NEXTFINDbutton,PRINTCLASSbutton,FINDbutton;
-    private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,WIZARD02button,DELETEROWbutton;
+    private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,multiselectbutton,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -217,7 +217,8 @@ public class View {
             
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             
-           table.addMouseListener(new MouseAdapter() {
+           table.addMouseListener(new MouseAdapter() 
+           {
 
             //    @Override
                 public void mouseDragged(MouseEvent e) {
@@ -226,10 +227,12 @@ public class View {
 
                 @Override
                 public void mousePressed(MouseEvent e) 
-                { Point p = e.getPoint();
+                { 
+                Point p = e.getPoint();
                 int row = table.rowAtPoint(p);
                 int col = table.columnAtPoint(p);
-                if(row>=0 && col>=0)
+                if(col<=0) return;
+                if(row>=0) 
                 DragCellBuffer=GetData(table,row,col);
                
             
@@ -243,9 +246,10 @@ public class View {
            //     @Override
                 public void mouseReleased(MouseEvent e) 
                 {Point p = e.getPoint();
-                	int row = table.rowAtPoint(p);
-                int col = table.columnAtPoint(p);
-                if(row>=0 && col>=0)
+                 int row = table.rowAtPoint(p);
+                 int col = table.columnAtPoint(p);
+                 if(col<=0) return;
+                if(row>=0)
                 SetData(DragCellBuffer,table,row,col);
                 Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
                 frame.setCursor(normalCursor);
@@ -394,9 +398,6 @@ public class View {
                  column.setCellRenderer(cellRenderer);
                 // column.setCellRenderer(fRenderer);
              }
-             
-             
-             
              
              //////99999999999999999
              
@@ -622,7 +623,7 @@ public class View {
         WIZARD01button= new JButton("Wizard-01");
         INSERTROWbutton= new JButton("Insert Row");
         SWAPbutton= new JButton("Swap Time Tables");
-        WIZARD02button= new JButton("Wizard-02");
+        multiselectbutton= new JButton("Multi Select OFF");
         DELETEROWbutton= new JButton("Delete Row");
         REMCLASHbutton=new JButton("Remove Clashes");
         SCHOOLbutton=new JButton("Button17");
@@ -655,7 +656,7 @@ public class View {
         buttonPanel.add(INSERTROWbutton);
         
         buttonPanel.add(SWAPbutton);
-        buttonPanel.add(WIZARD02button);
+        buttonPanel.add(multiselectbutton);
         buttonPanel.add(DELETEROWbutton);
         buttonPanel.add(REMCLASHbutton);
        
@@ -742,8 +743,8 @@ public class View {
     	
     }
    
-    public JButton getWIZARD02button()
-    { return WIZARD02button;
+    public JButton getMULTISELECTbutton()
+    { return multiselectbutton;
     	
     }
    
