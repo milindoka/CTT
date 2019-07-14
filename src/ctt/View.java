@@ -47,7 +47,7 @@ public class View {
     private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
     private JButton CLEARFRIZbutton,NEXTFINDbutton,PRINTCLASSbutton,FINDbutton;
-    private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,multiselectbutton,DELETEROWbutton;
+    private JButton TIMESAMPLEbutton,INSERTROWbutton,SWAPbutton,multiselectbutton,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -621,7 +621,7 @@ public class View {
         FINDbutton = new JButton("Find  (Ctrl-F)");
 
         FINDREPLACEbutton = new JButton("Find/Replace");
-        WIZARD01button= new JButton("Wizard-01");
+        TIMESAMPLEbutton= new JButton("Time Slot Sample");
         INSERTROWbutton= new JButton("Insert Row");
         SWAPbutton= new JButton("Swap Time Tables");
         multiselectbutton= new JButton("Multi Select OFF");
@@ -653,7 +653,7 @@ public class View {
         
         
         buttonPanel.add(FINDREPLACEbutton);
-        buttonPanel.add(WIZARD01button);
+        buttonPanel.add(TIMESAMPLEbutton);
         buttonPanel.add(INSERTROWbutton);
         
         buttonPanel.add(SWAPbutton);
@@ -758,7 +758,7 @@ public class View {
     
     public JButton getWizard01BT()
     {
-    	return WIZARD01button;
+    	return TIMESAMPLEbutton;
     }
     
     
