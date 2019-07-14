@@ -420,6 +420,13 @@ public class View {
                              dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
                              frame.setCursor(dragCursor);                   
                            }
+                     
+                           if(isClass) 
+                          {
+                        	   String teachercode = DragCellBuffer.substring(DragCellBuffer.indexOf("(")+1,DragCellBuffer.indexOf(")"));
+                        	   CreateIndi("("+teachercode+")");
+                        	   UpdatePinkDisplay();
+                           }
                      }
 
                 //     @Override
@@ -1083,6 +1090,19 @@ public class View {
         	
     }
 
+    private void UpdatePinkDisplay()
+    {//ClearIndividualTable();
+    for (int i = 0; i < MROWS; i++)
+	      for(int j = 0; j < table2.getColumnCount(); j++)
+	          { String str=GetData(table2,i,j);
+	    	     if(str.length()!=0) continue; 
+	             //if(Matrix[i][j].length()!=0)
+	    	    table2.setValueAt(Matrix[i][j], i, j);
+	          
+	          }
+	      
+        	
+    }
         
     void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
     {   String temp;
