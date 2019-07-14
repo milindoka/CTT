@@ -415,7 +415,8 @@ public class View {
                            int row = table2.rowAtPoint(p);
                            int col = table2.columnAtPoint(p);
                            if(row>=0 && col>=1)
-                           { DragCellBuffer=GetData(table2,row,col);
+                           { ClearTable2AfterLastTime();
+                        	 DragCellBuffer=GetData(table2,row,col);
                   	         Toolkit t = Toolkit.getDefaultToolkit ();
                              Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
                              dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
@@ -1132,8 +1133,7 @@ public class View {
         
     void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
     {   String temp;
-
-    for (int i = indirow; i>0 ;i--)
+    	for (int i = indirow; i>0 ;i--)
 	      { 
 		      for(int j = 1; j < COLCOUNT; j++)
 		      {temp=Matrix[i][j];
@@ -1142,23 +1142,29 @@ public class View {
 		    Matrix[i][0]="";   ////delete extra
 		    indirow=i-1;
 	      }
-	
-
-    	
     }
     
     
     public void ClearIndividualTable() /////same as class 
     {
-    	
     	   for (int i = 0; i < MROWS; i++)
     	      for(int j = 0; j < table2.getColumnCount(); j++)
     	      {
     	          table2.setValueAt("", i, j);
     	      }
-    	  
     }	
     
+    public void ClearTable2AfterLastTime() /////same as class 
+    {
+    	   for (int i = MROWS-1; i>=0;i--)
+    	      {  String str=GetData(table2,i,0);
+    	         if(str.length()==0)
+    		     for(int j = 0; j < table2.getColumnCount(); j++)
+    	            {
+    	             table2.setValueAt("", i, j);
+    	            }
+    	      }
+    }	
     
     
     public void ClearTable3() /////same as class 
