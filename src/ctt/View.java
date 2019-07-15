@@ -225,7 +225,7 @@ public class View {
                     System.out.println("mouseDragged");
                 }
 
-                @Override
+               // @Override
                 public void mousePressed(MouseEvent e) 
                 { 
                 Point p = e.getPoint();
@@ -476,16 +476,15 @@ public class View {
                         
                             int i=0,j=0;
                     	   
-                    	 //   String source=GetData(table2,row,0);
-                            int coloncounter=0;
+                    	   String timestr=GetData(table2,row,0);
+                            
                             boolean timefound=false;
                             for(i=0;i<ROWCOUNT;i++)
                             {  String temp=GetData(table,i,0);
-                        	   if(temp.contains(":"))
-                                 { if(coloncounter==row) { timefound=true; break;}
-                                   coloncounter++;
-                                 }
-                             }
+                        	   if(temp.equalsIgnoreCase(timestr)) 
+                                 { timefound=true; break;}
+                                                           
+                            }
 
                              if(timefound)  ///if time found then locate class 
                                 { 
@@ -517,17 +516,17 @@ public class View {
                         
                             int i=0,j=0;
                     	   
-                    	  //  String source=GetData(table2,row,0);
-                            int coloncounter=0;
+                            String timestr=GetData(table2,row,0);
                             boolean timefound=false;
                             for(i=0;i<ROWCOUNT;i++)
                             {  String temp=GetData(table,i,0);
-                        	   if(temp.contains(":"))
-                                 { if(coloncounter==row) { timefound=true; break;}
-                                   coloncounter++;
-                                 }
-                             }
-
+                        	   if(temp.equalsIgnoreCase(timestr)) 
+                                 { timefound=true; break;}
+                                                           
+                            }
+                            
+                            
+                            
                              if(timefound)  ///if time found then locate class 
                                 {     if(DragCellBuffer.contains(";"))
                                         { String temp[]=DragCellBuffer.split(";");
