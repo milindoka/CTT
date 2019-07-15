@@ -46,7 +46,7 @@ public class View {
 	public JFrame frame;
     private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
-    private JButton CLEARFRIZbutton,NEXTFINDbutton,PRINTCLASSbutton,FINDbutton;
+    private JButton CLEARFRIZbutton,WIZARDbutton,PRINTCLASSbutton,FINDbutton;
     private JButton TIMESAMPLEbutton,INSERTROWbutton,SWAPbutton,multiselectbutton,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
@@ -77,7 +77,7 @@ public class View {
     JProgressBar jb=new JProgressBar(0,100);
     
     int CC,DC,GC,indirow,lecturecount;
-    JLabel countLabel,spesLabel,msgLabel,centerLabel; 
+    JLabel countLabel,spesLabel,msgLabel,dragnoteLabel,centerLabel; 
     String allcounts;
 //    ListSelectionModel listSelectionModel;
   
@@ -149,8 +149,7 @@ public class View {
     if(str.contains(":")) return;
     
     if(col==0)
-       { //ClearIndividualTable(); 
-         //DisplayClass(str);
+       { 
     	 CreateClass(str);
     	 DeleteLastTimeSlot();
     	 CreatePerPerDivisionChart();
@@ -165,15 +164,6 @@ public class View {
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
     final String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
-    /*
-    CreateIndi(teachercode);
-    CountGaps();
-    CountDoubles();
-    DeleteLastTimeSlot();
-    CreatePerPerDivisionChart();
-    UpdateDisplay();
-    UpdateCounts(teachercode);
-    */
     
     tcField.setText(teachercode);
     isClass=false;
@@ -490,6 +480,7 @@ public class View {
                                 { 
                         	       for(j=i+1;j<ROWCOUNT;j++)
                         	        { String tempclas=GetData(table,j,0);
+                        	          if(tempclas.length()==0) continue;
                         		      if(tempclas.contains(LectureCount))
                         		       { SetData(DragCellBuffer,table,j,col);
                                          
@@ -615,7 +606,7 @@ public class View {
         MULTIFRIZbutton = new JButton("Multi Freeze");
         CLEARFRIZbutton = new JButton("Clear Freez");
        
-        NEXTFINDbutton = new JButton("Next Find (Ctrl-K)");
+        WIZARDbutton = new JButton("Input Wizard");
         PRINTCLASSbutton = new JButton("Print All Classes");
         FINDbutton = new JButton("Find  (Ctrl-F)");
 
@@ -647,7 +638,7 @@ public class View {
         
         
         buttonPanel.add(FINDbutton);
-        buttonPanel.add(NEXTFINDbutton);
+        buttonPanel.add(WIZARDbutton);
         buttonPanel.add(PRINTCLASSbutton);
         
         
@@ -685,10 +676,14 @@ public class View {
         
        // countpanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         
+        dragnoteLabel=new JLabel(" Use Drag and Drop to Copy Cells");
+        dragnoteLabel.setForeground(Color.red);
+        
         countpanel.add(countLabel);
         countpanel.add(spesLabel);
         countpanel.add(msgLabel);
         countpanel.add(tcField);
+        countpanel.add(dragnoteLabel);
         countpanel.add(jb); 
         
       // JPanel centerpanel=new JPanel();
@@ -815,8 +810,8 @@ public class View {
     }
     
 
-    public JButton getNEXTFINDbutton()
-    { return NEXTFINDbutton;
+    public JButton getWIZARDbutton()
+    { return WIZARDbutton;
     }
 
     public JButton getPRINTCLASSbutton()

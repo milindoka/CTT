@@ -36,7 +36,7 @@ public class Controller {
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTMENUbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
-    private ActionListener NEXTFINDbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
+    private ActionListener WIZARDbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
     private ActionListener INSERTROWbuttonAL,SWAPbuttonAL,MULTISELECTbuttonAL,DELETEROWbuttonAL;
     private ActionListener SCHOOLbuttonAL,HELPbuttonAL;
@@ -307,15 +307,22 @@ public class Controller {
         
         
         
-        NEXTFINDbuttonAL = new ActionListener()
+        WIZARDbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                 
-            	  far.NextFind();
+              {    
+            	  Wizard02 w2 = new Wizard02();
+              	w2.setView(view);
+              	w2.CollectAllClasses();
+              	w2.setModal(true);
+              	w2.setVisible(true);
+            	  
+            	  
+            	 // far.NextFind();
               }
             	};
                
-        view.getNEXTFINDbutton().addActionListener(NEXTFINDbuttonAL);
+        view.getWIZARDbutton().addActionListener(WIZARDbuttonAL);
         
         
         PRINTCLASSbuttonAL = new ActionListener()

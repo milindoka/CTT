@@ -5,7 +5,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -53,7 +56,14 @@ public Wizard02()
 	
 	setBounds(0,0 , 500, 375);
 	setTitle("Wizard-02 - Add Time Table Entries");
-	setLocationRelativeTo(null);
+//setLocationRelativeTo(null);
+	  GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+	  
+	 Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+	 int x = (int) rect.getMaxX() - getWidth();
+	    int y = 0;
+	    setLocation(x, y);
     
 	JPanel toppanel=new JPanel();
 	toppanel.setLayout(new GridLayout(4,1));
