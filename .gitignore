@@ -3,7 +3,7 @@
 *.war
 *.ear
 *.class
-
+LastFile.txt
 # eclipse specific git ignore
 *.pydevproject
 .metadata
