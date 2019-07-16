@@ -294,9 +294,9 @@ public class RemoveCDG
     else 
     	JOptionPane.showMessageDialog(null,"Session Over - You may process again.");    
     view.jb.setVisible(false);
-    view.msgLabel.setVisible(true);
-    view.tcField.setVisible(true);
-    view.dragnoteLabel.setVisible(true);
+   // view.msgLabel.setVisible(true);
+   // view.tcField.setVisible(true);
+   // view.dragnoteLabel.setVisible(true);
     }
     
     

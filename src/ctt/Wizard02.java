@@ -275,7 +275,7 @@ public Wizard02()
     String teacher=tea.getText();
 	String L32=subject+"("+teacher+")";
 	
-	if(!RemoveOneLecture(clas,L32))
+	if(!RemoveOneLecture(clas,L32)) ;
 	//Toast.AutoCloseMsg("No Such Lecture Found");
 	
 	Updatecount(clas,L32);
