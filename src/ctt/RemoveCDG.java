@@ -135,7 +135,9 @@ public class RemoveCDG
 	
 	 
     public void DisplayAllCounts()
-    {String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",  globalCC,globalDC,globalGC);   
+    {   
+        
+    	String countLabel=String.format("Global CC : %d  Global DC : %d  Global GC : %d",  globalCC,globalDC,globalGC);   
     view.ShowGlobalCounts(countLabel);
     	
     }
@@ -234,6 +236,7 @@ public class RemoveCDG
      view.jb.setVisible(true);
      view.msgLabel.setVisible(false);
      view.tcField.setVisible(false);
+     view.dragnoteLabel.setVisible(false);
      String class1,class2;
     for(sourcerow=1;sourcerow<=lastrow;sourcerow++)
     { 
@@ -293,6 +296,7 @@ public class RemoveCDG
     view.jb.setVisible(false);
     view.msgLabel.setVisible(true);
     view.tcField.setVisible(true);
+    view.dragnoteLabel.setVisible(true);
     }
     
     

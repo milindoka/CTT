@@ -1091,12 +1091,18 @@ public class View {
 	    
 	    allcounts=String.format("CC : %d  DC : %d  GC : %d",CC,DC,GC);
 	    countLabel.setText(allcounts);
+	    dragnoteLabel.setVisible(true);
+        msgLabel.setVisible(true);
+        tcField.setVisible(true);
+	    
 
 	   
    }
    
    public void ShowGlobalCounts(String label)
-   {
+   { dragnoteLabel.setVisible(false);
+     msgLabel.setVisible(false);
+     tcField.setVisible(false);
    countLabel.setText(label);
 	   
    }
