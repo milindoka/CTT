@@ -44,7 +44,7 @@ public class PrepareAllClasses implements Printable
       
       PrepareAllClasses()
       {   
-    	  timecolsize=100;othercolsize=65;linesperpage=42;
+    	  timecolsize=100;othercolsize=65;linesperpage=45;
     	  PAC=new PrintAllClasses(); 
     	  PAC.setView(view);
       }
@@ -104,7 +104,7 @@ public class PrepareAllClasses implements Printable
 		 if (pageno >totalpages)              // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
-		 Font MyFont = new Font("Courier", Font.PLAIN,10);
+		 Font MyFont = new Font("Courier", Font.PLAIN,9);
 		 g.setFont(MyFont);
 		 PAC.setView(view);
 		 

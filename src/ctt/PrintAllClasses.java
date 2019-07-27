@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class PrintAllClasses
 {
 	View view;
-	int timecolsize=100,othercolsize=65,cellheight=19;
+	int timecolsize=100,othercolsize=65,cellheight=17;
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }

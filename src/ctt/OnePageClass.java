@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class OnePageClass
 {
 	View view;
-	int timecolsize=100,othercolsize=65,linesperpage=40,cellheight=19;
+	int timecolsize=100,othercolsize=65,linesperpage=40,cellheight=17;
 	int horizontalwidth=timecolsize+6*othercolsize;
 	int MidWidth=3*othercolsize;
 	public void setView(View vu)  {	this.view=vu; }
@@ -81,7 +81,6 @@ public class OnePageClass
 	    	  }
 	    	  DrawOpenWallTextLine(tlx,tly,g,row);     
 	    	  tly+=cellheight;
-	    	 
 	    	}
 	    g.drawLine(tlx,tly,tlx+horizontalwidth,tly); /////// bot line
 	}
@@ -141,13 +140,5 @@ public class OnePageClass
 		        pg.drawString(str, start + tlx, tly+(boxheight-stringHeight)/2 +stringHeight-2);
 		        
 		 }
-
-
-	 
-	 
-	 
-	 
-	 
-	 
 	 
 }

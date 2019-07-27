@@ -34,7 +34,7 @@ public class PrintIndi implements Printable
       
       PrintIndi()
       {   
-    	  timecolsize=100;othercolsize=65;linesperpage=40;
+    	  timecolsize=100;othercolsize=65;linesperpage=45;
     	  opi=new OnePageIndi(); 
     	  opi.setView(view);
     	  
@@ -99,7 +99,7 @@ public class PrintIndi implements Printable
 		 if (pageno >0)              // We have only one page, and 'page no' is zero-based
 		    {  return NO_SUCH_PAGE;  // After NO_SUCH_PAGE, printer will stop printing.
 	        }
-		 Font MyFont = new Font("Courier", Font.PLAIN,10);
+		 Font MyFont = new Font("Courier", Font.PLAIN,9);
 		 g.setFont(MyFont);
 		 if(PRINT_TYPE==0)
 		   { opi.setView(view); opi.PrintOnePage(tlx,tly,g,pageno);  }
