@@ -5,7 +5,7 @@ It does not ask to fill up information required but on the contrary it collects 
 
 Compilation :
 
-Clone the project and open in ellipse. Minor config settings may be required according to your device and JRE version.
+Clone the project and open it in Eclipse and Compile, Minor config settings may be required according to your device and JRE version.
 
 Ready Binary CTT.jar can be downloaded from sourceforge   https://sourceforge.net/projects/collegetimetable/
 
