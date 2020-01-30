@@ -60,8 +60,8 @@ public class View {
     JTable table3;
     int COLS=7;
     int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
-    int ROWCOUNT=200; ///Main Table
-    int ROWCOUNT3=2000; //for prepare print table 3
+    int ROWCOUNT=520; ///Main Table
+    int ROWCOUNT3=2500; //for prepare print table 3
     int MROWS=25;         /// Individual rows in IndiMatrix;
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
