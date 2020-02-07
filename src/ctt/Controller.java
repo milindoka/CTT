@@ -22,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 
 public class Controller {
 
@@ -31,13 +32,13 @@ public class Controller {
     private RemoveCDG rcdg;
     private FindAndReplace far;
     private SwapTT swp;
-    ;
+    private boolean MultiSelection=false;
     private ActionListener FileAL,LoadAL,SetprnAL,GlobalCountsAL,DEMObuttonAL;
     private ActionListener PRINTMENUbuttonAL, REMGAPDbuttonAL;
     private ActionListener REMCLASHbuttonAL,MULTIFRIZbuttonAL,CLEARFRIZbuttonAL;
-    private ActionListener NEXTFINDbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
+    private ActionListener WIZARDbuttonAL,PRINTCLASSbuttonAL,FINDbuttonAL;
     private ActionListener FINDREPLACEbuttonAL,WIZARD01buttonAL;
-    private ActionListener INSERTROWbuttonAL,SWAPbuttonAL,WIZARD02buttonAL,DELETEROWbuttonAL;
+    private ActionListener INSERTROWbuttonAL,SWAPbuttonAL,MULTISELECTbuttonAL,DELETEROWbuttonAL;
     private ActionListener SCHOOLbuttonAL,HELPbuttonAL;
     private int PRINT_TYPE_INDI=0;
     private int PRINT_TYPE_CLASS=1;
@@ -128,19 +129,25 @@ public class Controller {
         view.getSWAPbutton().addActionListener(SWAPbuttonAL);
         
         
-        WIZARD02buttonAL=new ActionListener()
+        MULTISELECTbuttonAL=new ActionListener()
     	{
             public void actionPerformed(ActionEvent actionEvent) 
             {               
-            	Wizard02 w2 = new Wizard02();
-            	w2.setView(view);
-            	w2.CollectAllClasses();
-            	w2.setModal(true);
-            	w2.setVisible(true);
+            	if(MultiSelection)
+            	{ view.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            	  MultiSelection=false;
+            	  view.getMULTISELECTbutton().setText("Multi Select OFF");
+            	}
+            	else
+            	{
+            		view.table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            		MultiSelection=true;
+            		 view.getMULTISELECTbutton().setText("Multi Select ON");
+            	}
             	
             }
     	};
-        view.getWIZARD02button().addActionListener(WIZARD02buttonAL);
+        view.getMULTISELECTbutton().addActionListener(MULTISELECTbuttonAL);
         
         
         DELETEROWbuttonAL=new ActionListener()
@@ -300,15 +307,22 @@ public class Controller {
         
         
         
-        NEXTFINDbuttonAL = new ActionListener()
+        WIZARDbuttonAL = new ActionListener()
         {
               public void actionPerformed(ActionEvent actionEvent) 
-              {                 
-            	  far.NextFind();
+              {    
+            	  Wizard02 w2 = new Wizard02();
+              	w2.setView(view);
+              	w2.CollectAllClasses();
+              	w2.setModal(true);
+              	w2.setVisible(true);
+            	  
+            	  
+            	 // far.NextFind();
               }
             	};
                
-        view.getNEXTFINDbutton().addActionListener(NEXTFINDbuttonAL);
+        view.getWIZARDbutton().addActionListener(WIZARDbuttonAL);
         
         
         PRINTCLASSbuttonAL = new ActionListener()

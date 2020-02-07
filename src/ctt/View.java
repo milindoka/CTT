@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -35,14 +36,18 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class View {
-      
+
+	
+	 public void show(String msg) 
+	    {JOptionPane.showMessageDialog(null, msg);}
+	
 	final FreezeCellRenderer fRenderer = new FreezeCellRenderer();
 	boolean modified=false;
 	public JFrame frame;
     private JButton FileBT,FreezeBT,PRINTMENUbutton,SetPRN;
     private JButton GLOBALCOUNTbutton,DEMObutton,REMCLASHbutton,MULTIFRIZbutton;
-    private JButton CLEARFRIZbutton,NEXTFINDbutton,PRINTCLASSbutton,FINDbutton;
-    private JButton WIZARD01button,INSERTROWbutton,SWAPbutton,WIZARD02button,DELETEROWbutton;
+    private JButton CLEARFRIZbutton,WIZARDbutton,PRINTCLASSbutton,FINDbutton;
+    private JButton TIMESAMPLEbutton,INSERTROWbutton,SWAPbutton,multiselectbutton,DELETEROWbutton;
     private JButton FINDREPLACEbutton,REMGAPDbutton,SCHOOLbutton,HELPbutton;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -50,7 +55,7 @@ public class View {
     public Toast toast;
     public String collegename="SCHOOL/COLLEGE";
     private String DragCellBuffer="";
-   
+    private boolean isClass=true; // 1=true, 0 false;
     
     
     Cursor dragCursor = new Cursor(Cursor.TEXT_CURSOR);
@@ -59,9 +64,9 @@ public class View {
     JTable table2;
     JTable table3;
     int COLS=7;
-    int ROWCOUNT2=25;         /////500;////For Master Print ,change to 25 later
+    int ROWCOUNT2=25; /// change to 25 later
     int ROWCOUNT=520; ///Main Table
-    int ROWCOUNT3=2500; //for prepare print table 3
+    int ROWCOUNT3=2000; //for prepare print table 3
     int MROWS=25;         /// Individual rows in IndiMatrix;
     int ColorMatrix[][]= new int[ROWCOUNT][COLS];
     int COLCOUNT=7;
@@ -72,7 +77,7 @@ public class View {
     JProgressBar jb=new JProgressBar(0,100);
     
     int CC,DC,GC,indirow,lecturecount;
-    JLabel countLabel,spesLabel,msgLabel,centerLabel; 
+    JLabel countLabel,spesLabel,msgLabel,dragnoteLabel,centerLabel; 
     String allcounts;
 //    ListSelectionModel listSelectionModel;
   
@@ -144,13 +149,13 @@ public class View {
     if(str.contains(":")) return;
     
     if(col==0)
-       { //ClearIndividualTable(); 
-         //DisplayClass(str);
+       { 
     	 CreateClass(str);
     	 DeleteLastTimeSlot();
     	 CreatePerPerDivisionChart();
     	 UpdateDisplay();
          UpdateCountsClass(str);
+         isClass=true;
          return; 
         }
     if(str.length()<7) return;
@@ -159,18 +164,9 @@ public class View {
     int rite=str.indexOf(")");
     if(left<0 || rite<0) return;
     final String teachercode = str.substring(str.indexOf("(")+1,str.indexOf(")"));
-    /*
-    CreateIndi(teachercode);
-    CountGaps();
-    CountDoubles();
-    DeleteLastTimeSlot();
-    CreatePerPerDivisionChart();
-    UpdateDisplay();
-    UpdateCounts(teachercode);
-    */
     
     tcField.setText(teachercode);
-   // System.out.println(teachercode);
+    isClass=false;
     }
     
     
@@ -210,39 +206,23 @@ public class View {
            //////88888888888888888
             
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-          //  table.setDragEnabled(true);
-          //  table.setDropMode(DropMode.USE_SELECTION);
-          //  table.setTransferHandler(TH);
-
-           
-            /*
-            table.addMouseListener(new MouseAdapter() {
-                public void mouseReleased(MouseEvent e) {
-                    Point p = e.getPoint();
-                    int row = table.rowAtPoint(p);
-                    int col = table.columnAtPoint(p);
-                //    table.setSelectionRowInterval(row);
-                    table.setRowSelectionInterval(TH.targetrow,TH.targetrow);
-                    table.setColumnSelectionInterval(TH.targetcol,TH.targetcol);
-                    
-                }
-            });
             
-           */
-            
-           table.addMouseListener(new MouseAdapter() {
+           table.addMouseListener(new MouseAdapter() 
+           {
 
             //    @Override
                 public void mouseDragged(MouseEvent e) {
                     System.out.println("mouseDragged");
                 }
 
-                @Override
+               // @Override
                 public void mousePressed(MouseEvent e) 
-                { Point p = e.getPoint();
+                { 
+                Point p = e.getPoint();
                 int row = table.rowAtPoint(p);
                 int col = table.columnAtPoint(p);
-                if(row>=0 && col>=0)
+                if(col<=0) return;
+                if(row>=0) 
                 DragCellBuffer=GetData(table,row,col);
                
             
@@ -256,9 +236,10 @@ public class View {
            //     @Override
                 public void mouseReleased(MouseEvent e) 
                 {Point p = e.getPoint();
-                	int row = table.rowAtPoint(p);
-                int col = table.columnAtPoint(p);
-                if(row>=0 && col>=0)
+                 int row = table.rowAtPoint(p);
+                 int col = table.columnAtPoint(p);
+                 if(col<=0) return;
+                if(row>=0)
                 SetData(DragCellBuffer,table,row,col);
                 Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
                 frame.setCursor(normalCursor);
@@ -266,11 +247,6 @@ public class View {
                 }
 
             });
-            
-            
-             //////888888888888888
-            
-            
             
             table.setRowHeight(20);
             table.setCellSelectionEnabled(true);     	
@@ -412,6 +388,188 @@ public class View {
                  column.setCellRenderer(cellRenderer);
                 // column.setCellRenderer(fRenderer);
              }
+             
+             //////99999999999999999
+             
+             table2.addMouseListener(new MouseAdapter() 
+             { 
+                 //    @Override
+                     public void mouseDragged(MouseEvent e) {
+                      //   System.out.println("mouseDragged");
+                     }
+
+                     @Override
+                     public void mousePressed(MouseEvent e) 
+                     {  
+                      	   Point p = e.getPoint();
+                           int row = table2.rowAtPoint(p);
+                           int col = table2.columnAtPoint(p);
+                           if(row>=0 && col>=1)
+                           { ClearTable2AfterLastTime();
+                        	 DragCellBuffer=GetData(table2,row,col);
+                  	         Toolkit t = Toolkit.getDefaultToolkit ();
+                             Image img= t.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("dragcursor.png")); 
+                             dragCursor = t.createCustomCursor (img, new Point (0,0), "cur"); 
+                             frame.setCursor(dragCursor);                   
+                           }
+                     
+                           if(isClass) 
+                          {    int len=DragCellBuffer.length();
+                               if(len<4) return;
+                               if(!DragCellBuffer.contains("(")) return;
+                               if(!DragCellBuffer.contains(")")) return; 
+                        	   String teachercode = DragCellBuffer.substring(DragCellBuffer.indexOf("(")+1,DragCellBuffer.indexOf(")"));
+                        	   CreateIndi("("+teachercode+")");
+                        	   UpdatePinkDisplay();
+                           }
+                           else
+                           {
+                        	   int len=DragCellBuffer.length();
+                        	   String sourceclass="";
+                               if(len>4)
+                        	   {   
+                            	   if(DragCellBuffer.contains(";"))
+                                   { String temp[]=DragCellBuffer.split(";");
+                                     int len2=temp[0].length();
+                                     if(len2<4) return;
+                                     sourceclass=temp[0].substring(0,len2-4);
+                           	         
+                                    }
+                            	   else
+                            		   sourceclass=DragCellBuffer.substring(0,len-4);
+                            	       
+                            	   CreateClass(sourceclass);
+                         	         UpdatePinkDisplay();
+   
+                        	   }
+                               
+                           //   show(sourceclass);
+                               
+                           } 	   
+                        	   
+                     }
+
+                //     @Override
+                     public void mouseReleased(MouseEvent e) 
+                     {
+                       if(isClass)
+                       {
+                    	 
+                    	   Point p = e.getPoint();
+                     	   int row = table2.rowAtPoint(p);
+                           int col = table2.columnAtPoint(p);
+                        
+                           Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                           frame.setCursor(normalCursor);
+                        
+                            if(row<0 || col<1) return;
+                        
+                            int i=0,j=0;
+                    	   
+                    	   String timestr=GetData(table2,row,0);
+                            
+                            boolean timefound=false;
+                            for(i=0;i<ROWCOUNT;i++)
+                            {  String temp=GetData(table,i,0);
+                        	   if(temp.equalsIgnoreCase(timestr)) 
+                                 { timefound=true; break;}
+                                                           
+                            }
+
+                             if(timefound)  ///if time found then locate class 
+                                { 
+                        	       for(j=i+1;j<ROWCOUNT;j++)
+                        	        { String tempclas=GetData(table,j,0);
+                        	          if(tempclas.length()==0) continue;
+                        		      if(tempclas.contains(LectureCount))
+                        		       { SetData(DragCellBuffer,table,j,col);
+                                         
+                        		         break;
+                        	         	}
+                        			 
+                        	             if(tempclas.contains(":")) break;	
+                        	        }
+                                 }
+                         refresh();
+                        }
+                     
+                       else
+                       {
+                    	   
+                    	   Point p = e.getPoint();
+                     	   int row = table2.rowAtPoint(p);
+                           int col = table2.columnAtPoint(p);
+                        
+                           Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+                           frame.setCursor(normalCursor);
+                        
+                            if(row<0 || col<1) return;
+                        
+                            int i=0,j=0;
+                    	   
+                            String timestr=GetData(table2,row,0);
+                            boolean timefound=false;
+                            for(i=0;i<ROWCOUNT;i++)
+                            {  String temp=GetData(table,i,0);
+                        	   if(temp.equalsIgnoreCase(timestr)) 
+                                 { timefound=true; break;}
+                                                           
+                            }
+                            
+                            
+                            
+                             if(timefound)  ///if time found then locate class 
+                                {     if(DragCellBuffer.contains(";"))
+                                        { String temp[]=DragCellBuffer.split(";");
+                                          DragCellBuffer=temp[0];
+                                	
+                                         }
+                            	 
+                            	   int len=DragCellBuffer.length();
+                            	   String sourceclass="";
+                                   if(len>4)
+                            	   {
+                                    sourceclass=DragCellBuffer.substring(0,len-4);
+                            	 	String sub=DragCellBuffer.substring(len-3);
+                            	 	DragCellBuffer=sub+"("+LectureCount.substring(0,2)+")";
+                            	   }
+                                   else
+                                   {String targetcell=GetData(table2,row,col);
+                                   if(targetcell.contains(";"))
+                                   { String temp[]=targetcell.split(";");
+                                     targetcell=temp[0];
+                           	
+                                    }
+                                   
+                                    len=targetcell.length();
+                                    if(len<4) return;
+                                    sourceclass=targetcell.substring(0,len-4);
+                                    DragCellBuffer="";
+                                   }
+                            	 	
+                            	 	for(j=i+1;j<ROWCOUNT;j++)
+                        	        { String tempclas=GetData(table,j,0);
+                        		      if(tempclas.contains(sourceclass))
+                        		       { SetData(DragCellBuffer,table,j,col);
+                                         
+                        		         break;
+                        	         	}
+                        			 
+                        	             if(tempclas.contains(":")) break;	
+                        	        }
+                                 }
+                         refresh();
+                    	   
+                       }
+                     /////////// else ends here                     
+                     }
+                     
+                 });
+                 
+                 
+                  //////9999999999999999
+
+             
 
              ////************IMPORTANT********************************************
              ////table3 largr & is not visible, only used for pagination in printing;
@@ -448,15 +606,15 @@ public class View {
         MULTIFRIZbutton = new JButton("Multi Freeze");
         CLEARFRIZbutton = new JButton("Clear Freez");
        
-        NEXTFINDbutton = new JButton("Next Find (Ctrl-K)");
+        WIZARDbutton = new JButton("Input Wizard");
         PRINTCLASSbutton = new JButton("Print All Classes");
         FINDbutton = new JButton("Find  (Ctrl-F)");
 
         FINDREPLACEbutton = new JButton("Find/Replace");
-        WIZARD01button= new JButton("Wizard-01");
+        TIMESAMPLEbutton= new JButton("Time Slot Sample");
         INSERTROWbutton= new JButton("Insert Row");
         SWAPbutton= new JButton("Swap Time Tables");
-        WIZARD02button= new JButton("Wizard-02");
+        multiselectbutton= new JButton("Multi Select OFF");
         DELETEROWbutton= new JButton("Delete Row");
         REMCLASHbutton=new JButton("Remove Clashes");
         SCHOOLbutton=new JButton("Button17");
@@ -480,16 +638,16 @@ public class View {
         
         
         buttonPanel.add(FINDbutton);
-        buttonPanel.add(NEXTFINDbutton);
+        buttonPanel.add(WIZARDbutton);
         buttonPanel.add(PRINTCLASSbutton);
         
         
         buttonPanel.add(FINDREPLACEbutton);
-        buttonPanel.add(WIZARD01button);
+        buttonPanel.add(TIMESAMPLEbutton);
         buttonPanel.add(INSERTROWbutton);
         
         buttonPanel.add(SWAPbutton);
-        buttonPanel.add(WIZARD02button);
+        buttonPanel.add(multiselectbutton);
         buttonPanel.add(DELETEROWbutton);
         buttonPanel.add(REMCLASHbutton);
        
@@ -518,10 +676,14 @@ public class View {
         
        // countpanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         
+        dragnoteLabel=new JLabel(" Use Drag and Drop to Copy Cells");
+        dragnoteLabel.setForeground(Color.red);
+        
         countpanel.add(countLabel);
         countpanel.add(spesLabel);
         countpanel.add(msgLabel);
         countpanel.add(tcField);
+        countpanel.add(dragnoteLabel);
         countpanel.add(jb); 
         
       // JPanel centerpanel=new JPanel();
@@ -576,8 +738,8 @@ public class View {
     	
     }
    
-    public JButton getWIZARD02button()
-    { return WIZARD02button;
+    public JButton getMULTISELECTbutton()
+    { return multiselectbutton;
     	
     }
    
@@ -590,7 +752,7 @@ public class View {
     
     public JButton getWizard01BT()
     {
-    	return WIZARD01button;
+    	return TIMESAMPLEbutton;
     }
     
     
@@ -648,8 +810,8 @@ public class View {
     }
     
 
-    public JButton getNEXTFINDbutton()
-    { return NEXTFINDbutton;
+    public JButton getWIZARDbutton()
+    { return WIZARDbutton;
     }
 
     public JButton getPRINTCLASSbutton()
@@ -929,12 +1091,18 @@ public class View {
 	    
 	    allcounts=String.format("CC : %d  DC : %d  GC : %d",CC,DC,GC);
 	    countLabel.setText(allcounts);
+	    dragnoteLabel.setVisible(true);
+        msgLabel.setVisible(true);
+        tcField.setVisible(true);
+	    
 
 	   
    }
    
    public void ShowGlobalCounts(String label)
-   {
+   { dragnoteLabel.setVisible(false);
+     msgLabel.setVisible(false);
+     tcField.setVisible(false);
    countLabel.setText(label);
 	   
    }
@@ -949,11 +1117,23 @@ public class View {
         	
     }
 
+    private void UpdatePinkDisplay()
+    {//ClearIndividualTable();
+    for (int i = 0; i < MROWS; i++)
+	      for(int j = 0; j < table2.getColumnCount(); j++)
+	          { String str=GetData(table2,i,j);
+	    	     if(str.length()!=0) continue; 
+	             //if(Matrix[i][j].length()!=0)
+	    	    table2.setValueAt(Matrix[i][j], i, j);
+	          
+	          }
+	      
+        	
+    }
         
     void DeleteLastTimeSlot() ///Delete Extra time slot resulting from main while loop
     {   String temp;
-
-    for (int i = indirow; i>0 ;i--)
+    	for (int i = indirow; i>0 ;i--)
 	      { 
 		      for(int j = 1; j < COLCOUNT; j++)
 		      {temp=Matrix[i][j];
@@ -962,23 +1142,29 @@ public class View {
 		    Matrix[i][0]="";   ////delete extra
 		    indirow=i-1;
 	      }
-	
-
-    	
     }
     
     
     public void ClearIndividualTable() /////same as class 
     {
-    	
     	   for (int i = 0; i < MROWS; i++)
     	      for(int j = 0; j < table2.getColumnCount(); j++)
     	      {
     	          table2.setValueAt("", i, j);
     	      }
-    	  
     }	
     
+    public void ClearTable2AfterLastTime() /////same as class 
+    {
+    	   for (int i = MROWS-1; i>=0;i--)
+    	      {  String str=GetData(table2,i,0);
+    	         if(str.length()==0)
+    		     for(int j = 0; j < table2.getColumnCount(); j++)
+    	            {
+    	             table2.setValueAt("", i, j);
+    	            }
+    	      }
+    }	
     
     
     public void ClearTable3() /////same as class 

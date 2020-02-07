@@ -62,15 +62,13 @@ public class FindAndReplace
 		
 	void Find()
 	{
-		 JTextField FindField = new JTextField();
-		  // By passing a list of option strings (and a default of null), the focus goes in your custom component
-		  String[] options = {"OK", "Cancel"};
-		  int result = JOptionPane.showOptionDialog(null,FindField, "Enter String To Find", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-    
+		
+		  findstring = JOptionPane.showInputDialog(null, "Enter find string (Afterwards Ctrl+k for Next find)");
 
-		  if(result==JOptionPane.OK_OPTION)
+
+		  if(findstring!=null)
 		  {
-			  findstring=FindField.getText();
+			  //findstring=FindField.getText();
 
 			  String temp;
 				
