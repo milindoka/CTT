@@ -448,6 +448,26 @@ public class Controller {
       
   });            
   
+  
+  inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK), "newtt");
+  actionMap2.put("newtt", new AbstractAction() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evt) 
+		{
+			NewTimeTable();
+            
+         }
+      
+  });            
+  
+  
+  
+  
+  
   inputMap2.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), "freeze");
   actionMap2.put("freeze", new AbstractAction() {
       /**
@@ -552,12 +572,16 @@ public class Controller {
     
     
     public void NewTimeTable() ////same as wizard01
-    {  String timearray[]={"12:30-01:10","01:10-01:50","01:50-02:30",
+    {
+    	
+    	String timearray[]={"12:30-01:10","01:10-01:50","01:50-02:30",
 			  "03:00-03:40","03:40-04:20","04:20-05:00"};
+    if(view.modified)
+         { int result=WarnBefore(); 
+           if(result!=JOptionPane.OK_OPTION) return;  
+         }
 
-    int result=WarnBefore();
-if(result==JOptionPane.OK_OPTION)
-{
+
 String AH="ABCDEFGH";
 view.ClearMasterTable();
 view.ClearColorMatrix();
@@ -573,7 +597,7 @@ for(int j=0;j<8;j++)
 
 currentfilename="New-Untitled"; ///including path
 view.SetTitle(currentfilename);
-}
+view.toast.AutoCloseMsg("Replace with your time slots and classes");
     	
     }
     

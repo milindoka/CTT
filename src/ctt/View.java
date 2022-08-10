@@ -724,6 +724,7 @@ public class View {
        // TH.SetVP(this);
         
     //   SetFocusToCell(5,5);
+        modified=false;
         
     }
 
